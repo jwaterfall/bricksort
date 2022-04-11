@@ -19,7 +19,7 @@ const App = ({ Component, pageProps }: AppProps) => (
         <Component {...pageProps} />
         <div id="menus" />
       </ThemeProvider>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </UserProvider>
 );

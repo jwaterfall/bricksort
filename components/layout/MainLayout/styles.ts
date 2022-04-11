@@ -17,5 +17,6 @@ export const Container = styled.div`
 
 export const Content = styled.main`
   grid-area: content;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: aujto;
 `;
