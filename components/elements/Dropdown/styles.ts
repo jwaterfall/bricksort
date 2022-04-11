@@ -14,7 +14,8 @@ export const Menu = styled.div<{
   position: ${({ position }) => position};
   top: ${({ y }) => y}px;
   left: ${({ x }) => x}px;
-  width: 20rem;
+  min-width: 15rem;
+  max-width: 25rem;
   max-height: 25rem;
   overflow-y: auto;
   overflow-x: hidden;

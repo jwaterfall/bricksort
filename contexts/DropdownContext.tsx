@@ -31,7 +31,7 @@ export const DropdownProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
     autoPlacement({
       allowedPlacements: ['bottom', 'top'],
     }),
-    offset(16),
+    offset(24),
     shift({ padding: 16 }),
   ];
 
