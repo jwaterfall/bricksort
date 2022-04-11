@@ -2,7 +2,7 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Head from 'next/head';
 import { FC } from 'react';
 
-import MainLayout from '@/components/MainLayout';
+import MainLayout from '@/components/layout/MainLayout';
 
 const IndexPage: FC = () => (
   <MainLayout>

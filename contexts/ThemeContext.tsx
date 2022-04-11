@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren, createContext, useContext } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import useLocalStorage from '@/hooks/useLocalStorage';
-import { lightTheme } from '@/styles/themes';
+import { darkTheme, lightTheme } from '@/styles/themes';
 
 interface State {
   isDarkTheme: boolean;
@@ -29,7 +29,7 @@ export const ThemeProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
         toggleTheme,
       }}
     >
-      <StyledThemeProvider theme={isDarkTheme ? lightTheme : lightTheme}>
+      <StyledThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
         {children}
       </StyledThemeProvider>
     </ThemeContext.Provider>
