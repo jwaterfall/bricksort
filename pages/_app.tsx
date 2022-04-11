@@ -1,8 +1,27 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import { UserProvider } from '@auth0/nextjs-auth0';
+import { AppProps } from 'next/app';
+import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { Normalize } from 'styled-normalize';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import GlobalStyle from '@/styles/GlobalStyle';
 
-export default MyApp
+const queryClient = new QueryClient();
+
+const App = ({ Component, pageProps }: AppProps) => (
+  <UserProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <Normalize />
+        <GlobalStyle />
+        <Component {...pageProps} />
+        <div id="menus" />
+      </ThemeProvider>
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+    </QueryClientProvider>
+  </UserProvider>
+);
+
+export default App;
