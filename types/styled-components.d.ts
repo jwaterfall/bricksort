@@ -3,10 +3,12 @@ import 'styled-components';
 declare module 'styled-components' {
   export interface DefaultTheme {
     background: string;
-    borderRadius: string;
     text: string;
     textSecondary: string;
     navbar: string;
+    navbarText: string;
+    navbarTextSecondary: string;
+    foreground: string;
     overlay: string;
     shadow: string;
     buttonText: string;
@@ -14,7 +16,7 @@ declare module 'styled-components' {
     buttonPrimaryHover: string;
     buttonPrimaryDisabled: string;
     fontFamily: string;
-    fontFamilySecondary: string;
+    borderRadius: string;
     fontSizeXxxs: string;
     fontSizeXxs: string;
     fontSizeXs: string;

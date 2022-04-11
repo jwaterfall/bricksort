@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/modules/Navbar';
 
 import { Container, Content } from './styles';
 
