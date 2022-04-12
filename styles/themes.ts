@@ -1,20 +1,31 @@
 import { DefaultTheme } from 'styled-components';
 
 export const lightTheme: DefaultTheme = {
+  // General
   background: 'hsl(0, 0%, 100%)',
   text: 'hsl(0, 0%, 0%)',
   textSecondary: 'hsla(0, 0%, 0%, 0.5)',
   overlay: 'hsla(0, 0%, 0%, 0.1)',
   shadow: 'hsla(0, 0%, 0%, 0.125)',
-  navbar: '#FFD904',
-  navbarText: '#151A2E',
-  navbarTextSecondary: '#151A2E90',
-  foreground: 'hsla(0, 0%, 0%, 0.1)',
-  buttonText: '#FAFAFA',
-  primary: '#E3000A',
-  buttonPrimaryHover: '#16998b',
-  buttonPrimaryDisabled: '#0e635a',
-  borderRadius: '0.5rem',
+  foreground: 'hsl(0, 0%, 100%)',
+  primary: 'hsl(356, 73%, 50%)',
+  secondary: 'hsl(51, 100%, 50%)',
+  tertiary: 'hsl(80, 76%, 43%)',
+  transition: 'all 150ms ease-in-out',
+  borderRadius: '0.25rem',
+
+  // Navbar
+  navbar: 'hsl(51, 100%, 50%)',
+  navbarIcon: '#151A2E90',
+  navbarIconHover: '#151A2E',
+
+  // Button
+  buttonHover: 'hsl(356, 73%, 55%)',
+  buttonDisabled: 'hsl(356, 73%, 40%)',
+  buttonText: 'hsl(0, 0%, 100%)',
+  buttonTextDisabled: 'hsla(0, 0%, 100%, 0.5)',
+
+  // Font
   fontFamily: `'Montserrat', sans-serif`,
   fontSizeXxxs: '0.65rem',
   fontSizeXxs: '0.75rem',
@@ -32,24 +43,34 @@ export const lightTheme: DefaultTheme = {
   fontWeightBold: '700',
   fontWeightExtraBold: '800',
   fontWeightBlack: '900',
-  transition: 'all 150ms ease-in-out',
 };
 
 export const darkTheme: DefaultTheme = {
-  background: '#10111A',
+  // General
+  background: '#18191D',
   text: 'hsl(0, 0%, 100%)',
   textSecondary: 'hsla(0, 0%, 100%, 0.5)',
   overlay: 'hsla(0, 0%, 100%, 0.05)',
   shadow: 'hsla(0, 0%, 0%, 0.25)',
-  navbar: '#FFD904',
-  navbarText: '#151A2E',
-  navbarTextSecondary: '#151A2E90',
-  foreground: '#181a28',
-  buttonText: '#FAFAFA',
-  primary: '#E3000A',
-  buttonPrimaryHover: '#16998b',
-  buttonPrimaryDisabled: '#0e635a',
-  borderRadius: '0.5rem',
+  foreground: '#2A2B31',
+  primary: 'hsl(356, 73%, 50%)',
+  secondary: 'hsl(51, 100%, 50%)',
+  tertiary: 'hsl(80, 76%, 43%)',
+  transition: 'all 150ms ease-in-out',
+  borderRadius: '0.25rem',
+
+  // Navbar
+  navbar: 'hsl(51, 100%, 50%)',
+  navbarIcon: '#151A2E90',
+  navbarIconHover: '#151A2E',
+
+  // Button
+  buttonHover: 'hsl(356, 73%, 55%)',
+  buttonDisabled: 'hsl(356, 73%, 40%)',
+  buttonText: 'hsl(0, 0%, 100%)',
+  buttonTextDisabled: 'hsla(0, 0%, 100%, 0.5)',
+
+  // Font
   fontFamily: `'Montserrat', sans-serif`,
   fontSizeXxxs: '0.65rem',
   fontSizeXxs: '0.75rem',
@@ -67,5 +88,4 @@ export const darkTheme: DefaultTheme = {
   fontWeightBold: '700',
   fontWeightExtraBold: '800',
   fontWeightBlack: '900',
-  transition: 'all 150ms ease-in-out',
 };

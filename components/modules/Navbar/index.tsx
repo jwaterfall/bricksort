@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
-import { FaBox, FaCubes, FaHome } from 'react-icons/fa';
+import { FaBox, FaCubes } from 'react-icons/fa';
 
+import AccountDropdown from '@/components/modules/AccountDropdown';
 import Box from '@/components/elements/Box';
 import NavLink from '@/components/elements/NavLink';
 
-import AccountDropdown from '../AccountDropdown';
 import { Container, Nav, NavItem } from './styles';
 
 const Navbar: FC = () => (
@@ -21,17 +21,12 @@ const Navbar: FC = () => (
     <Nav>
       <NavLink href="/" passHref>
         <NavItem>
-          <FaHome />
+          <FaBox />
         </NavItem>
       </NavLink>
-      <NavLink href="/parts" passHref>
+      <NavLink href="/missing-parts" passHref>
         <NavItem>
           <FaCubes />
-        </NavItem>
-      </NavLink>
-      <NavLink href="/sets" passHref>
-        <NavItem>
-          <FaBox />
         </NavItem>
       </NavLink>
     </Nav>

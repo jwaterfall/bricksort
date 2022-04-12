@@ -2,21 +2,32 @@ import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
+    // General
     background: string;
     text: string;
     textSecondary: string;
-    navbar: string;
-    navbarText: string;
-    navbarTextSecondary: string;
     foreground: string;
     overlay: string;
     shadow: string;
-    buttonText: string;
     primary: string;
-    buttonPrimaryHover: string;
-    buttonPrimaryDisabled: string;
-    fontFamily: string;
+    secondary: string;
+    tertiary: string;
+    transition: string;
     borderRadius: string;
+
+    // Navbar
+    navbar: string;
+    navbarIcon: string;
+    navbarIconHover: string;
+
+    // Button
+    buttonHover: string;
+    buttonDisabled: string;
+    buttonText: string;
+    buttonTextDisabled: string;
+
+    // Font
+    fontFamily: string;
     fontSizeXxxs: string;
     fontSizeXxs: string;
     fontSizeXs: string;
@@ -33,6 +44,5 @@ declare module 'styled-components' {
     fontWeightBold: string;
     fontWeightExtraBold: string;
     fontWeightBlack: string;
-    transition: string;
   }
 }

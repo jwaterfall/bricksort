@@ -12,6 +12,7 @@
     "@auth0/nextjs-auth0": "^1.7.0",
     "@floating-ui/react-dom": "^0.6.1",
     "axios": "^0.26.1",
+    "mongoose": "^6.2.10",
     "next": "12.1.4",
     "next-pwa": "^5.5.0",
     "react": "18.0.0",
