@@ -11,7 +11,8 @@ export const Container = styled.div<{
   padding: 1rem;
   border: 0.125rem solid ${(props) => props.theme[props.variant]};
   background: ${(props) => props.theme.foreground};
-  border-radius: 0.25rem;
+  border-radius: ${(props) => props.theme.borderRadius};
+  box-shadow: 0 0 0.75rem 0.075rem ${({ theme }) => theme.shadow};
 `;
 
 export const Image = styled.img`
@@ -19,7 +20,7 @@ export const Image = styled.img`
   max-width: 10rem;
   aspect-ratio: 1/1;
   object-fit: cover;
-  border-radius: 0.25rem;
+  border-radius: ${(props) => props.theme.borderRadius};
   margin: 0 auto;
 `;
 

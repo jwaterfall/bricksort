@@ -7,9 +7,10 @@ export const Container = styled.div`
   justify-content: space-between;
   cursor: pointer;
   padding: 1rem;
-  border: 0.125rem solid ${(props) => props.theme.primary};
   margin: 1rem;
   background: ${(props) => props.theme.foreground};
+  border-radius: ${(props) => props.theme.borderRadius};
+  box-shadow: 0 0 0.75rem 0.075rem ${({ theme }) => theme.shadow};
 `;
 
 export const Image = styled.img`
@@ -19,5 +20,5 @@ export const Image = styled.img`
   justify-content: space-between;
   height: 10rem;
   width: 15rem;
-  border-radius: 0.25rem;
+  border-radius: ${(props) => props.theme.borderRadius};
 `;
