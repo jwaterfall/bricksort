@@ -3,10 +3,10 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { FaBox, FaCubes } from 'react-icons/fa';
 
+import AccountDropdown from '@/components/modules/AccountDropdown';
 import Box from '@/components/elements/Box';
 import NavLink from '@/components/elements/NavLink';
 
-import AccountDropdown from '../AccountDropdown';
 import { Container, Nav, NavItem } from './styles';
 
 const Navbar: FC = () => (

@@ -1,7 +1,8 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-import { Part } from '../../../models/Part';
-import PartCard from '../PartCard';
+import PartCard from '@/components/modules/PartCard';
+import { Part } from '@/models/Part';
+
 import { Container } from './styles';
 
 const PartList: FC<{

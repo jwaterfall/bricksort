@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI as string;
 
 const connectToDatabase = (handler: NextApiHandler) => {
   return async (req: NextApiRequest, res: NextApiResponse) => {

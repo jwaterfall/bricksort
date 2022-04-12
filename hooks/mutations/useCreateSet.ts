@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { Set } from '../../models/Set';
+import { Set } from '@/models/Set';
 
 async function createSet(setId: string) {
   const { origin } = window.location;
-  const response = await axios.post<Set>(`${origin}/api/sets`, {setId});
+  const response = await axios.post<Set>(`${origin}/api/sets`, { setId });
 
   const createdSet = response.data;
   return createdSet;

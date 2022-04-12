@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
-import { Set } from '../../models/Set';
+import { Set } from '@/models/Set';
 
 async function getSets() {
   const { origin } = window.location;

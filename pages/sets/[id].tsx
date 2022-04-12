@@ -3,10 +3,9 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import MainLayout from '@/components/layout/MainLayout';
-
-import Toggle from '../../components/elements/Toggle';
-import PartList from '../../components/modules/PartList';
-import useSetParts from '../../hooks/queries/useSetParts';
+import PartList from '@/components/layout/PartList';
+import Toggle from '@/components/modules/Toggle';
+import useSetParts from '@/hooks/queries/useSetParts';
 
 const IndexPage: NextPage = () => {
   const [showAllParts, setShowAllParts] = useState(false);

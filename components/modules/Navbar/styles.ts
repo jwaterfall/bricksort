@@ -35,17 +35,17 @@ export const NavItem = styled.a`
   justify-content: center;
   height: 4rem;
   width: 100%;
-  color: ${({ theme }) => theme.navbarTextSecondary};
+  color: ${({ theme }) => theme.navbarIcon};
   transition: ${({ theme }) => theme.transition};
   &:hover {
-    color: ${({ theme }) => theme.navbarText};
+    color: ${({ theme }) => theme.navbarIconHover};
   }
   & > svg {
     width: 1.75rem;
     height: 1.75rem;
   }
   &.active {
-    color: ${({ theme }) => theme.navbarText};
+    color: ${({ theme }) => theme.navbarIconHover};
   }
   @media (max-width: 992px) {
     width: 4rem;

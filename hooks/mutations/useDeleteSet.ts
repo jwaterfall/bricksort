@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { Set } from '../../models/Set';
+import { Set } from '@/models/Set';
 
 async function deleteSet(set: string) {
   const { origin } = window.location;

@@ -1,8 +1,8 @@
 import { FC, InputHTMLAttributes } from 'react';
 
-import { PrimaryInput, SecondaryInput, TertiaryInput } from './styles';
+import { PrimaryInput } from './styles';
 
-export type InputVariant = 'primary' | 'secondary' | 'tertiary';
+export type InputVariant = 'primary';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   variant?: InputVariant;
@@ -13,10 +13,6 @@ const Input: FC<InputProps> = ({ variant = 'primary', ...props }) => {
   switch (variant) {
     case 'primary':
       return <PrimaryInput {...props} />;
-    case 'secondary':
-      return <SecondaryInput {...props} />;
-    case 'tertiary':
-      return <TertiaryInput {...props} />;
   }
 };
 

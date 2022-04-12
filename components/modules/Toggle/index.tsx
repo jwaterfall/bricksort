@@ -1,7 +1,9 @@
 import { FC } from 'react';
 
-import Typography from '../Typography';
-import { Container, Thumb, ToggleContainer } from './styles';
+import { Flexbox } from '@/components/elements/Box';
+import Typography from '@/components/elements/Typography';
+
+import { Thumb, ToggleContainer } from './styles';
 
 export interface ButtonProps {
   toggled: boolean;
@@ -9,14 +11,12 @@ export interface ButtonProps {
 }
 
 const Toggle: FC<ButtonProps> = ({ toggled, setToggled }) => (
-  <Container>
+  <Flexbox alignItems="center" padding="1rem" marginTop="0.5rem" gap="1rem">
     <ToggleContainer toggled={toggled} onClick={() => setToggled(!toggled)}>
       <Thumb toggled={toggled} />
     </ToggleContainer>
-    <Typography variant="h2">
-      {toggled ? 'All Parts' : 'Missing Parts'}
-    </Typography>
-  </Container>
+    <Typography variant="h4">{toggled ? 'All Parts' : 'Missing Parts'}</Typography>
+  </Flexbox>
 );
 
 export default Toggle;

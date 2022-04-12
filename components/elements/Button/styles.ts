@@ -1,28 +1,53 @@
 import styled from 'styled-components';
 
+import { ButtonSize } from '.';
+
 export const PrimaryButton = styled.button<{
+  size?: ButtonSize;
   isFullWidth?: boolean;
 }>`
   margin: 0;
-  color: ${(props) => props.theme.primary};
-  background: none;
-  border: 1px solid ${(props) => props.theme.primary};
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  font-weight: ${(props) => props.theme.fontWeightBold};
+  color: ${(props) => props.theme.buttonText};
+  background: ${(props) => props.theme.primary};
+  border-radius: ${(props) => props.theme.borderRadius};
+  font-weight: ${(props) => props.theme.fontWeightMedium};
   text-decoration: none;
-  cursor: pointer;
   transition: all 150ms;
-  ${(props) => props.isFullWidth && 'width: 100%;'};
-  &:hover {
-    background: ${(props) => props.theme.buttonPrimaryHover};
-  }
-`;
+  padding: 0 2rem;
+  border: none;
+  text-transform: capitalize;
 
-export const SecondaryButton = styled(PrimaryButton)`
-  color: ${(props) => props.theme.primary};
-  border-color: ${(props) => props.theme.primary};
-  &:hover {
-    background: ${(props) => props.theme.buttonPrimaryHover};
+  ${({ size }) =>
+    size === 'sm' &&
+    `
+    height: 2rem;
+    font-size: 0.75rem;
+    padding: 0 1rem;
+  `}
+
+  ${({ size }) =>
+    size === 'md' &&
+    `
+    height: 3rem;
+    font-size: 0.9rem;
+    padding: 0 2rem;
+  `}
+
+  ${({ size }) =>
+    size === 'lg' &&
+    `
+    height: 3.5rem;
+    font-size: 1rem;
+    padding: 0 2.5rem;
+  `}
+
+  ${({ isFullWidth }) => isFullWidth && 'width: 100%;'};
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.buttonHover};
+    cursor: pointer;
+  }
+  &:disabled {
+    color: ${(props) => props.theme.buttonTextDisabled};
+    background: ${(props) => props.theme.buttonDisabled};
   }
 `;

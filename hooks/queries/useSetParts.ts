@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
-import { Part } from '../../models/Part';
+import { Part } from '@/models/Part';
 
 async function getParts(setId: string) {
   const { origin } = window.location;

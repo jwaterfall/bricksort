@@ -1,13 +1,13 @@
 import { FC, FormEvent, useState } from 'react';
 
-import useIncrementPart from '../../../hooks/mutations/useIncrementPart';
-import useInput from '../../../hooks/useInput';
-import { Part } from '../../../models/Part';
-import Button from '../../elements/Button';
-import Color from '../../elements/Color';
-import Input from '../../elements/Input';
-import Modal, { ModalFooter } from '../../elements/Modal';
-import Typography from '../../elements/Typography';
+import Button from '@/components/elements/Button';
+import Input from '@/components/elements/Input';
+import Modal, { ModalFooter } from '@/components/elements/Modal';
+import Typography from '@/components/elements/Typography';
+import useIncrementPart from '@/hooks/mutations/useIncrementPart';
+import useInput from '@/hooks/useInput';
+import { Part } from '@/models/Part';
+
 import { Container, Form, Image, ModalContainer, ModalSection } from './styles';
 
 const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({
@@ -52,11 +52,11 @@ const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({
   const getVariant = () => {
     switch (quantityMissing / part.quantityTotal) {
       case 1:
-        return 'secondary';
-      case 0:
         return 'primary';
-      default:
+      case 0:
         return 'tertiary';
+      default:
+        return 'secondary';
     }
   };
 
@@ -67,14 +67,10 @@ const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({
       <Modal show={modalVisibility} onHide={() => setModalVisibility(false)}>
         <ModalContainer>
           <ModalSection>
-            <Typography variant="h2">{part.name}</Typography>
+            <Typography variant="h4">{part.name}</Typography>
             <Image src={part.image} alt="part" />
-            <Typography variant="h4">
-              {part.color},{' '}
-              <Color variant="secondary">
-                {part.quantityFound} / {part.quantityTotal}
-              </Color>{' '}
-              Found
+            <Typography>
+              {`${part.color}, ${part.quantityFound} / ${part.quantityTotal} Found`}
             </Typography>
             {showSet && (
               <Typography>
@@ -83,7 +79,7 @@ const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({
             )}
           </ModalSection>
           <ModalSection>
-            <Typography variant="h4">Add parts</Typography>
+            <Typography variant="h5">Add parts</Typography>
             <Form onSubmit={handleAddQuantity}>
               <Input
                 required
@@ -95,10 +91,10 @@ const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({
                 value={addQuantity}
                 onChange={handleChangeAddQuantity}
               />
-              <Button>Add</Button>
+              <Button disabled>Add</Button>
             </Form>
             <Button onClick={handleAddAll}>Found All</Button>
-            <Typography variant="h4">Remove parts</Typography>
+            <Typography variant="h5">Remove parts</Typography>
             <Form onSubmit={handleRemoveQuantity}>
               <Input
                 required
@@ -110,19 +106,16 @@ const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({
                 value={removeQuantity}
                 onChange={handleChangeRemoveQuantity}
               />
-              <Button color="secondary">Remove</Button>
+              <Button disabled>Remove</Button>
             </Form>
-            <Button color="secondary" onClick={handleRemoveAll}>
-              Remove All
-            </Button>
+            <Button onClick={handleRemoveAll}>Remove All</Button>
           </ModalSection>
         </ModalContainer>
         <ModalFooter>
-          <Button color="secondary" onClick={() => setModalVisibility(false)}>
-            Close
-          </Button>
+          <Button onClick={() => setModalVisibility(false)}>Close</Button>
         </ModalFooter>
       </Modal>
+
       <Container onClick={() => setModalVisibility(true)} variant={getVariant()}>
         <Image src={part.image} alt="part" />
         <Typography>{part.color}</Typography>

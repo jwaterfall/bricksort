@@ -1,31 +1,42 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC, MouseEvent, PropsWithChildren } from 'react';
 
-import { H1, H2, H3, H4, P } from './styles';
+import { H1, H2, H3, H4, H5, H6, P } from './styles';
 
-export type TypographyVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+export type TypographyVariant = 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export type TypographyAlign = 'left' | 'center' | 'right';
+export type TypographyTransform = 'capitalize' | 'uppercase' | 'lowercase' | 'none';
 
 export interface TypographyProps {
   variant?: TypographyVariant;
   align?: TypographyAlign;
+  transform?: TypographyTransform;
+  m?: string;
+  p?: string;
+  noWrap?: boolean;
+  onClick?: (e: MouseEvent) => void;
 }
 
 const Typography: FC<PropsWithChildren<TypographyProps>> = ({
   variant = 'p',
   align = 'left',
+  transform = 'none',
   ...props
 }) => {
   switch (variant) {
-    case 'h1':
-      return <H1 align={align} {...props} />;
-    case 'h2':
-      return <H2 align={align} {...props} />;
-    case 'h3':
-      return <H3 align={align} {...props} />;
-    case 'h4':
-      return <H4 align={align} {...props} />;
     case 'p':
-      return <P align={align} {...props} />;
+      return <P align={align} transform={transform} {...props} />;
+    case 'h1':
+      return <H1 align={align} transform={transform} {...props} />;
+    case 'h2':
+      return <H2 align={align} transform={transform} {...props} />;
+    case 'h3':
+      return <H3 align={align} transform={transform} {...props} />;
+    case 'h4':
+      return <H4 align={align} transform={transform} {...props} />;
+    case 'h5':
+      return <H5 align={align} transform={transform} {...props} />;
+    case 'h6':
+      return <H6 align={align} transform={transform} {...props} />;
   }
 };
 

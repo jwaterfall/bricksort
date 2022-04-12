@@ -1,8 +1,8 @@
 import { Session, getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import connectToDatabase from '../../../../../../middleware/connectToDatabase';
-import PartsModel from '../../../../../../models/Part';
+import connectToDatabase from '@/middleware/connectToDatabase';
+import PartsModel from '@/models/Part';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { user } = getSession(req, res) as Session;

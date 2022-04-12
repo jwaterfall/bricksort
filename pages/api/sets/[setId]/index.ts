@@ -1,9 +1,9 @@
 import { Session, getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import connectToDatabase from '../../../../middleware/connectToDatabase';
-import PartModel from '../../../../models/Part';
-import SetModel from '../../../../models/Set';
+import connectToDatabase from '@/middleware/connectToDatabase';
+import PartModel from '@/models/Part';
+import SetModel from '@/models/Set';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { setId } = req.query;

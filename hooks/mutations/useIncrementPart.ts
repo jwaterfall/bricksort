@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
-import { Part } from '../../models/Part';
+import { Part } from '@/models/Part';
 
 async function incrementPart(setId: string, partId: string, quantity: number) {
   const { origin } = window.location;
@@ -36,8 +36,7 @@ function useIncrementPart(part: Part, page?: number) {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (quantity: number) =>
-      incrementPart(part.parent as unknown as string, part._id, quantity),
+    (quantity: number) => incrementPart(part.parent as unknown as string, part._id, quantity),
     {
       onSuccess: (newPart) => {
         updateSetPartsQueryCache(queryClient, newPart);

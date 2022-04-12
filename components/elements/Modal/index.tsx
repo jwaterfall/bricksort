@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 
-import useOnClickOutside from '../../../hooks/useOnClickOutside';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
+
 import { Container, Content, Footer } from './styles';
 
 export const ModalFooter = Footer;
