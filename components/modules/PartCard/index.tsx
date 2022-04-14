@@ -91,7 +91,7 @@ const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({
                 value={addQuantity}
                 onChange={handleChangeAddQuantity}
               />
-              <Button disabled>Add</Button>
+              <Button>Add</Button>
             </Form>
             <Button onClick={handleAddAll}>Found All</Button>
             <Typography variant="h5">Remove parts</Typography>
@@ -106,7 +106,7 @@ const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({
                 value={removeQuantity}
                 onChange={handleChangeRemoveQuantity}
               />
-              <Button disabled>Remove</Button>
+              <Button>Remove</Button>
             </Form>
             <Button onClick={handleRemoveAll}>Remove All</Button>
           </ModalSection>
