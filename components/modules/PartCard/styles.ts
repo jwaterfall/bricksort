@@ -16,7 +16,6 @@ export const Container = styled.div<{
 `;
 
 export const Image = styled.img`
-  width: 100%;
   max-width: 10rem;
   aspect-ratio: 1/1;
   object-fit: cover;
@@ -24,22 +23,10 @@ export const Image = styled.img`
   margin: 0 auto;
 `;
 
-export const ModalContainer = styled.div`
-  display: flex;
-  gap: 2rem;
-`;
-
-export const ModalSection = styled.div`
-  max-width: 20rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
 export const Form = styled.form`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.5rem;
   margin-bottom: 1rem;
 `;

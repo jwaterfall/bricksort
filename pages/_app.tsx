@@ -5,7 +5,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Normalize } from 'styled-normalize';
 
-import { ThemeProvider } from '@/contexts/ThemeContext';
+import { AlertProvider } from '@/components/modules/AlertProvider';
+import { PreferencesProvider } from '@/contexts/PreferencesContext';
 import GlobalStyle from '@/styles/GlobalStyle';
 
 const queryClient = new QueryClient();
@@ -13,12 +14,14 @@ const queryClient = new QueryClient();
 const App = ({ Component, pageProps }: AppProps) => (
   <UserProvider>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <Normalize />
-        <GlobalStyle />
-        <Component {...pageProps} />
-        <div id="menus" />
-      </ThemeProvider>
+      <PreferencesProvider>
+        <AlertProvider>
+          <Normalize />
+          <GlobalStyle />
+          <Component {...pageProps} />
+          <div id="menus" />
+        </AlertProvider>
+      </PreferencesProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </UserProvider>

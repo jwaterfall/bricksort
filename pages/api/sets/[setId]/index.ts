@@ -32,10 +32,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     case 'DELETE':
       try {
         await set.deleteOne();
-        const parts = await PartModel.find({ parent: setId });
+        const partCount = await PartModel.countDocuments({ parent: setId });
         await PartModel.deleteMany({ parent: setId });
 
-        res.json({ partCount: parts.length });
+        res.json({ partCount });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message });
       }
