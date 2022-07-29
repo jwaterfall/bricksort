@@ -1,14 +1,8 @@
 import styled from 'styled-components';
 
-export type FlexboxAlignItems =
-  | 'stretch'
-  | 'center'
-  | 'flex-start'
-  | 'flex-end'
-  | 'baseline'
-  | 'initial'
-  | 'inherit';
-
+export type FlexboxAlignItems = 'stretch' | 'center' | 'flex-start' | 'flex-end' | 'baseline' | 'initial' | 'inherit';
+export type FlexboxFlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse';
+export type BoxDisplay = 'block' | 'flex' | 'inline' | 'inline-block';
 export type FlexboxJustifyContent =
   | 'flex-start'
   | 'flex-end'
@@ -18,10 +12,6 @@ export type FlexboxJustifyContent =
   | 'space-evenly'
   | 'initial'
   | 'inherit';
-
-export type FlexboxFlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse';
-
-export type BoxDisplay = 'block' | 'flex' | 'inline' | 'inline-block';
 
 interface BoxProps {
   display?: BoxDisplay;
@@ -112,18 +102,11 @@ const Box = styled.div<BoxProps>`
     right:${right};
     bottom:${bottom};
     left:${left};
-    
   `}
 `;
 
 export const Flexbox = styled(Box)<FlexboxProps>`
-  ${({
-    direction = 'row',
-    alignItems = 'stretch',
-    justifyContent = 'flex-start',
-    flexWrap = 'nowrap',
-    gap = '0',
-  }) => `
+  ${({ direction = 'row', alignItems = 'stretch', justifyContent = 'flex-start', flexWrap = 'nowrap', gap = '0' }) => `
   display: flex;
   flex-direction: ${direction};
   align-items: ${alignItems};

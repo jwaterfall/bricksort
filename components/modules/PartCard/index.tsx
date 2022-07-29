@@ -1,20 +1,17 @@
 import { FC, FormEvent, useState } from 'react';
 
+import { Flexbox } from '@/components/elements/Box';
 import Button from '@/components/elements/Button';
 import Input from '@/components/elements/Input';
-import Modal, { ModalFooter } from '@/components/elements/Modal';
+import Modal from '@/components/elements/Modal';
 import Typography from '@/components/elements/Typography';
 import useIncrementPart from '@/hooks/mutations/useIncrementPart';
 import useInput from '@/hooks/useInput';
 import { Part } from '@/models/Part';
 
-import { Container, Form, Image, ModalContainer, ModalSection } from './styles';
+import { Container, Form, Image } from './styles';
 
-const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({
-  part,
-  showSet = false,
-  page,
-}) => {
+const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({ part, showSet = false, page }) => {
   const [modalVisibility, setModalVisibility] = useState(false);
   const [addQuantity, handleChangeAddQuantity, setAddQuantity] = useInput(0);
   const [removeQuantity, handleChangeRemoveQuantity, setRemoveQuantity] = useInput(0);
@@ -22,34 +19,38 @@ const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({
   const quantityMissing = part.quantityTotal - part.quantityFound;
 
   const handleAddQuantity = (e: FormEvent<HTMLFormElement>) => {
-    if (isLoading) return;
     e.preventDefault();
+    if (isLoading || !addQuantity) return;
+
     incrementQuantity(addQuantity);
     setAddQuantity(0);
     setModalVisibility(false);
   };
 
   const handleRemoveQuantity = (e: FormEvent<HTMLFormElement>) => {
-    if (isLoading) return;
     e.preventDefault();
+    if (isLoading || !removeQuantity) return;
+
     incrementQuantity(-removeQuantity);
     setRemoveQuantity(0);
     setModalVisibility(false);
   };
 
   const handleAddAll = () => {
-    if (isLoading) return;
+    if (isLoading || !quantityMissing) return;
+
     incrementQuantity(quantityMissing);
     setModalVisibility(false);
   };
 
   const handleRemoveAll = () => {
-    if (isLoading) return;
+    if (isLoading || !part.quantityFound) return;
+
     incrementQuantity(-part.quantityFound);
     setModalVisibility(false);
   };
 
-  const getVariant = () => {
+  const getBorderVariant = () => {
     switch (quantityMissing / part.quantityTotal) {
       case 1:
         return 'primary';
@@ -60,63 +61,53 @@ const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({
     }
   };
 
-  if (!part.parent) console.log(part._id);
-
   return (
     <>
-      <Modal show={modalVisibility} onHide={() => setModalVisibility(false)}>
-        <ModalContainer>
-          <ModalSection>
-            <Typography variant="h4">{part.name}</Typography>
-            <Image src={part.image} alt="part" />
-            <Typography>
-              {`${part.color}, ${part.quantityFound} / ${part.quantityTotal} Found`}
-            </Typography>
-            {showSet && (
-              <Typography>
-                {part.parent.number} {part.parent.name}
-              </Typography>
-            )}
-          </ModalSection>
-          <ModalSection>
-            <Typography variant="h5">Add parts</Typography>
-            <Form onSubmit={handleAddQuantity}>
-              <Input
-                required
-                placeholder="Quantity"
-                type="number"
-                min={0}
-                max={quantityMissing}
-                fullWidth
-                value={addQuantity}
-                onChange={handleChangeAddQuantity}
-              />
-              <Button>Add</Button>
-            </Form>
-            <Button onClick={handleAddAll}>Found All</Button>
-            <Typography variant="h5">Remove parts</Typography>
-            <Form onSubmit={handleRemoveQuantity}>
-              <Input
-                required
-                placeholder="Quantity"
-                type="number"
-                min={0}
-                max={part.quantityFound}
-                fullWidth
-                value={removeQuantity}
-                onChange={handleChangeRemoveQuantity}
-              />
-              <Button>Remove</Button>
-            </Form>
-            <Button onClick={handleRemoveAll}>Remove All</Button>
-          </ModalSection>
-        </ModalContainer>
-        <ModalFooter>
-          <Button onClick={() => setModalVisibility(false)}>Close</Button>
-        </ModalFooter>
+      <Modal title={part.name} show={modalVisibility} onHide={() => setModalVisibility(false)}>
+        <Image src={part.image} alt="part" />
+        <Typography align="center">{`${part.color}, ${part.quantityFound} / ${part.quantityTotal} Found`}</Typography>
+        {showSet && (
+          <Typography>
+            {part.parent.number} {part.parent.name}
+          </Typography>
+        )}
+        <Flexbox direction="column" gap="0.5rem">
+          <Typography variant="h5">Add parts</Typography>
+          <Form onSubmit={handleAddQuantity}>
+            <Input
+              required
+              placeholder="Quantity"
+              type="number"
+              min={0}
+              max={quantityMissing}
+              fullWidth
+              value={addQuantity}
+              onChange={handleChangeAddQuantity}
+            />
+            <Button>Add</Button>
+          </Form>
+          <Button onClick={handleAddAll}>Found All</Button>
+        </Flexbox>
+        <Flexbox direction="column" gap="0.5rem">
+          <Typography variant="h5">Remove parts</Typography>
+          <Form onSubmit={handleRemoveQuantity}>
+            <Input
+              required
+              placeholder="Quantity"
+              type="number"
+              min={0}
+              max={part.quantityFound}
+              fullWidth
+              value={removeQuantity}
+              onChange={handleChangeRemoveQuantity}
+            />
+            <Button>Remove</Button>
+          </Form>
+          <Button onClick={handleRemoveAll}>Remove All</Button>
+        </Flexbox>
       </Modal>
 
-      <Container onClick={() => setModalVisibility(true)} variant={getVariant()}>
+      <Container onClick={() => setModalVisibility(true)} variant={getBorderVariant()}>
         <Image src={part.image} alt="part" />
         <Typography>{part.color}</Typography>
         {showSet && (

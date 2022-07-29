@@ -13,20 +13,35 @@ export const Container = styled.div<{ show: boolean }>`
   justify-content: center;
 `;
 
-export const Content = styled.div`
+export const StyledModal = styled.div`
+  max-width: 100%;
   max-height: 100%;
-  min-width: 35rem;
-  padding: 2rem;
   border-radius: 0.25rem;
   background: ${(props) => props.theme.foreground};
   box-shadow: 0 0 1rem 0.5rem #00000015;
+  overflow-y: auto;
 `;
 
-export const Footer = styled.div`
-  width: 100%;
-  margin-top: 4rem;
+export const Content = styled.div`
+  padding: 2rem;
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: center;
   gap: 1rem;
+`;
+
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  & > svg {
+    transition: all 150ms;
+    height: 1rem;
+    width: 1rem;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 `;

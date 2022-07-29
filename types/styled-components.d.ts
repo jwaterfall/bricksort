@@ -44,5 +44,16 @@ declare module 'styled-components' {
     fontWeightBold: string;
     fontWeightExtraBold: string;
     fontWeightBlack: string;
+
+    colors: {
+      alerts: {
+        info: string;
+        warning: string;
+        error: string;
+        success: string;
+        text: string;
+        progressBar: string;
+      };
+    };
   }
 }

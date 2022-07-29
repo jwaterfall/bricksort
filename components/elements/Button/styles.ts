@@ -16,7 +16,6 @@ export const PrimaryButton = styled.button<{
   padding: 0 2rem;
   border: none;
   text-transform: capitalize;
-
   ${({ size }) =>
     size === 'sm' &&
     `
@@ -24,7 +23,6 @@ export const PrimaryButton = styled.button<{
     font-size: 0.75rem;
     padding: 0 1rem;
   `}
-
   ${({ size }) =>
     size === 'md' &&
     `
@@ -32,7 +30,6 @@ export const PrimaryButton = styled.button<{
     font-size: 0.9rem;
     padding: 0 2rem;
   `}
-
   ${({ size }) =>
     size === 'lg' &&
     `
@@ -40,7 +37,6 @@ export const PrimaryButton = styled.button<{
     font-size: 1rem;
     padding: 0 2.5rem;
   `}
-
   ${({ isFullWidth }) => isFullWidth && 'width: 100%;'};
   &:hover:not(:disabled) {
     background: ${({ theme }) => theme.buttonHover};

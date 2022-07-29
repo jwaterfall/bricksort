@@ -9,8 +9,8 @@ export const lightTheme: DefaultTheme = {
   shadow: 'hsla(0, 0%, 0%, 0.125)',
   foreground: 'hsl(0, 0%, 100%)',
   primary: 'hsl(356, 73%, 50%)',
-  secondary: 'hsl(51, 100%, 50%)',
-  tertiary: 'hsl(80, 76%, 43%)',
+  secondary: 'hsl(27, 59.7%, 47.6%)',
+  tertiary: 'hsl(90, 59.7%, 47.6%)',
   transition: 'all 150ms ease-in-out',
   borderRadius: '0.25rem',
 
@@ -43,6 +43,17 @@ export const lightTheme: DefaultTheme = {
   fontWeightBold: '700',
   fontWeightExtraBold: '800',
   fontWeightBlack: '900',
+
+  colors: {
+    alerts: {
+      info: 'hsl(204, 59.7%, 47.6%)',
+      warning: 'hsl(27, 59.7%, 47.6%)',
+      error: 'hsl(356, 73%, 50%)',
+      success: 'hsl(90, 59.7%, 47.6%)',
+      text: 'hsl(0, 0%, 100%)',
+      progressBar: 'hsla(0, 0%, 100%, 0.5)',
+    },
+  },
 };
 
 export const darkTheme: DefaultTheme = {
@@ -54,8 +65,8 @@ export const darkTheme: DefaultTheme = {
   shadow: 'hsla(0, 0%, 0%, 0.25)',
   foreground: '#2A2B31',
   primary: 'hsl(356, 73%, 50%)',
-  secondary: 'hsl(51, 100%, 50%)',
-  tertiary: 'hsl(80, 76%, 43%)',
+  secondary: 'hsl(27, 59.7%, 47.6%)',
+  tertiary: 'hsl(90, 59.7%, 47.6%)',
   transition: 'all 150ms ease-in-out',
   borderRadius: '0.25rem',
 
@@ -88,4 +99,15 @@ export const darkTheme: DefaultTheme = {
   fontWeightBold: '700',
   fontWeightExtraBold: '800',
   fontWeightBlack: '900',
+
+  colors: {
+    alerts: {
+      info: 'hsl(204, 59.7%, 47.6%)',
+      warning: 'hsl(27, 59.7%, 47.6%)',
+      error: 'hsl(356, 73%, 50%)',
+      success: 'hsl(90, 59.7%, 47.6%)',
+      text: 'hsl(0, 0%, 100%)',
+      progressBar: 'hsla(0, 0%, 100%, 0.5)',
+    },
+  },
 };

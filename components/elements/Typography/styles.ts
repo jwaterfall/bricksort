@@ -8,8 +8,7 @@ const BaseTypography = styled.div<Omit<TypographyProps, 'variant'>>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: ${({ theme }) => theme.text};
-  ${({ theme }) => `color: ${theme.text};`};
+  color: ${({ theme, color }) => (color === 'alert' ? theme.colors.alerts.text : theme.text)};
   ${({ align }) => `text-align: ${align};`};
   ${({ transform }) => `text-transform: ${transform};`};
 `;

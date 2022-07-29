@@ -1,7 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 
-import useDropdown from '@/contexts/DropdownContext';
-
+import { useDropdown } from './';
 import { Menu } from './styles';
 
 export const DropdownMenu: FC<PropsWithChildren<{}>> = ({ children }) => {

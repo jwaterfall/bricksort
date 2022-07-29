@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 
-import useDropdown from '@/contexts/DropdownContext';
+import { useDropdown } from './';
 
 export const DropdownToggle: FC<PropsWithChildren<{}>> = ({ children }) => {
   const { toggleIsOpen, reference } = useDropdown();

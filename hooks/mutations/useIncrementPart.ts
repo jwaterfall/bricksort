@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
+import useAlerts, { AlertType } from '@/components/modules/AlertProvider';
 import { Part } from '@/models/Part';
 
-async function incrementPart(setId: string, partId: string, quantity: number) {
+async function incrementPart(part: Part, quantity: number) {
   const { origin } = window.location;
-  const response = await axios.patch<Part>(
-    `${origin}/api/sets/${setId}/parts/${partId}/${quantity}`,
-  );
+  const response = await axios.patch<Part>(`${origin}/api/sets/${part.parent._id}/parts/${part._id}/${quantity}`);
 
   const newPart = response.data;
   return newPart;
@@ -34,18 +33,26 @@ function updatePartsQueryCache(queryClient: QueryClient, page: number) {
 
 function useIncrementPart(part: Part, page?: number) {
   const queryClient = useQueryClient();
+  const { addAlert } = useAlerts();
 
-  return useMutation(
-    (quantity: number) => incrementPart(part.parent as unknown as string, part._id, quantity),
-    {
-      onSuccess: (newPart) => {
-        updateSetPartsQueryCache(queryClient, newPart);
+  return useMutation((quantity: number) => incrementPart(part, quantity), {
+    onSuccess: (newPart, quantity) => {
+      updateSetPartsQueryCache(queryClient, newPart);
 
-        if (!page) return;
-        updatePartsQueryCache(queryClient, page);
-      },
+      addAlert(
+        AlertType.Success,
+        `${quantity > 0 ? 'Added' : 'Removed'}  ${Math.abs(quantity)} ${Math.abs(quantity) > 1 ? 'parts' : 'part'}`,
+        `${newPart.name}`,
+        5000,
+      );
+
+      if (!page) return;
+      updatePartsQueryCache(queryClient, page);
     },
-  );
+    onError: () => {
+      addAlert(AlertType.Error, 'error', 'something went wrong');
+    },
+  });
 }
 
 export default useIncrementPart;
