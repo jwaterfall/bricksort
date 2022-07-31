@@ -1,5 +1,5 @@
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
 import useAlerts, { AlertType } from '@/components/modules/AlertProvider';
 import { Part } from '@/models/Part';

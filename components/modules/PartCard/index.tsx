@@ -53,11 +53,11 @@ const PartCard: FC<{ part: Part; showSet?: boolean; page?: number }> = ({ part, 
   const getBorderVariant = () => {
     switch (quantityMissing / part.quantityTotal) {
       case 1:
-        return 'primary';
+        return 'red';
       case 0:
-        return 'tertiary';
+        return 'green';
       default:
-        return 'secondary';
+        return 'amber';
     }
   };
 

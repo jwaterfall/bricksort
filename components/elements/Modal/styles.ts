@@ -17,9 +17,10 @@ export const StyledModal = styled.div`
   max-width: 100%;
   max-height: 100%;
   border-radius: 0.25rem;
-  background: ${(props) => props.theme.foreground};
+  background: ${({ theme }) => theme.colors.foreground};
   box-shadow: 0 0 1rem 0.5rem #00000015;
   overflow-y: auto;
+  width: 30rem;
 `;
 
 export const Content = styled.div`

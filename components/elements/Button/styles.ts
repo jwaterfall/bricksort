@@ -7,10 +7,10 @@ export const PrimaryButton = styled.button<{
   isFullWidth?: boolean;
 }>`
   margin: 0;
-  color: ${(props) => props.theme.buttonText};
-  background: ${(props) => props.theme.primary};
-  border-radius: ${(props) => props.theme.borderRadius};
-  font-weight: ${(props) => props.theme.fontWeightMedium};
+  color: ${({ theme }) => theme.colors.button.text};
+  background: ${({ theme }) => theme.colors.button.background};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  font-weight: ${({ theme }) => theme.font.weight.medium};
   text-decoration: none;
   transition: all 150ms;
   padding: 0 2rem;
@@ -39,11 +39,11 @@ export const PrimaryButton = styled.button<{
   `}
   ${({ isFullWidth }) => isFullWidth && 'width: 100%;'};
   &:hover:not(:disabled) {
-    background: ${({ theme }) => theme.buttonHover};
+    background: ${({ theme }) => theme.colors.button.backgroundHover};
     cursor: pointer;
   }
   &:disabled {
-    color: ${(props) => props.theme.buttonTextDisabled};
-    background: ${(props) => props.theme.buttonDisabled};
+    color: ${({ theme }) => theme.colors.button.textDisabled};
+    background: ${({ theme }) => theme.colors.button.backgroundDisabled};
   }
 `;

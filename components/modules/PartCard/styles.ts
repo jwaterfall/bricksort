@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div<{
-  variant: 'primary' | 'secondary' | 'tertiary';
+  variant: 'red' | 'amber' | 'green';
 }>`
   display: flex;
   flex-direction: column;
@@ -9,17 +9,17 @@ export const Container = styled.div<{
   align-items: center;
   cursor: pointer;
   padding: 1rem;
-  border: 0.125rem solid ${(props) => props.theme[props.variant]};
-  background: ${(props) => props.theme.foreground};
-  border-radius: ${(props) => props.theme.borderRadius};
-  box-shadow: 0 0 0.75rem 0.075rem ${({ theme }) => theme.shadow};
+  border: 0.125rem solid ${({ theme, variant }) => theme.colors[variant]};
+  background: ${({ theme }) => theme.colors.foreground};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  box-shadow: 0 0 0.75rem 0.075rem ${({ theme }) => theme.colors.shadow};
 `;
 
 export const Image = styled.img`
   max-width: 10rem;
   aspect-ratio: 1/1;
   object-fit: cover;
-  border-radius: ${(props) => props.theme.borderRadius};
+  border-radius: ${({ theme }) => theme.borderRadius};
   margin: 0 auto;
 `;
 

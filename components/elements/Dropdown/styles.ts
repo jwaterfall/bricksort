@@ -19,8 +19,8 @@ export const Menu = styled.div<{
   max-height: 25rem;
   overflow-y: auto;
   overflow-x: hidden;
-  background: ${({ theme }) => theme.foreground};
-  box-shadow: 0 0 0.75rem 0.075rem ${({ theme }) => theme.shadow};
+  background: ${({ theme }) => theme.colors.foreground};
+  box-shadow: 0 0 0.75rem 0.075rem ${({ theme }) => theme.colors.shadow};
   border-radius: ${({ theme }) => theme.borderRadius};
   padding: 0.5rem;
 `;
@@ -31,9 +31,9 @@ export const Item = styled.button.attrs({ type: 'button' })`
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: ${({ theme }) => theme.textSecondary};
-  font-size: ${({ theme }) => theme.fontSizeXs};
-  font-weight: ${({ theme }) => theme.fontWeightSemiBold};
+  color: ${({ theme }) => theme.colors.textSecondary};
+  font-size: ${({ theme }) => theme.font.size.xs};
+  font-weight: ${({ theme }) => theme.font.weight.semiBold};
   cursor: pointer;
   border-radius: ${({ theme }) => theme.borderRadius};
   transition: color 150ms, background-color 150ms;
@@ -42,10 +42,10 @@ export const Item = styled.button.attrs({ type: 'button' })`
   outline: none;
   overflow: hidden;
   &:hover {
-    background: ${({ theme }) => theme.overlay};
-    color: ${({ theme }) => theme.text};
+    background: ${({ theme }) => theme.colors.overlay};
+    color: ${({ theme }) => theme.colors.text};
     & > svg {
-      fill: ${({ theme }) => theme.text};
+      fill: ${({ theme }) => theme.colors.text};
     }
   }
   & > svg {
@@ -57,7 +57,7 @@ export const Item = styled.button.attrs({ type: 'button' })`
 
 export const Divider = styled.hr`
   margin: 0.5rem;
-  background-color: ${({ theme }) => theme.overlay};
+  background-color: ${({ theme }) => theme.colors.overlay};
   border: none;
   height: 1px;
 `;

@@ -5,12 +5,12 @@ export const AccountButton = styled.button`
   height: 3rem;
   padding: 0.75rem;
   border-radius: 50%;
-  background: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.colors.button.background};
   border: none;
-  box-shadow: 0 0 0.75rem 0.125rem ${({ theme }) => theme.shadow};
+  box-shadow: 0 0 0.75rem 0.125rem ${({ theme }) => theme.colors.shadow};
   transition: ${({ theme }) => theme.transition};
   &:hover {
-    background: ${({ theme }) => theme.buttonHover};
+    background: ${({ theme }) => theme.colors.button.backgroundHover};
     cursor: pointer;
     transform: scale(1.05);
   }

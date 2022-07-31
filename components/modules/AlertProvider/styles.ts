@@ -34,8 +34,19 @@ export const AlertCardContainer = styled.div<{ type: AlertType }>`
   padding: 1rem;
   border-radius: ${({ theme }) => theme.borderRadius};
   overflow: hidden;
-  background-color: ${({ theme, type }) => theme.colors.alerts[type]};
-  box-shadow: 0 0.5rem 1rem ${({ theme }) => theme.shadow};
+  background-color: ${({ theme, type }) => {
+    switch (type) {
+      case 'error':
+        return theme.colors.red;
+      case 'success':
+        return theme.colors.green;
+      case 'info':
+        return theme.colors.blue;
+      case 'warning':
+        return theme.colors.amber;
+    }
+  }};
+  box-shadow: 0 0.5rem 1rem ${({ theme }) => theme.colors.shadow};
   color: ${({ theme }) => theme.colors.alerts.text};
   & > svg {
     height: 1.25rem;

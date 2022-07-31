@@ -20,3 +20,7 @@ export const Content = styled.main`
   overflow-x: hidden;
   overflow-y: aujto;
 `;
+
+export const Header = styled.header`
+  padding: 1rem;
+`;

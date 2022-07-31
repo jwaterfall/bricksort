@@ -9,12 +9,10 @@ import useSetParts from '@/hooks/queries/useSetParts';
 
 const IndexPage: NextPage = () => {
   const [showAllParts, setShowAllParts] = useState(false);
-  const { id } = useRouter().query;
-  const { data: parts } = useSetParts(id as string);
+  const setId = useRouter().query.setId as string;
+  const { data: parts } = useSetParts(setId);
 
-  const filteredParts = showAllParts
-    ? parts
-    : parts?.filter((part) => part.quantityFound < part.quantityTotal);
+  const filteredParts = showAllParts ? parts : parts?.filter((part) => part.quantityFound < part.quantityTotal);
 
   return (
     <MainLayout>
