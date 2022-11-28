@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, model } from 'mongoose';
+import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
 import SetModel, { Set } from './Set';
 
@@ -22,6 +22,7 @@ const schema = new Schema<Part>(
       required: true,
       type: Schema.Types.ObjectId,
       ref: SetModel,
+      index: true,
     },
     number: {
       required: true,
@@ -61,4 +62,4 @@ const schema = new Schema<Part>(
 
 const PartModel = mongoose.models.Part || model<Part>('Part', schema, 'parts');
 
-export default PartModel;
+export default PartModel as Model<Part>;

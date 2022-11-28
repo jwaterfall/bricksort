@@ -14,20 +14,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         const limit = parseInt(req.query.limit as string);
         const skipIndex = (page - 1) * limit;
 
-        const parts = await PartModel.find({
+        const query = {
           author: user.sub,
           isSpare: false,
           $expr: { $lt: ['$quantityFound', '$quantityTotal'] },
-        })
+        };
+
+        const parts = await PartModel.find(query)
           .populate('parent')
           .sort({ color: 1, parent: 1, name: 1 })
           .limit(limit)
           .skip(skipIndex);
 
-        const count = await PartModel.countDocuments({
-          isSpare: false,
-          $expr: { $lt: ['$quantityFound', '$quantityTotal'] },
-        });
+        const count = await PartModel.countDocuments(query);
 
         res.json({
           parts,

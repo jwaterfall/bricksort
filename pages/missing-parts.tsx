@@ -4,7 +4,6 @@ import { FC, useState } from 'react';
 
 import { Flexbox } from '@/components/elements/Box';
 import Button from '@/components/elements/Button';
-import Typography from '@/components/elements/Typography';
 import MainLayout from '@/components/layout/MainLayout';
 import PartList from '@/components/layout/PartList';
 import useParts from '@/hooks/queries/useParts';
@@ -31,7 +30,7 @@ const PartsPage: NextPage = () => {
       <Button size="sm" onClick={handlePreviousPage} disabled={page <= 1}>
         {'<'}
       </Button>
-      <Typography>Page {page}</Typography>
+      <Button size="sm">Page {page}</Button>
       <Button size="sm" onClick={handleNextPage} disabled={data ? page >= data.totalPages : true}>
         {'>'}
       </Button>

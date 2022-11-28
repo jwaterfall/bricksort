@@ -8,6 +8,7 @@ import SetModel from '@/models/Set';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { user } = getSession(req, res) as Session;
+  
   switch (req.method) {
     case 'GET':
       try {
@@ -20,14 +21,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       break;
     case 'POST':
       try {
-        const setResult = await axios.get(
-          `https://rebrickable.com/api/v3/lego/sets/${req.body.setId}`,
-          {
-            params: {
-              key: '1415deaec2cbe2bccb9b079c13f31a8d',
-            },
+        const setResult = await axios.get(`https://rebrickable.com/api/v3/lego/sets/${req.body.setId}`, {
+          params: {
+            key: '1415deaec2cbe2bccb9b079c13f31a8d',
           },
-        );
+        });
         const setData = setResult.data;
 
         const set = new SetModel({
@@ -37,16 +35,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           image: setData.set_img_url,
         });
         await set.save(async (err: any, set: any) => {
-          const partResult = await axios.get(
-            `https://rebrickable.com/api/v3/lego/sets/${req.body.setId}/parts`,
-            {
-              params: {
-                key: '1415deaec2cbe2bccb9b079c13f31a8d',
-                page_size: 2000,
-                inc_minifig_parts: 1,
-              },
+          const partResult = await axios.get(`https://rebrickable.com/api/v3/lego/sets/${req.body.setId}/parts`, {
+            params: {
+              key: '1415deaec2cbe2bccb9b079c13f31a8d',
+              page_size: 2000,
+              inc_minifig_parts: 1,
             },
-          );
+          });
           const partsData = partResult.data;
           const parts = partsData.results;
 

@@ -15,7 +15,7 @@ const SetCard: FC<{ set: Set }> = ({ set }) => {
       <Container>
         <Image src={set.image} alt="set" />
         <Typography>
-          {set.number} {set.name}
+          {set.number} {set.name} {set.percentageComplete}%
         </Typography>
         <Button
           onClick={(e) => {

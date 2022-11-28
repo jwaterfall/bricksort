@@ -46,6 +46,8 @@ function useIncrementPart(part: Part, page?: number) {
         5000,
       );
 
+      queryClient.invalidateQueries(['sets']);
+
       if (!page) return;
       updatePartsQueryCache(queryClient, page);
     },
