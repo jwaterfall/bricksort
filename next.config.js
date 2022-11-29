@@ -1,13 +1,9 @@
-const withPWA = require('next-pwa');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  pwa: {
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
+  experimental: {
+    appDir: true,
+    fontLoaders: [{ loader: "@next/font/google", options: { subsets: ["latin"] } }],
   },
 };
 
-module.exports = withPWA(nextConfig);
+module.exports = nextConfig;
