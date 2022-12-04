@@ -31,7 +31,7 @@ class ElementImageDownloader extends AbstractImageDownloader {
       if (!setId) break;
 
       const start = new Date();
-      const response = await axios.get(`${process.env.REBRICKABLE_API_URL}/${this.type}/?key=${key}&page_size=${this.pageSize}`);
+      const response = await axios.get(`${process.env.REBRICKABLE_API_URL}/sets/${setId}/parts/?key=${key}&page_size=${this.pageSize}`);
       const data = response.data;
 
       for (const item of data.results) {
@@ -42,8 +42,7 @@ class ElementImageDownloader extends AbstractImageDownloader {
         images.set(id, imageUrl);
       }
 
-      this.successful += data.results.length;
-      console.log(`Getting ${this.type}`, getProgressBar(this.total, this.successful, this.failed));
+      console.log(`Getting ${this.type}`, getProgressBar(this.total, this.successful++, this.failed));
       await this.wait(start);
     }
 
