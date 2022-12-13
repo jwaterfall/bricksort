@@ -13,6 +13,11 @@ import PartModel, { Part } from "../models/Part";
 import PartRelationshipModel, { PartRelationship } from "../models/PartRelationship";
 import SetModel, { Set } from "../models/Set";
 import ElementModel, { Element } from "../models/Element";
+import MinifigModel, { Minifig } from "../models/Minifig";
+import InventoryModel, { Inventory } from "../models/Inventory";
+import InventoryPartModel, { InventoryPart } from "../models/InventoryPart";
+import InventorySetModel, { InventorySet } from "../models/InventorySet";
+import InventoryMinifigModel, { InventoryMinifig } from "../models/InventoryMinifig";
 
 dotenv.config();
 
@@ -25,7 +30,11 @@ interface SyncResult {
 
 type SyncFunction = () => Promise<SyncResult>;
 
+const cache = new Map<string, any[]>();
+
 const fetchData = async (filename: string) => {
+  if (cache.has(filename)) return cache.get(filename);
+
   const url = `${BASE_URL}/${filename}.csv.gz`;
   const response = await axios.get(url, { responseType: "arraybuffer" });
   const unzipped = await new Promise<Buffer>((resolve, reject) => {
@@ -40,6 +49,7 @@ const fetchData = async (filename: string) => {
     skip_empty_lines: true,
   });
 
+  cache.set(filename, array);
   return array;
 };
 
@@ -51,22 +61,32 @@ const resetDatabase = async () => {
   await PartRelationshipModel.deleteMany({});
   await SetModel.deleteMany({});
   await ElementModel.deleteMany({});
+  await MinifigModel.deleteMany({});
+  await InventoryModel.deleteMany({});
+  await InventoryPartModel.deleteMany({});
+  await InventorySetModel.deleteMany({});
+  await InventoryMinifigModel.deleteMany({});
 };
 
 const syncThemes: SyncFunction = async () => {
-  const inserts = new Map<number, Theme>();
+  const inserts = new Map<string, Theme>();
   const themes = await fetchData("themes");
-  let current = 0;
+  const sets = await fetchData("sets");
+
+  let successful = 0;
 
   for (const theme of themes) {
+    const setCount = sets.filter((set: any) => set.theme_id === theme.id).length;
+
     const newTheme = new ThemeModel({
       _id: theme.id,
       name: theme.name,
       parent: theme.parent_id,
+      setCount,
     });
 
     inserts.set(newTheme._id, newTheme);
-    console.log("Themes: ", getProgressBar(themes.length, ++current));
+    console.log("Themes: ", getProgressBar(themes.length, ++successful));
   }
 
   const values = Array.from(inserts.values());
@@ -79,9 +99,9 @@ const syncThemes: SyncFunction = async () => {
 };
 
 const syncColors: SyncFunction = async () => {
-  const inserts = new Map<number, Color>();
+  const inserts = new Map<string, Color>();
   const colors = await fetchData("colors");
-  let current = 0;
+  let successful = 0;
 
   for (const color of colors) {
     const hex = `#${color.rgb}`;
@@ -96,7 +116,7 @@ const syncColors: SyncFunction = async () => {
     });
 
     inserts.set(newColor._id, newColor);
-    console.log("Colors: ", getProgressBar(colors.length, ++current));
+    console.log("Colors: ", getProgressBar(colors.length, ++successful));
   }
 
   const values = Array.from(inserts.values());
@@ -109,9 +129,9 @@ const syncColors: SyncFunction = async () => {
 };
 
 const syncPartCategories: SyncFunction = async () => {
-  const inserts = new Map<number, PartCategory>();
+  const inserts = new Map<string, PartCategory>();
   const partCategories = await fetchData("part_categories");
-  let current = 0;
+  let successful = 0;
 
   for (const partCategory of partCategories) {
     const newPartCategory = new PartCategoryModel({
@@ -120,7 +140,7 @@ const syncPartCategories: SyncFunction = async () => {
     });
 
     inserts.set(newPartCategory._id, newPartCategory);
-    console.log("Part Categories: ", getProgressBar(partCategories.length, ++current));
+    console.log("Part Categories: ", getProgressBar(partCategories.length, ++successful));
   }
 
   const values = Array.from(inserts.values());
@@ -135,7 +155,7 @@ const syncPartCategories: SyncFunction = async () => {
 const syncParts: SyncFunction = async () => {
   const inserts = new Map<string, Part>();
   const parts = await fetchData("parts");
-  let current = 0;
+  let successful = 0;
 
   for (const part of parts) {
     const newPart = new PartModel({
@@ -146,7 +166,7 @@ const syncParts: SyncFunction = async () => {
     });
 
     inserts.set(newPart._id, newPart);
-    console.log("Parts: ", getProgressBar(parts.length, ++current));
+    console.log("Parts: ", getProgressBar(parts.length, ++successful));
   }
 
   const values = Array.from(inserts.values());
@@ -161,7 +181,7 @@ const syncParts: SyncFunction = async () => {
 const syncPartRelationships: SyncFunction = async () => {
   const inserts = new Map<string, PartRelationship>();
   const partRelationships = await fetchData("part_relationships");
-  let current = 0;
+  let successful = 0;
 
   for (const partRelationship of partRelationships) {
     const newPartRelationship = new PartRelationshipModel({
@@ -171,7 +191,7 @@ const syncPartRelationships: SyncFunction = async () => {
     });
 
     inserts.set(newPartRelationship._id, newPartRelationship);
-    console.log("Part Relationships: ", getProgressBar(partRelationships.length, ++current));
+    console.log("Part Relationships: ", getProgressBar(partRelationships.length, ++successful));
   }
 
   const values = Array.from(inserts.values());
@@ -186,7 +206,7 @@ const syncPartRelationships: SyncFunction = async () => {
 const syncSets: SyncFunction = async () => {
   const inserts = new Map<string, Set>();
   const sets = await fetchData("sets");
-  let current = 0;
+  let successful = 0;
 
   for (const set of sets) {
     const newSet = new SetModel({
@@ -195,10 +215,11 @@ const syncSets: SyncFunction = async () => {
       year: set.year,
       theme: set.theme_id,
       partCount: set.num_parts,
+      imageUrl: set.img_url,
     });
 
     inserts.set(newSet._id, newSet);
-    console.log("Sets: ", getProgressBar(sets.length, ++current));
+    console.log("Sets: ", getProgressBar(sets.length, ++successful));
   }
 
   const values = Array.from(inserts.values());
@@ -213,7 +234,7 @@ const syncSets: SyncFunction = async () => {
 const syncElements: SyncFunction = async () => {
   const inserts = new Map<string, Element>();
   const elements = await fetchData("elements");
-  let current = 0;
+  let successful = 0;
 
   for (const element of elements) {
     const newElement = new ElementModel({
@@ -223,7 +244,7 @@ const syncElements: SyncFunction = async () => {
     });
 
     inserts.set(newElement._id, newElement);
-    console.log("Elements: ", getProgressBar(elements.length, ++current));
+    console.log("Elements: ", getProgressBar(elements.length, ++successful));
   }
 
   const values = Array.from(inserts.values());
@@ -235,13 +256,162 @@ const syncElements: SyncFunction = async () => {
   };
 };
 
+const syncMinifigs: SyncFunction = async () => {
+  const inserts = new Map<string, Minifig>();
+  const minifigs = await fetchData("minifigs");
+  let successful = 0;
+
+  for (const minifig of minifigs) {
+    const newMinifig = new MinifigModel({
+      _id: minifig.fig_num,
+      name: minifig.name,
+      partCount: minifig.num_parts,
+      imageUrl: minifig.img_url,
+    });
+
+    inserts.set(newMinifig._id, newMinifig);
+    console.log("Minifigs: ", getProgressBar(minifigs.length, ++successful));
+  }
+
+  const values = Array.from(inserts.values());
+  await MinifigModel.insertMany(values);
+
+  return {
+    name: "Minifigs",
+    count: values.length,
+  };
+};
+
+const syncInventories: SyncFunction = async () => {
+  const inserts = new Map<string, Inventory>();
+  const inventories = await fetchData("inventories");
+  let successful = 0;
+
+  for (const inventory of inventories) {
+    const newInventory = new InventoryModel({
+      _id: inventory.id,
+      set: inventory.set_num,
+      version: inventory.version,
+      quantity: inventory.quantity,
+      isAlternate: inventory.is_alternate === "t",
+      alternate: inventory.alternate,
+      color: inventory.color_id,
+    });
+
+    inserts.set(newInventory._id, newInventory);
+    console.log("Inventories: ", getProgressBar(inventories.length, ++successful));
+  }
+
+  const values = Array.from(inserts.values());
+  await InventoryModel.insertMany(values);
+
+  return {
+    name: "Inventories",
+    count: values.length,
+  };
+};
+
+const syncInventoryParts: SyncFunction = async () => {
+  const inserts = new Map<string, InventoryPart>();
+  const inventoryParts = await fetchData("inventory_parts");
+
+  let successful = 0;
+
+  for (const inventoryPart of inventoryParts) {
+    const newInventoryPart = new InventoryPartModel({
+      inventory: inventoryPart.inventory_id,
+      part: inventoryPart.part_num,
+      color: inventoryPart.color_id,
+      quantity: inventoryPart.quantity,
+      isSpare: inventoryPart.is_spare === "t",
+    });
+
+    const imageUrl = inventoryPart.img_url;
+    if (imageUrl) newInventoryPart.imageUrl = imageUrl;
+
+    inserts.set(newInventoryPart._id, newInventoryPart);
+    console.log("Inventory Parts: ", getProgressBar(inventoryParts.length, ++successful));
+  }
+
+  const values = Array.from(inserts.values());
+  await InventoryPartModel.insertMany(values);
+
+  return {
+    name: "Inventory Parts",
+    count: values.length,
+  };
+};
+
+const syncInventorySets: SyncFunction = async () => {
+  const inserts = new Map<string, InventorySet>();
+  const inventorySets = await fetchData("inventory_sets");
+  let successful = 0;
+
+  for (const inventorySet of inventorySets) {
+    const newInventorySet = new InventorySetModel({
+      inventory: inventorySet.inventory_id,
+      set: inventorySet.set_num,
+      quantity: inventorySet.quantity,
+    });
+
+    inserts.set(newInventorySet._id, newInventorySet);
+    console.log("Inventory Sets: ", getProgressBar(inventorySets.length, ++successful));
+  }
+
+  const values = Array.from(inserts.values());
+  await InventorySetModel.insertMany(values);
+
+  return {
+    name: "Inventory Sets",
+    count: values.length,
+  };
+};
+
+const syncInventoryMinifigs: SyncFunction = async () => {
+  const inserts = new Map<string, InventoryMinifig>();
+  const inventoryMinifigs = await fetchData("inventory_minifigs");
+  let successful = 0;
+
+  for (const inventoryMinifig of inventoryMinifigs) {
+    const newInventoryMinifig = new InventoryMinifigModel({
+      inventory: inventoryMinifig.inventory_id,
+      minifig: inventoryMinifig.fig_num,
+      quantity: inventoryMinifig.quantity,
+    });
+
+    inserts.set(newInventoryMinifig._id, newInventoryMinifig);
+    console.log("Inventory Minifigs: ", getProgressBar(inventoryMinifigs.length, ++successful));
+  }
+
+  const values = Array.from(inserts.values());
+  await InventoryMinifigModel.insertMany(values);
+
+  return {
+    name: "Inventory Minifigs",
+    count: values.length,
+  };
+};
+
 const main = async () => {
   console.log("Starting sync...");
   await mongoose.connect(process.env.MONGODB_URI!);
 
   await resetDatabase();
 
-  const syncFunctions = [syncThemes, syncColors, syncPartCategories, syncParts, syncPartRelationships, syncSets, syncElements];
+  const syncFunctions = [
+    syncThemes,
+    syncColors,
+    syncPartCategories,
+    syncParts,
+    syncPartRelationships,
+    syncSets,
+    syncMinifigs,
+    syncElements,
+    syncInventories,
+    syncInventoryParts,
+    syncInventorySets,
+    syncInventoryMinifigs,
+  ];
 
   const results = await Promise.all(
     syncFunctions.map(async (syncFunction) => {

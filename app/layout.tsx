@@ -19,12 +19,12 @@ const lobster = Lobster({
 const Layout: FC<PropsWithChildren> = ({ children }) => (
   <html lang="en" className={`${roboto.variable} ${lobster.variable} h-full`}>
     <head />
-    <body className="bg-background text-text font-sans flex h-full">
+    <body className="bg-slate-100 text-slate-900 font-sans flex h-full overflow-hidden">
       <Sidebar />
-      <div className="grow">
+      <main className="grow flex flex-col">
         <Topbar />
-        <main>{children}</main>
-      </div>
+        <div className="grow w-full overflow-hidden">{children}</div>
+      </main>
     </body>
   </html>
 );

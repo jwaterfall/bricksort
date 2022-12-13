@@ -1,15 +1,17 @@
 import mongoose, { Document, Schema, model } from "mongoose";
 
 export interface Theme extends Document {
-  _id: number;
+  _id: string;
   name: string;
-  parent: number | null;
+  parent: string | null;
+  setCount: number;
 }
 
 const schema = new Schema<Theme>({
-  _id: { type: Number, required: true },
+  _id: { type: String, required: true },
   name: { type: String, required: true },
-  parent: { type: Number, ref: "Theme" },
+  parent: { type: String, ref: "Theme" },
+  setCount: { type: Number, required: true },
 });
 
 const ThemeModel = mongoose.models.Theme || model<Theme>("Theme", schema, "themes");

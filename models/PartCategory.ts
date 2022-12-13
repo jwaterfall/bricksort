@@ -1,12 +1,12 @@
 import mongoose, { Document, Schema, model } from "mongoose";
 
 export interface PartCategory extends Document {
-  _id: number;
+  _id: string;
   name: string;
 }
 
 const schema = new Schema<PartCategory>({
-  _id: { type: Number, required: true },
+  _id: { type: String, required: true },
   name: { type: String, required: true },
 });
 

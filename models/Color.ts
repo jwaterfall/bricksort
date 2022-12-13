@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema, model } from "mongoose";
 
 export interface Color extends Document {
-  _id: number;
+  _id: string;
   name: string;
   hex: string;
   rgb: string;
@@ -10,7 +10,7 @@ export interface Color extends Document {
 }
 
 const schema = new Schema<Color>({
-  _id: { type: Number, required: true },
+  _id: { type: String, required: true },
   name: { type: String, required: true },
   hex: { type: String, required: true },
   rgb: { type: String, required: true },

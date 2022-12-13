@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: FC<ButtonProps> = ({ Icon, children, ...props }) => (
   <button
     {...props}
-    className="bg-primary flex items-center gap-1 px-3 py-2 text-sm font-light rounded-md text-text-dark hover:bg-button-hover transition-colors"
+    className="bg-red-500 text-red-50 flex items-center gap-1 px-3 py-2 text-sm rounded-md transition-colors hover:bg-red-400 disabled:bg-red-700 disabled:hover:bg-red-700"
   >
     {Icon && <Icon className="w-4 h-4" />}
     {children}
