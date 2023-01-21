@@ -6,7 +6,7 @@ import { MdOutlineCheck, MdOutlineRemove } from "react-icons/md";
 interface CheckboxProps {
   isChecked: boolean;
   isIntermediate?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const Checkbox: FC<PropsWithChildren<CheckboxProps>> = ({ isChecked, isIntermediate = false, onClick, children }) => {

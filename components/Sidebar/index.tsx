@@ -36,7 +36,7 @@ const Sidebar: FC = () => (
         </SidebarLink>
       </SidebarSection>
       <SidebarSection title="browse">
-        <SidebarLink href="/browse/sets" Icon={MdOutlineDirectionsCar}>
+        <SidebarLink href={`/sets?minYear=1949&maxYear=${new Date().getFullYear()}`} Icon={MdOutlineDirectionsCar}>
           Browse Sets
         </SidebarLink>
       </SidebarSection>

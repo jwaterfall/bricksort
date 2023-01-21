@@ -1,8 +1,8 @@
 import { FC, PropsWithChildren } from "react";
 
-import SetFilterBar from "../../../components/FilterSidebar/SetFilterSidebar";
-import connectToDatabase from "../../../data/connectToDatabase";
-import ThemeModel, { Theme } from "../../../models/Theme";
+import SetFilterBar from "../../components/FilterSidebar/SetFilterSidebar";
+import connectToDatabase from "../../data/connectToDatabase";
+import ThemeModel, { Theme } from "../../models/Theme";
 
 const getThemes = async () => {
   connectToDatabase();
