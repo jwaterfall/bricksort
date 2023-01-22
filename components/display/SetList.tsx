@@ -2,8 +2,8 @@ import { FC } from "react";
 import { MdOutlineHandyman } from "react-icons/md";
 import Image from "next/image";
 
-import { ExtendedSet } from "../models/Set";
-import Button from "./Button";
+import { ExtendedSet } from "../../models/Set";
+import Button from "../actions/Button";
 
 interface SetListProps {
     sets: ExtendedSet[];
@@ -26,7 +26,7 @@ const SetList: FC<SetListProps> = ({ sets }) => (
                     <h3 className="text-xs text-slate-500 mb-4 truncate">
                         {set.year} • {set.theme.name} • {set.partCount > 1 ? `${set.partCount} Pieces` : "1 Piece"}
                     </h3>
-                    <Button Icon={MdOutlineHandyman} size="sm">
+                    <Button Icon={MdOutlineHandyman} color="primary">
                         Build this set
                     </Button>
                 </div>
