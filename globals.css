@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 [data-nextjs-scroll-focus-boundary] {
-  display: contents;
+    display: contents;
 }

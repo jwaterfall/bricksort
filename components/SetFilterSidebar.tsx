@@ -1,12 +1,12 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { MdFilterAlt } from "react-icons/md";
 
-import { Theme } from "../../models/Theme";
-import FilterSidebarSection from "./FilterSidebarSection";
-import Checkbox from "./Checkbox";
-import useThemes from "../../queries/useThemes";
-import Input from "../input/Input";
-import Button from "../actions/Button";
+import { Theme } from "../models/Theme";
+import Checkbox from "./actions/Checkbox";
+import useThemes from "../queries/useThemes";
+import Input from "./input/Input";
+import Button from "./actions/Button";
+import Typography from "./actions/Typography";
 
 interface ThemeFilterProps {
     theme: Theme;
@@ -48,6 +48,7 @@ const SetFilterSidebar: FC<SetFilterSidebarProps> = ({
     const ThemeFilter: FC<ThemeFilterProps> = ({ theme, isChild = false, isLastChild = false }) => {
         const isChecked = themeIds.includes(theme._id);
         const children = getChildren(theme);
+        const [isExpanded, setIsExpanded] = useState(false);
 
         const getThemeIds = () => {
             if (isChecked) return themeIds.filter((id) => id !== theme._id);
@@ -63,26 +64,37 @@ const SetFilterSidebar: FC<SetFilterSidebarProps> = ({
             <div className={isChild ? "ml-5 relative" : ""}>
                 {!isLastChild && <div className="absolute -left-2.5 -top-0 h-full w-0.5 bg-slate-300" />}
                 {isChild && <div className="absolute -left-2.5 -top-4 h-8 w-2.5 border-slate-300 border-l-2 border-b-2 rounded-bl-md" />}
-
-                <Checkbox
-                    isChecked={isChecked}
+                <div
+                    className={`h-8 flex items-center gap-2 min-w-0 cursor-pointer truncate text-sm font-medium ${
+                        isChecked ? "text-slate-900" : "text-slate-500"
+                    }`}
                     onClick={async () => {
                         await setThemeIds(getThemeIds());
                         await setPage(1);
                     }}
                 >
+                    <Checkbox checked={isChecked} />
                     <span className="truncate shrink">{theme.name}</span>({theme.setCount})
-                </Checkbox>
-
-                {children.map((child, index) => (
-                    <ThemeFilter theme={child} isChild key={child._id} isLastChild={index === children.length - 1} />
-                ))}
+                    {children.length > 0 && (
+                        <div
+                            className="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-500 text-xs ml-2 cursor-pointer ml-auto"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setIsExpanded(!isExpanded);
+                            }}
+                        >
+                            {isExpanded ? "-" : "+"}
+                        </div>
+                    )}
+                </div>
+                {isExpanded &&
+                    children.map((child, index) => <ThemeFilter theme={child} isChild key={child._id} isLastChild={index === children.length - 1} />)}
             </div>
         );
     };
 
     return (
-        <div className="shrink-0 flex flex-col gap-8 bg-slate-50 border-slate-300 border-r w-80 h-full py-4 px-8 border-darken-0.1 overflow-x-auto scrollbar-thin scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-400">
+        <div className="shrink-0 flex flex-col gap-8 bg-white border-slate-300 border-r w-80 h-full py-4 px-8 border-darken-0.1 overflow-x-auto scrollbar-thin scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-400">
             <Button
                 size="sm"
                 Icon={MdFilterAlt}
@@ -96,7 +108,10 @@ const SetFilterSidebar: FC<SetFilterSidebarProps> = ({
             >
                 Reset Filters
             </Button>
-            <FilterSidebarSection title="search">
+            <div className="flex flex-col gap-2">
+                <Typography weight="semibold" size="sm">
+                    SEARCH
+                </Typography>
                 <Input
                     placeholder="Set name or number..."
                     value={search ?? undefined}
@@ -105,9 +120,12 @@ const SetFilterSidebar: FC<SetFilterSidebarProps> = ({
                         await setPage(1);
                     }}
                 />
-            </FilterSidebarSection>
-            <FilterSidebarSection title="year">
-                <div className="flex flex-col gap-2">
+            </div>
+            <div className="flex flex-col gap-2">
+                <Typography weight="semibold" size="sm">
+                    YEAR
+                </Typography>
+                <div className="flex gap-2">
                     <Input
                         label="from"
                         type="number"
@@ -127,14 +145,17 @@ const SetFilterSidebar: FC<SetFilterSidebarProps> = ({
                         }}
                     />
                 </div>
-            </FilterSidebarSection>
-            <FilterSidebarSection title="themes">
+            </div>
+            <div className="flex flex-col gap-2">
+                <Typography weight="semibold" size="sm">
+                    THEME
+                </Typography>
                 {themes
                     ?.filter((theme) => !theme.parent)
                     .map((theme) => (
                         <ThemeFilter key={theme._id} theme={theme} />
                     ))}
-            </FilterSidebarSection>
+            </div>
         </div>
     );
 };

@@ -9,7 +9,7 @@ const Topbar: FC = () => {
     if (isLoading || !user) return null;
 
     return (
-        <div className="bg-slate-50 w-full h-20 px-8 flex items-center justify-between border-b border-slate-300 shrink-0">
+        <div className="bg-white shadow-sm  w-full h-20 px-8 flex items-center justify-between border-b border-slate-300 shrink-0">
             <Breadcrumb />
             <div className="flex items-center gap-4">
                 {user.picture && <img src={user.picture} alt="avatar" className="w-10 h-10 rounded-full" />}

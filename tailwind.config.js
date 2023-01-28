@@ -4,8 +4,8 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Poppins", "sans-serif"],
-                lobster: ["Lobster", "cursive"],
+                sans: ["var(--font-poppins)"],
+                lobster: ["var(--font-lobster)"],
             },
             aspectRatio: {
                 "2/3": "2 / 3",

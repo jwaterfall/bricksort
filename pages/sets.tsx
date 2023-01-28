@@ -2,12 +2,13 @@ import { NextPage } from "next";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { useQueryState, queryTypes } from "next-usequerystate";
 
-import SetFilterSidebar from "../components/FilterSidebar/SetFilterSidebar";
+import SetFilterSidebar from "../components/SetFilterSidebar";
 import Pagination from "../components/navigation/Pagination";
 import SetList from "../components/display/SetList";
 import useSets from "../queries/useSets";
 import ButtonGroup from "../components/layout/ButtonGroup";
 import Button from "../components/actions/Button";
+import Typography from "../components/actions/Typography";
 
 const SetsPage: NextPage = () => {
     const limitOptions = [10, 25, 50, 100];
