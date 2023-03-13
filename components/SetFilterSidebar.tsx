@@ -2,11 +2,11 @@ import { FC, useState } from "react";
 import { MdFilterAlt } from "react-icons/md";
 
 import { Theme } from "../models/Theme";
-import Checkbox from "./actions/Checkbox";
+import Checkbox from "./Checkbox";
 import useThemes from "../queries/useThemes";
-import Input from "./input/Input";
-import Button from "./actions/Button";
-import Typography from "./actions/Typography";
+import Input from "./Input";
+import Button from "./Button";
+import Typography from "./Typography";
 
 interface ThemeFilterProps {
     theme: Theme;
@@ -48,7 +48,6 @@ const SetFilterSidebar: FC<SetFilterSidebarProps> = ({
     const ThemeFilter: FC<ThemeFilterProps> = ({ theme, isChild = false, isLastChild = false }) => {
         const isChecked = themeIds.includes(theme._id);
         const children = getChildren(theme);
-        const [isExpanded, setIsExpanded] = useState(false);
 
         const getThemeIds = () => {
             if (isChecked) return themeIds.filter((id) => id !== theme._id);
@@ -65,7 +64,7 @@ const SetFilterSidebar: FC<SetFilterSidebarProps> = ({
                 {!isLastChild && <div className="absolute -left-2.5 -top-0 h-full w-0.5 bg-slate-300" />}
                 {isChild && <div className="absolute -left-2.5 -top-4 h-8 w-2.5 border-slate-300 border-l-2 border-b-2 rounded-bl-md" />}
                 <div
-                    className={`h-8 flex items-center gap-2 min-w-0 cursor-pointer truncate text-sm font-medium ${
+                    className={`h-8 flex items-center gap-2 min-w-0 cursor-pointer truncate text-sm font-medium relative z-10 ${
                         isChecked ? "text-slate-900" : "text-slate-500"
                     }`}
                     onClick={async () => {
@@ -75,26 +74,16 @@ const SetFilterSidebar: FC<SetFilterSidebarProps> = ({
                 >
                     <Checkbox checked={isChecked} />
                     <span className="truncate shrink">{theme.name}</span>({theme.setCount})
-                    {children.length > 0 && (
-                        <div
-                            className="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-500 text-xs ml-2 cursor-pointer ml-auto"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setIsExpanded(!isExpanded);
-                            }}
-                        >
-                            {isExpanded ? "-" : "+"}
-                        </div>
-                    )}
                 </div>
-                {isExpanded &&
-                    children.map((child, index) => <ThemeFilter theme={child} isChild key={child._id} isLastChild={index === children.length - 1} />)}
+                {children.map((child, index) => (
+                    <ThemeFilter theme={child} isChild key={child._id} isLastChild={index === children.length - 1} />
+                ))}
             </div>
         );
     };
 
     return (
-        <div className="shrink-0 flex flex-col gap-8 bg-white border-slate-300 border-r w-80 h-full py-4 px-8 border-darken-0.1 overflow-x-auto scrollbar-thin scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-400">
+        <div className="shrink-0 flex flex-col gap-8 bg-slate-50 border-slate-300 border-r w-80 h-full py-4 px-8 border-darken-0.1 overflow-x-auto scrollbar-thin scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-400">
             <Button
                 size="sm"
                 Icon={MdFilterAlt}

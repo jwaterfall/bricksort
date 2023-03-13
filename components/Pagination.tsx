@@ -1,19 +1,15 @@
 import { FC, useMemo } from "react";
 
-import Button, { ButtonSize } from "../actions/Button";
-import ButtonGroup from "../layout/ButtonGroup";
-
 const DOTS = "...";
 
 interface PaginationProps {
     page: number;
     onChange: (page: number) => void;
     pageCount: number;
-    size?: ButtonSize;
     siblingCount?: number;
 }
 
-const Pagination: FC<PaginationProps> = ({ page, onChange, pageCount, size, siblingCount = 1 }) => {
+const Pagination: FC<PaginationProps> = ({ page, onChange, pageCount, siblingCount = 1 }) => {
     const createRange = (from: number, to: number) => Array.from({ length: to - from + 1 }, (_, i) => from + i);
 
     const pages: (typeof DOTS | number)[] = useMemo(() => {
@@ -46,20 +42,20 @@ const Pagination: FC<PaginationProps> = ({ page, onChange, pageCount, size, sibl
     }, [page, pageCount, siblingCount]);
 
     return (
-        <ButtonGroup>
+        <div className="flex rounded-lg border border-gray-700 w-fit overflow-hidden shrink-0">
             {pages.map((p, index) => (
-                <Button
+                <button
                     key={index}
-                    size={size}
-                    shape="square"
                     onClick={() => onChange(p as number)}
-                    color={p === page ? "primary" : "default"}
                     disabled={p === DOTS}
+                    className={`flex items-center justify-center w-10 h-10 text-gray-50 disabled:bg-gray-700 disabled:hover:bg-gray-700
+                        ${p === page ? "bg-red-500" : "bg-gray-900 hover:bg-gray-800"}
+                    `}
                 >
                     {p}
-                </Button>
+                </button>
             ))}
-        </ButtonGroup>
+        </div>
     );
 };
 

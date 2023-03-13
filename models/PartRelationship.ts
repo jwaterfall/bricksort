@@ -21,6 +21,6 @@ const schema = new Schema<PartRelationship>({
   parent: { type: String, required: true, ref: "Part", index: true },
 });
 
-const PartRelationshipModel = mongoose.models.PartRelationship || model<PartRelationship>("PartRelationship", schema, "partRelationships");
+const PartRelationshipModel = mongoose.models.PartRelationship || model<PartRelationship>("PartRelationship", schema, "part_relationships");
 
 export default PartRelationshipModel as mongoose.Model<PartRelationship>;

@@ -18,10 +18,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 const themes = (req.query["themes[]"] as string[]) || undefined;
                 const search = (req.query.search as string) || undefined;
 
+                const excludedThemes = ["501", "739", "736", "408", "497", "688", "737", "503", "740", "733", "741", "398"];
                 const query = {
+                    theme: themes ? { $in: themes } : { $nin: excludedThemes },
                     ...(minYear && { year: { $gte: minYear } }),
                     ...(maxYear && { year: { $lte: maxYear } }),
-                    ...(themes && { theme: { $in: themes } }),
                     ...(search && { $or: [{ _id: { $regex: search, $options: "i" } }, { name: { $regex: search, $options: "i" } }] }),
                 };
 

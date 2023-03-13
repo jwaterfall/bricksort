@@ -29,7 +29,7 @@ const Checkbox: FC<CheckboxProps> = ({ checked, intermediate, color = "primary",
     };
 
     return (
-        <div className={`flex items-center justify-center w-6 h-6 rounded-md border ${getColorStyles()}`} onClick={onClick}>
+        <div className={`flex items-center justify-center w-6 h-6 rounded-xl border ${getColorStyles()}`} onClick={onClick}>
             {checked ? <MdOutlineCheck className="w-4 h-4" /> : intermediate ? <MdOutlineRemove className="w-4 h-4" /> : null}
         </div>
     );

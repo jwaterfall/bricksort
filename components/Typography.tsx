@@ -39,9 +39,9 @@ const Typography: FC<PropsWithChildren<TypographyProps>> = ({
     const getColorStyles = () => {
         switch (color) {
             case "primary":
-                return "text-slate-900";
+                return "text-gray-50";
             case "secondary":
-                return "text-slate-500";
+                return "text-gray-300";
         }
     };
 

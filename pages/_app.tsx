@@ -1,11 +1,10 @@
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { AppProps } from "next/app";
-import { Poppins, Lobster } from "@next/font/google";
+import { Lobster, Poppins } from "@next/font/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import Navbar from "../components/navigation/Navbar";
-import Topbar from "../components/navigation/Topbar";
+import Sidebar from "../components/Sidebar";
 
 const roboto = Poppins({
     weight: ["300", "400", "500", "600", "700"],
@@ -27,11 +26,10 @@ const App = ({ Component, pageProps }: AppProps) => (
     <div className={`${roboto.variable} ${lobster.variable}`}>
         <UserProvider>
             <QueryClientProvider client={queryClient}>
-                <div className="bg-slate-100 text-slate-900 font-sans flex h-screen overflow-hidden">
-                    <Navbar />
-                    <main className="grow flex flex-col">
-                        <Topbar />
-                        <div className="grow w-full overflow-hidden">
+                <div className="flex w-full h-screen bg-gray-700 font-sans overflow-hidden">
+                    <Sidebar />
+                    <main className="flex-1 rounded-l-[3rem] bg-gray-800 p-8 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500">
+                        <div className="flex flex-col gap-8">
                             <Component {...pageProps} />
                         </div>
                     </main>

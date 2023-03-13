@@ -10,6 +10,6 @@ const schema = new Schema<PartCategory>({
   name: { type: String, required: true },
 });
 
-const PartCategoryModel = mongoose.models.PartCategory || model<PartCategory>("PartCategory", schema, "partCategories");
+const PartCategoryModel = mongoose.models.PartCategory || model<PartCategory>("PartCategory", schema, "part_categories");
 
 export default PartCategoryModel as mongoose.Model<PartCategory>;
