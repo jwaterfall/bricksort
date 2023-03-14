@@ -12,6 +12,7 @@
     "dependencies": {
         "@auth0/nextjs-auth0": "^2.1.0",
         "@next/font": "^13.0.5",
+        "@tailwindcss/typography": "^0.5.9",
         "@tanstack/react-query": "^4.22.3",
         "@tanstack/react-query-devtools": "^4.22.3",
         "@types/node": "18.11.9",
@@ -22,6 +23,7 @@
         "chalk": "^4.1.2",
         "color-convert": "^2.0.1",
         "csv-parse": "^5.3.3",
+        "daisyui": "^2.51.3",
         "dotenv-flow": "^3.2.0",
         "eslint": "8.28.0",
         "eslint-config-next": "^13.1.4",

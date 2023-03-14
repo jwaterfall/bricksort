@@ -4,9 +4,12 @@ import { Lobster, Poppins } from "@next/font/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import Topbar from "../components/Topbar";
 
-const roboto = Poppins({
+import "../globals.css";
+
+const poppins = Poppins({
     weight: ["300", "400", "500", "600", "700"],
     subsets: ["latin"],
     variable: "--font-poppins",
@@ -18,26 +21,21 @@ const lobster = Lobster({
     variable: "--font-lobster",
 });
 
-import "../globals.css";
-
 const queryClient = new QueryClient();
 
 const App = ({ Component, pageProps }: AppProps) => (
-    <div className={`${roboto.variable} ${lobster.variable}`}>
-        <UserProvider>
-            <QueryClientProvider client={queryClient}>
-                <div className="flex w-full h-screen bg-gray-700 font-sans overflow-hidden">
-                    <Sidebar />
-                    <main className="flex-1 rounded-l-[3rem] bg-gray-800 p-8 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500">
-                        <div className="flex flex-col gap-8">
-                            <Component {...pageProps} />
-                        </div>
-                    </main>
-                </div>
-                <ReactQueryDevtools />
-            </QueryClientProvider>
-        </UserProvider>
-    </div>
+    <UserProvider>
+        <QueryClientProvider client={queryClient}>
+            <div className={`flex flex-col w-full h-screen overflow-hidden font-sans ${poppins.variable} ${lobster.variable}`}>
+                <Topbar />
+                <main className="flex-1 overflow-x-auto scrollbar-none p-4 bg-base-300">
+                    <Component {...pageProps} />
+                </main>
+                <Navbar />
+            </div>
+            <ReactQueryDevtools />
+        </QueryClientProvider>
+    </UserProvider>
 );
 
 export default App;

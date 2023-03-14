@@ -8,26 +8,28 @@ module.exports = {
                 lobster: ["var(--font-lobster)"],
             },
             aspectRatio: {
-                "2/3": "2 / 3",
-                "3/2": "3 / 2",
                 "3/4": "3 / 4",
                 "4/3": "4 / 3",
             },
-            colors: {
-                gray: {
-                    900: "#0F1112",
-                    800: "#151718",
-                    700: "#181A1E",
-                    600: "#1E2125",
-                    500: "#24282D",
-                    400: "#55565C",
-                    300: "#7A7B81",
-                    200: "#A0A1A7",
-                    100: "#C7C8CD",
-                    50: "#EDEEEF",
-                },
-            },
         },
     },
-    plugins: [require("tailwind-scrollbar")],
+    daisyui: {
+        themes: [
+            {
+                bricksort: {
+                    primary: "#ef4444",
+                    secondary: "#3b82f6",
+                    accent: "#22c55e",
+                    neutral: "#1e293b",
+                    "base-100": "#0f172a",
+                    info: "#3b82f6",
+                    success: "#22c55e",
+                    warning: "#f59e0b",
+                    error: "#ef4444",
+                    "rounded-button": "0rem ",
+                },
+            },
+        ],
+    },
+    plugins: [require("@tailwindcss/typography"), require("daisyui"), require("tailwind-scrollbar")],
 };

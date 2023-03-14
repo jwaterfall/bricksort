@@ -1,33 +1,35 @@
 import { FC } from "react";
+import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { MdOutlineNotifications, MdOutlineExpandMore, MdSearch } from "react-icons/md";
-import Button from "./Button";
-import Input from "./Input";
+import Link from "next/link";
 
-export interface TopbarProps {
-    title: string;
-}
-
-const Topbar: FC<TopbarProps> = ({ title }) => {
-    const { user, isLoading } = useUser();
-
-    if (isLoading || !user) return null;
+const Topbar: FC = () => {
+    const { user } = useUser();
 
     return (
-        <nav className="flex items-center justify-between gap-8">
-            <h1 className="text-3xl font-semibold text-gray-50 capitalize">{title}</h1>
-            <div className="flex items-center gap-4">
-                <Input placeholder="Search..." Icon={MdSearch} />
-                <Button shape="square" color="default" Icon={MdOutlineNotifications} ping />
-                <button className="flex h-12 items-center justify-center rounded-xl bg-gray-900 px-2 text-gray-400 hover:text-gray-50 border border-gray-700">
-                    {user.picture && (
-                        <img src={user.picture} alt="profile picture" className="h-8 w-8 rounded-lg object-cover" referrerPolicy="no-referrer" />
-                    )}
-                    <span className="pl-2 text-sm">{user.name}</span>
-                    <MdOutlineExpandMore className="h-6 w-6 stroke-current" />
-                </button>
+        <div className="navbar bg-base-100 px-4 shadow-xl justify-between">
+            <Link className="flex gap-4 text-2xl font-lobster" href="/">
+                <Image src="/logo.png" alt="Logo" className="w-10 h-10" width={40} height={40} />
+                Bricksort
+            </Link>
+            <div className="flex-none">
+                {user?.picture && (
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 rounded-full">
+                                <img src={user.picture} referrerPolicy="no-referrer" />
+                            </div>
+                        </label>
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                            <li>
+                                {/* eslint-disable-next-line */}
+                                <a href="/api/auth/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                )}
             </div>
-        </nav>
+        </div>
     );
 };
 
