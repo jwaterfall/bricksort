@@ -29,6 +29,7 @@
         "eslint-config-next": "^13.1.4",
         "mongoose": "^6.7.4",
         "next": "^13.1.4",
+        "next-pwa": "^5.6.0",
         "next-usequerystate": "^1.7.2",
         "postcss": "^8.4.19",
         "react": "^18.2.0",
