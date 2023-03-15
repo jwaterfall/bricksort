@@ -1,16 +1,29 @@
 import { FC } from "react";
-import { FaHammer } from "react-icons/fa";
+import { FaHammer, FaTrash } from "react-icons/fa";
 import Image from "next/image";
 
 import useCreateCollectionInventory from "../mutations/useCreateCollectionInventory";
 import { ExtendedSet } from "../models/Set";
+import { ExtendedCollectionInventory } from "../models/CollectionInventory";
+import { AlertType, useAlerts } from "./AlertProvider";
+import useDeleteCollectionInventory from "../mutations/useDeleteCollectionInventory";
 
-interface SetCardProps {
+interface DefaultSetCardProps {
     set: ExtendedSet;
 }
 
-const SetCard: FC<SetCardProps> = ({ set }) => {
-    const { mutate: createCollectionInventory, isLoading } = useCreateCollectionInventory();
+interface CollectionInventoryCardProps {
+    collectionInventory: ExtendedCollectionInventory;
+}
+
+type SetCardProps = DefaultSetCardProps | CollectionInventoryCardProps;
+
+const SetCard: FC<SetCardProps> = (props) => {
+    const { mutate: createCollectionInventory, isLoading: isCreating } = useCreateCollectionInventory();
+    const { mutate: deleteCollectionInventory, isLoading: isDeleting } = useDeleteCollectionInventory();
+    const { addAlert } = useAlerts();
+
+    const set = "set" in props ? props.set : props.collectionInventory.inventory.set;
 
     return (
         <div className="card card-compact bg-base-100 shadow-xl">
@@ -31,14 +44,29 @@ const SetCard: FC<SetCardProps> = ({ set }) => {
                     {set.theme.name} • {set.year} • {set.partCount > 1 ? `${set.partCount} Pieces` : "1 Piece"}
                 </p>
                 <div className="card-actions mt-4">
-                    <button
-                        className={`btn btn-primary gap-2 w-full ${isLoading ? "loading" : ""}`}
-                        disabled={isLoading}
-                        onClick={() => createCollectionInventory(set._id)}
-                    >
-                        <FaHammer className="h-5 w-5" />
-                        Build Set
-                    </button>
+                    {"set" in props ? (
+                        <button
+                            className={`btn btn-primary gap-2 w-full ${isCreating ? "loading" : ""}`}
+                            disabled={isCreating}
+                            onClick={() => createCollectionInventory(set._id)}
+                        >
+                            <FaHammer className="h-5 w-5" />
+                            Build Set
+                        </button>
+                    ) : (
+                        <button
+                            className={`btn btn-primary gap-2 w-full ${isDeleting ? "loading" : ""}`}
+                            disabled={isCreating}
+                            onClick={() => {
+                                addAlert("Are you sure you want to delete this set?", AlertType.Warning, () =>
+                                    deleteCollectionInventory(props.collectionInventory._id)
+                                );
+                            }}
+                        >
+                            <FaTrash className="h-5 w-5" />
+                            Delete Set
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

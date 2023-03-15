@@ -18,7 +18,11 @@ module.exports = {
             {
                 bricksort: {
                     ...require("daisyui/src/colors/themes")["[data-theme=lofi]"],
-                    primary: "#dc2626",
+                    primary: "#DC2626",
+                    info: "#2563EB",
+                    success: "#16A34A",
+                    warning: "#CA8A04",
+                    error: "#DC2626",
                 },
             },
         ],

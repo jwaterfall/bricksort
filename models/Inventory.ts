@@ -1,10 +1,15 @@
 import mongoose, { Document, Schema, model } from "mongoose";
+import { ExtendedSet } from "./Set";
 
 // @ts-expect-error
 export interface Inventory extends Document {
   _id: string;
   version: number;
   set: string;
+}
+
+export interface ExtendedInventory extends Omit<Inventory, "set"> {
+  set: ExtendedSet;
 }
 
 const schema = new Schema<Inventory>({

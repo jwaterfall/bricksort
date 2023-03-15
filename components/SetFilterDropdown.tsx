@@ -34,7 +34,7 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
                 <FaFilter className="h-5 w-5" />
                 filters
             </label>
-            <ul tabIndex={0} className="dropdown-content menu p-2 mt-2 shadow-xl bg-base-100 rounded-box font-medium">
+            <ul tabIndex={0} className="dropdown-content p-4 mt-2 shadow-xl bg-base-100 rounded-box font-medium">
                 <li>
                     <div className="form-control w-full max-w-xs">
                         <label className="label w-full">
@@ -86,7 +86,7 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
                             <label className="label w-full">
                                 <span className="label-text">Theme</span>
                             </label>
-                            <div className="flex flex-col max-h-52 overflow-y-auto">
+                            <div className="flex flex-col max-h-52 overflow-y-auto p-4 bg-base-300 rounded-sm">
                                 {themes
                                     .filter((theme) => !theme.parent)
                                     .sort((a, b) => a.name.localeCompare(b.name))
@@ -113,7 +113,7 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
                     </li>
                 )}
                 <button
-                    className="btn btn-primary mt-2"
+                    className="btn btn-primary mt-2 w-full"
                     onClick={async () => {
                         await setSearch("");
                         await setThemeIds([]);

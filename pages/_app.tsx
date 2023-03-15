@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import Navbar from "../components/Navbar";
 import Topbar from "../components/Topbar";
+import AlertProvider from "../components/AlertProvider";
 
 import "../globals.css";
 
@@ -24,18 +25,22 @@ const lobster = Lobster({
 const queryClient = new QueryClient();
 
 const App = ({ Component, pageProps }: AppProps) => (
-    <UserProvider>
-        <QueryClientProvider client={queryClient}>
-            <div className={`flex flex-col w-full h-screen overflow-hidden font-sans ${poppins.variable} ${lobster.variable}`}>
-                <Topbar />
-                <main className="flex-1 overflow-x-auto scrollbar-none p-4 bg-base-300">
-                    <Component {...pageProps} />
-                </main>
-                <Navbar />
-            </div>
-            <ReactQueryDevtools />
-        </QueryClientProvider>
-    </UserProvider>
+    <div className={`font-sans ${poppins.variable} ${lobster.variable}`}>
+        <UserProvider>
+            <QueryClientProvider client={queryClient}>
+                <AlertProvider>
+                    <div className="flex flex-col w-full h-screen overflow-hidden">
+                        <Topbar />
+                        <main className="flex-1 overflow-x-auto scrollbar-none p-4 bg-base-300">
+                            <Component {...pageProps} />
+                        </main>
+                        <Navbar />
+                    </div>
+                </AlertProvider>
+                <ReactQueryDevtools />
+            </QueryClientProvider>
+        </UserProvider>
+    </div>
 );
 
 export default App;

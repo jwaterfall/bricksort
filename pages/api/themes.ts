@@ -9,11 +9,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         case "GET":
             try {
                 const themes = await ThemeModel.find();
-
                 res.json(themes);
-            } catch (err) {
-                res.status(500).json({ error: (err as Error).message });
+            } catch (error) {
+                res.status(500).json({ error: (error as Error).message });
             }
+
             break;
         default:
             res.setHeader("Allow", ["GET"]);

@@ -1,8 +1,13 @@
 import mongoose, { Document, Schema, model } from "mongoose";
+import { ExtendedInventory } from "./Inventory";
 
 export interface CollectionInventory extends Document {
     user: string;
     inventory: string;
+}
+
+export interface ExtendedCollectionInventory extends Omit<CollectionInventory, "inventory"> {
+    inventory: ExtendedInventory;
 }
 
 const schema = new Schema<CollectionInventory>({
