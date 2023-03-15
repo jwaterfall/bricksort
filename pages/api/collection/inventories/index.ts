@@ -3,6 +3,9 @@ import { withApiAuthRequired, getSession, Session } from "@auth0/nextjs-auth0";
 
 import connectToDatabase from "../../../../middleware/connectToDatabase";
 import CollectionInventoryModel from "../../../../models/CollectionInventory";
+import InventoryModel from "../../../../models/Inventory";
+import SetModel from "../../../../models/Set";
+import ThemeModel from "../../../../models/Theme";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { user } = (await getSession(req, res)) as Session;
@@ -21,10 +24,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     .skip(skip)
                     .populate({
                         path: "inventory",
+                        model: InventoryModel,
                         populate: {
                             path: "set",
+                            model: SetModel,
                             populate: {
                                 path: "theme",
+                                model: ThemeModel,
                             },
                         },
                     })
