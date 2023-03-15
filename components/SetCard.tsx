@@ -26,7 +26,7 @@ const SetCard: FC<SetCardProps> = (props) => {
     const set = "set" in props ? props.set : props.collectionInventory.inventory.set;
 
     return (
-        <div className="card card-compact bg-base-100 shadow-xl">
+        <div className="card card-compact bg-base-100 shadow-xl h-fit">
             <figure>
                 <Image
                     src={set.imageUrl}
@@ -34,6 +34,7 @@ const SetCard: FC<SetCardProps> = (props) => {
                     height={225}
                     alt={set.name}
                     className="p-4 object-contain w-full aspect-4/3 mix-blend-multiply"
+                    priority={true}
                 />
             </figure>
             <div className="card-body">

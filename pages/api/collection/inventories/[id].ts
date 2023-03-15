@@ -56,10 +56,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     quantityFound: 0,
                 }));
 
-                await collectionInventory.save();
                 await CollectionInventoryPartModel.insertMany(collectionInventoryParts);
                 await CollectionInventoryMinifigModel.insertMany(collectionInventoryMinifigs);
                 await CollectionInventorySetModel.insertMany(collectionInventorySets);
+                await collectionInventory.save();
 
                 res.status(200).json(collectionInventory);
             } catch (error) {
@@ -71,15 +71,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             try {
                 const collectionInventoryId = req.query.id;
 
-                const collectionInventory = await CollectionInventoryModel.findByIdAndDelete(collectionInventoryId);
                 await CollectionInventoryPartModel.deleteMany({ collectionInventory: collectionInventoryId });
                 await CollectionInventoryMinifigModel.deleteMany({ collectionInventory: collectionInventoryId });
                 await CollectionInventorySetModel.deleteMany({ collectionInventory: collectionInventoryId });
+                const collectionInventory = await CollectionInventoryModel.findByIdAndDelete(collectionInventoryId);
 
                 res.status(200).json(collectionInventory);
             } catch (error) {
                 res.status(500).json({ error: (error as Error).message });
             }
+
+            break;
         default:
             res.setHeader("Allow", ["POST", "DELETE"]);
             res.status(405).end(`Method ${req.method} Not Allowed`);

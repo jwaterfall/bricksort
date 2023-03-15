@@ -15,13 +15,20 @@ const CollectionPage: NextPage = () => {
     if (isSetsLoading || !data) return null;
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 min-h-full">
             <Pagination page={page} setPage={setPage} pageCount={data.totalPageCount} />
-            <CardContainer>
-                {data.collectionInventories.map((collectionInventory) => (
-                    <SetCard key={collectionInventory.id} collectionInventory={collectionInventory} />
-                ))}
-            </CardContainer>
+            {data.collectionInventories.length ? (
+                <CardContainer>
+                    {data.collectionInventories.map((collectionInventory) => (
+                        <SetCard key={collectionInventory.id} collectionInventory={collectionInventory} />
+                    ))}
+                </CardContainer>
+            ) : (
+                <div className="flex-1 flex flex-col gap-2 justify-center items-center">
+                    <h1 className="text-2xl font-bold">No sets found</h1>
+                    <h3 className="font-medium text-center">Go to the browse page to add sets to your collection</h3>
+                </div>
+            )}
             <Pagination page={page} setPage={setPage} pageCount={data.totalPageCount} />
         </div>
     );

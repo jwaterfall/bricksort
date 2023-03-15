@@ -21,7 +21,7 @@ const BrowsePage: NextPage = () => {
     if (isSetsLoading || !data) return null;
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 min-h-full">
             <div className="flex justify-between">
                 <Pagination page={page} setPage={setPage} pageCount={data.totalPageCount} />
                 <SetFilterDropdown
@@ -36,11 +36,18 @@ const BrowsePage: NextPage = () => {
                     setPage={setPage}
                 />
             </div>
-            <CardContainer>
-                {data.sets.map((set) => (
-                    <SetCard key={set.id} set={set} />
-                ))}
-            </CardContainer>
+            {data.sets.length ? (
+                <CardContainer>
+                    {data.sets.map((set) => (
+                        <SetCard key={set.id} set={set} />
+                    ))}
+                </CardContainer>
+            ) : (
+                <div className="flex-1 flex flex-col gap-2 justify-center items-center">
+                    <h1 className="text-2xl font-bold">No sets found</h1>
+                    <h3 className="font-medium text-center">Try changing your filters</h3>
+                </div>
+            )}
             <Pagination page={page} setPage={setPage} pageCount={data.totalPageCount} />
         </div>
     );

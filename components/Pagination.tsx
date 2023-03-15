@@ -12,7 +12,7 @@ const Pagination: FC<PaginationProps> = ({ page, setPage: onChange, pageCount })
             «
         </button>
         <button className="btn ">
-            Page {page} of {pageCount}
+            Page {page} of {pageCount || 1}
         </button>
         <button className={`btn ${page >= pageCount ? "btn-disabled" : ""}`} disabled={page >= pageCount} onClick={() => onChange(page + 1)}>
             »
