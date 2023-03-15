@@ -1,21 +1,20 @@
 import { FC } from "react";
-import { MdOutlineHandyman } from "react-icons/md";
+import { FaHammer } from "react-icons/fa";
 import Image from "next/image";
 
-import useCreateCollectionInventory from "../mutations/useCreateCollectionInventory"; 
+import useCreateCollectionInventory from "../mutations/useCreateCollectionInventory";
 import { ExtendedSet } from "../models/Set";
-
 
 interface SetCardProps {
     set: ExtendedSet;
 }
 
 const SetCard: FC<SetCardProps> = ({ set }) => {
-    const { mutate: createCollectionInventory } = useCreateCollectionInventory();
+    const { mutate: createCollectionInventory, isLoading } = useCreateCollectionInventory();
 
     return (
-        <div className="card bg-base-100 shadow-xl">
-            <figure className="bg-white">
+        <div className="card card-compact bg-base-100 shadow-xl">
+            <figure>
                 <Image
                     src={set.imageUrl}
                     width={300}
@@ -28,12 +27,16 @@ const SetCard: FC<SetCardProps> = ({ set }) => {
                 <h2 className="card-title">
                     {set.name} - #{set._id.endsWith("-1") ? set._id.slice(0, -2) : set._id}
                 </h2>
-                <p>
+                <p className="font-medium">
                     {set.theme.name} • {set.year} • {set.partCount > 1 ? `${set.partCount} Pieces` : "1 Piece"}
                 </p>
                 <div className="card-actions mt-4">
-                    <button className="btn btn-primary gap-2" onClick={() => createCollectionInventory(set._id)}>
-                        <MdOutlineHandyman className="h-6 w-6" />
+                    <button
+                        className={`btn btn-primary gap-2 w-full ${isLoading ? "loading" : ""}`}
+                        disabled={isLoading}
+                        onClick={() => createCollectionInventory(set._id)}
+                    >
+                        <FaHammer className="h-5 w-5" />
                         Build Set
                     </button>
                 </div>

@@ -17,16 +17,8 @@ module.exports = {
         themes: [
             {
                 bricksort: {
-                    primary: "#ef4444",
-                    secondary: "#3b82f6",
-                    accent: "#22c55e",
-                    neutral: "#1e293b",
-                    "base-100": "#0f172a",
-                    info: "#3b82f6",
-                    success: "#22c55e",
-                    warning: "#f59e0b",
-                    error: "#ef4444",
-                    "rounded-button": "0rem ",
+                    ...require("daisyui/src/colors/themes")["[data-theme=lofi]"],
+                    primary: "#dc2626",
                 },
             },
         ],

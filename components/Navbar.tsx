@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { IconType } from "react-icons";
-import { MdOutlineHandyman, MdOutlineSettings, MdOutlineDirectionsCar } from "react-icons/md";
+import { FaBoxOpen, FaCar, FaHome } from "react-icons/fa";
 
 interface NavbarLinkProps {
     href: string;
@@ -17,16 +17,22 @@ const NavbarLink: FC<PropsWithChildren<NavbarLinkProps>> = ({ href, Icon, childr
     return (
         <Link href={href} className={active ? "active text-primary" : ""}>
             <Icon className="text-currentColor w-5 h-5" />
-            <h4 className="text-sm mt-0.5">{children}</h4>
+            <span className="font-medium text-sm">{children}</span>
         </Link>
     );
 };
 
 const Navbar: FC = () => (
     <div className="btm-nav static">
-        <NavbarLink href="/" exact Icon={MdOutlineHandyman} />
-        <NavbarLink href="/browse/sets" Icon={MdOutlineDirectionsCar} />
-        <NavbarLink href="/settings" Icon={MdOutlineSettings} />
+        <NavbarLink href="/" exact Icon={FaHome}>
+            Home
+        </NavbarLink>
+        <NavbarLink href="/collection" exact Icon={FaBoxOpen}>
+            Collection
+        </NavbarLink>
+        <NavbarLink href="/browse/sets" Icon={FaCar}>
+            Browse
+        </NavbarLink>
     </div>
 );
 
