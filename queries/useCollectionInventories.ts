@@ -5,7 +5,7 @@ import { ExtendedCollectionInventory } from "../models/CollectionInventory";
 
 interface SetResponse {
     collectionInventories: ExtendedCollectionInventory[];
-    totalPageCount: number;
+    pageCount: number;
 }
 
 const getCollectionInventories = async (page?: number, limit?: number) => {

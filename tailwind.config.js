@@ -7,10 +7,6 @@ module.exports = {
                 sans: ["var(--font-poppins)"],
                 lobster: ["var(--font-lobster)"],
             },
-            aspectRatio: {
-                "3/4": "3 / 4",
-                "4/3": "4 / 3",
-            },
         },
     },
     daisyui: {

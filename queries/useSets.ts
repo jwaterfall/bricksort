@@ -5,7 +5,7 @@ import { ExtendedSet } from "../models/Set";
 
 interface SetResponse {
     sets: ExtendedSet[];
-    totalPageCount: number;
+    pageCount: number;
 }
 
 const getSets = async (page?: number, limit?: number, themes: string[] = [], search?: string, minYear?: number, maxYear?: number) => {

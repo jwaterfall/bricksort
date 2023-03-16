@@ -27,7 +27,7 @@ const Navbar: FC = () => (
         <NavbarLink href="/" exact Icon={FaHome}>
             Home
         </NavbarLink>
-        <NavbarLink href="/collection" exact Icon={FaBoxOpen}>
+        <NavbarLink href="/collection" Icon={FaBoxOpen}>
             Collection
         </NavbarLink>
         <NavbarLink href="/browse" Icon={FaCar}>

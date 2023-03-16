@@ -1,15 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { withApiAuthRequired, getSession, Session } from "@auth0/nextjs-auth0";
 
-import connectToDatabase from "../../../../middleware/connectToDatabase";
-import InventoryModel from "../../../../models/Inventory";
-import InventoryPartModel from "../../../../models/InventoryPart";
-import InventoryMinifigModel from "../../../../models/InventoryMinifig";
-import InventorySetModel from "../../../../models/InventorySet";
-import CollectionInventoryModel from "../../../../models/CollectionInventory";
-import CollectionInventoryPartModel from "../../../../models/CollectionInventoryPart";
-import CollectionInventoryMinifigModel from "../../../../models/CollectionInventoryMinifig";
-import CollectionInventorySetModel from "../../../../models/CollectionInventorySet";
+import connectToDatabase from "../../../../../middleware/connectToDatabase";
+import InventoryModel from "../../../../../models/Inventory";
+import InventoryPartModel from "../../../../../models/InventoryPart";
+import InventoryMinifigModel from "../../../../../models/InventoryMinifig";
+import InventorySetModel from "../../../../../models/InventorySet";
+import CollectionInventoryModel from "../../../../../models/CollectionInventory";
+import CollectionInventoryPartModel from "../../../../../models/CollectionInventoryPart";
+import CollectionInventoryMinifigModel from "../../../../../models/CollectionInventoryMinifig";
+import CollectionInventorySetModel from "../../../../../models/CollectionInventorySet";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { user } = (await getSession(req, res)) as Session;

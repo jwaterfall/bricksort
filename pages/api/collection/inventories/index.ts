@@ -36,11 +36,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     })
                     .exec();
 
-                const totalPageCount = Math.ceil((await CollectionInventoryModel.countDocuments(query)) / limit);
+                const pageCount = Math.ceil((await CollectionInventoryModel.countDocuments(query)) / limit);
 
                 res.status(200).json({
                     collectionInventories,
-                    totalPageCount,
+                    pageCount,
                 });
             } catch (error) {
                 res.status(500).json({ error: (error as Error).message });

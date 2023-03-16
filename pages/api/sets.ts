@@ -27,16 +27,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 };
 
                 const sets = await SetModel.find(query).sort({ year: -1 }).limit(limit).skip(skip).populate("theme", undefined, ThemeModel).exec();
-                const totalPageCount = Math.ceil((await SetModel.countDocuments(query)) / limit);
+                const pageCount = Math.ceil((await SetModel.countDocuments(query)) / limit);
 
                 res.json({
                     sets,
-                    totalPageCount,
+                    pageCount,
                 });
             } catch (error) {
                 res.status(500).json({ error: (error as Error).message });
             }
-            
+
             break;
         default:
             res.setHeader("Allow", ["GET"]);
