@@ -20,15 +20,12 @@ const CollectionPage: NextPage = () => {
 
     return (
         <div className="flex flex-col gap-4 min-h-full">
-            <div className="tabs tabs-boxed grid grid-cols-3 -m-4 mb-0">
+            <div className="tabs tabs-boxed grid grid-cols-2 -m-4 mb-0">
                 <Link className={`tab ${tab === "parts" ? "tab-active" : ""}`} href={`/collection/${id}/parts`}>
-                    Parts
+                    All Parts
                 </Link>
                 <Link className={`tab ${tab === "spares" ? "tab-active" : ""}`} href={`/collection/${id}/spares`}>
                     Spares
-                </Link>
-                <Link className={`tab ${tab === "minifigs" ? "tab-active" : ""}`} href={`/collection/${id}/minifigs`}>
-                    Minifigs
                 </Link>
             </div>
             <div className="flex-1">

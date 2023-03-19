@@ -82,7 +82,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     },
                 ]);
 
-                const pageCount = Math.ceil(countResult[0].count / limit);
+                const pageCount = countResult.length > 0 ? Math.ceil(countResult[0].count / limit) : 0;
 
                 res.status(200).json({
                     collectionInventoryParts,

@@ -15,7 +15,7 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
     return (
         <Card
             title={part.name}
-            body={`${color.name} • ${collectionInventoryPart.quantityFound} of ${inventoryPart.quantity} found`}
+            body={`${color.name} • ${collectionInventoryPart.quantityFound} of ${collectionInventoryPart.quantity} found`}
             imgSrc={inventoryPart.imageUrl}
             imgAlt={part.name}
         />
