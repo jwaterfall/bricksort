@@ -21,7 +21,7 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
             title={`${set.name} - #${set._id.endsWith('-1') ? set._id.slice(0, -2) : set._id}`}
             body={`${set.theme.name} • ${set.year} • ${collectionInventory.totalPartQuantityFound} of ${
                 collectionInventory.totalPartQuantity > 1 ? `${collectionInventory.totalPartQuantity} Pieces` : '1 Piece'
-            } (${collectionInventory.percentComplete}%)`}
+            } (${Math.floor((collectionInventory.totalPartQuantityFound / collectionInventory.totalPartQuantity) * 100)}%)`}
             imgSrc={set.imageUrl}
             imgAlt={set.name}
             href={`/collection/${collectionInventory._id}/missing-parts`}
