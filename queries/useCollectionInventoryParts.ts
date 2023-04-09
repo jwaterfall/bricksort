@@ -10,7 +10,7 @@ interface SetResponse {
 
 export const getCollectionInventoryParts = async (id: string, page?: number, limit?: number, isMissing?: boolean) => {
     const response = await axios.get(`${window.location.origin}/api/collection/inventories/${id}/parts`, {
-        params: { page, limit, isMissing },
+        params: { page, limit, type: isMissing ? 'missing' : 'found' },
     });
 
     return response.data;

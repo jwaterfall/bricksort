@@ -24,8 +24,8 @@ const CollectionPage: NextPage = () => {
                 <Link className={`tab ${tab === 'missing-parts' ? 'tab-active' : ''}`} href={`/collection/${id}/missing-parts`}>
                     Missing Parts
                 </Link>
-                <Link className={`tab ${tab === 'all-parts' ? 'tab-active' : ''}`} href={`/collection/${id}/all-parts`}>
-                    All Parts
+                <Link className={`tab ${tab === 'found-parts' ? 'tab-active' : ''}`} href={`/collection/${id}/found-parts`}>
+                    Found Parts
                 </Link>
             </div>
             <div className="flex-1">
@@ -42,13 +42,13 @@ const CollectionPage: NextPage = () => {
                         ))}
                     </CardDisplay>
                 )}
-                {tab === 'all-parts' && (
+                {tab === 'found-parts' && (
                     <CardDisplay
                         page={page}
                         setPage={setPage}
                         pageCount={allPartsData.pageCount}
-                        emptyTitle="Congratulations!"
-                        emptySubtitle="You've found all the parts in this collection"
+                        emptyTitle="No parts found"
+                        emptySubtitle="Head over to the missing parts tab to add some parts to this collection"
                     >
                         {allPartsData.collectionInventoryParts.map((collectionInventoryPart) => (
                             <CollectionInventoryPartCard key={collectionInventoryPart.id} collectionInventoryPart={collectionInventoryPart} />

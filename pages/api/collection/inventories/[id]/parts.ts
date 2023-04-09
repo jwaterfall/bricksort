@@ -13,7 +13,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             try {
                 const collectionInventoryId = req.query.id as string;
 
-                const isMissing = (req.query.isMissing as string) === 'true';
+                const type = req.query.type as string;
 
                 const page = parseInt(req.query.page as string) || 1;
                 const limit = parseInt(req.query.limit as string) || 100;
@@ -39,12 +39,21 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     },
                 ];
 
-                if (isMissing) {
-                    baseQuery.push({
-                        $match: {
-                            $expr: { $lt: ['$quantityFound', '$quantity'] },
-                        },
-                    });
+                switch (type) {
+                    case 'missing':
+                        baseQuery.push({
+                            $match: {
+                                $expr: { $lt: ['$quantityFound', '$quantity'] },
+                            },
+                        });
+                        break;
+                    case 'found':
+                        baseQuery.push({
+                            $match: {
+                                $expr: { $gte: ['$quantityFound', '$quantity'] },
+                            },
+                        });
+                        break;
                 }
 
                 const collectionInventoryParts = await CollectionInventoryPartModel.aggregate([
