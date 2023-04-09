@@ -1,5 +1,5 @@
-import { FC, PropsWithChildren } from "react";
-import Pagination from "./Pagination";
+import { FC, PropsWithChildren } from 'react';
+import Pagination from './Pagination';
 
 interface CardDisplayProps {
     page: number;
@@ -11,22 +11,24 @@ interface CardDisplayProps {
 }
 
 const CardDisplay: FC<PropsWithChildren<CardDisplayProps>> = ({ page, setPage, pageCount, emptyTitle, emptySubtitle, children, FilterDropdown }) => (
-    <div className="flex flex-col gap-4 min-h-full">
+    <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
-            <Pagination page={page} setPage={setPage} pageCount={pageCount} disabled={pageCount <= 0} />
+            <div>{pageCount > 0 && <Pagination page={page} setPage={setPage} pageCount={pageCount} disabled={pageCount <= 0} />}</div>
             {FilterDropdown}
         </div>
         {pageCount > 0 ? (
-            <div className="flex-1 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-                {children}
-            </div>
+            <>
+                <div className="flex-1 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+                    {children}
+                </div>
+                <Pagination page={page} setPage={setPage} pageCount={pageCount} disabled={pageCount <= 0} />
+            </>
         ) : (
-            <div className="flex-1 flex flex-col gap-2 justify-center items-center">
+            <div className="h-96 flex flex-col gap-2 justify-center items-center">
                 <h2 className="text-2xl font-bold">{emptyTitle}</h2>
                 <h3 className="font-medium text-center">{emptySubtitle}</h3>
             </div>
         )}
-        <Pagination page={page} setPage={setPage} pageCount={pageCount} disabled={pageCount <= 0} />
     </div>
 );
 
