@@ -1,18 +1,19 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { withApiAuthRequired, getSession, Session } from "@auth0/nextjs-auth0";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { withApiAuthRequired, getSession, Session } from '@auth0/nextjs-auth0';
+import { Types } from 'mongoose';
 
-import connectToDatabase from "../../../../../middleware/connectToDatabase";
-import InventoryModel from "../../../../../models/Inventory";
-import InventoryPartModel, { InventoryPart } from "../../../../../models/InventoryPart";
-import InventoryMinifigModel from "../../../../../models/InventoryMinifig";
-import CollectionInventoryModel from "../../../../../models/CollectionInventory";
-import CollectionInventoryPartModel from "../../../../../models/CollectionInventoryPart";
+import connectToDatabase from '../../../../../middleware/connectToDatabase';
+import InventoryModel from '../../../../../models/Inventory';
+import InventoryPartModel from '../../../../../models/InventoryPart';
+import InventoryMinifigModel from '../../../../../models/InventoryMinifig';
+import CollectionInventoryModel from '../../../../../models/CollectionInventory';
+import CollectionInventoryPartModel from '../../../../../models/CollectionInventoryPart';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { user } = (await getSession(req, res)) as Session;
 
     switch (req.method) {
-        case "POST":
+        case 'POST':
             try {
                 const setId = req.query.id;
 
@@ -23,54 +24,68 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     return;
                 }
 
-                const inventoryParts = await InventoryPartModel.find({ inventory: inventory._id });
+                const inventoryParts = await InventoryPartModel.find({ inventory: inventory._id, isSpare: false });
                 const inventoryMinifigs = await InventoryMinifigModel.find({ inventory: inventory._id });
-                const allMinifigInventories = await InventoryModel.find({
+                const minifigInventories = await InventoryModel.find({
                     set: { $in: inventoryMinifigs.map((inventoryMinifig) => inventoryMinifig.minifig) },
                 });
-                const allMinifigInventoryParts = await InventoryPartModel.find({
-                    inventory: { $in: allMinifigInventories.map((minifigInventory) => minifigInventory._id) },
+                const minifigInventoryParts = await InventoryPartModel.find({
+                    inventory: { $in: minifigInventories.map((minifigInventory) => minifigInventory._id) },
                 });
 
+                const deduplicatedMinifigInventoryParts = new Map<string, any>();
+
                 inventoryMinifigs.forEach((inventoryMinifig) => {
-                    const minifigInventory = allMinifigInventories.find((minifigInventory) => minifigInventory.set === inventoryMinifig.minifig);
+                    const minifigInventory = minifigInventories.find((minifigInventory) => minifigInventory.set === inventoryMinifig.minifig);
 
                     if (!minifigInventory) return;
 
-                    const minifigInventoryParts = allMinifigInventoryParts.filter(
+                    const currentMinifigInventoryParts = minifigInventoryParts.filter(
                         (minifigInventoryPart) => minifigInventoryPart.inventory === minifigInventory._id
                     );
 
-                    minifigInventoryParts.forEach((minifigInventoryPart) => {
+                    currentMinifigInventoryParts.forEach((minifigInventoryPart) => {
                         minifigInventoryPart.quantity *= inventoryMinifig.quantity;
-                        inventoryParts.push(minifigInventoryPart);
+
+                        const key = `${minifigInventoryPart.part}-${minifigInventoryPart.color}`;
+
+                        if (deduplicatedMinifigInventoryParts.has(key)) {
+                            deduplicatedMinifigInventoryParts.get(key).quantity += minifigInventoryPart.quantity;
+                        } else {
+                            deduplicatedMinifigInventoryParts.set(key, minifigInventoryPart);
+                        }
                     });
                 });
 
-                const collectionInventory = new CollectionInventoryModel({
+                const collectionInventoryId = new Types.ObjectId();
+
+                const collectionInventoryParts = inventoryParts.map((inventoryPart) => ({
                     user: user.sub,
-                    inventory: inventory._id,
-                });
-
-                const deduplicatedInventoryParts = new Map<string, any>();
-
-                inventoryParts.forEach((inventoryPart) => {
-                    const key = `${inventoryPart.part}-${inventoryPart.color}`;
-
-                    if (deduplicatedInventoryParts.has(key)) {
-                        deduplicatedInventoryParts.get(key).quantity += inventoryPart.quantity;
-                    } else {
-                        deduplicatedInventoryParts.set(key, inventoryPart);
-                    }
-                });
-
-                const collectionInventoryParts = Array.from(deduplicatedInventoryParts.values()).map((inventoryPart) => ({
-                    user: user.sub,
-                    collectionInventory: collectionInventory._id,
+                    collectionInventory: collectionInventoryId,
                     inventoryPart: inventoryPart._id,
                     quantity: inventoryPart.quantity,
-                    quantityFound: 0,
                 }));
+
+                collectionInventoryParts.push(
+                    ...Array.from(deduplicatedMinifigInventoryParts.values()).map((minifigInventoryPart) => ({
+                        user: user.sub,
+                        collectionInventory: collectionInventoryId,
+                        inventoryPart: minifigInventoryPart._id,
+                        quantity: minifigInventoryPart.quantity,
+                        isForMinifig: true,
+                    }))
+                );
+
+                const totalPartQuantity = collectionInventoryParts.reduce((total, collectionInventoryPart) => {
+                    return total + collectionInventoryPart.quantity;
+                }, 0);
+
+                const collectionInventory = new CollectionInventoryModel({
+                    _id: collectionInventoryId,
+                    user: user.sub,
+                    inventory: inventory._id,
+                    totalPartQuantity,
+                });
 
                 await CollectionInventoryPartModel.insertMany(collectionInventoryParts);
                 await collectionInventory.save();
@@ -82,7 +97,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             }
 
             break;
-        case "DELETE":
+        case 'DELETE':
             try {
                 const collectionInventoryId = req.query.id;
 
@@ -96,7 +111,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             break;
         default:
-            res.setHeader("Allow", ["POST", "DELETE"]);
+            res.setHeader('Allow', ['POST', 'DELETE']);
             res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 }

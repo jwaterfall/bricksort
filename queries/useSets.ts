@@ -8,7 +8,7 @@ interface SetResponse {
     pageCount: number;
 }
 
-const getSets = async (page?: number, limit?: number, themes: string[] = [], search?: string, minYear?: number, maxYear?: number) => {
+export const getSets = async (page?: number, limit?: number, themes: string[] = [], search?: string, minYear?: number, maxYear?: number) => {
     const response = await axios.get(`${window.location.origin}/api/sets`, {
         params: { page, limit, themes, search, minYear, maxYear },
     });

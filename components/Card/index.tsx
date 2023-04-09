@@ -1,11 +1,12 @@
-import { FC, PropsWithChildren } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import { FC, PropsWithChildren } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface CardProps {
     body: string;
     title?: string;
     href?: string;
+    onClick?: () => void;
 }
 
 interface CardWithImageProps extends CardProps {
@@ -13,10 +14,10 @@ interface CardWithImageProps extends CardProps {
     imgAlt: string;
 }
 
-const Card: FC<PropsWithChildren<CardProps | CardWithImageProps>> = ({ title, body, href, children, ...props }) => {
+const Card: FC<PropsWithChildren<CardProps | CardWithImageProps>> = ({ title, body, href, children, onClick, ...props }) => {
     const BaseCard = () => (
-        <div className="card card-compact bg-base-100 shadow-xl h-fit">
-            {"imgSrc" in props && (
+        <div className="card card-compact bg-base-100 shadow-xl h-fit" onClick={onClick}>
+            {'imgSrc' in props && (
                 <figure>
                     <Image
                         src={props.imgSrc}

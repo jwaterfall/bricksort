@@ -14,9 +14,9 @@ const CollectionPage: NextPage = () => {
 
     const [page, setPage] = useQueryState("page", { ...queryTypes.integer, defaultValue: 1, history: "push" });
     const { data: partsData, isLoading: isPartsLoading } = useCollectionInventoryParts(id, page, 20);
-    const { data: sparesData, isLoading: isSparesLoading } = useCollectionInventoryParts(id, page, 20, true);
+    const { data: minifigData, isLoading: isMinifigLoading } = useCollectionInventoryParts(id, page, 20, true);
 
-    if (isPartsLoading || !partsData || isSparesLoading || !sparesData) return null;
+    if (isPartsLoading || !partsData || isMinifigLoading || !minifigData) return null;
 
     return (
         <div className="flex flex-col gap-4 min-h-full">
@@ -24,8 +24,8 @@ const CollectionPage: NextPage = () => {
                 <Link className={`tab ${tab === "parts" ? "tab-active" : ""}`} href={`/collection/${id}/parts`}>
                     All Parts
                 </Link>
-                <Link className={`tab ${tab === "spares" ? "tab-active" : ""}`} href={`/collection/${id}/spares`}>
-                    Spares
+                <Link className={`tab ${tab === "minifig" ? "tab-active" : ""}`} href={`/collection/${id}/minifig`}>
+                    Minifig
                 </Link>
             </div>
             <div className="flex-1">
@@ -42,15 +42,15 @@ const CollectionPage: NextPage = () => {
                         ))}
                     </CardDisplay>
                 )}
-                {tab === "spares" && (
+                {tab === "minifig" && (
                     <CardDisplay
                         page={page}
                         setPage={setPage}
-                        pageCount={sparesData.pageCount}
+                        pageCount={minifigData.pageCount}
                         emptyTitle="Congratulations!"
-                        emptySubtitle="You've found all the spares in this collection"
+                        emptySubtitle="You've found all the minifig in this collection"
                     >
-                        {sparesData.collectionInventoryParts.map((collectionInventoryPart) => (
+                        {minifigData.collectionInventoryParts.map((collectionInventoryPart) => (
                             <CollectionInventoryPartCard key={collectionInventoryPart.id} collectionInventoryPart={collectionInventoryPart} />
                         ))}
                     </CardDisplay>

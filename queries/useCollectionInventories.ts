@@ -8,7 +8,7 @@ interface SetResponse {
     pageCount: number;
 }
 
-const getCollectionInventories = async (page?: number, limit?: number) => {
+export const getCollectionInventories = async (page?: number, limit?: number) => {
     const response = await axios.get(`${window.location.origin}/api/collection/inventories`, {
         params: { page, limit },
     });

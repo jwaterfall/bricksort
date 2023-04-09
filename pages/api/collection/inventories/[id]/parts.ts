@@ -1,22 +1,19 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { withApiAuthRequired, getSession, Session } from "@auth0/nextjs-auth0";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { withApiAuthRequired, getSession, Session } from '@auth0/nextjs-auth0';
+import { Types } from 'mongoose';
 
-import connectToDatabase from "../../../../../middleware/connectToDatabase";
-import InventoryPartModel from "../../../../../models/InventoryPart";
-import CollectionInventoryPartModel from "../../../../../models/CollectionInventoryPart";
-import PartModel from "../../../../../models/Part";
-import ColorModel from "../../../../../models/Color";
-import { Types } from "mongoose";
+import connectToDatabase from '../../../../../middleware/connectToDatabase';
+import CollectionInventoryPartModel from '../../../../../models/CollectionInventoryPart';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { user } = (await getSession(req, res)) as Session;
 
     switch (req.method) {
-        case "GET":
+        case 'GET':
             try {
                 const collectionInventoryId = req.query.id as string;
 
-                const isSpare = (req.query.isSpare as string) === "true";
+                const isForMinifig = (req.query.isForMinifig as string) === 'true';
 
                 const page = parseInt(req.query.page as string) || 1;
                 const limit = parseInt(req.query.limit as string) || 100;
@@ -25,20 +22,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 const baseQuery = [
                     {
                         $lookup: {
-                            from: "inventory_parts",
-                            localField: "inventoryPart",
-                            foreignField: "_id",
-                            as: "inventoryPart",
+                            from: 'inventory_parts',
+                            localField: 'inventoryPart',
+                            foreignField: '_id',
+                            as: 'inventoryPart',
                         },
                     },
                     {
-                        $unwind: "$inventoryPart",
+                        $unwind: '$inventoryPart',
                     },
                     {
                         $match: {
                             user: user.sub,
                             collectionInventory: new Types.ObjectId(collectionInventoryId),
-                            "inventoryPart.isSpare": isSpare,
+                            isForMinifig,
                         },
                     },
                 ];
@@ -47,25 +44,36 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     ...baseQuery,
                     {
                         $lookup: {
-                            from: "parts",
-                            localField: "inventoryPart.part",
-                            foreignField: "_id",
-                            as: "inventoryPart.part",
+                            from: 'parts',
+                            localField: 'inventoryPart.part',
+                            foreignField: '_id',
+                            as: 'inventoryPart.part',
                         },
                     },
                     {
-                        $unwind: "$inventoryPart.part",
+                        $unwind: '$inventoryPart.part',
                     },
                     {
                         $lookup: {
-                            from: "colors",
-                            localField: "inventoryPart.color",
-                            foreignField: "_id",
-                            as: "inventoryPart.color",
+                            from: 'colors',
+                            localField: 'inventoryPart.color',
+                            foreignField: '_id',
+                            as: 'inventoryPart.color',
                         },
                     },
                     {
-                        $unwind: "$inventoryPart.color",
+                        $unwind: '$inventoryPart.color',
+                    },
+                    {
+                        $lookup: {
+                            from: 'collection_inventories',
+                            localField: 'collectionInventory',
+                            foreignField: '_id',
+                            as: 'collectionInventory',
+                        },
+                    },
+                    {
+                        $unwind: '$collectionInventory',
                     },
                     {
                         $skip: skip,
@@ -78,7 +86,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 const countResult = await CollectionInventoryPartModel.aggregate([
                     ...baseQuery,
                     {
-                        $count: "count",
+                        $count: 'count',
                     },
                 ]);
 
@@ -94,7 +102,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             break;
         default:
-            res.setHeader("Allow", ["GET"]);
+            res.setHeader('Allow', ['GET']);
             res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 }
