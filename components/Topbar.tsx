@@ -6,6 +6,7 @@ import { FaBoxOpen, FaCar, FaHome, FaBell, FaSignOutAlt, FaCogs, FaBellSlash } f
 
 import { useAlerts } from './AlertProvider';
 import Dropdown, { DropdownContent, DropdownToggle, useDropdown } from './Dropdown';
+import Image from 'next/image';
 
 interface NavbarLinkProps {
     Icon: IconType;
@@ -23,7 +24,7 @@ const NavbarLink: FC<PropsWithChildren<NavbarLinkProps>> = ({ href, Icon, childr
             className="flex items-center gap-2 p-3 lg:px-4 text-sm rounded-lg whitespace-nowrap hover:bg-slate-800 transition-colors duration-75"
         >
             <Icon className={`w-5 h-5 flex-shrink-0 ${active ? 'text-red-500' : ''}`} />
-            <span className="hidden lg:block">{children}</span>
+            <span className="hidden sm:block">{children}</span>
         </Link>
     );
 };
@@ -45,8 +46,9 @@ const Topbar: FC = () => {
         <div className="bg-slate-900 text-slate-50">
             <div className="py-2 px-4 max-w-7xl mx-auto flex items-center">
                 <div className="basis-1/2">
-                    <Link className="text-2xl font-lobster" href="/">
-                        Bricksort
+                    <Link className="flex items-center gap-2 text-2xl font-lobster" href="/">
+                        <Image src="/logo.png" alt="logo" width={36} height={36} />
+                        <span className="hidden sm:block">Bricksort</span>
                     </Link>
                 </div>
                 <div className="flex-1 hidden lg:flex justify-center"></div>
