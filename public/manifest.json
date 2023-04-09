@@ -1,8 +1,8 @@
 {
     "name": "Bricksort",
     "short_name": "Bricksort",
-    "theme_color": "#FFFFFF",
-    "background_color": "#FFFFFF",
+    "theme_color": "#0F172A",
+    "background_color": "#0F172A",
     "display": "standalone",
     "orientation": "portrait",
     "scope": "/",

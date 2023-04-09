@@ -47,8 +47,8 @@ const Topbar: FC = () => {
             <div className="py-2 px-4 max-w-7xl mx-auto flex items-center">
                 <div className="basis-1/2">
                     <Link className="flex items-center gap-2 text-2xl font-lobster" href="/">
-                        <Image src="/logo.png" alt="logo" width={36} height={36} />
-                        <span className="hidden sm:block">Bricksort</span>
+                        <Image src="/logo.png" alt="logo" width={36} height={36} className="hidden sm:block" />
+                        <span>Bricksort</span>
                     </Link>
                 </div>
                 <div className="flex-1 hidden lg:flex justify-center"></div>
