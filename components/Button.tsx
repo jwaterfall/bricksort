@@ -28,7 +28,7 @@ const Button: FC<ButtonProps> = ({
     const getColorStyles = () => {
         switch (color) {
             case 'default':
-                return `border-slate-300 ${variant === 'outline' ? 'text-slate-200 hover:bg-slate-200' : 'bg-slate-200'}`;
+                return `border-slate-200 ${variant === 'outline' ? 'text-slate-100 hover:bg-slate-100' : 'bg-slate-100'}`;
             case 'primary':
                 return `border-red-500 ${variant === 'outline' ? 'text-red-500 hover:bg-red-500' : 'bg-red-500'}`;
         }
@@ -37,11 +37,11 @@ const Button: FC<ButtonProps> = ({
     const getSizeStyles = () => {
         switch (size) {
             case 'sm':
-                return 'text-xs px-2 h-8';
+                return `text-xs h-8 ${shape === 'default' ? 'px-2' : ''}`;
             case 'md':
-                return 'text-sm px-3 h-10';
+                return `text-sm h-10 ${shape === 'default' ? 'px-3' : ''}`;
             case 'lg':
-                return 'text-sm px-4 h-12';
+                return `text-base h-12 ${shape === 'default' ? 'px-4' : ''}`;
         }
     };
 
@@ -50,7 +50,7 @@ const Button: FC<ButtonProps> = ({
             case 'default':
                 return '';
             case 'square':
-                return 'px-0 aspect-square';
+                return 'aspect-square';
             case 'circle':
                 return 'rounded-full px-0 aspect-square';
         }

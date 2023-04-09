@@ -32,7 +32,7 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
     return (
         <Card href={`/collection/${collectionInventory._id}/missing-parts`}>
             {set.imageUrl && <CardImage src={set.imageUrl} alt={set.name} />}
-            <CardTitle>{`${set.name} - #${set._id.endsWith('-1') ? set._id.slice(0, -2) : set._id}`}</CardTitle>
+            <CardTitle>{set.name}</CardTitle>
             <CardBody>{`${set.theme.name} • ${set.year} • ${collectionInventory.totalPartQuantityFound} of ${
                 collectionInventory.totalPartQuantity > 1 ? `${collectionInventory.totalPartQuantity} Pieces` : '1 Piece'
             }`}</CardBody>

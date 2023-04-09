@@ -13,7 +13,7 @@ export const CardImage: FC<PropsWithChildren<CardImageProps>> = ({ src, alt }) =
     </figure>
 );
 
-export const CardTitle: FC<PropsWithChildren> = ({ children }) => <h2 className="font-semibold">{children}</h2>;
+export const CardTitle: FC<PropsWithChildren> = ({ children }) => <h2 className="font-semibold line-clamp-2">{children}</h2>;
 export const CardBody: FC<PropsWithChildren> = ({ children }) => <p className="text-sm">{children}</p>;
 export const CardFooter: FC<PropsWithChildren> = ({ children }) => <div className="mt-auto pt-4">{children}</div>;
 
