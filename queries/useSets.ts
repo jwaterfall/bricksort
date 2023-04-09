@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
-import { ExtendedSet } from "../models/Set";
+import { ExtendedSet } from '../models/Set';
 
 interface SetResponse {
     sets: ExtendedSet[];
@@ -17,7 +17,7 @@ export const getSets = async (page?: number, limit?: number, themes: string[] = 
 };
 
 const useSets = (page?: number, limit?: number, themes?: string[], search?: string, minYear?: number, maxYear?: number) =>
-    useQuery<SetResponse>(["sets", page, limit, themes, search, minYear, maxYear], () => getSets(page, limit, themes, search, minYear, maxYear), {
+    useQuery<SetResponse>(['sets', page, limit, themes, search, minYear, maxYear], () => getSets(page, limit, themes, search, minYear, maxYear), {
         keepPreviousData: true,
     });
 

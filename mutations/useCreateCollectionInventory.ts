@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
 
-import { AlertType, useAlerts } from "../components/AlertProvider";
-import { CollectionInventory } from "../models/CollectionInventory";
+import { AlertType, useAlerts } from '../components/AlertProvider';
+import { CollectionInventory } from '../models/CollectionInventory';
 
 async function createCollectionInventory(setId: string) {
     const { origin } = window.location;
@@ -18,11 +18,11 @@ function useCreateCollectionInventory() {
 
     return useMutation((setId: string) => createCollectionInventory(setId), {
         onSuccess: () => {
-            queryClient.invalidateQueries(["collectionInventories"]);
-            addAlert("Added set to collection", AlertType.Success);
+            queryClient.invalidateQueries(['collectionInventories']);
+            addAlert('Added set to collection', AlertType.Success);
         },
         onError: () => {
-            addAlert("Failed to add set to collection", AlertType.Error);
+            addAlert('Failed to add set to collection', AlertType.Error);
         },
     });
 }

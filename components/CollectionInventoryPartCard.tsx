@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
 import Image from 'next/image';
 
-import { ExtendedCollectionInventoryPart } from '../../models/CollectionInventoryPart';
-import useAddCollectionInventoryPart from '../../mutations/useAddCollectionInventoryPart';
-import Card, { CardBorder } from '.';
+import { ExtendedCollectionInventoryPart } from '../models/CollectionInventoryPart';
+import useAddCollectionInventoryPart from '../mutations/useAddCollectionInventoryPart';
+import Card, { CardBorder } from './Card';
 
 interface CollectionInventoryPartCardProps {
     collectionInventoryPart: ExtendedCollectionInventoryPart;

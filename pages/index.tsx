@@ -3,10 +3,10 @@ import { NextPage } from 'next';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/client';
 import { FaCar, FaPuzzlePiece } from 'react-icons/fa';
 
-import useStatistics from '../queries/useStatistics';
+import useCollectionStatistics from '../queries/useCollectionStatistics';
 
 const HomePage: NextPage = () => {
-    const { data, isLoading } = useStatistics();
+    const { data, isLoading } = useCollectionStatistics();
 
     if (isLoading || !data) return null;
 
@@ -26,7 +26,7 @@ const HomePage: NextPage = () => {
                     <FaPuzzlePiece className="w-8 h-8" />
                 </div>
                 <div className="stat-title">Parts found</div>
-                <div className="stat-value text-secondary">{Math.round((totalPartQuantityFound / totalPartQuantity) * 100)}%</div>
+                <div className="stat-value text-secondary">{Math.round((totalPartQuantityFound / totalPartQuantity) * 100) || 0}%</div>
                 <div className="stat-desc">
                     {totalPartQuantityFound} of {totalPartQuantity}
                 </div>

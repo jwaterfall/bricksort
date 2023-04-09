@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
-import { ExtendedCollectionInventory } from "../models/CollectionInventory";
+import { ExtendedCollectionInventory } from '../models/CollectionInventory';
 
 interface SetResponse {
     collectionInventories: ExtendedCollectionInventory[];
@@ -17,7 +17,7 @@ export const getCollectionInventories = async (page?: number, limit?: number) =>
 };
 
 const useCollectionInventories = (page?: number, limit?: number) =>
-    useQuery<SetResponse>(["collectionInventories", page, limit], () => getCollectionInventories(page, limit), {
+    useQuery<SetResponse>(['collectionInventories', page, limit], () => getCollectionInventories(page, limit), {
         keepPreviousData: true,
     });
 

@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
 
-import { AlertType, useAlerts } from "../components/AlertProvider";
-import { CollectionInventory } from "../models/CollectionInventory";
+import { AlertType, useAlerts } from '../components/AlertProvider';
+import { CollectionInventory } from '../models/CollectionInventory';
 
 async function deleteCollectionInventory(id: string) {
     const { origin } = window.location;
@@ -18,11 +18,11 @@ function useDeleteCollectionInventory() {
 
     return useMutation((id: string) => deleteCollectionInventory(id), {
         onSuccess: () => {
-            queryClient.invalidateQueries(["collectionInventories"]);
-            addAlert("Removed set from collection", AlertType.Success);
+            queryClient.invalidateQueries(['collectionInventories']);
+            addAlert('Removed set from collection', AlertType.Success);
         },
         onError: () => {
-            addAlert("Failed to remove set from collection", AlertType.Error);
+            addAlert('Failed to remove set from collection', AlertType.Error);
         },
     });
 }

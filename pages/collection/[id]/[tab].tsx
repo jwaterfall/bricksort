@@ -6,7 +6,7 @@ import { useQueryState, queryTypes } from 'next-usequerystate';
 
 import useCollectionInventoryParts from '../../../queries/useCollectionInventoryParts';
 import CardDisplay from '../../../components/CardDisplay';
-import CollectionInventoryPartCard from '../../../components/Card/CollectionInventoryPartCard';
+import CollectionInventoryPartCard from '../../../components/CollectionInventoryPartCard';
 
 const CollectionPage: NextPage = () => {
     const id = useRouter().query.id as string;
@@ -35,7 +35,7 @@ const CollectionPage: NextPage = () => {
                         setPage={setPage}
                         pageCount={missingPartsData.pageCount}
                         emptyTitle="Congratulations!"
-                        emptySubtitle="You've found all the minifig in this collection"
+                        emptySubtitle="You've found all of the parts in this collection"
                     >
                         {missingPartsData.collectionInventoryParts.map((collectionInventoryPart) => (
                             <CollectionInventoryPartCard key={collectionInventoryPart.id} collectionInventoryPart={collectionInventoryPart} />
@@ -47,7 +47,7 @@ const CollectionPage: NextPage = () => {
                         page={page}
                         setPage={setPage}
                         pageCount={allPartsData.pageCount}
-                        emptyTitle="No parts found"
+                        emptyTitle="No parts found!"
                         emptySubtitle="Head over to the missing parts tab to add some parts to this collection"
                     >
                         {allPartsData.collectionInventoryParts.map((collectionInventoryPart) => (

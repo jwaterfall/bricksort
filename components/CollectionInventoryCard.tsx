@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { FaTrash } from 'react-icons/fa';
 
-import Card from '.';
-import useDeleteCollectionInventory from '../../mutations/useDeleteCollectionInventory';
-import { ExtendedCollectionInventory } from '../../models/CollectionInventory';
-import { AlertType, useAlerts } from '../AlertProvider';
+import Card from './Card';
+import useDeleteCollectionInventory from '../mutations/useDeleteCollectionInventory';
+import { ExtendedCollectionInventory } from '../models/CollectionInventory';
+import { AlertType, useAlerts } from './AlertProvider';
 
 interface CollectionInventoryCardProps {
     collectionInventory: ExtendedCollectionInventory;
