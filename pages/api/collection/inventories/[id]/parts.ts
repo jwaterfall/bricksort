@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withApiAuthRequired, getSession, Session } from '@auth0/nextjs-auth0';
-import { Types } from 'mongoose';
+import { PipelineStage, Types } from 'mongoose';
 
 import connectToDatabase from '../../../../../middleware/connectToDatabase';
 import CollectionInventoryPartModel from '../../../../../models/CollectionInventoryPart';
@@ -13,13 +13,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             try {
                 const collectionInventoryId = req.query.id as string;
 
-                const isForMinifig = (req.query.isForMinifig as string) === 'true';
+                const isMissing = (req.query.isMissing as string) === 'true';
 
                 const page = parseInt(req.query.page as string) || 1;
                 const limit = parseInt(req.query.limit as string) || 100;
                 const skip = (page - 1) * limit;
 
-                const baseQuery = [
+                const baseQuery: PipelineStage[] = [
                     {
                         $lookup: {
                             from: 'inventory_parts',
@@ -35,10 +35,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                         $match: {
                             user: user.sub,
                             collectionInventory: new Types.ObjectId(collectionInventoryId),
-                            isForMinifig,
                         },
                     },
                 ];
+
+                if (isMissing) {
+                    baseQuery.push({
+                        $match: {
+                            $expr: { $lt: ['$quantityFound', '$quantity'] },
+                        },
+                    });
+                }
 
                 const collectionInventoryParts = await CollectionInventoryPartModel.aggregate([
                     ...baseQuery,

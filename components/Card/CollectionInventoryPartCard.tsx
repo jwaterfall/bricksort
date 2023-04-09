@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
+import Image from 'next/image';
 
 import { ExtendedCollectionInventoryPart } from '../../models/CollectionInventoryPart';
 import useAddCollectionInventoryPart from '../../mutations/useAddCollectionInventoryPart';
-import Card from '.';
-import Image from 'next/image';
+import Card, { CardBorder } from '.';
 
 interface CollectionInventoryPartCardProps {
     collectionInventoryPart: ExtendedCollectionInventoryPart;
@@ -18,6 +18,16 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
     const part = inventoryPart.part;
     const color = inventoryPart.color;
 
+    const getBorderVariant = () => {
+        if (collectionInventoryPart.quantityFound === collectionInventoryPart.quantity) {
+            return CardBorder.Success;
+        } else if (collectionInventoryPart.quantityFound === 0) {
+            return CardBorder.Error;
+        } else {
+            return CardBorder.Warning;
+        }
+    };
+
     return (
         <>
             <Card
@@ -25,6 +35,7 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
                 body={`${color.name} • ${collectionInventoryPart.quantityFound} of ${collectionInventoryPart.quantity} found`}
                 imgSrc={inventoryPart.imageUrl}
                 imgAlt={part.name}
+                border={getBorderVariant()}
                 onClick={() => setIsModalOpen(true)}
             />
             <div className={`modal ${isModalOpen ? 'modal-open' : ''}`}>

@@ -8,7 +8,6 @@ export interface CollectionInventoryPart extends Document {
     inventoryPart: Schema.Types.ObjectId;
     quantity: number;
     quantityFound: number;
-    isForMinifig: boolean;
 }
 
 export interface ExtendedCollectionInventoryPart extends Omit<CollectionInventoryPart, 'collectionInventory' | 'inventoryPart'> {
@@ -22,7 +21,6 @@ const schema = new Schema<CollectionInventoryPart>({
     inventoryPart: { type: Schema.Types.ObjectId, required: true, ref: 'InventoryPart', index: true },
     quantity: { type: Number, required: true },
     quantityFound: { type: Number, required: true, default: 0 },
-    isForMinifig: { type: Boolean, required: true, default: false },
 });
 
 const CollectionInventoryPartModel =

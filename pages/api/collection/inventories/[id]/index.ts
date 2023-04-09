@@ -72,7 +72,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                         collectionInventory: collectionInventoryId,
                         inventoryPart: minifigInventoryPart._id,
                         quantity: minifigInventoryPart.quantity,
-                        isForMinifig: true,
                     }))
                 );
 
