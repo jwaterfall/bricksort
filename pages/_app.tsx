@@ -28,7 +28,7 @@ const App = ({ Component, pageProps }: AppProps) => (
         <UserProvider>
             <QueryClientProvider client={queryClient}>
                 <AlertProvider>
-                    <div className="flex flex-col w-full h-screen overflow-hidden bg-base-300">
+                    <div className="flex flex-col w-full h-screen overflow-hidden bg-slate-200 text-slate-950">
                         <Topbar />
                         <main className="flex-1 overflow-x-auto scrollbar-none p-4 max-w-7xl mx-auto">
                             <Component {...pageProps} />

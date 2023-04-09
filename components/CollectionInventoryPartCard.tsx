@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
-import Image from 'next/image';
 
 import { ExtendedCollectionInventoryPart } from '../models/CollectionInventoryPart';
 import useAddCollectionInventoryPart from '../mutations/useAddCollectionInventoryPart';
-import Card, { CardBorder } from './Card';
+import Card, { CardBody, CardFooter, CardImage, CardTitle } from './Card';
+import Badge from './Badge';
 
 interface CollectionInventoryPartCardProps {
     collectionInventoryPart: ExtendedCollectionInventoryPart;
@@ -18,27 +18,29 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
     const part = inventoryPart.part;
     const color = inventoryPart.color;
 
-    const getBorderVariant = () => {
+    const getBadgeVariant = () => {
         if (collectionInventoryPart.quantityFound === collectionInventoryPart.quantity) {
-            return CardBorder.Success;
+            return 'success';
         } else if (collectionInventoryPart.quantityFound === 0) {
-            return CardBorder.Error;
+            return 'error';
         } else {
-            return CardBorder.Warning;
+            return 'warning';
         }
     };
 
     return (
         <>
-            <Card
-                title={part.name}
-                body={`${color.name} • ${collectionInventoryPart.quantityFound} of ${collectionInventoryPart.quantity} found`}
-                imgSrc={inventoryPart.imageUrl}
-                imgAlt={part.name}
-                border={getBorderVariant()}
-                onClick={() => setIsModalOpen(true)}
-            />
-            <div className={`modal ${isModalOpen ? 'modal-open' : ''}`}>
+            <Card onClick={() => setIsModalOpen(true)}>
+                {inventoryPart.imageUrl && <CardImage src={inventoryPart.imageUrl} alt={part.name} />}
+                <CardTitle>{part.name}</CardTitle>
+                <CardBody>{color.name}</CardBody>
+                <CardFooter>
+                    <Badge
+                        variant={getBadgeVariant()}
+                    >{`${collectionInventoryPart.quantityFound} of ${collectionInventoryPart.quantity} Found`}</Badge>
+                </CardFooter>
+            </Card>
+            {/* <div className={`modal ${isModalOpen ? 'modal-open' : ''}`}>
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{part.name}</h3>
                     <p className="py-4">{`${color.name} • ${collectionInventoryPart.quantityFound} of ${collectionInventoryPart.quantity} found`}</p>
@@ -104,7 +106,7 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
                         </button>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };
