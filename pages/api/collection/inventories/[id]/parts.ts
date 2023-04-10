@@ -81,6 +81,18 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                         $unwind: '$inventoryPart.color',
                     },
                     {
+                        $sort: {
+                            'inventoryPart.color.name': 1,
+                            'inventoryPart.part.name': 1,
+                        },
+                    },
+                    {
+                        $skip: skip,
+                    },
+                    {
+                        $limit: limit,
+                    },
+                    {
                         $lookup: {
                             from: 'collection_inventories',
                             localField: 'collectionInventory',
@@ -90,12 +102,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     },
                     {
                         $unwind: '$collectionInventory',
-                    },
-                    {
-                        $skip: skip,
-                    },
-                    {
-                        $limit: limit,
                     },
                 ]);
 

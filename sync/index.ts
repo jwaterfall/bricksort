@@ -1,27 +1,27 @@
-import dotenv from "dotenv-flow";
-import mongoose from "mongoose";
-import axios from "axios";
-import colorConvert from "color-convert";
-import zlib from "zlib";
-import { parse } from "csv-parse/sync";
+import dotenv from 'dotenv-flow';
+import mongoose from 'mongoose';
+import axios from 'axios';
+import colorConvert from 'color-convert';
+import zlib from 'zlib';
+import { parse } from 'csv-parse/sync';
 
-import getProgressBar from "./utils/getProgressBar";
-import ThemeModel, { Theme } from "../models/Theme";
-import ColorModel, { Color } from "../models/Color";
-import PartCategoryModel, { PartCategory } from "../models/PartCategory";
-import PartModel, { Part } from "../models/Part";
-import PartRelationshipModel, { PartRelationship } from "../models/PartRelationship";
-import SetModel, { Set } from "../models/Set";
-import ElementModel, { Element } from "../models/Element";
-import MinifigModel, { Minifig } from "../models/Minifig";
-import InventoryModel, { Inventory } from "../models/Inventory";
-import InventoryPartModel, { InventoryPart } from "../models/InventoryPart";
-import InventorySetModel, { InventorySet } from "../models/InventorySet";
-import InventoryMinifigModel, { InventoryMinifig } from "../models/InventoryMinifig";
+import getProgressBar from './utils/getProgressBar';
+import ThemeModel, { Theme } from '../models/Theme';
+import ColorModel, { Color } from '../models/Color';
+import PartCategoryModel, { PartCategory } from '../models/PartCategory';
+import PartModel, { Part } from '../models/Part';
+import PartRelationshipModel, { PartRelationship } from '../models/PartRelationship';
+import SetModel, { Set } from '../models/Set';
+import ElementModel, { Element } from '../models/Element';
+import MinifigModel, { Minifig } from '../models/Minifig';
+import InventoryModel, { Inventory } from '../models/Inventory';
+import InventoryPartModel, { InventoryPart } from '../models/InventoryPart';
+import InventorySetModel, { InventorySet } from '../models/InventorySet';
+import InventoryMinifigModel, { InventoryMinifig } from '../models/InventoryMinifig';
 
 dotenv.config();
 
-const BASE_URL = "https://cdn.rebrickable.com/media/downloads";
+const BASE_URL = 'https://cdn.rebrickable.com/media/downloads';
 
 interface SyncResult {
     name: string;
@@ -36,7 +36,7 @@ const fetchData = async (filename: string) => {
     if (cache.has(filename)) return cache.get(filename);
 
     const url = `${BASE_URL}/${filename}.csv.gz`;
-    const response = await axios.get(url, { responseType: "arraybuffer" });
+    const response = await axios.get(url, { responseType: 'arraybuffer' });
     const unzipped = await new Promise<Buffer>((resolve, reject) => {
         zlib.unzip(response.data, (err, buffer) => {
             if (err) reject(err);
@@ -70,8 +70,8 @@ const resetDatabase = async () => {
 
 const syncThemes: SyncFunction = async () => {
     const inserts = new Map<string, Theme>();
-    const themes = await fetchData("themes");
-    const sets = await fetchData("sets");
+    const themes = await fetchData('themes');
+    const sets = await fetchData('sets');
 
     let successful = 0;
 
@@ -86,21 +86,21 @@ const syncThemes: SyncFunction = async () => {
         });
 
         inserts.set(newTheme._id, newTheme);
-        console.log("Themes: ", getProgressBar(themes.length, ++successful));
+        console.log('Themes: ', getProgressBar(themes.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await ThemeModel.insertMany(values);
 
     return {
-        name: "Themes",
+        name: 'Themes',
         count: values.length,
     };
 };
 
 const syncColors: SyncFunction = async () => {
     const inserts = new Map<string, Color>();
-    const colors = await fetchData("colors");
+    const colors = await fetchData('colors');
     let successful = 0;
 
     for (const color of colors) {
@@ -110,27 +110,27 @@ const syncColors: SyncFunction = async () => {
             _id: color.id,
             name: color.name,
             hex,
-            rgb: `rgb(${colorConvert.hex.rgb(hex).join(", ")})`,
-            hsl: `hsl(${colorConvert.hex.hsl(hex).join(", ")})`,
-            isTranslucent: color.is_trans === "t",
+            rgb: `rgb(${colorConvert.hex.rgb(hex).join(', ')})`,
+            hsl: `hsl(${colorConvert.hex.hsl(hex).join(', ')})`,
+            isTranslucent: color.is_trans === 't',
         });
 
         inserts.set(newColor._id, newColor);
-        console.log("Colors: ", getProgressBar(colors.length, ++successful));
+        console.log('Colors: ', getProgressBar(colors.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await ColorModel.insertMany(values);
 
     return {
-        name: "Colors",
+        name: 'Colors',
         count: values.length,
     };
 };
 
 const syncPartCategories: SyncFunction = async () => {
     const inserts = new Map<string, PartCategory>();
-    const partCategories = await fetchData("part_categories");
+    const partCategories = await fetchData('part_categories');
     let successful = 0;
 
     for (const partCategory of partCategories) {
@@ -140,21 +140,21 @@ const syncPartCategories: SyncFunction = async () => {
         });
 
         inserts.set(newPartCategory._id, newPartCategory);
-        console.log("Part Categories: ", getProgressBar(partCategories.length, ++successful));
+        console.log('Part Categories: ', getProgressBar(partCategories.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await PartCategoryModel.insertMany(values);
 
     return {
-        name: "Part Categories",
+        name: 'Part Categories',
         count: values.length,
     };
 };
 
 const syncParts: SyncFunction = async () => {
     const inserts = new Map<string, Part>();
-    const parts = await fetchData("parts");
+    const parts = await fetchData('parts');
     let successful = 0;
 
     for (const part of parts) {
@@ -166,46 +166,47 @@ const syncParts: SyncFunction = async () => {
         });
 
         inserts.set(newPart._id, newPart);
-        console.log("Parts: ", getProgressBar(parts.length, ++successful));
+        console.log('Parts: ', getProgressBar(parts.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await PartModel.insertMany(values);
 
     return {
-        name: "Parts",
+        name: 'Parts',
         count: values.length,
     };
 };
 
 const syncPartRelationships: SyncFunction = async () => {
     const inserts = new Map<string, PartRelationship>();
-    const partRelationships = await fetchData("part_relationships");
+    const partRelationships = await fetchData('part_relationships');
     let successful = 0;
 
     for (const partRelationship of partRelationships) {
         const newPartRelationship = new PartRelationshipModel({
+            _id: partRelationship.parent_part_num + partRelationship.child_part_num + partRelationship.rel_type,
             relationshipType: partRelationship.rel_type,
             child: partRelationship.child_part_num,
             parent: partRelationship.parent_part_num,
         });
 
         inserts.set(newPartRelationship._id, newPartRelationship);
-        console.log("Part Relationships: ", getProgressBar(partRelationships.length, ++successful));
+        console.log('Part Relationships: ', getProgressBar(partRelationships.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await PartRelationshipModel.insertMany(values);
 
     return {
-        name: "Part Relationships",
+        name: 'Part Relationships',
         count: values.length,
     };
 };
 
 const syncSets: SyncFunction = async () => {
     const inserts = new Map<string, Set>();
-    const sets = await fetchData("sets");
+    const sets = await fetchData('sets');
     let successful = 0;
 
     for (const set of sets) {
@@ -219,21 +220,21 @@ const syncSets: SyncFunction = async () => {
         });
 
         inserts.set(newSet._id, newSet);
-        console.log("Sets: ", getProgressBar(sets.length, ++successful));
+        console.log('Sets: ', getProgressBar(sets.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await SetModel.insertMany(values);
 
     return {
-        name: "Sets",
+        name: 'Sets',
         count: values.length,
     };
 };
 
 const syncElements: SyncFunction = async () => {
     const inserts = new Map<string, Element>();
-    const elements = await fetchData("elements");
+    const elements = await fetchData('elements');
     let successful = 0;
 
     for (const element of elements) {
@@ -244,21 +245,21 @@ const syncElements: SyncFunction = async () => {
         });
 
         inserts.set(newElement._id, newElement);
-        console.log("Elements: ", getProgressBar(elements.length, ++successful));
+        console.log('Elements: ', getProgressBar(elements.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await ElementModel.insertMany(values);
 
     return {
-        name: "Elements",
+        name: 'Elements',
         count: values.length,
     };
 };
 
 const syncMinifigs: SyncFunction = async () => {
     const inserts = new Map<string, Minifig>();
-    const minifigs = await fetchData("minifigs");
+    const minifigs = await fetchData('minifigs');
     let successful = 0;
 
     for (const minifig of minifigs) {
@@ -270,21 +271,21 @@ const syncMinifigs: SyncFunction = async () => {
         });
 
         inserts.set(newMinifig._id, newMinifig);
-        console.log("Minifigs: ", getProgressBar(minifigs.length, ++successful));
+        console.log('Minifigs: ', getProgressBar(minifigs.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await MinifigModel.insertMany(values);
 
     return {
-        name: "Minifigs",
+        name: 'Minifigs',
         count: values.length,
     };
 };
 
 const syncInventories: SyncFunction = async () => {
     const inserts = new Map<string, Inventory>();
-    const inventories = await fetchData("inventories");
+    const inventories = await fetchData('inventories');
     let successful = 0;
 
     for (const inventory of inventories) {
@@ -293,107 +294,110 @@ const syncInventories: SyncFunction = async () => {
             set: inventory.set_num,
             version: inventory.version,
             quantity: inventory.quantity,
-            isAlternate: inventory.is_alternate === "t",
+            isAlternate: inventory.is_alternate === 't',
             alternate: inventory.alternate,
             color: inventory.color_id,
         });
 
         inserts.set(newInventory._id, newInventory);
-        console.log("Inventories: ", getProgressBar(inventories.length, ++successful));
+        console.log('Inventories: ', getProgressBar(inventories.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await InventoryModel.insertMany(values);
 
     return {
-        name: "Inventories",
+        name: 'Inventories',
         count: values.length,
     };
 };
 
 const syncInventoryParts: SyncFunction = async () => {
     const inserts = new Map<string, InventoryPart>();
-    const inventoryParts = await fetchData("inventory_parts");
+    const inventoryParts = await fetchData('inventory_parts');
 
     let successful = 0;
 
     for (const inventoryPart of inventoryParts) {
         const newInventoryPart = new InventoryPartModel({
+            _id: inventoryPart.inventory_id + inventoryPart.part_num + inventoryPart.color_id,
             inventory: inventoryPart.inventory_id,
             part: inventoryPart.part_num,
             color: inventoryPart.color_id,
             quantity: inventoryPart.quantity,
-            isSpare: inventoryPart.is_spare === "t",
+            isSpare: inventoryPart.is_spare === 't',
         });
 
         const imageUrl = inventoryPart.img_url;
         if (imageUrl) newInventoryPart.imageUrl = imageUrl;
 
         inserts.set(newInventoryPart._id, newInventoryPart);
-        console.log("Inventory Parts: ", getProgressBar(inventoryParts.length, ++successful));
+        console.log('Inventory Parts: ', getProgressBar(inventoryParts.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await InventoryPartModel.insertMany(values);
 
     return {
-        name: "Inventory Parts",
+        name: 'Inventory Parts',
         count: values.length,
     };
 };
 
 const syncInventorySets: SyncFunction = async () => {
     const inserts = new Map<string, InventorySet>();
-    const inventorySets = await fetchData("inventory_sets");
+    const inventorySets = await fetchData('inventory_sets');
     let successful = 0;
 
     for (const inventorySet of inventorySets) {
         const newInventorySet = new InventorySetModel({
+            _id: inventorySet.inventory_id + inventorySet.set_num,
             inventory: inventorySet.inventory_id,
             set: inventorySet.set_num,
             quantity: inventorySet.quantity,
         });
 
         inserts.set(newInventorySet._id, newInventorySet);
-        console.log("Inventory Sets: ", getProgressBar(inventorySets.length, ++successful));
+        console.log('Inventory Sets: ', getProgressBar(inventorySets.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await InventorySetModel.insertMany(values);
 
     return {
-        name: "Inventory Sets",
+        name: 'Inventory Sets',
         count: values.length,
     };
 };
 
 const syncInventoryMinifigs: SyncFunction = async () => {
     const inserts = new Map<string, InventoryMinifig>();
-    const inventoryMinifigs = await fetchData("inventory_minifigs");
+    const inventoryMinifigs = await fetchData('inventory_minifigs');
     let successful = 0;
 
     for (const inventoryMinifig of inventoryMinifigs) {
         const newInventoryMinifig = new InventoryMinifigModel({
+            _id: inventoryMinifig.inventory_id + inventoryMinifig.fig_num,
             inventory: inventoryMinifig.inventory_id,
             minifig: inventoryMinifig.fig_num,
             quantity: inventoryMinifig.quantity,
         });
 
         inserts.set(newInventoryMinifig._id, newInventoryMinifig);
-        console.log("Inventory Minifigs: ", getProgressBar(inventoryMinifigs.length, ++successful));
+        console.log('Inventory Minifigs: ', getProgressBar(inventoryMinifigs.length, ++successful));
     }
 
     const values = Array.from(inserts.values());
     await InventoryMinifigModel.insertMany(values);
 
     return {
-        name: "Inventory Minifigs",
+        name: 'Inventory Minifigs',
         count: values.length,
     };
 };
 
 const main = async () => {
-    console.log("Starting sync...");
+    console.log('Starting sync...');
     await mongoose.connect(process.env.MONGODB_URI!);
 
     await resetDatabase();
@@ -426,8 +430,8 @@ const main = async () => {
         })
     );
 
-    console.log("Sync complete!");
-    console.log("Results:");
+    console.log('Sync complete!');
+    console.log('Results:');
     results.forEach((result) => console.log(`- ${result.name}: ${result.count} records in ${result.time}ms`));
 };
 

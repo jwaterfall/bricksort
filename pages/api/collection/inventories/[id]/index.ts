@@ -25,6 +25,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 }
 
                 const inventoryParts = await InventoryPartModel.find({ inventory: inventory._id, isSpare: false });
+
                 const inventoryMinifigs = await InventoryMinifigModel.find({ inventory: inventory._id });
                 const minifigInventories = await InventoryModel.find({
                     set: { $in: inventoryMinifigs.map((inventoryMinifig) => inventoryMinifig.minifig) },
@@ -32,8 +33,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 const minifigInventoryParts = await InventoryPartModel.find({
                     inventory: { $in: minifigInventories.map((minifigInventory) => minifigInventory._id) },
                 });
-
-                const deduplicatedMinifigInventoryParts = new Map<string, any>();
 
                 inventoryMinifigs.forEach((inventoryMinifig) => {
                     const minifigInventory = minifigInventories.find((minifigInventory) => minifigInventory.set === inventoryMinifig.minifig);
@@ -46,34 +45,31 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
                     currentMinifigInventoryParts.forEach((minifigInventoryPart) => {
                         minifigInventoryPart.quantity *= inventoryMinifig.quantity;
-
-                        const key = `${minifigInventoryPart.part}-${minifigInventoryPart.color}`;
-
-                        if (deduplicatedMinifigInventoryParts.has(key)) {
-                            deduplicatedMinifigInventoryParts.get(key).quantity += minifigInventoryPart.quantity;
-                        } else {
-                            deduplicatedMinifigInventoryParts.set(key, minifigInventoryPart);
-                        }
                     });
+
+                    inventoryParts.push(...currentMinifigInventoryParts);
+                });
+
+                const deduplicatedInventoryParts = new Map<string, any>();
+
+                inventoryParts.forEach((inventoryPart) => {
+                    const key = `${inventoryPart.part}-${inventoryPart.color}`;
+
+                    if (deduplicatedInventoryParts.has(key)) {
+                        deduplicatedInventoryParts.get(key).quantity += inventoryPart.quantity;
+                    } else {
+                        deduplicatedInventoryParts.set(key, inventoryPart);
+                    }
                 });
 
                 const collectionInventoryId = new Types.ObjectId();
 
-                const collectionInventoryParts = inventoryParts.map((inventoryPart) => ({
+                const collectionInventoryParts = Array.from(deduplicatedInventoryParts.values()).map((inventoryPart) => ({
                     user: user.sub,
                     collectionInventory: collectionInventoryId,
                     inventoryPart: inventoryPart._id,
                     quantity: inventoryPart.quantity,
                 }));
-
-                collectionInventoryParts.push(
-                    ...Array.from(deduplicatedMinifigInventoryParts.values()).map((minifigInventoryPart) => ({
-                        user: user.sub,
-                        collectionInventory: collectionInventoryId,
-                        inventoryPart: minifigInventoryPart._id,
-                        quantity: minifigInventoryPart.quantity,
-                    }))
-                );
 
                 const totalPartQuantity = collectionInventoryParts.reduce((total, collectionInventoryPart) => {
                     return total + collectionInventoryPart.quantity;

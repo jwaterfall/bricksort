@@ -2,12 +2,14 @@ import mongoose, { Document, Schema, model } from "mongoose";
 
 // @ts-expect-error
 export interface InventorySet extends Document {
+  _id: string;
   inventory: string;
   set: string;
   quantity: number;
 }
 
 const schema = new Schema<InventorySet>({
+  _id: { type: String, required: true },
   inventory: { type: String, required: true, ref: "Inventory", index: true },
   set: { type: String, required: true, ref: "Set", index: true },
   quantity: { type: Number, required: true },
