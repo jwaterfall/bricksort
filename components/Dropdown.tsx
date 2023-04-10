@@ -43,7 +43,6 @@ export const DropdownContent: FC<PropsWithChildren<DropdownContentProps>> = ({ a
 const Dropdown: FC<PropsWithChildren> = ({ children }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
-
     useOnClickOutside(ref, () => setOpen(false));
 
     return (

@@ -1,9 +1,13 @@
-import { FC, useState } from 'react';
+import { FC, useState, useRef } from 'react';
+import Image from 'next/image';
+import { useOnClickOutside } from 'usehooks-ts';
 
 import { ExtendedCollectionInventoryPart } from '../models/CollectionInventoryPart';
 import useAddCollectionInventoryPart from '../mutations/useAddCollectionInventoryPart';
 import Card, { CardBody, CardFooter, CardImage, CardTitle } from './Card';
 import Badge from './Badge';
+import Button from './Button';
+import Input from './Input';
 
 interface CollectionInventoryPartCardProps {
     collectionInventoryPart: ExtendedCollectionInventoryPart;
@@ -13,6 +17,8 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
     const { mutate: addCollectionInventoryPart, isLoading } = useAddCollectionInventoryPart(collectionInventoryPart);
     const [quantity, setQuantity] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+    useOnClickOutside(ref, () => setIsModalOpen(false));
 
     const inventoryPart = collectionInventoryPart.inventoryPart;
     const part = inventoryPart.part;
@@ -40,8 +46,12 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
                     >{`${collectionInventoryPart.quantityFound} of ${collectionInventoryPart.quantity} Found`}</Badge>
                 </CardFooter>
             </Card>
-            {/* <div className={`modal ${isModalOpen ? 'modal-open' : ''}`}>
-                <div className="modal-box">
+            <div
+                className={`bg-black/20 transition-opacity fixed top-0 right-0 bottom-0 left-0 z-50 flex items-center justify-center ${
+                    isModalOpen ? '' : 'opacity-0 pointer-events-none'
+                }`}
+            >
+                <div ref={ref} className="bg-slate-50 border border-slate-300 rounded-md p-4 max-w-md w-full">
                     <h3 className="font-bold text-lg">{part.name}</h3>
                     <p className="py-4">{`${color.name} • ${collectionInventoryPart.quantityFound} of ${collectionInventoryPart.quantity} found`}</p>
                     {inventoryPart.imageUrl && (
@@ -57,31 +67,29 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
                         </figure>
                     )}
                     <div className="max-w-full flex flex-col gap-2">
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Quantity to add or remove</span>
-                            </label>
-                            <input
-                                className="input input-bordered"
-                                type="number"
-                                value={quantity}
-                                onChange={(e) => setQuantity(parseInt(e.target.value))}
-                            />
-                        </div>
+                        <Input
+                            label="Quantity to add or remove"
+                            type="number"
+                            value={quantity}
+                            onChange={(e) => setQuantity(parseInt(e.target.value))}
+                        />
+
                         <div className="grid grid-cols-2 gap-2">
-                            <button
-                                className="btn"
-                                disabled={collectionInventoryPart.quantityFound + quantity > collectionInventoryPart.quantity}
+                            <Button
+                                isFullWidth
+                                color="primary"
+                                disabled={collectionInventoryPart.quantityFound + quantity > collectionInventoryPart.quantity || isLoading}
                                 onClick={() => {
                                     addCollectionInventoryPart(quantity);
                                     setQuantity(1);
                                     setIsModalOpen(false);
                                 }}
                             >
-                                add
-                            </button>
-                            <button
-                                className="btn"
+                                Add
+                            </Button>
+                            <Button
+                                isFullWidth
+                                color="primary"
                                 disabled={collectionInventoryPart.quantityFound <= 0}
                                 onClick={() => {
                                     addCollectionInventoryPart(-quantity);
@@ -89,24 +97,24 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
                                     setIsModalOpen(false);
                                 }}
                             >
-                                remove
-                            </button>
+                                Remove
+                            </Button>
                         </div>
-                        <button
-                            className="btn"
-                            disabled={collectionInventoryPart.quantityFound >= collectionInventoryPart.quantity}
+                        <Button
+                            isFullWidth
+                            disabled={collectionInventoryPart.quantityFound >= collectionInventoryPart.quantity || isLoading}
                             onClick={() => addCollectionInventoryPart(collectionInventoryPart.quantity - collectionInventoryPart.quantityFound)}
                         >
-                            found all
-                        </button>
+                            Found All
+                        </Button>
                     </div>
-                    <div className="modal-action">
-                        <button className="btn btn-primary" onClick={() => setIsModalOpen(false)}>
+                    <div className="mt-4 flex justify-end">
+                        <Button color="primary" onClick={() => setIsModalOpen(false)}>
                             close
-                        </button>
+                        </Button>
                     </div>
                 </div>
-            </div> */}
+            </div>
         </>
     );
 };

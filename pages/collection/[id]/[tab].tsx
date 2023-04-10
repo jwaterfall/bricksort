@@ -20,11 +20,21 @@ const CollectionPage: NextPage = () => {
 
     return (
         <div className="flex flex-col gap-4 min-h-full">
-            <div className="tabs tabs-boxed grid grid-cols-2 -m-4 mb-0">
-                <Link className={`tab ${tab === 'missing-parts' ? 'tab-active' : ''}`} href={`/collection/${id}/missing-parts`}>
+            <div className="grid grid-cols-2 bg-slate-50 rounded-md overflow-hidden border border-slate-300">
+                <Link
+                    className={`px-4 py-1 flex justify-center font-medium text-sm transition ${
+                        tab === 'missing-parts' ? 'bg-red-500 text-slate-50' : ''
+                    }`}
+                    href={`/collection/${id}/missing-parts`}
+                >
                     Missing Parts
                 </Link>
-                <Link className={`tab ${tab === 'found-parts' ? 'tab-active' : ''}`} href={`/collection/${id}/found-parts`}>
+                <Link
+                    className={`px-4 py-1 flex justify-center font-medium text-sm transition ${
+                        tab === 'found-parts' ? 'bg-red-500 text-slate-50' : ''
+                    }`}
+                    href={`/collection/${id}/found-parts`}
+                >
                     Found Parts
                 </Link>
             </div>

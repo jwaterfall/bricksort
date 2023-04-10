@@ -45,7 +45,7 @@ const Pagination: FC<PaginationProps> = ({ page, setPage, pageCount, size, sibli
     }, [page, pageCount, siblingCount]);
 
     return (
-        <div className={`flex group buttonGroup overflow-hidden border-slate-300 border rounded-md bg-slate-300 gap-px w-fit`}>
+        <div className={`flex group pagination overflow-hidden border-slate-300 border rounded-md bg-slate-300 gap-px w-fit`}>
             {pages.map((p, index) => (
                 <Button
                     key={index}
