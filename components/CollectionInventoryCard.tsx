@@ -33,15 +33,12 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
         <Card href={`/collection/${collectionInventory._id}/missing-parts`}>
             {set.imageUrl && <CardImage src={set.imageUrl} alt={set.name} />}
             <CardTitle>{set.name}</CardTitle>
-            <CardBody>{`${set.theme.name} • ${set.year} • ${collectionInventory.totalPartQuantityFound} of ${
-                collectionInventory.totalPartQuantity > 1 ? `${collectionInventory.totalPartQuantity} Pieces` : '1 Piece'
-            }`}</CardBody>
+            <CardBody>{`${set.theme.name} • ${set.year}`}</CardBody>
             <CardFooter>
-                <div className="flex flex-col gap-2">
-                    <Badge variant={getBadgeVariant()}>{`${percentComplete.toFixed(2)}% Percent Complete`}</Badge>
+                <div className="flex gap-2 items-end justify-between">
+                    <Badge variant={getBadgeVariant()}>{`${percentComplete.toFixed(2)}% Complete`}</Badge>
                     <Button
-                        isFullWidth
-                        color="primary"
+                        shape="circle"
                         Icon={FaTrash}
                         disabled={isDeleting}
                         onClick={(e) => {
@@ -50,9 +47,7 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
                                 deleteCollectionInventory(collectionInventory._id)
                             );
                         }}
-                    >
-                        Delete Set
-                    </Button>
+                    />
                 </div>
             </CardFooter>
         </Card>

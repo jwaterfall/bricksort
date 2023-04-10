@@ -13,10 +13,12 @@ const Badge: FC<PropsWithChildren<BadgeProps>> = ({ variant, children }) => {
                 return 'bg-yellow-500';
             case 'error':
                 return 'bg-red-500';
+            default:
+                return 'bg-slate-200 text-slate-900 border border-slate-300 font-semibold';
         }
     };
 
-    return <span className={`mt-auto w-fit px-2 py-1 rounded-lg text-xs text-slate-50 font-medium ${getVariantStyles()}`}>{children}</span>;
+    return <span className={`w-fit px-2 py-1 rounded-lg text-xs text-slate-50 font-medium ${getVariantStyles()}`}>{children}</span>;
 };
 
 export default Badge;

@@ -12,10 +12,12 @@ interface CardDisplayProps {
 
 const CardDisplay: FC<PropsWithChildren<CardDisplayProps>> = ({ page, setPage, pageCount, emptyTitle, emptySubtitle, children, FilterDropdown }) => (
     <div className="flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-            <div>{pageCount > 1 && <Pagination page={page} setPage={setPage} pageCount={pageCount} />}</div>
-            {FilterDropdown}
-        </div>
+        {(pageCount > 1 || FilterDropdown) && (
+            <div className="flex items-center justify-between">
+                <div>{pageCount > 1 && <Pagination page={page} setPage={setPage} pageCount={pageCount} />}</div>
+                {/* {FilterDropdown} */}
+            </div>
+        )}
         {pageCount > 0 ? (
             <>
                 <div className="flex-1 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">{children}</div>

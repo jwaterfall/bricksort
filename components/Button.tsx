@@ -28,7 +28,7 @@ const Button: FC<ButtonProps> = ({
     const getColorStyles = () => {
         switch (color) {
             case 'default':
-                return `border-slate-200 ${variant === 'outline' ? 'text-slate-100 hover:bg-slate-100' : 'bg-slate-100'}`;
+                return `border-slate-300 ${variant === 'outline' ? 'text-slate-100 hover:bg-slate-200' : 'bg-slate-200'}`;
             case 'primary':
                 return `border-red-500 ${variant === 'outline' ? 'text-red-500 hover:bg-red-500' : 'bg-red-500'}`;
         }
@@ -48,9 +48,9 @@ const Button: FC<ButtonProps> = ({
     const getShapeStyles = () => {
         switch (shape) {
             case 'default':
-                return '';
+                return 'rounded-md';
             case 'square':
-                return 'aspect-square';
+                return 'rounded-md aspect-square';
             case 'circle':
                 return 'rounded-full px-0 aspect-square';
         }
@@ -80,7 +80,7 @@ const Button: FC<ButtonProps> = ({
         <button
             {...props}
             className={`
-                rounded-md transition group-[.buttonGroup]:rounded-none group-[.buttonGroup]:first:rounded-l-md group-[.buttonGroup]:last:rounded-r-md group-[.buttonGroup]:border-0
+                transition group-[.buttonGroup]:rounded-none group-[.buttonGroup]:first:rounded-l-md group-[.buttonGroup]:last:rounded-r-md group-[.buttonGroup]:border-0
                 disabled:bg-slate-200 disabled:text-slate-400 disabled:hover:bg-slate-200 disabled:border-slate-300 disabled:active:scale-100 border
                 flex items-center justify-center gap-2 active:scale-95 shrink-0
                 ${getColorStyles()}
@@ -90,7 +90,7 @@ const Button: FC<ButtonProps> = ({
                 ${isFullWidth ? 'w-full' : 'w-fit'}
             `}
         >
-            {Icon && <Icon size={getIconSize()} />}
+            {Icon && <Icon size={getIconSize()} className="shrink-0" />}
             {children && <span className="truncate">{children}</span>}
         </button>
     );
