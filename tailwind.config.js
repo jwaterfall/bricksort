@@ -4,8 +4,8 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['var(--font-poppins)'],
-                lobster: ['var(--font-lobster)'],
+                sans: ['var(--font-poppins)', 'Poppins'],
+                lobster: ['var(--font-lobster)', 'Lobster'],
             },
         },
     },

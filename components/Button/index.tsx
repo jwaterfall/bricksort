@@ -28,8 +28,8 @@ const Button: FC<ButtonProps> = ({
     const getColorStyles = () => {
         switch (color) {
             case 'default':
-                return `border-slate-300 group-[.pagination]:bg-slate-100 group-[.pagination]:disabled:bg-slate-200 ${
-                    variant === 'outline' ? 'text-slate-100 hover:bg-slate-200' : 'bg-slate-200'
+                return `border-slate-300 group-[.pagination]:bg-slate-100 group-[.pagination]:disabled:bg-slate-200 text-slate-950 ${
+                    variant === 'outline' ? 'hover:bg-slate-200 hover:text-slate-950' : 'bg-slate-200'
                 }`;
             case 'primary':
                 return `border-red-500 ${variant === 'outline' ? 'text-red-500 hover:bg-red-500' : 'bg-red-500'}`;

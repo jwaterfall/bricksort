@@ -14,7 +14,7 @@ const Badge: FC<PropsWithChildren<BadgeProps>> = ({ variant, children }) => {
             case 'error':
                 return 'bg-red-500';
             default:
-                return 'bg-slate-200 text-slate-900 border border-slate-300 font-semibold';
+                return 'bg-slate-200 text-slate-950 border border-slate-300 font-semibold';
         }
     };
 
