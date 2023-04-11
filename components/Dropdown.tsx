@@ -1,5 +1,6 @@
 import { FC, PropsWithChildren, useState, useContext, createContext, SetStateAction, Dispatch, useRef } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
+import { ButtonProps } from './Button';
 
 interface DropdownContext {
     open: boolean;
@@ -13,8 +14,9 @@ const DropdownContext = createContext<DropdownContext>({
 
 export const useDropdown = () => useContext(DropdownContext);
 
-export const DropdownToggle: FC<PropsWithChildren> = ({ children }) => {
+export const DropdownToggle: FC<ButtonProps> = ({ children }) => {
     const { setOpen } = useContext(DropdownContext);
+
     return (
         <button className="block" onClick={() => setOpen((open) => !open)}>
             {children}
@@ -26,7 +28,7 @@ interface DropdownContentProps {
     align?: 'left' | 'right';
 }
 
-export const DropdownContent: FC<PropsWithChildren<DropdownContentProps>> = ({ align = 'left', children }) => {
+export const DropdownContent: FC<PropsWithChildren<DropdownContentProps>> = ({ align = 'right', children }) => {
     const { open } = useContext(DropdownContext);
 
     return (

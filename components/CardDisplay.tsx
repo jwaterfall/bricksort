@@ -15,7 +15,7 @@ const CardDisplay: FC<PropsWithChildren<CardDisplayProps>> = ({ page, setPage, p
         {(pageCount > 1 || FilterDropdown) && (
             <div className="flex items-center justify-between">
                 <div>{pageCount > 1 && <Pagination page={page} setPage={setPage} pageCount={pageCount} />}</div>
-                {/* {FilterDropdown} */}
+                {FilterDropdown}
             </div>
         )}
         {pageCount > 0 ? (

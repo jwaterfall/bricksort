@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { FaFilter } from 'react-icons/fa';
 
 import useThemes from '../queries/useThemes';
+import Dropdown, { DropdownToggle, DropdownContent } from './Dropdown';
+import Button from './Button';
 
 interface SetFilterDropdownProps {
     search: string;
@@ -29,13 +31,14 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
     const { data: themes } = useThemes();
 
     return (
-        <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-primary gap-2">
-                <FaFilter className="h-5 w-5" />
-                filters
-            </label>
-            <ul tabIndex={0} className="dropdown-content p-4 mt-2 shadow-xl bg-base-100 rounded-box font-medium">
-                <li>
+        <Dropdown>
+            <DropdownToggle>
+                <Button color="primary" Icon={FaFilter}>
+                    Filters
+                </Button>
+            </DropdownToggle>
+            <DropdownContent>
+                <div className="bg-slate-50 border border-slate-300 rounded-md p-4 mt-2 shadow-xl bg-base-100 rounded-box font-medium">
                     <div className="form-control w-full max-w-xs">
                         <label className="label w-full">
                             <span className="label-text">Search</span>
@@ -51,8 +54,6 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
                             }}
                         />
                     </div>
-                </li>
-                <li>
                     <div className="form-control w-full max-w-xs">
                         <label className="label w-full">
                             <span className="label-text">Year</span>
@@ -79,9 +80,7 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
                             />
                         </div>
                     </div>
-                </li>
-                {themes && (
-                    <li>
+                    {themes && (
                         <div className="form-control w-full max-w-xs">
                             <label className="label w-full">
                                 <span className="label-text">Theme</span>
@@ -110,22 +109,23 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
                                     ))}
                             </div>
                         </div>
-                    </li>
-                )}
-                <button
-                    className="btn btn-primary mt-2 w-full"
-                    onClick={async () => {
-                        await setSearch('');
-                        await setThemeIds([]);
-                        await setMinYear(1950);
-                        await setMaxYear(new Date().getFullYear());
-                        await setPage(1);
-                    }}
-                >
-                    clear filters
-                </button>
-            </ul>
-        </div>
+                    )}
+                    <Button
+                        color="primary"
+                        isFullWidth
+                        onClick={async () => {
+                            await setSearch('');
+                            await setThemeIds([]);
+                            await setMinYear(1950);
+                            await setMaxYear(new Date().getFullYear());
+                            await setPage(1);
+                        }}
+                    >
+                        Clear Filters
+                    </Button>
+                </div>
+            </DropdownContent>
+        </Dropdown>
     );
 };
 

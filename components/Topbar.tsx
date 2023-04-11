@@ -66,7 +66,7 @@ const Topbar: FC = () => {
                         <DropdownToggle>
                             <SettingsDropdownToggle />
                         </DropdownToggle>
-                        <DropdownContent align="right">
+                        <DropdownContent>
                             <div className="bg-slate-800 rounded-b-lg p-2 mt-2 w-52 flex flex-col">
                                 <button
                                     className="flex items-center gap-2 p-2 px-4 text-xs rounded-lg whitespace-nowrap hover:bg-slate-700"

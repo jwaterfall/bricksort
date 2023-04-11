@@ -1,12 +1,13 @@
-import { createContext, FC, PropsWithChildren, useContext, useState } from "react";
-import { FaCheckCircle, FaExclamationCircle, FaExclamationTriangle, FaInfoCircle } from "react-icons/fa";
-import { useLocalStorage } from "usehooks-ts";
+import { createContext, FC, PropsWithChildren, useContext, useState } from 'react';
+import { FaCheckCircle, FaExclamationCircle, FaExclamationTriangle, FaInfoCircle } from 'react-icons/fa';
+import { useLocalStorage } from 'usehooks-ts';
+import Button from './Button';
 
 export enum AlertType {
-    Success = "success",
-    Error = "error",
-    Info = "info",
-    Warning = "warning",
+    Success = 'success',
+    Error = 'error',
+    Info = 'info',
+    Warning = 'warning',
 }
 
 interface Alert {
@@ -32,7 +33,7 @@ export function useAlerts() {
 
 const AlertProvider: FC<PropsWithChildren> = ({ children }) => {
     const [alerts, setAlerts] = useState<Alert[]>([]);
-    const [enabled, setEnabled] = useLocalStorage("alertsEnabled", true);
+    const [enabled, setEnabled] = useLocalStorage('alertsEnabled', true);
 
     function addAlert(message: string, type: AlertType = AlertType.Info, onConfirm?: () => void) {
         if (!enabled) return;
@@ -56,13 +57,13 @@ const AlertProvider: FC<PropsWithChildren> = ({ children }) => {
     function getAlertTypeStyle(type: AlertType) {
         switch (type) {
             case AlertType.Success:
-                return "alert-success";
+                return 'bg-green-500';
             case AlertType.Error:
-                return "alert-error";
+                return 'bg-red-500';
             case AlertType.Info:
-                return "alert-info";
+                return 'bg-blue-500';
             case AlertType.Warning:
-                return "alert-warning";
+                return 'bg-amber-500';
         }
     }
 
@@ -82,27 +83,24 @@ const AlertProvider: FC<PropsWithChildren> = ({ children }) => {
     return (
         <AlertContext.Provider value={{ alerts, addAlert, removeAlert, enabled, setEnabled }}>
             {children}
-            <div className="z-50 fixed top-0 left-0 w-screen h-screen p-4 flex flex-col gap-2 md:justify-end md:items-end pointer-events-none">
+            <div className="z-50 fixed top-0 left-0 w-screen h-screen p-4 flex flex-col gap-2 justify-end md:items-end pointer-events-none">
                 {alerts.map(({ id, type, message, onConfirm }) => (
-                    <div key={id} className={`alert shadow-lg pointer-events-auto ${getAlertTypeStyle(type)} md:max-w-[25rem]`}>
-                        <div>
+                    <div key={id} className={`p-4 rounded-md shadow-lg pointer-events-auto ${getAlertTypeStyle(type)} md:max-w-[25rem]`}>
+                        <div className="flex-1 flex items-center gap-2 text-slate-50">
                             {getAlertTypeIcon(type)}
                             <span>{message}</span>
                         </div>
                         {onConfirm && (
-                            <div className="flex-none">
-                                <button className="btn btn-sm btn-ghost" onClick={() => removeAlert(id)}>
-                                    Cancel
-                                </button>
-                                <button
-                                    className="btn btn-sm btn-secondary"
+                            <div className="flex gap-2 mt-2 justify-center">
+                                <Button onClick={() => removeAlert(id)}>No</Button>
+                                <Button
                                     onClick={() => {
                                         onConfirm();
                                         removeAlert(id);
                                     }}
                                 >
-                                    Accept
-                                </button>
+                                    Yes
+                                </Button>
                             </div>
                         )}
                     </div>

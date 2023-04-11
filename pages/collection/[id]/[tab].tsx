@@ -20,9 +20,9 @@ const CollectionPage: NextPage = () => {
 
     return (
         <div className="flex flex-col gap-4 min-h-full">
-            <div className="grid grid-cols-2 bg-slate-50 rounded-md overflow-hidden border border-slate-300">
+            <div className="h-10 grid grid-cols-2 bg-slate-50 rounded-md overflow-hidden border border-slate-300">
                 <Link
-                    className={`px-4 py-1 flex justify-center font-medium text-sm transition ${
+                    className={`px-4 flex justify-center items-center font-medium text-sm transition ${
                         tab === 'missing-parts' ? 'bg-red-500 text-slate-50' : ''
                     }`}
                     href={`/collection/${id}/missing-parts`}
@@ -30,7 +30,7 @@ const CollectionPage: NextPage = () => {
                     Missing Parts
                 </Link>
                 <Link
-                    className={`px-4 py-1 flex justify-center font-medium text-sm transition ${
+                    className={`px-4 flex justify-center items-center font-medium text-sm transition ${
                         tab === 'found-parts' ? 'bg-red-500 text-slate-50' : ''
                     }`}
                     href={`/collection/${id}/found-parts`}
@@ -39,32 +39,21 @@ const CollectionPage: NextPage = () => {
                 </Link>
             </div>
             <div className="flex-1">
-                {tab === 'missing-parts' && (
-                    <CardDisplay
-                        page={page}
-                        setPage={setPage}
-                        pageCount={missingPartsData.pageCount}
-                        emptyTitle="Congratulations!"
-                        emptySubtitle="You've found all of the parts in this collection"
-                    >
-                        {missingPartsData.collectionInventoryParts.map((collectionInventoryPart) => (
-                            <CollectionInventoryPartCard key={collectionInventoryPart.id} collectionInventoryPart={collectionInventoryPart} />
-                        ))}
-                    </CardDisplay>
-                )}
-                {tab === 'found-parts' && (
-                    <CardDisplay
-                        page={page}
-                        setPage={setPage}
-                        pageCount={allPartsData.pageCount}
-                        emptyTitle="No parts found!"
-                        emptySubtitle="Head over to the missing parts tab to add some parts to this collection"
-                    >
-                        {allPartsData.collectionInventoryParts.map((collectionInventoryPart) => (
-                            <CollectionInventoryPartCard key={collectionInventoryPart.id} collectionInventoryPart={collectionInventoryPart} />
-                        ))}
-                    </CardDisplay>
-                )}
+                <CardDisplay
+                    page={page}
+                    setPage={setPage}
+                    pageCount={(tab === 'missing-parts' ? missingPartsData : allPartsData).pageCount}
+                    emptyTitle={tab === 'missing-parts' ? 'Set complete!' : 'No parts found!'}
+                    emptySubtitle={
+                        tab === 'missing-parts'
+                            ? "You've found all of the parts in this set"
+                            : 'Head over to the missing parts tab to add some parts to this set'
+                    }
+                >
+                    {(tab === 'missing-parts' ? missingPartsData : allPartsData).collectionInventoryParts.map((collectionInventoryPart) => (
+                        <CollectionInventoryPartCard key={collectionInventoryPart.id} collectionInventoryPart={collectionInventoryPart} />
+                    ))}
+                </CardDisplay>
             </div>
         </div>
     );
