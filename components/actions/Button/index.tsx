@@ -28,7 +28,7 @@ const Button: FC<ButtonProps> = ({
     const getColorStyles = () => {
         switch (color) {
             case 'default':
-                return `border-slate-300 group-[.pagination]:bg-slate-100 group-[.pagination]:disabled:bg-slate-200 text-slate-950 ${
+                return `border-slate-300 group-[.pagination]:bg-slate-100 group-[.pagination]:disabled:bg-slate-200 ${
                     variant === 'outline' ? 'hover:bg-slate-200 hover:text-slate-950' : 'bg-slate-200'
                 }`;
             case 'primary':
@@ -61,7 +61,7 @@ const Button: FC<ButtonProps> = ({
     const getVariantStyles = () => {
         switch (variant) {
             case 'solid':
-                return `font-medium ${color === 'default' ? 'text-slate-800 ' : 'text-slate-50 font-medium'}`;
+                return `font-medium ${color === 'default' ? 'text-slate-950 ' : 'text-slate-50'}`;
             case 'outline':
                 return 'font-semibold bg-transparent hover:text-slate-50';
         }

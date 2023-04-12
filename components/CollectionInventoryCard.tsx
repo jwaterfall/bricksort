@@ -3,10 +3,10 @@ import { FaTrash } from 'react-icons/fa';
 
 import useDeleteCollectionInventory from '../mutations/useDeleteCollectionInventory';
 import { ExtendedCollectionInventory } from '../models/CollectionInventory';
-import { AlertType, useAlerts } from './AlertProvider';
+import { useAlerts } from './AlertProvider';
 import Card, { CardBody, CardFooter, CardImage, CardTitle } from './Card';
-import Badge from './Badge';
-import Button from './Button';
+import QuantityFoundBadge from './QuantityFoundBadge';
+import Button from './actions/Button';
 
 interface CollectionInventoryCardProps {
     collectionInventory: ExtendedCollectionInventory;
@@ -19,16 +19,6 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
     const set = collectionInventory.inventory.set;
     const percentComplete = (collectionInventory.totalPartQuantityFound / collectionInventory.totalPartQuantity) * 100;
 
-    const getBadgeVariant = () => {
-        if (percentComplete === 100) {
-            return 'success';
-        } else if (percentComplete === 0) {
-            return 'error';
-        } else {
-            return 'warning';
-        }
-    };
-
     return (
         <Card href={`/collection/${collectionInventory._id}/missing-parts`}>
             {set.imageUrl && <CardImage src={set.imageUrl} alt={set.name} />}
@@ -36,14 +26,14 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
             <CardBody>{`${set.theme.name} • ${set.year}`}</CardBody>
             <CardFooter>
                 <div className="flex gap-2 items-end justify-between">
-                    <Badge variant={getBadgeVariant()}>{`${percentComplete.toFixed(2)}% Complete`}</Badge>
+                    <QuantityFoundBadge quantity={collectionInventory.totalPartQuantity} quantityFound={collectionInventory.totalPartQuantityFound} />
                     <Button
                         shape="circle"
                         Icon={FaTrash}
                         disabled={isDeleting}
                         onClick={(e) => {
                             e.preventDefault();
-                            addAlert('Are you sure you want to delete this set?', AlertType.Warning, () =>
+                            addAlert('Are you sure you want to delete this set?', 'warning', () =>
                                 deleteCollectionInventory(collectionInventory._id)
                             );
                         }}

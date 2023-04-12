@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { AlertType, useAlerts } from '../components/AlertProvider';
+import { useAlerts } from '../components/AlertProvider';
 import { CollectionInventory } from '../models/CollectionInventory';
 import { ExtendedCollectionInventoryPart } from '../models/CollectionInventoryPart';
 
@@ -22,13 +22,13 @@ function useAddCollectionInventoryPart(collectionInventoryPart: ExtendedCollecti
             queryClient.invalidateQueries(['collectionInventoryParts', collectionInventoryPart.collectionInventory._id]);
 
             if (count > 0) {
-                addAlert('Added parts to collection', AlertType.Success);
+                addAlert('Added parts to collection', 'success');
             } else {
-                addAlert('Removed parts from collection', AlertType.Success);
+                addAlert('Removed parts from collection', 'success');
             }
         },
         onError: () => {
-            addAlert('Failed to add parts to collection', AlertType.Error);
+            addAlert('Failed to add parts to collection', 'error');
         },
     });
 }

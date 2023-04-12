@@ -4,37 +4,48 @@ import { FaTrash } from 'react-icons/fa';
 import Button from '.';
 
 const meta: Meta<typeof Button> = {
-    title: 'Button',
+    title: 'Actions/Button',
     component: Button,
     tags: ['autodocs'],
     argTypes: {
         color: {
+            description: 'Changes the background, border and text color.',
             control: {
                 type: 'select',
                 options: ['default', 'primary'],
             },
         },
         size: {
+            description: 'The size of the button.',
             control: {
                 type: 'select',
                 options: ['sm', 'md', 'lg'],
             },
         },
         shape: {
+            description: 'The default shape has a dynamic size whilst square and circle have a 1:1 aspect ratio.',
             control: {
                 type: 'select',
                 options: ['default', 'square', 'circle'],
             },
         },
         variant: {
+            description: 'A solid button will fill the background with the color, while an outline button will only have a border.',
             control: {
                 type: 'select',
                 options: ['solid', 'outline'],
             },
         },
         isFullWidth: {
+            description: 'A full width button will fill the width of its container.',
             control: {
                 type: 'boolean',
+            },
+        },
+        children: {
+            description: 'The text to display inside the button.',
+            control: {
+                type: 'text',
             },
         },
     },
@@ -43,16 +54,16 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Primary: Story = {
+export const Default: Story = {
     args: {
-        color: 'primary',
+        color: 'default',
         children: 'Button',
     },
 };
 
-export const Default: Story = {
+export const Primary: Story = {
     args: {
-        color: 'default',
+        color: 'primary',
         children: 'Button',
     },
 };

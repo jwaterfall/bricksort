@@ -1,8 +1,8 @@
 import { createContext, FC, PropsWithChildren, useContext, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 
-import Alert, { AlertVariant } from './Alert';
-import Button from './Button';
+import Alert, { AlertVariant } from './display/Alert';
+import Button from './actions/Button';
 
 interface Alert {
     id: string;
@@ -51,7 +51,7 @@ const AlertProvider: FC<PropsWithChildren> = ({ children }) => {
     return (
         <AlertContext.Provider value={{ alerts, addAlert, removeAlert, enabled, setEnabled }}>
             {children}
-            <div className="z-50 fixed top-0 left-0 w-screen h-screen p-4 flex flex-col gap-2 justify-end md:items-end pointer-events-none">
+            <div className="z-50 fixed top-0 right-0 h-screen w-screen md:w-fit p-4 flex flex-col gap-2 justify-end md:items-end pointer-events-none">
                 {alerts.map(({ id, variant, description, onConfirm }) => (
                     <Alert key={id} description={description} variant={variant}>
                         {onConfirm && (

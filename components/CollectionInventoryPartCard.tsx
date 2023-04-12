@@ -1,14 +1,13 @@
-import { FC, useState, useRef } from 'react';
-import Image from 'next/image';
-import { useOnClickOutside } from 'usehooks-ts';
+import { FC, useState } from 'react';
 
 import { ExtendedCollectionInventoryPart } from '../models/CollectionInventoryPart';
 import useAddCollectionInventoryPart from '../mutations/useAddCollectionInventoryPart';
 import Card, { CardBody, CardFooter, CardImage, CardTitle } from './Card';
-import Badge from './Badge';
-import Button from './Button';
+import Button from './actions/Button';
 import Input from './Input';
 import QuantityFoundBadge from './QuantityFoundBadge';
+import Modal, { ModalBody, ModalFooter, ModalTitle } from './actions/Modal';
+import Image from 'next/image';
 
 interface CollectionInventoryPartCardProps {
     collectionInventoryPart: ExtendedCollectionInventoryPart;
@@ -18,8 +17,6 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
     const { mutate: addCollectionInventoryPart, isLoading } = useAddCollectionInventoryPart(collectionInventoryPart);
     const [quantity, setQuantity] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const ref = useRef<HTMLDivElement>(null);
-    useOnClickOutside(ref, () => setIsModalOpen(false));
 
     const inventoryPart = collectionInventoryPart.inventoryPart;
     const part = inventoryPart.part;
@@ -35,65 +32,62 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
                     <QuantityFoundBadge quantityFound={collectionInventoryPart.quantityFound} quantity={collectionInventoryPart.quantity} />
                 </CardFooter>
             </Card>
-            <div
-                className={`bg-black/20 transition-opacity fixed top-0 right-0 bottom-0 left-0 z-50 flex items-center justify-center p-4 ${
-                    isModalOpen ? '' : 'opacity-0 pointer-events-none'
-                }`}
-            >
-                <div ref={ref}>
-                    <Card>
-                        {inventoryPart.imageUrl && <CardImage src={inventoryPart.imageUrl} alt={part.name} />}
-                        <CardTitle>{part.name}</CardTitle>
-                        <CardBody>{color.name}</CardBody>
-                        <CardFooter>
-                            <QuantityFoundBadge quantityFound={collectionInventoryPart.quantityFound} quantity={collectionInventoryPart.quantity} />
-                            <Input
-                                label="Quantity to add or remove"
-                                type="number"
-                                value={quantity}
-                                onChange={(e) => setQuantity(parseInt(e.target.value))}
-                            />
+            <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
+                {inventoryPart.imageUrl && (
+                    <figure className="mb-4 p-4 mx-auto">
+                        <Image
+                            src={inventoryPart.imageUrl}
+                            alt={part.name}
+                            width={300}
+                            height={300}
+                            className="object-contain w-full h-24 mix-blend-multiply"
+                            priority={true}
+                        />
+                    </figure>
+                )}
+                <ModalTitle>{part.name}</ModalTitle>
+                <ModalBody>{color.name}</ModalBody>
+                <QuantityFoundBadge quantityFound={collectionInventoryPart.quantityFound} quantity={collectionInventoryPart.quantity} />
+                <Input label="Quantity to add or remove" type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} />
 
-                            <div className="grid grid-cols-2 gap-2">
-                                <Button
-                                    isFullWidth
-                                    color="primary"
-                                    disabled={collectionInventoryPart.quantityFound + quantity > collectionInventoryPart.quantity || isLoading}
-                                    onClick={() => {
-                                        addCollectionInventoryPart(quantity);
-                                        setQuantity(1);
-                                        setIsModalOpen(false);
-                                    }}
-                                >
-                                    Add
-                                </Button>
-                                <Button
-                                    isFullWidth
-                                    color="primary"
-                                    disabled={collectionInventoryPart.quantityFound <= 0}
-                                    onClick={() => {
-                                        addCollectionInventoryPart(-quantity);
-                                        setQuantity(1);
-                                        setIsModalOpen(false);
-                                    }}
-                                >
-                                    Remove
-                                </Button>
-                            </div>
-                            <Button
-                                isFullWidth
-                                disabled={collectionInventoryPart.quantityFound >= collectionInventoryPart.quantity || isLoading}
-                                onClick={() => addCollectionInventoryPart(collectionInventoryPart.quantity - collectionInventoryPart.quantityFound)}
-                            >
-                                Found All
-                            </Button>
-                            <Button color="primary" onClick={() => setIsModalOpen(false)}>
-                                Close
-                            </Button>
-                        </CardFooter>
-                    </Card>
+                <div className="grid grid-cols-2 gap-2 mt-4">
+                    <Button
+                        isFullWidth
+                        color="primary"
+                        disabled={collectionInventoryPart.quantityFound + quantity > collectionInventoryPart.quantity || isLoading}
+                        onClick={() => {
+                            addCollectionInventoryPart(quantity);
+                            setQuantity(1);
+                            setIsModalOpen(false);
+                        }}
+                    >
+                        Add
+                    </Button>
+                    <Button
+                        isFullWidth
+                        color="primary"
+                        disabled={collectionInventoryPart.quantityFound <= 0}
+                        onClick={() => {
+                            addCollectionInventoryPart(-quantity);
+                            setQuantity(1);
+                            setIsModalOpen(false);
+                        }}
+                    >
+                        Remove
+                    </Button>
                 </div>
-            </div>
+                <Button
+                    isFullWidth
+                    disabled={collectionInventoryPart.quantityFound >= collectionInventoryPart.quantity || isLoading}
+                    onClick={() => addCollectionInventoryPart(collectionInventoryPart.quantity - collectionInventoryPart.quantityFound)}
+                >
+                    Found All
+                </Button>
+
+                <ModalFooter>
+                    <Button onClick={() => setIsModalOpen(false)}>Close</Button>
+                </ModalFooter>
+            </Modal>
         </>
     );
 };

@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, useState, useContext, createContext, SetStateAction, Dispatch, useRef } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
-import { ButtonProps } from './Button';
+import { ButtonProps } from './actions/Button';
 
 interface DropdownContext {
     open: boolean;

@@ -3,7 +3,7 @@ import { FaFilter } from 'react-icons/fa';
 
 import useThemes from '../queries/useThemes';
 import Dropdown, { DropdownToggle, DropdownContent } from './Dropdown';
-import Button from './Button';
+import Button from './actions/Button';
 
 interface SetFilterDropdownProps {
     search: string;

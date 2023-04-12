@@ -4,8 +4,8 @@ import { FaHammer } from 'react-icons/fa';
 import useCreateCollectionInventory from '../mutations/useCreateCollectionInventory';
 import { ExtendedSet } from '../models/Set';
 import Card, { CardBody, CardFooter, CardImage, CardTitle } from './Card';
-import Badge from './Badge';
-import Button from './Button';
+import Badge from './display/Badge';
+import Button from './actions/Button';
 
 interface SetCardProps {
     set: ExtendedSet;

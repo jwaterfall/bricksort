@@ -1,28 +1,31 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Alert from '.';
-import Button from '../Button';
+import Button from '../../actions/Button';
 
 const meta: Meta<typeof Alert> = {
-    title: 'Alert',
+    title: 'Display/Alert',
     component: Alert,
     tags: ['autodocs'],
     argTypes: {
         variant: {
-            control: {
-                type: 'select',
-                options: ['default', 'success', 'error', 'info', 'warning'],
-            },
+            description: 'This changes the color and icon of the alert.',
+            options: ['default', 'success', 'error', 'info', 'warning'],
         },
         title: {
+            description: 'When provided, the title will be displayed above the description and the text size of the description will be reduced.',
             control: {
                 type: 'text',
             },
         },
         description: {
+            description: 'The description is the main content of the alert.',
             control: {
                 type: 'text',
             },
+        },
+        children: {
+            description: 'The content to be displayed at the end or footer of the alert.',
         },
     },
 };
@@ -75,5 +78,18 @@ export const WithButton: Story = {
     args: {
         description: 'This is an alert with a button',
         children: <Button>Click Me</Button>,
+    },
+};
+
+export const WithTitleAndMultipleButtons: Story = {
+    args: {
+        title: 'This is a title',
+        description: 'This is an alert with a title and multiple buttons',
+        children: (
+            <>
+                <Button>Decline</Button>
+                <Button>Accept</Button>
+            </>
+        ),
     },
 };

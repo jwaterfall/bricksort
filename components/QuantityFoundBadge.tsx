@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import Badge from './Badge';
+import Badge from './display/Badge';
 
 interface QuantityFoundBadgeProps {
     quantity: number;
@@ -8,7 +8,7 @@ interface QuantityFoundBadgeProps {
 }
 
 const QuantityFoundBadge: FC<QuantityFoundBadgeProps> = ({ quantity, quantityFound }) => {
-    const getBadgeVariant = () => {
+    const getBadgeColor = () => {
         if (quantityFound === quantity) {
             return 'success';
         } else if (quantityFound === 0) {
@@ -18,7 +18,7 @@ const QuantityFoundBadge: FC<QuantityFoundBadgeProps> = ({ quantity, quantityFou
         }
     };
 
-    return <Badge variant={getBadgeVariant()}>{`${quantityFound} of ${quantity} Found`}</Badge>;
+    return <Badge color={getBadgeColor()}>{`${quantityFound} of ${quantity} Parts Found`}</Badge>;
 };
 
 export default QuantityFoundBadge;

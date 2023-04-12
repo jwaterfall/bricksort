@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react';
 
-import Button, { ButtonSize } from './Button';
+import Button, { ButtonSize } from './actions/Button';
 
 const DOTS = '...';
 

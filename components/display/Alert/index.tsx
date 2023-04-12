@@ -55,7 +55,7 @@ const Alert: FC<PropsWithChildren<AlertProps>> = ({ children, description, title
                     <p>{description}</p>
                 )}
             </div>
-            {children}
+            {children && <div className="flex items-center gap-2">{children}</div>}
         </div>
     );
 };

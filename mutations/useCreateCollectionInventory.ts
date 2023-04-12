@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { AlertType, useAlerts } from '../components/AlertProvider';
+import { useAlerts } from '../components/AlertProvider';
 import { CollectionInventory } from '../models/CollectionInventory';
 
 async function createCollectionInventory(setId: string) {
@@ -19,10 +19,10 @@ function useCreateCollectionInventory() {
     return useMutation((setId: string) => createCollectionInventory(setId), {
         onSuccess: () => {
             queryClient.invalidateQueries(['collectionInventories']);
-            addAlert('Added set to collection', AlertType.Success);
+            addAlert('Added set to collection', 'success');
         },
         onError: () => {
-            addAlert('Failed to add set to collection', AlertType.Error);
+            addAlert('Failed to add set to collection', 'error');
         },
     });
 }
