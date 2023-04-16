@@ -3,30 +3,22 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Badge from '.';
 
 const meta: Meta<typeof Badge> = {
-    title: 'Display/Badge',
     component: Badge,
-    tags: ['autodocs'],
     argTypes: {
         color: {
             description: 'Changes the background, border and text color.',
+            options: ['default', 'primary', 'success', 'error', 'info', 'warning'],
             control: {
                 type: 'select',
-                options: ['default', 'primary', 'success', 'error', 'info', 'warning'],
             },
         },
         size: {
             description: 'The size of the badge.',
-            control: {
-                type: 'select',
-                options: ['sm', 'md', 'lg'],
-            },
+            options: ['sm', 'md', 'lg'],
         },
         variant: {
             description: 'A solid badge will fill the background with the color, while an outline badge will only have a border.',
-            control: {
-                type: 'select',
-                options: ['solid', 'outline'],
-            },
+            options: ['solid', 'outline'],
         },
         children: {
             description: 'The text to display inside the badge.',

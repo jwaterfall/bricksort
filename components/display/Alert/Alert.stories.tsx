@@ -4,9 +4,7 @@ import Alert from '.';
 import Button from '../../actions/Button';
 
 const meta: Meta<typeof Alert> = {
-    title: 'Display/Alert',
     component: Alert,
-    tags: ['autodocs'],
     argTypes: {
         variant: {
             description: 'This changes the color and icon of the alert.',
