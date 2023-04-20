@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { withApiAuthRequired, getSession, Session } from '@auth0/nextjs-auth0';
 
 import connectToDatabase from '../../../../../middleware/connectToDatabase';
-import CollectionInventoryModel from '../../../../../models/CollectionInventory';
 import CollectionInventoryPartModel from '../../../../../models/CollectionInventoryPart';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -24,34 +23,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     return;
                 }
 
-                const collectionInventory = await CollectionInventoryModel.findOne({
-                    user: user.sub,
-                    _id: collectionInventoryPart.collectionInventory,
-                });
+                const quantityAdded = await collectionInventoryPart.addQuantityFound(count);
 
-                if (!collectionInventory) {
-                    res.status(404).end(`Collection inventory ${collectionInventoryPart.collectionInventory} not found`);
-                    return;
-                }
-
-                const clampedCount = Math.max(
-                    -collectionInventoryPart.quantityFound,
-                    Math.min(count, collectionInventoryPart.quantity - collectionInventoryPart.quantityFound)
-                );
-
-                collectionInventoryPart.quantityFound += clampedCount;
-                await collectionInventoryPart.save();
-
-                collectionInventory.totalPartQuantityFound += clampedCount;
-                await collectionInventory.save();
-
-                res.status(200).json(collectionInventoryPart);
+                res.status(200).json(quantityAdded);
             } catch (error) {
                 console.error(error);
                 res.status(500).json({ error: (error as Error).message });
             }
-
-            break;
 
             break;
         default:

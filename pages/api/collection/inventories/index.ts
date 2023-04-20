@@ -1,17 +1,17 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { withApiAuthRequired, getSession, Session } from "@auth0/nextjs-auth0";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { withApiAuthRequired, getSession, Session } from '@auth0/nextjs-auth0';
 
-import connectToDatabase from "../../../../middleware/connectToDatabase";
-import CollectionInventoryModel from "../../../../models/CollectionInventory";
-import InventoryModel from "../../../../models/Inventory";
-import SetModel from "../../../../models/Set";
-import ThemeModel from "../../../../models/Theme";
+import connectToDatabase from '../../../../middleware/connectToDatabase';
+import CollectionInventoryModel from '../../../../models/CollectionInventory';
+import InventoryModel from '../../../../models/Inventory';
+import SetModel from '../../../../models/Set';
+import ThemeModel from '../../../../models/Theme';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { user } = (await getSession(req, res)) as Session;
 
     switch (req.method) {
-        case "GET":
+        case 'GET':
             try {
                 const page = parseInt(req.query.page as string) || 1;
                 const limit = parseInt(req.query.limit as string) || 100;
@@ -23,14 +23,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     .limit(limit)
                     .skip(skip)
                     .populate({
-                        path: "inventory",
-                        model: InventoryModel,
+                        path: 'inventory',
                         populate: {
-                            path: "set",
-                            model: SetModel,
+                            path: 'set',
                             populate: {
-                                path: "theme",
-                                model: ThemeModel,
+                                path: 'theme',
                             },
                         },
                     })
@@ -48,7 +45,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             break;
         default:
-            res.setHeader("Allow", ["GET"]);
+            res.setHeader('Allow', ['GET']);
             res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 }

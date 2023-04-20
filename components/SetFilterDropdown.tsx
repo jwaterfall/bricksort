@@ -87,7 +87,7 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
                             </label>
                             <div className="flex flex-col max-h-52 overflow-y-auto">
                                 {themes
-                                    .filter((theme) => !theme.parent)
+                                    .filter((theme) => !theme.parentId)
                                     .sort((a, b) => a.name.localeCompare(b.name))
                                     .map((theme) => (
                                         <label key={theme._id} className="label cursor-pointer gap-2 justify-start">

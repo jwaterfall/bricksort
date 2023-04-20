@@ -81,7 +81,7 @@ const syncThemes: SyncFunction = async () => {
         const newTheme = new ThemeModel({
             _id: theme.id,
             name: theme.name,
-            parent: theme.parent_id,
+            parentId: theme.parent_id,
             setCount,
         });
 
@@ -161,7 +161,7 @@ const syncParts: SyncFunction = async () => {
         const newPart = new PartModel({
             _id: part.part_num,
             name: part.name,
-            category: part.part_cat_id,
+            categoryId: part.part_cat_id,
             material: part.part_material,
         });
 
@@ -187,8 +187,8 @@ const syncPartRelationships: SyncFunction = async () => {
         const newPartRelationship = new PartRelationshipModel({
             _id: partRelationship.parent_part_num + partRelationship.child_part_num + partRelationship.rel_type,
             relationshipType: partRelationship.rel_type,
-            child: partRelationship.child_part_num,
-            parent: partRelationship.parent_part_num,
+            childId: partRelationship.child_part_num,
+            parentId: partRelationship.parent_part_num,
         });
 
         inserts.set(newPartRelationship._id, newPartRelationship);
@@ -214,7 +214,7 @@ const syncSets: SyncFunction = async () => {
             _id: set.set_num,
             name: set.name,
             year: set.year,
-            theme: set.theme_id,
+            themeId: set.theme_id,
             partCount: set.num_parts,
             imageUrl: set.img_url,
         });
@@ -240,8 +240,8 @@ const syncElements: SyncFunction = async () => {
     for (const element of elements) {
         const newElement = new ElementModel({
             _id: element.element_id,
-            part: element.part_num,
-            color: element.color_id,
+            partId: element.part_num,
+            colorId: element.color_id,
         });
 
         inserts.set(newElement._id, newElement);
@@ -291,12 +291,8 @@ const syncInventories: SyncFunction = async () => {
     for (const inventory of inventories) {
         const newInventory = new InventoryModel({
             _id: inventory.id,
-            set: inventory.set_num,
+            setId: inventory.set_num,
             version: inventory.version,
-            quantity: inventory.quantity,
-            isAlternate: inventory.is_alternate === 't',
-            alternate: inventory.alternate,
-            color: inventory.color_id,
         });
 
         inserts.set(newInventory._id, newInventory);
@@ -320,10 +316,10 @@ const syncInventoryParts: SyncFunction = async () => {
 
     for (const inventoryPart of inventoryParts) {
         const newInventoryPart = new InventoryPartModel({
-            _id: inventoryPart.inventory_id + inventoryPart.part_num + inventoryPart.color_id,
-            inventory: inventoryPart.inventory_id,
-            part: inventoryPart.part_num,
-            color: inventoryPart.color_id,
+            _id: inventoryPart.inventory_id + inventoryPart.part_num + inventoryPart.color_id + inventoryPart.is_spare,
+            inventoryId: inventoryPart.inventory_id,
+            partId: inventoryPart.part_num,
+            colorId: inventoryPart.color_id,
             quantity: inventoryPart.quantity,
             isSpare: inventoryPart.is_spare === 't',
         });
@@ -352,8 +348,8 @@ const syncInventorySets: SyncFunction = async () => {
     for (const inventorySet of inventorySets) {
         const newInventorySet = new InventorySetModel({
             _id: inventorySet.inventory_id + inventorySet.set_num,
-            inventory: inventorySet.inventory_id,
-            set: inventorySet.set_num,
+            inventoryId: inventorySet.inventory_id,
+            setId: inventorySet.set_num,
             quantity: inventorySet.quantity,
         });
 
@@ -378,8 +374,8 @@ const syncInventoryMinifigs: SyncFunction = async () => {
     for (const inventoryMinifig of inventoryMinifigs) {
         const newInventoryMinifig = new InventoryMinifigModel({
             _id: inventoryMinifig.inventory_id + inventoryMinifig.fig_num,
-            inventory: inventoryMinifig.inventory_id,
-            minifig: inventoryMinifig.fig_num,
+            inventoryId: inventoryMinifig.inventory_id,
+            minifigId: inventoryMinifig.fig_num,
             quantity: inventoryMinifig.quantity,
         });
 

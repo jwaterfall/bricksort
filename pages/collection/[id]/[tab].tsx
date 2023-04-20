@@ -38,7 +38,7 @@ const CollectionPage: NextPage = () => {
                     }
                 >
                     {(tab === 'missing-parts' ? missingPartsData : allPartsData).collectionInventoryParts.map((collectionInventoryPart) => (
-                        <CollectionInventoryPartCard key={collectionInventoryPart.id} collectionInventoryPart={collectionInventoryPart} />
+                        <CollectionInventoryPartCard key={collectionInventoryPart._id} collectionInventoryPart={collectionInventoryPart} />
                     ))}
                 </CardDisplay>
             </div>

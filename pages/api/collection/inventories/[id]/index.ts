@@ -17,30 +17,30 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             try {
                 const setId = req.query.id;
 
-                const inventory = await InventoryModel.findOne({ set: setId });
+                const inventory = await InventoryModel.findOne({ setId });
 
                 if (!inventory) {
                     res.status(404).end(`Inventory for set ${setId} not found`);
                     return;
                 }
 
-                const inventoryParts = await InventoryPartModel.find({ inventory: inventory._id, isSpare: false });
+                const inventoryParts = await InventoryPartModel.find({ inventoryId: inventory._id, isSpare: false });
 
-                const inventoryMinifigs = await InventoryMinifigModel.find({ inventory: inventory._id });
+                const inventoryMinifigs = await InventoryMinifigModel.find({ inventoryId: inventory._id });
                 const minifigInventories = await InventoryModel.find({
-                    set: { $in: inventoryMinifigs.map((inventoryMinifig) => inventoryMinifig.minifig) },
+                    setId: { $in: inventoryMinifigs.map((inventoryMinifig) => inventoryMinifig.minifigId) },
                 });
                 const minifigInventoryParts = await InventoryPartModel.find({
-                    inventory: { $in: minifigInventories.map((minifigInventory) => minifigInventory._id) },
+                    inventoryId: { $in: minifigInventories.map((minifigInventory) => minifigInventory._id) },
                 });
 
                 inventoryMinifigs.forEach((inventoryMinifig) => {
-                    const minifigInventory = minifigInventories.find((minifigInventory) => minifigInventory.set === inventoryMinifig.minifig);
+                    const minifigInventory = minifigInventories.find((minifigInventory) => minifigInventory.setId === inventoryMinifig.minifigId);
 
                     if (!minifigInventory) return;
 
                     const currentMinifigInventoryParts = minifigInventoryParts.filter(
-                        (minifigInventoryPart) => minifigInventoryPart.inventory === minifigInventory._id
+                        (minifigInventoryPart) => minifigInventoryPart.inventoryId === minifigInventory._id
                     );
 
                     currentMinifigInventoryParts.forEach((minifigInventoryPart) => {
@@ -53,7 +53,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 const deduplicatedInventoryParts = new Map<string, any>();
 
                 inventoryParts.forEach((inventoryPart) => {
-                    const key = `${inventoryPart.part}-${inventoryPart.color}`;
+                    const key = `${inventoryPart.partId}-${inventoryPart.colorId}`;
 
                     if (deduplicatedInventoryParts.has(key)) {
                         deduplicatedInventoryParts.get(key).quantity += inventoryPart.quantity;
@@ -66,9 +66,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
                 const collectionInventoryParts = Array.from(deduplicatedInventoryParts.values()).map((inventoryPart) => ({
                     user: user.sub,
-                    collectionInventory: collectionInventoryId,
-                    inventoryPart: inventoryPart._id,
                     quantity: inventoryPart.quantity,
+                    collectionInventoryId,
+                    inventoryPartId: inventoryPart._id,
                 }));
 
                 const totalPartQuantity = collectionInventoryParts.reduce((total, collectionInventoryPart) => {
@@ -78,7 +78,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 const collectionInventory = new CollectionInventoryModel({
                     _id: collectionInventoryId,
                     user: user.sub,
-                    inventory: inventory._id,
+                    inventoryId: inventory._id,
                     totalPartQuantity,
                 });
 
@@ -94,10 +94,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             break;
         case 'DELETE':
             try {
-                const collectionInventoryId = req.query.id;
-
-                await CollectionInventoryPartModel.deleteMany({ collectionInventory: collectionInventoryId });
-                const collectionInventory = await CollectionInventoryModel.findByIdAndDelete(collectionInventoryId);
+                const collectionInventory = await CollectionInventoryModel.findOneAndDelete({
+                    _id: req.query.id,
+                    user: user.sub,
+                });
 
                 res.status(200).json(collectionInventory);
             } catch (error) {

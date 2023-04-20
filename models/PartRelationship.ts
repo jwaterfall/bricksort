@@ -1,5 +1,7 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
+import { Part } from './Part';
+
 export enum RelationshipType {
     PRINT = 'P',
     PAIR = 'R',
@@ -12,17 +14,19 @@ export enum RelationshipType {
 export interface PartRelationship extends Document {
     _id: string;
     relationshipType: RelationshipType;
-    child: string;
-    parent: string;
+    childId: string;
+    parentId: string;
+    child: Part;
+    parent: Part;
 }
 
 const schema = new Schema<PartRelationship>({
     _id: { type: String, required: true },
     relationshipType: { type: String, required: true, enum: Object.values(RelationshipType) },
-    child: { type: String, required: true, ref: 'Part', index: true },
-    parent: { type: String, required: true, ref: 'Part', index: true },
+    childId: { type: String, required: true, index: true },
+    parentId: { type: String, required: true, index: true },
 });
 
-const PartRelationshipModel = mongoose.models.PartRelationship || model<PartRelationship>('PartRelationship', schema, 'part_relationships');
+const PartRelationshipModel = mongoose.models.PartRelationship ?? model<PartRelationship>('PartRelationship', schema, 'part_relationships');
 
 export default PartRelationshipModel as mongoose.Model<PartRelationship>;

@@ -1,13 +1,13 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { withApiAuthRequired } from "@auth0/nextjs-auth0";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 
-import connectToDatabase from "../../middleware/connectToDatabase";
-import SetModel from "../../models/Set";
-import ThemeModel from "../../models/Theme";
+import connectToDatabase from '../../middleware/connectToDatabase';
+import SetModel from '../../models/Set';
+import ThemeModel from '../../models/Theme';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     switch (req.method) {
-        case "GET":
+        case 'GET':
             try {
                 const page = parseInt(req.query.page as string) || 1;
                 const limit = parseInt(req.query.limit as string) || 100;
@@ -15,18 +15,18 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
                 const minYear = parseInt(req.query.minYear as string) || undefined;
                 const maxYear = parseInt(req.query.maxYear as string) || undefined;
-                const themes = (req.query["themes[]"] as string[]) || undefined;
+                const themes = (req.query['themes[]'] as string[]) || undefined;
                 const search = (req.query.search as string) || undefined;
 
-                const excludedThemes = ["501", "739", "736", "408", "497", "688", "737", "503", "740", "733", "741", "398"];
+                const excludedThemes = ['501', '739', '736', '408', '497', '688', '737', '503', '740', '733', '741', '398', '598', '746'];
                 const query = {
-                    theme: themes ? { $in: themes } : { $nin: excludedThemes },
+                    themeId: themes ? { $in: themes } : { $nin: excludedThemes },
                     ...(minYear && { year: { $gte: minYear } }),
                     ...(maxYear && { year: { $lte: maxYear } }),
-                    ...(search && { $or: [{ _id: { $regex: search, $options: "i" } }, { name: { $regex: search, $options: "i" } }] }),
+                    ...(search && { $or: [{ _id: { $regex: search, $options: 'i' } }, { name: { $regex: search, $options: 'i' } }] }),
                 };
 
-                const sets = await SetModel.find(query).sort({ year: -1 }).limit(limit).skip(skip).populate("theme", undefined, ThemeModel).exec();
+                const sets = await SetModel.find(query).sort({ year: -1 }).limit(limit).skip(skip).populate('theme').exec();
                 const pageCount = Math.ceil((await SetModel.countDocuments(query)) / limit);
 
                 res.json({
@@ -39,7 +39,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             break;
         default:
-            res.setHeader("Allow", ["GET"]);
+            res.setHeader('Allow', ['GET']);
             res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 }

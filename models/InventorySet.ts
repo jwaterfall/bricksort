@@ -1,20 +1,23 @@
-import mongoose, { Document, Schema, model } from "mongoose";
+import mongoose, { Document, Schema, model } from 'mongoose';
+
+import { Set } from './Set';
 
 // @ts-expect-error
 export interface InventorySet extends Document {
-  _id: string;
-  inventory: string;
-  set: string;
-  quantity: number;
+    _id: string;
+    quantity: number;
+    inventoryId: string;
+    setId: string;
+    set: Set;
 }
 
 const schema = new Schema<InventorySet>({
-  _id: { type: String, required: true },
-  inventory: { type: String, required: true, ref: "Inventory", index: true },
-  set: { type: String, required: true, ref: "Set", index: true },
-  quantity: { type: Number, required: true },
+    _id: { type: String, required: true },
+    quantity: { type: Number, required: true },
+    inventoryId: { type: String, required: true, index: true },
+    setId: { type: String, required: true, index: true },
 });
 
-const InventorySetModel = mongoose.models.InventorySet || model<InventorySet>("InventorySet", schema, "inventory_sets");
+const InventorySetModel = mongoose.models.InventorySet ?? model<InventorySet>('InventorySet', schema, 'inventory_sets');
 
 export default InventorySetModel as mongoose.Model<InventorySet>;

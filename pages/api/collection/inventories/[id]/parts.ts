@@ -23,7 +23,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     {
                         $lookup: {
                             from: 'inventory_parts',
-                            localField: 'inventoryPart',
+                            localField: 'inventoryPartId',
                             foreignField: '_id',
                             as: 'inventoryPart',
                         },
@@ -32,9 +32,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                         $unwind: '$inventoryPart',
                     },
                     {
+                        $addFields: {
+                            quantity: '$inventoryPart.quantity',
+                        },
+                    },
+                    {
                         $match: {
                             user: user.sub,
-                            collectionInventory: new Types.ObjectId(collectionInventoryId),
+                            collectionInventoryId: new Types.ObjectId(collectionInventoryId),
                         },
                     },
                 ];
@@ -61,7 +66,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     {
                         $lookup: {
                             from: 'parts',
-                            localField: 'inventoryPart.part',
+                            localField: 'inventoryPart.partId',
                             foreignField: '_id',
                             as: 'inventoryPart.part',
                         },
@@ -72,7 +77,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     {
                         $lookup: {
                             from: 'colors',
-                            localField: 'inventoryPart.color',
+                            localField: 'inventoryPart.colorId',
                             foreignField: '_id',
                             as: 'inventoryPart.color',
                         },
@@ -95,7 +100,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     {
                         $lookup: {
                             from: 'collection_inventories',
-                            localField: 'collectionInventory',
+                            localField: 'collectionInventoryId',
                             foreignField: '_id',
                             as: 'collectionInventory',
                         },

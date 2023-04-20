@@ -1,17 +1,17 @@
-import mongoose, { Document, Schema, model } from "mongoose";
+import mongoose, { Document, Schema, model } from 'mongoose';
 
 export interface Element extends Document {
-  _id: string;
-  part: string;
-  color: string;
+    _id: string;
+    partId: string;
+    colorId: string;
 }
 
 const schema = new Schema<Element>({
-  _id: { type: String, required: true },
-  part: { type: String, required: true, ref: "Part" },
-  color: { type: String, required: true, ref: "Color" },
+    _id: { type: String, required: true },
+    partId: { type: String, required: true },
+    colorId: { type: String, required: true },
 });
 
-const ElementModel = mongoose.models.Element || model<Element>("Element", schema, "elements");
+const ElementModel = mongoose.models.Element ?? model<Element>('Element', schema, 'elements');
 
 export default ElementModel as mongoose.Model<Element>;
