@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import { FaHammer } from 'react-icons/fa';
 
+import { Set } from '../models/Set';
 import useCreateCollectionInventory from '../mutations/useCreateCollectionInventory';
-import { ExtendedSet } from '../models/Set';
 import Card, { CardBody, CardFooter, CardImage, CardTitle } from './Card';
 import Badge from './display/Badge';
 import Button from './actions/Button';
 
 interface SetCardProps {
-    set: ExtendedSet;
+    set: Set;
 }
 
 const SetCard: FC<SetCardProps> = ({ set }) => {

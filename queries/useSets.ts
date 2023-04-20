@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { ExtendedSet } from '../models/Set';
+import { Set } from '../models/Set';
 
 interface SetResponse {
-    sets: ExtendedSet[];
+    sets: Set[];
     pageCount: number;
 }
 

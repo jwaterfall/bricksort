@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { useAlerts } from '../components/AlertProvider';
 import { CollectionInventory } from '../models/CollectionInventory';
-import { ExtendedCollectionInventoryPart } from '../models/CollectionInventoryPart';
+import { CollectionInventoryPart } from '../models/CollectionInventoryPart';
 
 async function addCollectionInventoryPart(collectionInventoryPartId: string, count: number) {
     const { origin } = window.location;
@@ -13,13 +13,13 @@ async function addCollectionInventoryPart(collectionInventoryPartId: string, cou
     return modifiedCollectionInventoryPart;
 }
 
-function useAddCollectionInventoryPart(collectionInventoryPart: ExtendedCollectionInventoryPart) {
+function useAddCollectionInventoryPart(collectionInventoryPart: CollectionInventoryPart) {
     const queryClient = useQueryClient();
     const { addAlert } = useAlerts();
 
     return useMutation((count: number) => addCollectionInventoryPart(collectionInventoryPart._id, count), {
         onSuccess: (newPart, count) => {
-            queryClient.invalidateQueries(['collectionInventoryParts', collectionInventoryPart.collectionInventory._id]);
+            queryClient.invalidateQueries(['collectionInventoryParts', collectionInventoryPart.collectionInventoryId]);
 
             if (count > 0) {
                 addAlert('Added parts to collection', 'success');

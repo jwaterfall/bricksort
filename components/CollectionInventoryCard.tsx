@@ -1,15 +1,15 @@
 import { FC } from 'react';
 import { FaTrash } from 'react-icons/fa';
 
+import { CollectionInventory } from '../models/CollectionInventory';
 import useDeleteCollectionInventory from '../mutations/useDeleteCollectionInventory';
-import { ExtendedCollectionInventory } from '../models/CollectionInventory';
 import { useAlerts } from './AlertProvider';
 import Card, { CardBody, CardFooter, CardImage, CardTitle } from './Card';
 import QuantityFoundBadge from './QuantityFoundBadge';
 import Button from './actions/Button';
 
 interface CollectionInventoryCardProps {
-    collectionInventory: ExtendedCollectionInventory;
+    collectionInventory: CollectionInventory;
 }
 
 const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionInventory }) => {
@@ -17,7 +17,6 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
     const { addAlert } = useAlerts();
 
     const set = collectionInventory.inventory.set;
-    const percentComplete = (collectionInventory.totalPartQuantityFound / collectionInventory.totalPartQuantity) * 100;
 
     return (
         <Card href={`/collection/${collectionInventory._id}/missing-parts`}>

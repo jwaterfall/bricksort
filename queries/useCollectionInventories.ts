@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { ExtendedCollectionInventory } from '../models/CollectionInventory';
+import { CollectionInventory } from '../models/CollectionInventory';
 
 interface SetResponse {
-    collectionInventories: ExtendedCollectionInventory[];
+    collectionInventories: CollectionInventory[];
     pageCount: number;
 }
 

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { ExtendedCollectionInventoryPart } from '../models/CollectionInventoryPart';
+import { CollectionInventoryPart } from '../models/CollectionInventoryPart';
 import useAddCollectionInventoryPart from '../mutations/useAddCollectionInventoryPart';
 import Card, { CardBody, CardFooter, CardImage, CardTitle } from './Card';
 import Button from './actions/Button';
@@ -10,7 +10,7 @@ import Modal, { ModalBody, ModalFooter, ModalTitle } from './actions/Modal';
 import Image from 'next/image';
 
 interface CollectionInventoryPartCardProps {
-    collectionInventoryPart: ExtendedCollectionInventoryPart;
+    collectionInventoryPart: CollectionInventoryPart;
 }
 
 const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ collectionInventoryPart }) => {
