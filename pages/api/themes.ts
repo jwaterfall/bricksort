@@ -11,6 +11,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 const themes = await ThemeModel.find();
                 res.json(themes);
             } catch (error) {
+                console.error(error);
                 res.status(500).json({ error: (error as Error).message });
             }
 

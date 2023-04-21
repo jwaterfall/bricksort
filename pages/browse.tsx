@@ -14,7 +14,7 @@ const BrowsePage: NextPage = () => {
     const [maxYear, setMaxYear] = useQueryState('maxYear', { ...queryTypes.integer, defaultValue: new Date().getFullYear(), history: 'push' });
     const [themeIds, setThemeIds] = useQueryState<string[]>('themes', { ...queryTypes.array(queryTypes.string), defaultValue: [], history: 'push' });
     const [page, setPage] = useQueryState('page', { ...queryTypes.integer, defaultValue: 1, history: 'push' });
-    const { data, isLoading: isSetsLoading } = useSets(page, 20, themeIds, useDebounce(search), minYear, maxYear);
+    const { data, isLoading: isSetsLoading } = useSets(page, 20, themeIds, useDebounce(search ?? ''), minYear, maxYear);
 
     if (isSetsLoading || !data) return null;
 

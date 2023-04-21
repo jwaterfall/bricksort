@@ -7,6 +7,9 @@ module.exports = {
                 sans: ['var(--font-poppins)', 'Poppins'],
                 lobster: ['var(--font-lobster)', 'Lobster'],
             },
+            screens: {
+                'hide-scrollbar': { max: '767px' },
+            },
         },
     },
     plugins: [require('tailwind-scrollbar')],

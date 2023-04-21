@@ -101,6 +101,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
                 res.status(200).json(collectionInventory);
             } catch (error) {
+                console.error(error);
                 res.status(500).json({ error: (error as Error).message });
             }
 

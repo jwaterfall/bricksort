@@ -124,6 +124,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                     pageCount,
                 });
             } catch (error) {
+                console.error(error);
                 res.status(500).json({ error: (error as Error).message });
             }
 

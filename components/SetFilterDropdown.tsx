@@ -1,20 +1,22 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { FaFilter } from 'react-icons/fa';
 
-import useThemes from '../queries/useThemes';
-import Dropdown, { DropdownToggle, DropdownContent } from './Dropdown';
-import Button from './actions/Button';
+import useThemes from '@/queries/useThemes';
+import Dropdown, { DropdownToggle, DropdownContent } from '@/components/Dropdown';
+import Button from '@/components/actions/Button';
+import Input from '@/components/Input';
+import Checkbox from '@/components/Checkbox';
 
 interface SetFilterDropdownProps {
     search: string;
-    setSearch: (search: string) => Promise<boolean>;
+    setSearch: Dispatch<SetStateAction<string | null>>;
     minYear: number;
-    setMinYear: (minYear: number) => Promise<boolean>;
+    setMinYear: Dispatch<SetStateAction<number | null>>;
     maxYear: number;
-    setMaxYear: (maxYear: number) => Promise<boolean>;
+    setMaxYear: Dispatch<SetStateAction<number | null>>;
     themeIds: string[];
-    setThemeIds: (themeIds: string[]) => Promise<boolean>;
-    setPage: (page: number) => Promise<boolean>;
+    setThemeIds: Dispatch<SetStateAction<string[] | null>>;
+    setPage: Dispatch<SetStateAction<number>>;
 }
 
 const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
@@ -38,74 +40,71 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
                 </Button>
             </DropdownToggle>
             <DropdownContent>
-                <div className="bg-slate-50 border border-slate-300 rounded-md p-4 mt-2 shadow-xl bg-base-100 rounded-box font-medium">
-                    <div className="form-control w-full max-w-xs">
-                        <label className="label w-full">
-                            <span className="label-text">Search</span>
-                        </label>
-                        <input
+                <div className="bg-slate-50 border border-slate-300 rounded-md p-4 mt-2 shadow-xl max-w-sm flex flex-col gap-4">
+                    <div>
+                        <h4 className="font-semibold">Search</h4>
+                        <Input
                             type="text"
                             placeholder="Set ID or name..."
-                            className="input w-full max-w-xs bg-base-300"
-                            value={search}
+                            value={search ?? ''}
                             onChange={async (e) => {
-                                await setSearch(e.target.value);
+                                await setSearch(e.target.value || null);
                                 await setPage(1);
                             }}
                         />
                     </div>
-                    <div className="form-control w-full max-w-xs">
-                        <label className="label w-full">
-                            <span className="label-text">Year</span>
-                        </label>
+                    <div>
+                        <h4 className="font-semibold">Year</h4>
                         <div className="flex items-center gap-2">
-                            <input
+                            <Input
                                 type="number"
-                                className="input w-full max-w-xs bg-base-300"
-                                value={minYear}
+                                label="From"
+                                value={minYear ?? ''}
                                 onChange={async (e) => {
-                                    await setMinYear(parseInt(e.target.value));
+                                    await setMinYear(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value));
                                     await setPage(1);
                                 }}
                             />
-                            <h4>to</h4>
-                            <input
+                            <Input
                                 type="number"
-                                className="input w-full max-w-xs bg-base-300"
-                                value={maxYear}
+                                label="To"
+                                value={maxYear ?? ''}
                                 onChange={async (e) => {
-                                    await setMaxYear(parseInt(e.target.value));
+                                    await setMaxYear(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value));
                                     await setPage(1);
                                 }}
                             />
                         </div>
                     </div>
                     {themes && (
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label w-full">
-                                <span className="label-text">Theme</span>
-                            </label>
-                            <div className="flex flex-col max-h-52 overflow-y-auto">
+                        <div>
+                            <h4 className="font-semibold">Themes</h4>
+                            <div className="flex flex-col gap-2 max-h-52 overflow-y-auto p-4 rounded-md bg-slate-100 border border-slate-300">
                                 {themes
                                     .filter((theme) => !theme.parentId)
                                     .sort((a, b) => a.name.localeCompare(b.name))
                                     .map((theme) => (
-                                        <label key={theme._id} className="label cursor-pointer gap-2 justify-start">
-                                            <input
-                                                type="checkbox"
-                                                className="checkbox checkbox-primary"
+                                        <div key={theme._id} className="flex items-center gap-2">
+                                            <Checkbox
                                                 checked={themeIds.includes(theme._id)}
-                                                onChange={async (e) => {
-                                                    if (e.target.checked) {
-                                                        await setThemeIds([...themeIds, theme._id]);
+                                                onChange={async (checked) => {
+                                                    if (checked) {
+                                                        await setThemeIds((themeIds) => {
+                                                            const newThemeIds = [...(themeIds ?? []), theme._id];
+                                                            return newThemeIds.length ? newThemeIds : null;
+                                                        });
                                                     } else {
-                                                        await setThemeIds(themeIds.filter((id) => id !== theme._id));
+                                                        await setThemeIds((themeIds) => {
+                                                            if (!themeIds) return null;
+                                                            const newThemeIds = themeIds.filter((id) => id !== theme._id);
+                                                            return newThemeIds.length ? newThemeIds : null;
+                                                        });
                                                     }
                                                     await setPage(1);
                                                 }}
                                             />
-                                            <span className="label-text truncate">{theme.name}</span>
-                                        </label>
+                                            <span className="text-sm font-medium">{theme.name}</span>
+                                        </div>
                                     ))}
                             </div>
                         </div>
