@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { Dispatch, FC, SetStateAction, useMemo } from 'react';
 
 import Button, { ButtonSize } from './actions/Button';
 
@@ -6,7 +6,7 @@ const DOTS = '...';
 
 interface PaginationProps {
     page: number;
-    setPage: (page: number) => void;
+    setPage: Dispatch<SetStateAction<number>>;
     pageCount: number;
     size?: ButtonSize;
     siblingCount?: number;
@@ -45,20 +45,33 @@ const Pagination: FC<PaginationProps> = ({ page, setPage, pageCount, size, sibli
     }, [page, pageCount, siblingCount]);
 
     return (
-        <div className={`flex group pagination overflow-hidden border-slate-300 border rounded-md bg-slate-300 gap-px w-fit`}>
-            {pages.map((p, index) => (
-                <Button
-                    key={index}
-                    size={size}
-                    shape="square"
-                    onClick={() => setPage(p as number)}
-                    color={p === page ? 'primary' : 'default'}
-                    disabled={p === DOTS}
-                >
-                    {p}
+        <>
+            <div className={`group pagination overflow-hidden border-slate-300 border rounded-md bg-slate-300 gap-px w-fit hidden sm:flex`}>
+                {pages.map((p, index) => (
+                    <Button
+                        key={index}
+                        size={size}
+                        shape="square"
+                        onClick={() => setPage(p as number)}
+                        color={p === page ? 'primary' : 'default'}
+                        disabled={p === DOTS}
+                    >
+                        {p}
+                    </Button>
+                ))}
+            </div>
+            <div className={`flex group pagination overflow-hidden border-slate-300 border rounded-md bg-slate-300 gap-px w-fit sm:hidden`}>
+                <Button size={size} shape="square" onClick={() => setPage((page) => page - 1)} disabled={page <= 1}>
+                    {'<'}
                 </Button>
-            ))}
-        </div>
+                <Button size={size}>
+                    Page {page} of {pageCount}
+                </Button>
+                <Button size={size} shape="square" onClick={() => setPage((page) => page + 1)} disabled={page >= pageCount}>
+                    {'>'}
+                </Button>
+            </div>
+        </>
     );
 };
 

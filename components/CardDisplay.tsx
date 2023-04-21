@@ -1,9 +1,9 @@
-import { FC, PropsWithChildren } from 'react';
+import { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 import Pagination from './Pagination';
 
 interface CardDisplayProps {
     page: number;
-    setPage: (page: number) => void;
+    setPage: Dispatch<SetStateAction<number>>;
     pageCount: number;
     emptyTitle: string;
     emptySubtitle: string;
@@ -13,7 +13,7 @@ interface CardDisplayProps {
 const CardDisplay: FC<PropsWithChildren<CardDisplayProps>> = ({ page, setPage, pageCount, emptyTitle, emptySubtitle, children, FilterDropdown }) => (
     <div className="flex flex-col gap-4">
         {(pageCount > 1 || FilterDropdown) && (
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4">
                 <div>{pageCount > 1 && <Pagination page={page} setPage={setPage} pageCount={pageCount} />}</div>
                 {FilterDropdown}
             </div>

@@ -3,7 +3,6 @@ import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 
 import connectToDatabase from '../../middleware/connectToDatabase';
 import SetModel from '../../models/Set';
-import ThemeModel from '../../models/Theme';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     switch (req.method) {

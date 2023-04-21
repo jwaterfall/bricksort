@@ -25,9 +25,8 @@ interface CardProps {
 const Card: FC<PropsWithChildren<CardProps>> = ({ href, children, onClick }) => {
     const BaseCard = () => (
         <div
-            className={`bg-slate-50 p-4 border border-slate-300 rounded-md transition-transform lg:hover:scale-105 flex flex-col ${
-                onClick ? 'cursor-pointer' : ''
-            }`}
+            className={`bg-slate-50 p-4 border border-slate-300 rounded-md transition-transform lg:hover:scale-105 flex flex-col 
+                ${onClick ? 'cursor-pointer' : ''} ${href ? 'h-full' : ''}`}
             onClick={onClick}
         >
             {children}

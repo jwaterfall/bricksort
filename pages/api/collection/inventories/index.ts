@@ -3,9 +3,6 @@ import { withApiAuthRequired, getSession, Session } from '@auth0/nextjs-auth0';
 
 import connectToDatabase from '../../../../middleware/connectToDatabase';
 import CollectionInventoryModel from '../../../../models/CollectionInventory';
-import InventoryModel from '../../../../models/Inventory';
-import SetModel from '../../../../models/Set';
-import ThemeModel from '../../../../models/Theme';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { user } = (await getSession(req, res)) as Session;
