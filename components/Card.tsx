@@ -8,13 +8,13 @@ interface CardImageProps {
 }
 
 export const CardImage: FC<PropsWithChildren<CardImageProps>> = ({ src, alt }) => (
-    <figure className="border-b border-slate-300 -m-4 mb-4 p-4">
+    <figure className="border-b border-slate-300 -m-2 mb-2 p-2 sm:-m-4 sm:mb-4 sm:p-4">
         <Image src={src} alt={alt} width={300} height={300} className="object-contain w-full aspect-video mix-blend-multiply" priority={true} />
     </figure>
 );
 
-export const CardTitle: FC<PropsWithChildren> = ({ children }) => <h2 className="font-semibold line-clamp-2">{children}</h2>;
-export const CardBody: FC<PropsWithChildren> = ({ children }) => <p className="text-sm">{children}</p>;
+export const CardTitle: FC<PropsWithChildren> = ({ children }) => <h2 className="font-semibold truncate">{children}</h2>;
+export const CardBody: FC<PropsWithChildren> = ({ children }) => <p className="text-xs truncate">{children}</p>;
 export const CardFooter: FC<PropsWithChildren> = ({ children }) => <div className="mt-auto pt-4">{children}</div>;
 
 interface CardProps {
@@ -25,7 +25,7 @@ interface CardProps {
 const Card: FC<PropsWithChildren<CardProps>> = ({ href, children, onClick }) => {
     const BaseCard = () => (
         <div
-            className={`bg-slate-50 p-4 border border-slate-300 rounded-md transition-transform lg:hover:scale-105 flex flex-col 
+            className={`bg-slate-50 p-2 sm:p-4 border border-slate-300 rounded-md transition-transform lg:hover:scale-105 flex flex-col 
                 ${onClick ? 'cursor-pointer' : ''} ${href ? 'h-full' : ''}`}
             onClick={onClick}
         >
