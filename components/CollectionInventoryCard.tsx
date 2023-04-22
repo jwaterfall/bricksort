@@ -25,7 +25,11 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
             <CardBody>{`${set.theme.name} • ${set.year}`}</CardBody>
             <CardFooter>
                 <div className="flex gap-2 items-end justify-between">
-                    <QuantityFoundBadge quantity={collectionInventory.totalPartQuantity} quantityFound={collectionInventory.totalPartQuantityFound} />
+                    <QuantityFoundBadge
+                        quantity={collectionInventory.partQuantity}
+                        quantityFound={collectionInventory.partQuantityFound}
+                        showPercentage
+                    />
                     <Button
                         shape="circle"
                         Icon={FaTrash}

@@ -20,7 +20,7 @@ const CardDisplay: FC<PropsWithChildren<CardDisplayProps>> = ({ page, setPage, p
         )}
         {pageCount > 0 ? (
             <>
-                <div className="flex-1 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">{children}</div>
+                <div className="flex-1 grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">{children}</div>
                 {pageCount > 1 && <Pagination page={page} setPage={setPage} pageCount={pageCount} />}
             </>
         ) : (

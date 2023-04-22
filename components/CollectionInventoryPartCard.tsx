@@ -27,8 +27,11 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
             <Card onClick={() => setIsModalOpen(true)}>
                 {inventoryPart.imageUrl && <CardImage src={inventoryPart.imageUrl} alt={part.name} />}
                 <CardTitle>{part.name}</CardTitle>
-                <CardBody>{color.name}</CardBody>
                 <CardFooter>
+                    <div className="flex items-center gap-1 text-sm font-medium mt-2 mb-4">
+                        <div className="w-5 h-5 rounded-md border border-slate-300" style={{ backgroundColor: color.hex }} />
+                        {color.name}
+                    </div>
                     <QuantityFoundBadge quantityFound={collectionInventoryPart.quantityFound} quantity={collectionInventoryPart.quantity} />
                 </CardFooter>
             </Card>

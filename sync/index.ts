@@ -413,22 +413,26 @@ const main = async () => {
         syncInventoryMinifigs,
     ];
 
-    const results = await Promise.all(
-        syncFunctions.map(async (syncFunction) => {
-            const start = Date.now();
-            const result = await syncFunction();
-            const end = Date.now();
+    for (const syncFunction of syncFunctions) {
+        const start = Date.now();
 
-            return {
-                ...result,
-                time: end - start,
-            };
-        })
-    );
+        let successful = false;
+
+        while (!successful) {
+            try {
+                const result = await syncFunction();
+
+                const end = Date.now();
+                console.log(`- ${result.name}: ${result.count} records in ${end - start}ms`);
+
+                successful = true;
+            } catch (e) {
+                console.log('Error syncing, retrying...');
+            }
+        }
+    }
 
     console.log('Sync complete!');
-    console.log('Results:');
-    results.forEach((result) => console.log(`- ${result.name}: ${result.count} records in ${result.time}ms`));
 };
 
 main();

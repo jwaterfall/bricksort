@@ -72,11 +72,7 @@ const Topbar: FC = () => {
                                     className="flex items-center gap-2 p-2 px-4 text-xs rounded-lg whitespace-nowrap hover:bg-slate-700"
                                     onClick={() => setEnabled((enabled) => !enabled)}
                                 >
-                                    {enabled ? (
-                                        <FaBell className="w-4 h-4 flex-shrink-0" />
-                                    ) : (
-                                        <FaBellSlash className="w-4 h-4 flex-shrink-0 text-slate-400" />
-                                    )}
+                                    {enabled ? <FaBell className="w-4 h-4 flex-shrink-0" /> : <FaBellSlash className="w-4 h-4 flex-shrink-0" />}
                                     {enabled ? 'Disable Alerts' : 'Enable Alerts'}
                                 </button>
                                 {/* eslint-disable-next-line */}

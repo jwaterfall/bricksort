@@ -5,9 +5,10 @@ import Badge from './display/Badge';
 interface QuantityFoundBadgeProps {
     quantity: number;
     quantityFound: number;
+    showPercentage?: boolean;
 }
 
-const QuantityFoundBadge: FC<QuantityFoundBadgeProps> = ({ quantity, quantityFound }) => {
+const QuantityFoundBadge: FC<QuantityFoundBadgeProps> = ({ quantity, quantityFound, showPercentage = false }) => {
     const getBadgeColor = () => {
         if (quantityFound === quantity) {
             return 'success';
@@ -18,7 +19,11 @@ const QuantityFoundBadge: FC<QuantityFoundBadgeProps> = ({ quantity, quantityFou
         }
     };
 
-    return <Badge color={getBadgeColor()}>{`${quantityFound} of ${quantity} Parts Found`}</Badge>;
+    return (
+        <Badge color={getBadgeColor()}>
+            {showPercentage ? `${Math.round((quantityFound / quantity) * 100)}% Complete` : `${quantityFound} of ${quantity} Found`}
+        </Badge>
+    );
 };
 
 export default QuantityFoundBadge;

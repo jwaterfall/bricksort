@@ -40,7 +40,7 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
                 </Button>
             </DropdownToggle>
             <DropdownContent>
-                <div className="bg-slate-50 border border-slate-300 rounded-md p-4 mt-2 shadow-xl max-w-sm flex flex-col gap-4">
+                <div className="bg-slate-50 border border-slate-300 rounded-md p-4 mt-2 shadow-xl max-w-xs flex flex-col gap-4">
                     <div>
                         <h4 className="font-semibold">Search</h4>
                         <Input

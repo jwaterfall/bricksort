@@ -32,14 +32,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                         $unwind: '$inventoryPart',
                     },
                     {
-                        $addFields: {
-                            quantity: '$inventoryPart.quantity',
-                        },
-                    },
-                    {
                         $match: {
                             user: user.sub,
                             collectionInventoryId: new Types.ObjectId(collectionInventoryId),
+                            'inventoryPart.isSpare': false,
                         },
                     },
                 ];

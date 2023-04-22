@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/client';
 import { useQueryState, queryTypes } from 'next-usequerystate';
 
-import useCollectionInventoryParts from '../../../queries/useCollectionInventoryParts';
-import CardDisplay from '../../../components/CardDisplay';
-import CollectionInventoryPartCard from '../../../components/CollectionInventoryPartCard';
+import useCollectionInventoryParts from '@/queries/useCollectionInventoryParts';
+import CollectionInventoryPartCard from '@/components/CollectionInventoryPartCard';
+import CardDisplay from '@/components/CardDisplay';
 import Tabs, { Tab } from '@/components/navigation/Tabs';
 
 const CollectionPage: NextPage = () => {
@@ -14,10 +14,9 @@ const CollectionPage: NextPage = () => {
     const tab = router.query.tab as string;
 
     const [page, setPage] = useQueryState('page', { ...queryTypes.integer, defaultValue: 1, history: 'push' });
-    const { data: missingPartsData, isLoading: isMissingPartsLoading } = useCollectionInventoryParts(id, page, 20, true);
-    const { data: allPartsData, isLoading: isAllPartsLoading } = useCollectionInventoryParts(id, page, 20);
+    const { data, isLoading } = useCollectionInventoryParts(id, page, 24, tab === 'missing-parts');
 
-    if (isAllPartsLoading || !allPartsData || isMissingPartsLoading || !missingPartsData) return null;
+    if (isLoading || !data) return null;
 
     return (
         <div className="flex flex-col gap-4 min-h-full">
@@ -29,7 +28,7 @@ const CollectionPage: NextPage = () => {
                 <CardDisplay
                     page={page}
                     setPage={setPage}
-                    pageCount={(tab === 'missing-parts' ? missingPartsData : allPartsData).pageCount}
+                    pageCount={data.pageCount}
                     emptyTitle={tab === 'missing-parts' ? 'Set complete!' : 'No parts found!'}
                     emptySubtitle={
                         tab === 'missing-parts'
@@ -37,7 +36,7 @@ const CollectionPage: NextPage = () => {
                             : 'Head over to the missing parts tab to add some parts to this set'
                     }
                 >
-                    {(tab === 'missing-parts' ? missingPartsData : allPartsData).collectionInventoryParts.map((collectionInventoryPart) => (
+                    {data.collectionInventoryParts.map((collectionInventoryPart) => (
                         <CollectionInventoryPartCard key={collectionInventoryPart._id} collectionInventoryPart={collectionInventoryPart} />
                     ))}
                 </CardDisplay>

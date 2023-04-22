@@ -34,7 +34,7 @@ schema.methods.addQuantityFound = async function (quantityFound: number) {
     const clampedQuantity = Math.max(-this.quantityFound, Math.min(quantityFound, this.quantity - this.quantityFound));
 
     await CollectionInventoryModel.findByIdAndUpdate(this.collectionInventoryId, {
-        $inc: { totalPartQuantityFound: clampedQuantity },
+        $inc: { partQuantityFound: clampedQuantity },
     });
 
     this.quantityFound += clampedQuantity;
