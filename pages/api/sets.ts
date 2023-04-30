@@ -23,13 +23,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
                 const skip = (page - 1) * limit;
 
-                const childThemes = await Promise.all(themesIds.map((theme) => ThemeModel.recursiveGetChildThemes(theme)));
-                const childThemeIds = childThemes.flat().map((theme) => theme._id);
-                const allThemesIds = [...themesIds, ...childThemeIds];
-
                 const excludedThemes = ['501', '739', '736', '408', '497', '688', '737', '503', '740', '733', '741', '398', '598', '746'];
                 const query = {
-                    themeId: allThemesIds.length ? { $in: allThemesIds } : { $nin: excludedThemes },
+                    themeId: themesIds.length ? { $in: themesIds } : { $nin: excludedThemes },
                     ...(minYear && { year: { $gte: minYear } }),
                     ...(maxYear && { year: { $lte: maxYear } }),
                     ...(search && { $or: [{ _id: { $regex: search, $options: 'i' } }, { name: { $regex: search, $options: 'i' } }] }),

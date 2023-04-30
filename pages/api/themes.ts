@@ -8,7 +8,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     switch (req.method) {
         case "GET":
             try {
-                const themes = await ThemeModel.find();
+                const themes = await ThemeModel.find().sort({ name: 1 }).exec();
                 res.json(themes);
             } catch (error) {
                 console.error(error);

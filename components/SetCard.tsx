@@ -18,11 +18,10 @@ const SetCard: FC<SetCardProps> = ({ set }) => {
     return (
         <Card>
             {set.imageUrl && <CardImage src={set.imageUrl} alt={set.name} />}
-            <CardTitle>{set.name}</CardTitle>
-            <CardBody>{set.theme.name}</CardBody>
             <CardBody>
-                {set.year} • {displayId}
+                {displayId} • {set.year}
             </CardBody>
+            <CardTitle>{set.name}</CardTitle>
             <CardFooter>
                 <div className="flex gap-2 items-end justify-between">
                     <Badge>{`${set.partCount > 1 ? `${set.partCount} Pieces` : '1 Piece'}`}</Badge>

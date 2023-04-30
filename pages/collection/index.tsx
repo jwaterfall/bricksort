@@ -7,24 +7,24 @@ import CollectionInventoryCard from '../../components/CollectionInventoryCard';
 import CardDisplay from '../../components/CardDisplay';
 
 const CollectionPage: NextPage = () => {
-    const [page, setPage] = useQueryState('page', { ...queryTypes.integer, defaultValue: 1, history: 'push' });
-    const { data, isLoading: isSetsLoading } = useCollectionInventories(page, 20);
+  const [page, setPage] = useQueryState('page', { ...queryTypes.integer, defaultValue: 1, history: 'push' });
+  const { data, isLoading: isSetsLoading } = useCollectionInventories(page, 28);
 
-    if (isSetsLoading || !data) return null;
+  if (isSetsLoading || !data) return null;
 
-    return (
-        <CardDisplay
-            page={page}
-            setPage={setPage}
-            pageCount={data.pageCount}
-            emptyTitle="No sets found"
-            emptySubtitle="Go to the Browse page to add sets to your collection"
-        >
-            {data.collectionInventories.map((collectionInventory) => (
-                <CollectionInventoryCard key={collectionInventory.id} collectionInventory={collectionInventory} />
-            ))}
-        </CardDisplay>
-    );
+  return (
+    <CardDisplay
+      page={page}
+      setPage={setPage}
+      pageCount={data.pageCount}
+      emptyTitle="No sets found"
+      emptySubtitle="Go to the Browse page to add sets to your collection"
+    >
+      {data.collectionInventories.map((collectionInventory) => (
+        <CollectionInventoryCard key={collectionInventory.id} collectionInventory={collectionInventory} />
+      ))}
+    </CardDisplay>
+  );
 };
 
 export default withPageAuthRequired(CollectionPage);
