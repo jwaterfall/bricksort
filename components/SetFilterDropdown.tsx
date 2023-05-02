@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import { FaFilter } from 'react-icons/fa';
 
 import useThemes from '@/queries/useThemes';
-import Dropdown, { DropdownToggle, DropdownContent } from '@/components/Dropdown';
+import Dropdown, { DropdownContent } from '@/components/Dropdown';
 import Button from '@/components/actions/Button';
 import Input from '@/components/Input';
 import Checkbox from '@/components/Checkbox';
@@ -86,11 +86,9 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
 
   return (
     <Dropdown>
-      <DropdownToggle>
-        <Button color="primary" Icon={FaFilter}>
-          Filters
-        </Button>
-      </DropdownToggle>
+      <Button color="primary" Icon={FaFilter}>
+        Filters
+      </Button>
       <DropdownContent>
         <div className="bg-slate-50 border border-slate-300 rounded-md p-4 mt-2 shadow-xl max-w-xs flex flex-col gap-4">
           <div>

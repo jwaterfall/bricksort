@@ -31,7 +31,7 @@ const App = ({ Component, pageProps }: AppProps) => (
         <AlertProvider>
           <div className="flex flex-col w-full h-screen overflow-hidden bg-slate-200 text-slate-950">
             <Topbar />
-            <main className="flex flex-col flex-1 overflow-x-hidden w-full scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-slate-400 scrollbar-track-slate-300">
+            <main className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll w-full scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-slate-400 scrollbar-track-slate-300">
               <div className="w-full max-w-screen-2xl mx-auto p-4 flex-1">
                 <Component {...pageProps} />
               </div>

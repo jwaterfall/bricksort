@@ -13,7 +13,7 @@ interface CardDisplayProps {
 const CardDisplay: FC<PropsWithChildren<CardDisplayProps>> = ({ page, setPage, pageCount, emptyTitle, emptySubtitle, children, FilterDropdown }) => (
   <div className="flex flex-col gap-4">
     {(pageCount > 1 || FilterDropdown) && (
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex justify-between gap-4 flex-col-reverse md:flex-row md:items-center">
         <div>{pageCount > 1 && <Pagination page={page} setPage={setPage} pageCount={pageCount} size="sm" />}</div>
         {FilterDropdown}
       </div>

@@ -8,8 +8,6 @@ import CollectionInventoryPartCard from '@/components/CollectionInventoryPartCar
 import CardDisplay from '@/components/CardDisplay';
 import Tabs, { Tab } from '@/components/navigation/Tabs';
 
-
-
 const CollectionPage: NextPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
@@ -22,10 +20,6 @@ const CollectionPage: NextPage = () => {
 
   return (
     <div className="flex flex-col gap-4 min-h-full">
-      <Tabs active={tab} onChange={(newTab) => router.push(`/collection/${id}/${newTab}`)}>
-        <Tab id="missing-parts">Missing Parts</Tab>
-        <Tab id="found-parts">Found Parts</Tab>
-      </Tabs>
       <div className="flex-1">
         <CardDisplay
           page={page}
@@ -34,6 +28,12 @@ const CollectionPage: NextPage = () => {
           emptyTitle={tab === 'missing-parts' ? 'Set complete!' : 'No parts found!'}
           emptySubtitle={
             tab === 'missing-parts' ? "You've found all of the parts in this set" : 'Head over to the missing parts tab to add some parts to this set'
+          }
+          FilterDropdown={
+            <Tabs active={tab} onChange={(newTab) => router.push(`/collection/${id}/${newTab}`)}>
+              <Tab id="missing-parts">Missing Parts</Tab>
+              <Tab id="found-parts">Found Parts</Tab>
+            </Tabs>
           }
         >
           {data.collectionInventoryParts.map((collectionInventoryPart) => (

@@ -1,12 +1,14 @@
 import { FC, PropsWithChildren } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { IconType } from 'react-icons';
-import { FaBoxOpen, FaCar, FaHome, FaBell, FaSignOutAlt, FaCogs, FaBellSlash } from 'react-icons/fa';
-
-import { useAlerts } from './AlertProvider';
-import Dropdown, { DropdownContent, DropdownToggle, useDropdown } from './Dropdown';
 import Image from 'next/image';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { IconType } from 'react-icons';
+import { FaBoxOpen, FaCar, FaHome, FaBell, FaSignOutAlt, FaBellSlash } from 'react-icons/fa';
+
+import { useAlerts } from '@/components/AlertProvider';
+import Dropdown, { DropdownContent } from '@/components/Dropdown';
+import Menu, { MenuDivider, MenuItem } from '@/components/navigation/Menu';
 
 interface NavbarLinkProps {
   Icon: IconType;
@@ -21,7 +23,7 @@ const NavbarLink: FC<PropsWithChildren<NavbarLinkProps>> = ({ href, Icon, childr
   return (
     <Link
       href={href}
-      className="flex items-center gap-2 p-3 lg:px-4 text-sm rounded-lg whitespace-nowrap hover:bg-slate-800 transition-colors duration-75"
+      className="flex items-center gap-2 p-3 lg:px-4 text-sm font-medium rounded-lg whitespace-nowrap hover:bg-slate-200 transition-colors duration-75"
     >
       <Icon className={`w-5 h-5 flex-shrink-0 ${active ? 'text-red-500' : ''}`} />
       <span className="hidden sm:block">{children}</span>
@@ -31,59 +33,49 @@ const NavbarLink: FC<PropsWithChildren<NavbarLinkProps>> = ({ href, Icon, childr
 
 const Topbar: FC = () => {
   const { enabled, setEnabled } = useAlerts();
-
-  const SettingsDropdownToggle: FC = () => {
-    const { open } = useDropdown();
-
-    return (
-      <div className={`flex items-center gap-2 p-3 text-sm rounded-lg whitespace-nowrap ${open ? 'bg-red-500' : 'hover:bg-slate-800'}`}>
-        <FaCogs className="w-5 h-5 flex-shrink-0" />
-      </div>
-    );
-  };
+  const { user } = useUser();
 
   return (
-    <div className="bg-slate-900 text-slate-50">
-      <div className="py-2 px-4 max-w-screen-2xl mx-auto flex items-center">
-        <div className="basis-1/2">
-          <Link className="flex items-center gap-2 text-2xl font-lobster" href="/">
-            <Image src="/logo.png" alt="logo" width={36} height={36} className="hidden sm:block" />
-            <span>Bricksort</span>
-          </Link>
-        </div>
-        <div className="flex-1 hidden lg:flex justify-center"></div>
-        <div className="basis-1/2 flex justify-end gap-2">
+    <div className=" h-20 px-6 flex items-center bg-slate-100 border-b border-slate-300">
+      <div className="basis-1/2">
+        <Link className="flex items-center gap-2 text-2xl font-lobster" href="/">
+          <Image src="/logo.png" alt="logo" width={36} height={36} className="hidden sm:block" />
+          <span>Bricksort</span>
+        </Link>
+      </div>
+      <div className="flex-1 hidden lg:flex justify-center"></div>
+      <div className="basis-1/2 flex justify-end items-center gap-8">
+        <nav className="flex items-center gap-2">
           <NavbarLink href="/" exact Icon={FaHome}>
             Home
-          </NavbarLink>
-          <NavbarLink href="/collection" Icon={FaBoxOpen}>
-            Collection
           </NavbarLink>
           <NavbarLink href="/browse" Icon={FaCar}>
             Browse
           </NavbarLink>
-          <Dropdown>
-            <DropdownToggle>
-              <SettingsDropdownToggle />
-            </DropdownToggle>
-            <DropdownContent>
-              <div className="bg-slate-800 rounded-b-lg p-2 mt-2 w-52 flex flex-col">
-                <button
-                  className="flex items-center gap-2 p-2 px-4 text-xs rounded-lg whitespace-nowrap hover:bg-slate-700"
-                  onClick={() => setEnabled((enabled) => !enabled)}
-                >
-                  {enabled ? <FaBell className="w-4 h-4 flex-shrink-0" /> : <FaBellSlash className="w-4 h-4 flex-shrink-0" />}
-                  {enabled ? 'Disable Alerts' : 'Enable Alerts'}
-                </button>
-                {/* eslint-disable-next-line */}
-                <a className="flex items-center gap-2 py-2 px-4 text-xs rounded-lg whitespace-nowrap hover:bg-slate-700" href="/api/auth/logout">
-                  <FaSignOutAlt className="w-4 h-4 flex-shrink-0" />
-                  Logout
-                </a>
-              </div>
-            </DropdownContent>
-          </Dropdown>
-        </div>
+          <NavbarLink href="/collection" Icon={FaBoxOpen}>
+            Collection
+          </NavbarLink>
+        </nav>
+        <Dropdown>
+          <img
+            src={user?.picture ?? undefined}
+            alt="user"
+            className="w-10 aspect-square rounded-full flex-shrink-0 cursor-pointer"
+            referrerPolicy="no-referrer"
+          />
+          <DropdownContent>
+            <Menu>
+              <MenuItem Icon={enabled ? FaBell : FaBellSlash} onClick={() => setEnabled((enabled) => !enabled)}>
+                {enabled ? 'Disable Alerts' : 'Enable Alerts'}
+              </MenuItem>
+              <MenuDivider />
+              {/* eslint-disable-next-line */}
+              <a href="/api/auth/logout">
+                <MenuItem Icon={FaSignOutAlt}>Logout</MenuItem>
+              </a>
+            </Menu>
+          </DropdownContent>
+        </Dropdown>
       </div>
     </div>
   );
