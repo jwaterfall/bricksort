@@ -1,10 +1,6 @@
-import { Dispatch, FC, SetStateAction } from 'react';
-import { FaFilter } from 'react-icons/fa';
+import { FC } from 'react';
 
 import useThemes from '@/queries/useThemes';
-import Dropdown, { DropdownToggle, DropdownContent } from '@/components/Dropdown';
-import Button from '@/components/actions/Button';
-import Input from '@/components/Input';
 import Checkbox from '@/components/Checkbox';
 import { Theme } from '@/models/Theme';
 
