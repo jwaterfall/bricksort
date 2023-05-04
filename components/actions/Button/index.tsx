@@ -27,11 +27,11 @@ const Button: FC<ButtonProps> = ({
   const getColorStyles = () => {
     switch (color) {
       case 'default':
-        return `border-slate-300 group-[.pagination]:bg-slate-100 group-[.pagination]:disabled:bg-slate-200 ${
-          variant === 'outline' ? 'hover:bg-slate-200 hover:text-slate-950' : 'bg-slate-200'
+        return `border-zinc-300 group-[.pagination]:bg-zinc-100 group-[.pagination]:disabled:bg-zinc-200 dark:border-zinc-600 dark:group-[.pagination]:bg-zinc-900 dark:group-[.pagination]:disabled:bg-zinc-800 ${
+          variant === 'outline' ? 'text-zinc-950 dark:text-zinc-50' : 'bg-zinc-200 dark:bg-zinc-700'
         }`;
       case 'primary':
-        return `border-red-500 ${variant === 'outline' ? 'text-red-500 hover:bg-red-500' : 'bg-red-500'}`;
+        return `border-red-500 ${variant === 'outline' ? 'text-red-500' : 'bg-red-500'}`;
     }
   };
 
@@ -60,9 +60,9 @@ const Button: FC<ButtonProps> = ({
   const getVariantStyles = () => {
     switch (variant) {
       case 'solid':
-        return `font-medium ${color === 'default' ? 'text-slate-950 ' : 'text-slate-50'}`;
+        return `font-medium ${color === 'default' ? 'text-zinc-950 dark:text-zinc-50' : 'text-zinc-50'}`;
       case 'outline':
-        return 'font-semibold bg-transparent hover:text-slate-50';
+        return 'font-semibold bg-transparent';
     }
   };
 
@@ -82,8 +82,8 @@ const Button: FC<ButtonProps> = ({
       {...props}
       className={`
         flex items-center justify-center gap-2 select-none active:scale-95 shrink-0 border transition
-        disabled:bg-slate-200 disabled:text-slate-400 disabled:hover:bg-slate-200
-        disabled:border-slate-300 disabled:active:scale-100
+        disabled:bg-zinc-200 disabled:text-zinc-400 disabled:border-zinc-300 disabled:active:scale-100
+        dark:disabled:bg-zinc-800 dark:disabled:text-zinc-400 dark:disabled:border-zinc-700
         ${isFullWidth ? 'w-full' : 'w-fit'}
         ${getColorStyles()}
         ${getSizeStyles()}

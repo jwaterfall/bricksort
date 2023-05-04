@@ -1,8 +1,8 @@
 import { Dispatch, FC, PropsWithChildren, SetStateAction, useRef } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
-export const ModalTitle: FC<PropsWithChildren> = ({ children }) => <h3 className="text-lg font-bold text-slate-950">{children}</h3>;
-export const ModalBody: FC<PropsWithChildren> = ({ children }) => <p className="py-4 text-slate-800">{children}</p>;
+export const ModalTitle: FC<PropsWithChildren> = ({ children }) => <h3 className="text-lg font-bold text-zinc-950 dark:text-zinc-50">{children}</h3>;
+export const ModalBody: FC<PropsWithChildren> = ({ children }) => <p className="py-4 text-zinc-800 dark:text-zinc-100">{children}</p>;
 export const ModalFooter: FC<PropsWithChildren> = ({ children }) => <div className="mt-6 flex justify-end">{children}</div>;
 
 interface ModalProps {
@@ -27,7 +27,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({ isOpen = false, setIsOpen, c
     >
       <div
         ref={ref}
-        className={`bg-slate-50 p-4 border border-slate-300 rounded-md w-full md:max-w-lg shadow-md transition-transform duration-300 ${
+        className={`bg-zinc-50 p-4 border border-zinc-300 rounded-md w-full md:max-w-lg shadow-md transition-transform duration-300 dark:bg-zinc-800 dark:border-zinc-700 ${
           isOpen ? '' : 'scale-75'
         }`}
       >

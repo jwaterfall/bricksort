@@ -13,7 +13,7 @@ const Alert: FC<PropsWithChildren<AlertProps>> = ({ children, description, title
   const getVariantStyles = () => {
     switch (variant) {
       case 'default':
-        return 'bg-slate-200 border border-slate-300 text-slate-950';
+        return 'bg-zinc-200 border border-zinc-300 text-zinc-950 dark:bg-zinc-700 dark:border-zinc-700 dark:text-zinc-50';
       case 'success':
         return 'bg-green-500 text-green-950';
       case 'error':

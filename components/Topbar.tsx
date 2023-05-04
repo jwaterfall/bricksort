@@ -23,7 +23,7 @@ const NavbarLink: FC<PropsWithChildren<NavbarLinkProps>> = ({ href, Icon, childr
   return (
     <Link
       href={href}
-      className="flex items-center gap-2 p-3 lg:px-4 text-sm font-medium rounded-lg whitespace-nowrap hover:bg-slate-200 transition-colors duration-75"
+      className="flex items-center gap-2 p-3 lg:px-4 text-sm font-medium rounded-lg whitespace-nowrap transition-colors duration-75 hover:bg-zinc-200 dark:hover:bg-zinc-800"
     >
       <Icon className={`w-5 h-5 flex-shrink-0 ${active ? 'text-red-500' : ''}`} />
       <span className="hidden sm:block">{children}</span>
@@ -36,7 +36,7 @@ const Topbar: FC = () => {
   const { user } = useUser();
 
   return (
-    <div className=" h-20 px-6 flex items-center bg-slate-100 border-b border-slate-300">
+    <div className=" h-20 px-6 flex items-center bg-zinc-100 border-b border-zinc-300 dark:bg-zinc-900 dark:border-zinc-800">
       <div className="basis-1/2">
         <Link className="flex items-center gap-2 text-2xl font-lobster" href="/">
           <Image src="/logo.png" alt="logo" width={36} height={36} className="hidden sm:block" />

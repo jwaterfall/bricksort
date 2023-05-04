@@ -10,7 +10,7 @@ const Badge: FC<PropsWithChildren<BadgeProps>> = ({ color = 'default', size = 'm
   const getColorStyles = () => {
     switch (color) {
       case 'default':
-        return `border-slate-300 ${variant === 'outline' ? '' : 'bg-slate-200'}`;
+        return `border-zinc-300 dark:border-zinc-700 ${variant === 'outline' ? '' : 'bg-zinc-200 dark:bg-zinc-800'}`;
       case 'primary':
         return `border-red-500 ${variant === 'outline' ? 'text-red-500' : 'bg-red-500'}`;
       case 'success':
@@ -38,7 +38,7 @@ const Badge: FC<PropsWithChildren<BadgeProps>> = ({ color = 'default', size = 'm
   const getVariantStyles = () => {
     switch (variant) {
       case 'solid':
-        return color === 'default' ? 'text-slate-950 font-medium' : 'text-slate-50';
+        return color === 'default' ? 'text-zinc-950 dark:text-zinc-50 font-medium' : 'text-zinc-50';
       case 'outline':
         return 'font-semibold bg-transparent';
     }
@@ -47,11 +47,11 @@ const Badge: FC<PropsWithChildren<BadgeProps>> = ({ color = 'default', size = 'm
   return (
     <span
       className={`
-                rounded-md border flex items-center w-fit
-                ${getColorStyles()}
-                ${getSizeStyles()}
-                ${getVariantStyles()}
-            `}
+        rounded-md border flex items-center w-fit
+        ${getColorStyles()}
+        ${getSizeStyles()}
+        ${getVariantStyles()}
+      `}
     >
       {children}
     </span>

@@ -12,8 +12,11 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ value, children }) => {
   return (
     <button
       onClick={() => onChange(value)}
-      className={`px-4 py-2 font-medium text-sm rounded-lg transition text-slate-800 hover:text-slate-950
-            ${active === value ? 'bg-slate-300 text-slate-950' : ''}`}
+      className={`px-4 py-2 font-medium text-sm rounded-lg transition ${
+        active === value
+          ? 'bg-zinc-300 text-zinc-950 dark:bg-zinc-800 dark:text-zinc-50'
+          : 'text-zinc-800 hover:text-zinc-950 dark:text-zinc-200 dark:hover:text-zinc-50'
+      }`}
     >
       {children}
     </button>

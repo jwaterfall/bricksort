@@ -28,7 +28,7 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
         {inventoryPart.imageUrl && <CardImage src={inventoryPart.imageUrl} alt={part.name} />}
         <CardBody>
           <div className="flex items-center gap-1 text-sm font-medium ">
-            <div className="w-5 h-5 rounded-md border border-slate-300" style={{ backgroundColor: color.hex }} />
+            <div className="w-5 h-5 rounded-md border border-zinc-300" style={{ backgroundColor: color.hex }} />
             {color.name}
           </div>
         </CardBody>

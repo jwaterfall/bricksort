@@ -40,11 +40,11 @@ const ThemeFilter: FC<ThemeFilterProps> = ({ themeIds, onChange }) => {
 
     return (
       <div className={isChild ? 'ml-5 relative' : ''}>
-        {!isLastChild && <div className="absolute -left-2.5 -top-0 h-full w-0.5 bg-slate-300" />}
-        {isChild && <div className="absolute -left-2.5 -top-4 h-8 w-2.5 border-slate-300 border-l-2 border-b-2 rounded-bl-md" />}
+        {!isLastChild && <div className="absolute -left-2.5 -top-0 h-full w-0.5 bg-zinc-300" />}
+        {isChild && <div className="absolute -left-2.5 -top-4 h-8 w-2.5 border-zinc-300 border-l-2 border-b-2 rounded-bl-md" />}
         <div
           className={`h-8 flex items-center gap-2 min-w-0 cursor-pointer truncate text-sm font-medium relative z-10 ${
-            checked ? 'text-slate-900' : 'text-slate-500'
+            checked ? 'text-zinc-900' : 'text-zinc-500'
           }`}
         >
           <Checkbox checked={checked} onChange={() => onChange(getThemeIds())} />

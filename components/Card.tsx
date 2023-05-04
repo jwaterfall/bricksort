@@ -8,7 +8,7 @@ interface CardImageProps {
 }
 
 export const CardImage: FC<PropsWithChildren<CardImageProps>> = ({ src, alt }) => (
-  <figure className="border-b border-slate-300 -m-2 mb-2 p-2 sm:-m-4 sm:mb-4 sm:p-4">
+  <figure className="border-b bg-zinc-50 border-zinc-300 -m-2 mb-2 p-2 sm:-m-4 sm:mb-4 sm:p-4 dark:border-zinc-800">
     <Image src={src} alt={alt} width={300} height={300} className="object-contain w-full aspect-video mix-blend-multiply" priority={true} />
   </figure>
 );
@@ -25,7 +25,7 @@ interface CardProps {
 const Card: FC<PropsWithChildren<CardProps>> = ({ href, children, onClick }) => {
   const BaseCard = () => (
     <div
-      className={`bg-slate-50 p-2 sm:p-4 border border-slate-300 rounded-md transition-transform lg:hover:scale-105 flex flex-col 
+      className={`bg-zinc-50 p-2 sm:p-4 border border-zinc-300 rounded-md overflow-hidden transition-transform lg:hover:scale-105 flex flex-col dark:bg-zinc-900 dark:border-zinc-800
                 ${onClick ? 'cursor-pointer' : ''} ${href ? 'h-full' : ''}`}
       onClick={onClick}
     >
