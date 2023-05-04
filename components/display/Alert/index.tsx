@@ -3,7 +3,7 @@ import { FaCheckCircle, FaExclamationCircle, FaExclamationTriangle, FaInfoCircle
 
 export type AlertVariant = 'default' | 'success' | 'error' | 'info' | 'warning';
 
-export interface AlertProps {
+interface AlertProps {
   description: string;
   title?: string;
   variant?: AlertVariant;

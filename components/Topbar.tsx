@@ -7,7 +7,7 @@ import { IconType } from 'react-icons';
 import { FaBoxOpen, FaCar, FaHome, FaBell, FaSignOutAlt, FaBellSlash } from 'react-icons/fa';
 
 import { useAlerts } from '@/components/AlertProvider';
-import Dropdown, { DropdownContent } from '@/components/Dropdown';
+import Dropdown, { DropdownContent, DropdownToggle } from '@/components/actions/Dropdown';
 import Menu, { MenuDivider, MenuItem } from '@/components/navigation/Menu';
 
 interface NavbarLinkProps {
@@ -56,13 +56,15 @@ const Topbar: FC = () => {
             Collection
           </NavbarLink>
         </nav>
-        <Dropdown>
-          <img
-            src={user?.picture ?? undefined}
-            alt="user"
-            className="w-10 aspect-square rounded-full flex-shrink-0 cursor-pointer"
-            referrerPolicy="no-referrer"
-          />
+        <Dropdown align="end" hover>
+          <DropdownToggle>
+            <img
+              src={user?.picture ?? undefined}
+              alt="user"
+              className="w-10 aspect-square rounded-full flex-shrink-0 cursor-pointer"
+              referrerPolicy="no-referrer"
+            />
+          </DropdownToggle>
           <DropdownContent>
             <Menu>
               <MenuItem Icon={enabled ? FaBell : FaBellSlash} onClick={() => setEnabled((enabled) => !enabled)}>

@@ -5,13 +5,13 @@ export const ModalTitle: FC<PropsWithChildren> = ({ children }) => <h3 className
 export const ModalBody: FC<PropsWithChildren> = ({ children }) => <p className="py-4 text-slate-800">{children}</p>;
 export const ModalFooter: FC<PropsWithChildren> = ({ children }) => <div className="mt-6 flex justify-end">{children}</div>;
 
-export interface ModalProps {
+interface ModalProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   closeOnOutsideClick?: boolean;
 }
 
-const Modal: FC<PropsWithChildren<ModalProps>> = ({ isOpen, setIsOpen, children, closeOnOutsideClick = true }) => {
+const Modal: FC<PropsWithChildren<ModalProps>> = ({ isOpen = false, setIsOpen, children, closeOnOutsideClick = true }) => {
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, () => {
     if (closeOnOutsideClick) {

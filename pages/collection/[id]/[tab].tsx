@@ -31,8 +31,8 @@ const CollectionPage: NextPage = () => {
           }
           FilterDropdown={
             <Tabs active={tab} onChange={(newTab) => router.push(`/collection/${id}/${newTab}`)}>
-              <Tab id="missing-parts">Missing Parts</Tab>
-              <Tab id="found-parts">Found Parts</Tab>
+              <Tab value="missing-parts">Missing Parts</Tab>
+              <Tab value="found-parts">Found Parts</Tab>
             </Tabs>
           }
         >

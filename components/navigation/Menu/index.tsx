@@ -1,16 +1,19 @@
 import { FC, PropsWithChildren } from 'react';
 import { IconType } from 'react-icons';
 
-export interface MenuItemProps {
+interface MenuItemProps {
   Icon?: IconType;
   onClick?: () => void;
+  active?: boolean;
 }
 
-export const MenuItem: FC<PropsWithChildren<MenuItemProps>> = ({ Icon, onClick, children }) => (
+export const MenuItem: FC<PropsWithChildren<MenuItemProps>> = ({ Icon, onClick, active = false, children }) => (
   <li
     onClick={onClick}
-    className="select-none w-full flex items-center gap-2 h-10 px-4 text-sm font-medium truncate rounded-lg hover:bg-slate-200
-        cursor-pointer group-[.compact]:text-xs group-[.compact]:h-8 group-[.compact]:px-2"
+    className={`select-none w-full flex items-center gap-2 h-10 px-4 text-sm font-medium truncate 
+      rounded-lg hover:bg-slate-200 cursor-pointer group-[.compact]:text-xs 
+      group-[.compact]:h-8 group-[.compact]:px-2 ${active ? 'text-red-500' : ''}
+    `}
   >
     {Icon && <Icon className="h-5 w-5 shrink-0 group-[.compact]:h-4 group-[.compact]:w-4" />}
     {children}

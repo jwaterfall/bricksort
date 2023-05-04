@@ -1,13 +1,9 @@
 import { FC, PropsWithChildren } from 'react';
 
-export type BadgeColor = 'default' | 'primary' | 'success' | 'error' | 'info' | 'warning';
-export type BadgeSize = 'sm' | 'md' | 'lg';
-export type BadgeVariant = 'solid' | 'outline';
-
-export interface BadgeProps {
-  color?: BadgeColor;
-  size?: BadgeSize;
-  variant?: BadgeVariant;
+interface BadgeProps {
+  color?: 'default' | 'primary' | 'success' | 'error' | 'info' | 'warning';
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'solid' | 'outline';
 }
 
 const Badge: FC<PropsWithChildren<BadgeProps>> = ({ color = 'default', size = 'md', variant = 'solid', children }) => {

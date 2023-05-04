@@ -1,16 +1,11 @@
 import { FC, ButtonHTMLAttributes } from 'react';
 import { IconType } from 'react-icons';
 
-export type ButtonColor = 'default' | 'primary';
-export type ButtonSize = 'sm' | 'md' | 'lg';
-export type ButtonShape = 'default' | 'square' | 'circle';
-export type ButtonVariant = 'solid' | 'outline';
-
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: ButtonColor;
-  size?: ButtonSize;
-  shape?: ButtonShape;
-  variant?: ButtonVariant;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  color?: 'default' | 'primary';
+  size?: 'sm' | 'md' | 'lg';
+  shape?: 'default' | 'square' | 'circle';
+  variant?: 'solid' | 'outline';
   Icon?: IconType;
   isFullWidth?: boolean;
 }
@@ -82,15 +77,15 @@ const Button: FC<ButtonProps> = ({
     <button
       {...props}
       className={`
-                flex items-center justify-center gap-2 active:scale-95 shrink-0 border transition
-                disabled:bg-slate-200 disabled:text-slate-400 disabled:hover:bg-slate-200
-                disabled:border-slate-300 disabled:active:scale-100
-                ${getColorStyles()}
-                ${getSizeStyles()}
-                ${getShapeStyles()}
-                ${getVariantStyles()}
-                ${isFullWidth ? 'w-full' : 'w-fit'}
-            `}
+        flex items-center justify-center gap-2 select-none active:scale-95 shrink-0 border transition
+        disabled:bg-slate-200 disabled:text-slate-400 disabled:hover:bg-slate-200
+        disabled:border-slate-300 disabled:active:scale-100
+        ${isFullWidth ? 'w-full' : 'w-fit'}
+        ${getColorStyles()}
+        ${getSizeStyles()}
+        ${getShapeStyles()}
+        ${getVariantStyles()}
+      `}
     >
       {Icon && <Icon size={getIconSize()} className="shrink-0" />}
       {children && <span className="truncate">{children}</span>}
