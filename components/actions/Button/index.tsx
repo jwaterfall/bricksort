@@ -1,9 +1,11 @@
 import { FC, ButtonHTMLAttributes } from 'react';
 import { IconType } from 'react-icons';
 
+export type ButtonSize = 'sm' | 'md' | 'lg';
+
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'default' | 'primary';
-  size?: 'sm' | 'md' | 'lg';
+  size?: ButtonSize;
   shape?: 'default' | 'square' | 'circle';
   variant?: 'solid' | 'outline';
   Icon?: IconType;
