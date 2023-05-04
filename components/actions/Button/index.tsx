@@ -9,6 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   shape?: 'default' | 'square' | 'circle';
   variant?: 'solid' | 'outline';
   Icon?: IconType;
+  EndIcon?: IconType;
   isFullWidth?: boolean;
 }
 
@@ -18,6 +19,7 @@ const Button: FC<ButtonProps> = ({
   shape = 'default',
   variant = 'solid',
   Icon,
+  EndIcon: EndIcon,
   isFullWidth = false,
   children,
   ...props
@@ -91,6 +93,7 @@ const Button: FC<ButtonProps> = ({
     >
       {Icon && <Icon size={getIconSize()} className="shrink-0" />}
       {children && <span className="truncate">{children}</span>}
+      {EndIcon && <EndIcon size={getIconSize()} className="shrink-0" />}
     </button>
   );
 };

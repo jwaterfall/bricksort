@@ -38,6 +38,12 @@ const meta: Meta<typeof Button> = {
       description: 'The function to call when the button is clicked.',
       action: 'onClick',
     },
+    Icon: {
+      description: 'An icon to display to the left of the text.',
+    },
+    EndIcon: {
+      description: 'An icon to display to the right of the text.',
+    },
   },
 };
 
@@ -98,6 +104,13 @@ export const WithIcon: Story = {
   args: {
     children: 'Button',
     Icon: FaTrash,
+  },
+};
+
+export const WithEndIcon: Story = {
+  args: {
+    children: 'Button',
+    EndIcon: FaTrash,
   },
 };
 
