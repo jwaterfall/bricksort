@@ -1,61 +1,54 @@
-import { FC, PropsWithChildren } from 'react';
-import { FaCheckCircle, FaExclamationCircle, FaExclamationTriangle, FaInfoCircle } from 'react-icons/fa';
+import { FC } from 'react';
+import { MdCheckCircle, MdClose, MdError, MdInfo, MdWarning } from 'react-icons/md';
 
-export type AlertVariant = 'default' | 'success' | 'error' | 'info' | 'warning';
+export type AlertVariant = 'info' | 'success' | 'error' | 'warning';
 
 interface AlertProps {
+  title: string;
   description: string;
-  title?: string;
   variant?: AlertVariant;
+  onClose?: () => void;
 }
 
-const Alert: FC<PropsWithChildren<AlertProps>> = ({ children, description, title, variant = 'default' }) => {
+const Alert: FC<AlertProps> = ({ description, title, variant = 'info', onClose }) => {
   const getVariantStyles = () => {
     switch (variant) {
-      case 'default':
-        return 'bg-zinc-200 border border-zinc-300 text-zinc-950 dark:bg-zinc-700 dark:border-zinc-700 dark:text-zinc-50';
-      case 'success':
-        return 'bg-green-500 text-green-950';
-      case 'error':
-        return 'bg-red-500 text-red-950';
       case 'info':
-        return 'bg-blue-500 text-blue-950';
+        return 'bg-info-200 border-info-100';
+      case 'success':
+        return 'bg-success-200 border-success-100';
+      case 'error':
+        return 'bg-error-200 border-error-100';
       case 'warning':
-        return 'bg-amber-500 text-amber-950';
+        return 'bg-warning-200 border-warning-100';
     }
   };
 
   function getVariantIcon() {
     switch (variant) {
-      case 'default':
-        return <FaInfoCircle size={20} />;
-      case 'success':
-        return <FaCheckCircle size={20} />;
-      case 'error':
-        return <FaExclamationCircle size={20} />;
       case 'info':
-        return <FaInfoCircle size={20} />;
+        return <MdInfo size={20} className="text-blue-400" />;
+      case 'success':
+        return <MdCheckCircle size={20} className="text-green-400" />;
+      case 'error':
+        return <MdError size={20} className="text-red-400" />;
       case 'warning':
-        return <FaExclamationTriangle size={20} />;
+        return <MdWarning size={20} className="text-amber-400" />;
     }
   }
 
   return (
-    <div
-      className={`p-4 rounded-md shadow-lg pointer-events-auto w-full flex items-center justify-between gap-4 flex-col sm:flex-row ${getVariantStyles()}`}
-    >
-      <div className="flex-1 flex items-center gap-2">
-        {getVariantIcon()}
-        {title ? (
-          <div>
-            <h4 className="font-semibold">{title}</h4>
-            <p className="text-xs">{description}</p>
-          </div>
-        ) : (
-          <p>{description}</p>
-        )}
+    <div className={`border max-w-xl py-4 px-6 rounded-sm shadow-lg pointer-events-auto w-full flex justify-between gap-2 ${getVariantStyles()}`}>
+      {getVariantIcon()}
+      <div className="flex-1">
+        <h4 className="font-medium text-sm mb-2 text-zinc-50">{title}</h4>
+        <p className="text-xs text-zinc-100 font-thin">{description}</p>
       </div>
-      {children && <div className="flex items-center gap-2">{children}</div>}
+      {onClose && (
+        <button className="h-fit p-0.5 rounded-sm text-zinc-300 transition-colors hover:bg-zinc-50/20" onClick={onClose}>
+          <MdClose size={16} />
+        </button>
+      )}
     </div>
   );
 };

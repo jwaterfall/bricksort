@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Alert from '.';
-import Button from '../../actions/Button';
 
 const meta: Meta<typeof Alert> = {
   component: Alert,
@@ -19,8 +18,9 @@ const meta: Meta<typeof Alert> = {
       description: 'The description is the main content of the alert.',
       type: 'string',
     },
-    children: {
-      description: 'The content to be displayed at the end or footer of the alert.',
+    onClose: {
+      description: 'When provided, a close button will be displayed on the right side of the alert.',
+      action: 'onClose',
     },
   },
 };
@@ -28,65 +28,45 @@ const meta: Meta<typeof Alert> = {
 export default meta;
 type Story = StoryObj<typeof Alert>;
 
-export const Default: Story = {
+export const Info: Story = {
   args: {
-    description: 'This is an alert',
+    variant: 'info',
+    title: 'This is an info alert',
+    description: 'This is an info alert, it is used to display information to the user that does not relate to any particular action.',
+    onClose: undefined,
   },
 };
 
 export const Success: Story = {
   args: {
     variant: 'success',
-    description: 'This is a success alert',
+    title: 'This is a success alert',
+    description: 'This is a success alert, it is used to display information to the user that relates to a successful action.',
+    onClose: undefined,
   },
 };
 
 export const Error: Story = {
   args: {
     variant: 'error',
-    description: 'This is an error alert',
-  },
-};
-
-export const Info: Story = {
-  args: {
-    variant: 'info',
-    description: 'This is an info alert',
+    title: 'This is an error alert',
+    description: 'This is an error alert, it is used to display information to the user that relates to a failed action.',
+    onClose: undefined,
   },
 };
 
 export const Warning: Story = {
   args: {
     variant: 'warning',
-    description: 'This is a warning alert',
+    title: 'This is a warning alert',
+    description: 'This is a warning alert, it is used to display information to the user that relates to a potentially dangerous action.',
+    onClose: undefined,
   },
 };
 
-export const WithTitle: Story = {
+export const Closable: Story = {
   args: {
-    title: 'This is a title',
-    description: 'This is an alert with a title',
-  },
-};
-
-export const WithButton: Story = {
-  args: {
-    description: 'This is an alert with a button',
-    children: <Button>Click Me</Button>,
-  },
-};
-
-export const WithTitleAndMultipleButtons: Story = {
-  args: {
-    title: 'This is a title',
-    description: 'This is an alert with a title and multiple buttons',
-  },
-  render: (args) => {
-    return (
-      <Alert {...args}>
-        <Button>Decline</Button>
-        <Button>Accept</Button>
-      </Alert>
-    );
+    title: 'This is an alert without a close button',
+    description: 'This is an alert without a close button, the close button is not displayed.',
   },
 };

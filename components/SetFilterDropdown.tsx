@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import { FaFilter } from 'react-icons/fa';
 
 import useThemes from '@/queries/useThemes';
-import Dropdown, { DropdownContent, DropdownToggle } from '@/components/actions/Dropdown';
+// import Dropdown, { DropdownContent, DropdownToggle } from '@/components/actions/Dropdown';
 import Button from '@/components/actions/Button';
 import Input from '@/components/Input';
 import Checkbox from '@/components/Checkbox';
@@ -85,77 +85,78 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
   };
 
   return (
-    <Dropdown align="end">
-      <DropdownToggle>
-        <Button color="primary" Icon={FaFilter}>
-          Filters
-        </Button>
-      </DropdownToggle>
-      <DropdownContent>
-        <div className="bg-zinc-50 border border-zinc-300 rounded-md p-4 shadow-xl max-w-xs flex flex-col gap-4 dark:bg-zinc-800 dark:border-zinc-600">
-          <div>
-            <h4 className="font-semibold text-sm uppercase mb-2">search</h4>
-            <Input
-              type="text"
-              placeholder="Set ID or name..."
-              value={search ?? ''}
-              onChange={async (e) => {
-                await setSearch(e.target.value || null);
-                await setPage(1);
-              }}
-            />
-          </div>
-          <div>
-            <h4 className="font-semibold text-sm uppercase mb-2">year</h4>
-            <div className="flex items-center gap-2">
-              <Input
-                type="number"
-                label="From"
-                value={minYear ?? ''}
-                onChange={async (e) => {
-                  await setMinYear(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value));
-                  await setPage(1);
-                }}
-              />
-              <Input
-                type="number"
-                label="To"
-                value={maxYear ?? ''}
-                onChange={async (e) => {
-                  await setMaxYear(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value));
-                  await setPage(1);
-                }}
-              />
-            </div>
-          </div>
-          {themes && (
-            <div>
-              <h4 className="font-semibold text-sm uppercase mb-2">themes</h4>
-              <div className="max-h-80 overflow-y-auto scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-zinc-300 scrollbar-track-zinc-200 dark:scrollbar-thumb-zinc-600 dark:scrollbar-track-zinc-700">
-                {themes
-                  ?.filter((theme) => !theme.parentId)
-                  .map((theme) => (
-                    <ThemeFilter key={theme._id} theme={theme} />
-                  ))}
-              </div>
-            </div>
-          )}
-          <Button
-            color="primary"
-            isFullWidth
-            onClick={async () => {
-              await setSearch('');
-              await setThemeIds([]);
-              await setMinYear(1950);
-              await setMaxYear(new Date().getFullYear());
-              await setPage(1);
-            }}
-          >
-            Clear Filters
-          </Button>
-        </div>
-      </DropdownContent>
-    </Dropdown>
+    // <Dropdown align="end">
+    //   <DropdownToggle>
+    //     <Button color="primary" Icon={FaFilter}>
+    //       Filters
+    //     </Button>
+    //   </DropdownToggle>
+    //   <DropdownContent>
+    //     <div className="bg-zinc-50 border border-zinc-300 rounded-sm p-4 shadow-xl max-w-xs flex flex-col gap-4 dark:bg-zinc-800 dark:border-zinc-600">
+    //       <div>
+    //         <h4 className="font-semibold text-sm uppercase mb-2">search</h4>
+    //         <Input
+    //           type="text"
+    //           placeholder="Set ID or name..."
+    //           value={search ?? ''}
+    //           onChange={async (e) => {
+    //             await setSearch(e.target.value || null);
+    //             await setPage(1);
+    //           }}
+    //         />
+    //       </div>
+    //       <div>
+    //         <h4 className="font-semibold text-sm uppercase mb-2">year</h4>
+    //         <div className="flex items-center gap-2">
+    //           <Input
+    //             type="number"
+    //             label="From"
+    //             value={minYear ?? ''}
+    //             onChange={async (e) => {
+    //               await setMinYear(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value));
+    //               await setPage(1);
+    //             }}
+    //           />
+    //           <Input
+    //             type="number"
+    //             label="To"
+    //             value={maxYear ?? ''}
+    //             onChange={async (e) => {
+    //               await setMaxYear(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value));
+    //               await setPage(1);
+    //             }}
+    //           />
+    //         </div>
+    //       </div>
+    //       {themes && (
+    //         <div>
+    //           <h4 className="font-semibold text-sm uppercase mb-2">themes</h4>
+    //           <div className="max-h-80 overflow-y-auto scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-zinc-300 scrollbar-track-zinc-200 dark:scrollbar-thumb-zinc-600 dark:scrollbar-track-zinc-700">
+    //             {themes
+    //               ?.filter((theme) => !theme.parentId)
+    //               .map((theme) => (
+    //                 <ThemeFilter key={theme._id} theme={theme} />
+    //               ))}
+    //           </div>
+    //         </div>
+    //       )}
+    //       <Button
+    //         color="primary"
+    //         isFullWidth
+    //         onClick={async () => {
+    //           await setSearch('');
+    //           await setThemeIds([]);
+    //           await setMinYear(1950);
+    //           await setMaxYear(new Date().getFullYear());
+    //           await setPage(1);
+    //         }}
+    //       >
+    //         Clear Filters
+    //       </Button>
+    //     </div>
+    //   </DropdownContent>
+    // </Dropdown>
+    <> </>
   );
 };
 

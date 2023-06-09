@@ -12,7 +12,7 @@ const HomePage: NextPage = () => {
   const { setCount, partQuantity, partQuantityFound, sparePartQuantity, sparePartQuantityFound } = data;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 bg-zinc-100 border border-zinc-300 rounded-lg dark:bg-zinc-800 dark:border-zinc-700">
+    <div className="grid grid-cols-1 md:grid-cols-3 bg-zinc-100 border border-zinc-300 rounded-sm dark:bg-zinc-800 dark:border-zinc-700">
       <div className="p-4 flex items-center gap-4">
         <div className="flex-1">
           <div className="text-zinc-600 dark:text-zinc-400">Sets in your collection</div>

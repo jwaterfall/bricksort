@@ -1,6 +1,6 @@
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { AppProps } from 'next/app';
-import { Lobster, Poppins } from '@next/font/google';
+import { Lobster, Poppins } from 'next/font/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -29,7 +29,7 @@ const App = ({ Component, pageProps }: AppProps) => (
     <UserProvider>
       <QueryClientProvider client={queryClient}>
         <AlertProvider>
-          <main className="flex flex-col w-full h-screen overflow-hidden bg-zinc-200 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50">
+          <main className="flex flex-col w-full h-screen overflow-hidden bg-zinc-200 dark:bg-zinc-950 text-zinc-950 dark:text-zinc-50">
             <Topbar />
             <div className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll w-full scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-zinc-400 scrollbar-track-zinc-300 dark:scrollbar-thumb-zinc-800 dark:scrollbar-track-zinc-900">
               <div className="flex-1 p-4 lg:px-16">

@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FaBell, FaPaintBrush, FaSignOutAlt } from 'react-icons/fa';
+import { MdOutlineDarkMode, MdOutlineLogout, MdOutlineExpandMore, MdOutlineNotifications } from 'react-icons/md';
 
-import Menu, { MenuDivider, MenuItem } from '.';
+import Menu, { MenuTrigger, MenuItems, MenuItem, MenuDivider } from '.';
+import Button from '@/components/actions/Button';
 
-const meta: Meta<typeof Menu> = {
-  component: Menu,
+const meta: Meta<typeof MenuItems> = {
+  component: MenuItems,
   tags: ['autodocs'],
   argTypes: {
     compact: {
@@ -14,15 +15,20 @@ const meta: Meta<typeof Menu> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Menu>;
+type Story = StoryObj<typeof MenuItems>;
 
 const MenuTemplate: Story = {
   render(args) {
     return (
-      <Menu {...args}>
-        <MenuItem>Item 1</MenuItem>
-        <MenuItem>Item 2</MenuItem>
-        <MenuItem>Item 3</MenuItem>
+      <Menu>
+        <MenuTrigger>
+          <Button EndIcon={MdOutlineExpandMore}>Menu</Button>
+        </MenuTrigger>
+        <MenuItems {...args}>
+          <MenuItem>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+          <MenuItem>Item 3</MenuItem>
+        </MenuItems>
       </Menu>
     );
   },
@@ -41,50 +47,79 @@ export const Compact: Story = {
 
 export const WithIcons: Story = {
   render: (args) => (
-    <Menu {...args}>
-      <MenuItem Icon={FaBell}>Item 1</MenuItem>
-      <MenuItem Icon={FaPaintBrush}>Item 2</MenuItem>
-      <MenuItem Icon={FaSignOutAlt}>Item 3</MenuItem>
+    <Menu>
+      <MenuTrigger>
+        <Button EndIcon={MdOutlineExpandMore}>Menu</Button>
+      </MenuTrigger>
+      <MenuItems {...args}>
+        <MenuItem Icon={MdOutlineNotifications}>Item 1</MenuItem>
+        <MenuItem Icon={MdOutlineDarkMode}>Item 2</MenuItem>
+        <MenuItem Icon={MdOutlineLogout}>Item 3</MenuItem>
+      </MenuItems>
     </Menu>
   ),
 };
 
 export const WithDividers: Story = {
   render: (args) => (
-    <Menu {...args}>
-      <MenuItem>Item 1</MenuItem>
-      <MenuItem>Item 2</MenuItem>
-      <MenuItem>Item 3</MenuItem>
-      <MenuDivider />
-      <MenuItem>Item 4</MenuItem>
-      <MenuItem>Item 5</MenuItem>
-      <MenuItem>Item 6</MenuItem>
+    <Menu>
+      <MenuTrigger>
+        <Button EndIcon={MdOutlineExpandMore}>Menu</Button>
+      </MenuTrigger>
+      <MenuItems {...args}>
+        <MenuItem>Item 1</MenuItem>
+        <MenuItem>Item 2</MenuItem>
+        <MenuItem>Item 3</MenuItem>
+        <MenuDivider />
+        <MenuItem>Item 4</MenuItem>
+        <MenuItem>Item 5</MenuItem>
+        <MenuItem>Item 6</MenuItem>
+      </MenuItems>
     </Menu>
   ),
 };
 
 export const WithLinks: Story = {
   render: (args) => (
-    <Menu {...args}>
-      <a href="#item-1">
-        <MenuItem>Item 1</MenuItem>
-      </a>
-      <a href="#item-2">
-        <MenuItem>Item 2</MenuItem>
-      </a>
-      <a href="#item-3">
-        <MenuItem>Item 3</MenuItem>
-      </a>
+    <Menu>
+      <MenuTrigger>
+        <Button EndIcon={MdOutlineExpandMore}>Menu</Button>
+      </MenuTrigger>
+      <MenuItems {...args}>
+        <MenuItem href="#item-1">Item 1</MenuItem>
+        <MenuItem href="#item-2">Item 2</MenuItem>
+        <MenuItem href="#item-3">Item 3</MenuItem>
+      </MenuItems>
     </Menu>
   ),
 };
 
-export const WithActiveItem: Story = {
-  render: () => (
+export const WithDisabledItems: Story = {
+  render: (args) => (
     <Menu>
-      <MenuItem active>Item 1</MenuItem>
-      <MenuItem>Item 2</MenuItem>
-      <MenuItem>Item 3</MenuItem>
+      <MenuTrigger>
+        <Button EndIcon={MdOutlineExpandMore}>Menu</Button>
+      </MenuTrigger>
+      <MenuItems {...args}>
+        <MenuItem>Item 1</MenuItem>
+        <MenuItem disabled>Item 2</MenuItem>
+        <MenuItem>Item 3</MenuItem>
+      </MenuItems>
+    </Menu>
+  ),
+};
+
+export const WithToggleItems: Story = {
+  render: (args) => (
+    <Menu>
+      <MenuTrigger>
+        <Button EndIcon={MdOutlineExpandMore}>Menu</Button>
+      </MenuTrigger>
+      <MenuItems {...args}>
+        <MenuItem>Item 1</MenuItem>
+        <MenuItem type="toggle">Toggle 2</MenuItem>
+        <MenuItem type="toggle">Toggle 3</MenuItem>
+      </MenuItems>
     </Menu>
   ),
 };

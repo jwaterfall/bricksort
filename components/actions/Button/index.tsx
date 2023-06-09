@@ -1,68 +1,112 @@
 import { FC, ButtonHTMLAttributes } from 'react';
 import { IconType } from 'react-icons';
 
-export type ButtonSize = 'sm' | 'md' | 'lg';
-
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: 'default' | 'primary';
-  size?: ButtonSize;
-  shape?: 'default' | 'square' | 'circle';
-  variant?: 'solid' | 'outline';
+  color?: 'default' | 'primary' | 'info' | 'success' | 'error' | 'warning';
+  variant?: 'default' | 'secondary' | 'tertiary';
+  shape?: 'default' | 'rounded' | 'square' | 'circle';
+  size?: 'sm' | 'md' | 'lg';
+  isFullWidth?: boolean;
   Icon?: IconType;
   EndIcon?: IconType;
-  isFullWidth?: boolean;
 }
 
 const Button: FC<ButtonProps> = ({
   color = 'default',
+  variant = 'default',
   size = 'md',
   shape = 'default',
-  variant = 'solid',
+  isFullWidth = false,
   Icon,
   EndIcon: EndIcon,
-  isFullWidth = false,
   children,
   ...props
 }) => {
   const getColorStyles = () => {
-    switch (color) {
+    switch (variant) {
       case 'default':
-        return `border-zinc-300 group-[.pagination]:bg-zinc-100 group-[.pagination]:disabled:bg-zinc-200 dark:border-zinc-600 dark:group-[.pagination]:bg-zinc-900 dark:group-[.pagination]:disabled:bg-zinc-800 ${
-          variant === 'outline' ? 'text-zinc-950 dark:text-zinc-50' : 'bg-zinc-200 dark:bg-zinc-700'
-        }`;
-      case 'primary':
-        return `border-red-500 ${variant === 'outline' ? 'text-red-500' : 'bg-red-500'}`;
+        switch (color) {
+          case 'default':
+            return 'text-zinc-50';
+          default:
+            return 'text-zinc-950';
+        }
+      default:
+        switch (color) {
+          case 'default':
+            return 'text-zinc-50';
+          case 'primary':
+            return 'text-primary-100';
+          case 'info':
+            return 'text-info-100';
+          case 'success':
+            return 'text-success-100';
+          case 'error':
+            return 'text-error-100';
+          case 'warning':
+            return 'text-warning-100';
+        }
     }
   };
 
-  const getSizeStyles = () => {
-    switch (size) {
-      case 'sm':
-        return `text-xs h-8 ${shape === 'default' ? 'px-2' : ''}`;
-      case 'md':
-        return `text-sm h-10 ${shape === 'default' ? 'px-3' : ''}`;
-      case 'lg':
-        return `text-base h-12 ${shape === 'default' ? 'px-4' : ''}`;
+  const getVariantStyles = () => {
+    switch (variant) {
+      case 'default':
+        switch (color) {
+          case 'default':
+            return 'bg-zinc-700';
+          case 'primary':
+            return 'bg-primary-100';
+          case 'info':
+            return 'bg-info-100';
+          case 'success':
+            return 'bg-success-100';
+          case 'error':
+            return 'bg-error-100';
+          case 'warning':
+            return 'bg-warning-100';
+        }
+      case 'secondary':
+        switch (color) {
+          case 'default':
+            return 'bg-zinc-700';
+          case 'primary':
+            return 'bg-primary-200';
+          case 'info':
+            return 'bg-info-200';
+          case 'success':
+            return 'bg-success-200';
+          case 'error':
+            return 'bg-error-200';
+          case 'warning':
+            return 'bg-warning-200';
+        }
+      case 'tertiary':
+        return 'bg-transparent hover:bg-zinc-700';
     }
   };
 
   const getShapeStyles = () => {
     switch (shape) {
       case 'default':
-        return 'rounded-md';
+        return 'rounded-sm';
+      case 'rounded':
+        return 'rounded-full';
       case 'square':
-        return 'rounded-md aspect-square';
+        return 'rounded-sm aspect-square';
       case 'circle':
-        return 'rounded-full px-0 aspect-square';
+        return 'rounded-full aspect-square';
     }
   };
 
-  const getVariantStyles = () => {
-    switch (variant) {
-      case 'solid':
-        return `font-medium ${color === 'default' ? 'text-zinc-950 dark:text-zinc-50' : 'text-zinc-50'}`;
-      case 'outline':
-        return 'font-semibold bg-transparent';
+  const getSizeStyles = () => {
+    switch (size) {
+      case 'sm':
+        return `text-xs h-8 ${shape === 'default' || shape === 'rounded' ? 'px-2' : ''}`;
+      case 'md':
+        return `text-sm h-10 ${shape === 'default' || shape === 'rounded' ? 'px-3' : ''}`;
+      case 'lg':
+        return `text-base h-12 ${shape === 'default' || shape === 'rounded' ? 'px-4' : ''}`;
     }
   };
 
@@ -81,9 +125,9 @@ const Button: FC<ButtonProps> = ({
     <button
       {...props}
       className={`
-        flex items-center justify-center gap-2 select-none active:scale-95 shrink-0 border transition
+        flex items-center justify-center gap-2 select-none active:scale-95 shrink-0 transition
         disabled:bg-zinc-200 disabled:text-zinc-400 disabled:border-zinc-300 disabled:active:scale-100
-        dark:disabled:bg-zinc-800 dark:disabled:text-zinc-400 dark:disabled:border-zinc-700
+        dark:disabled:bg-zinc-800 dark:disabled:text-zinc-400 dark:disabled:border-zinc-700 hover:brightness-110
         ${isFullWidth ? 'w-full' : 'w-fit'}
         ${getColorStyles()}
         ${getSizeStyles()}

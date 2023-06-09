@@ -2,12 +2,11 @@ import { FC, useState } from 'react';
 
 import { CollectionInventoryPart } from '../models/CollectionInventoryPart';
 import useAddCollectionInventoryPart from '../mutations/useAddCollectionInventoryPart';
-import Card, { CardBody, CardFooter, CardImage, CardTitle } from './Card';
+import Card, { CardBody, CardFooter, CardImage } from './display/Card';
 import Button from './actions/Button';
 import Input from './Input';
 import QuantityFoundBadge from './QuantityFoundBadge';
-import Modal, { ModalBody, ModalFooter, ModalTitle } from './actions/Modal';
-import Image from 'next/image';
+import Modal, { ModalBody, ModalContent, ModalFooter, ModalTitle, ModalTrigger } from './actions/Modal';
 
 interface CollectionInventoryPartCardProps {
   collectionInventoryPart: CollectionInventoryPart;
@@ -23,32 +22,23 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
   const color = inventoryPart.color;
 
   return (
-    <>
-      <Card onClick={() => setIsModalOpen(true)}>
+    <Modal open={isModalOpen} onOpenChange={(isOpen) => setIsModalOpen(isOpen)}>
+      <ModalTrigger>
+        <Card>
+          {inventoryPart.imageUrl && <CardImage src={inventoryPart.imageUrl} alt={part.name} />}
+          <CardBody>
+            <div className="flex items-center gap-1 text-sm font-medium ">
+              <div className="w-5 h-5 rounded-sm border border-zinc-300" style={{ backgroundColor: color.hex }} />
+              {color.name}
+            </div>
+          </CardBody>
+          <CardFooter>
+            <QuantityFoundBadge quantityFound={collectionInventoryPart.quantityFound} quantity={collectionInventoryPart.quantity} />
+          </CardFooter>
+        </Card>
+      </ModalTrigger>
+      <ModalContent>
         {inventoryPart.imageUrl && <CardImage src={inventoryPart.imageUrl} alt={part.name} />}
-        <CardBody>
-          <div className="flex items-center gap-1 text-sm font-medium ">
-            <div className="w-5 h-5 rounded-md border border-zinc-300" style={{ backgroundColor: color.hex }} />
-            {color.name}
-          </div>
-        </CardBody>
-        <CardFooter>
-          <QuantityFoundBadge quantityFound={collectionInventoryPart.quantityFound} quantity={collectionInventoryPart.quantity} />
-        </CardFooter>
-      </Card>
-      <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
-        {inventoryPart.imageUrl && (
-          <figure className="mb-4 p-4 mx-auto">
-            <Image
-              src={inventoryPart.imageUrl}
-              alt={part.name}
-              width={300}
-              height={300}
-              className="object-contain w-full h-24 mix-blend-multiply"
-              priority={true}
-            />
-          </figure>
-        )}
         <ModalTitle>{part.name}</ModalTitle>
         <ModalBody>{color.name}</ModalBody>
         <div className="flex flex-col gap-2">
@@ -93,8 +83,8 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
         <ModalFooter>
           <Button onClick={() => setIsModalOpen(false)}>Close</Button>
         </ModalFooter>
-      </Modal>
-    </>
+      </ModalContent>
+    </Modal>
   );
 };
 

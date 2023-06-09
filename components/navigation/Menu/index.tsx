@@ -1,38 +1,56 @@
 import { FC, PropsWithChildren } from 'react';
 import { IconType } from 'react-icons';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+
+import Toggle from '@/components/actions/Toggle';
+
+export const MenuDivider: FC = () => <hr className="border-zinc-300 m-2 dark:border-zinc-700" />;
+
+export interface MenuItemsProps {
+  compact?: boolean;
+  align?: 'start' | 'center' | 'end';
+  side?: 'top' | 'bottom' | 'left' | 'right';
+}
+
+export const MenuItems: FC<PropsWithChildren<MenuItemsProps>> = ({ align = 'start', side = 'bottom', compact, children }) => (
+  <DropdownMenu.Content
+    align={align}
+    side={side}
+    className={`rounded-sm p-1 mt-2 z-50 marker:shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none
+        bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-950 dark:text-zinc-50
+        ${compact ? 'w-48 group compact' : 'w-60'} ${align === 'end' ? 'right-0 origin-top-right' : 'left-0 origin-top-left'}
+      `}
+  >
+    {children}
+  </DropdownMenu.Content>
+);
 
 interface MenuItemProps {
   Icon?: IconType;
   onClick?: () => void;
-  active?: boolean;
+  enabled?: boolean;
+  href?: string;
 }
 
-export const MenuItem: FC<PropsWithChildren<MenuItemProps>> = ({ Icon, onClick, active = false, children }) => (
-  <li
-    onClick={onClick}
-    className={`select-none w-full flex items-center gap-2 h-10 px-4 text-sm font-medium truncate 
-      rounded-lg hover:bg-zinc-200 cursor-pointer group-[.compact]:text-xs dark:hover:bg-zinc-700
-      group-[.compact]:h-8 group-[.compact]:px-2 ${active ? 'text-red-500' : ''}
-    `}
+export const MenuItem: FC<PropsWithChildren<MenuItemProps>> = ({ Icon, children, enabled, ...props }) => (
+  <DropdownMenu.Item
+    className="flex items-center gap-2   
+        w-full p-2 text-sm truncate rounded-sm
+        group-[.compact]:text-xs group-[.compact]:p-1
+        ui-active:bg-zinc-200 ui-active:dark:bg-zinc-700
+      "
+    {...props}
   >
-    {Icon && <Icon className="h-5 w-5 shrink-0 group-[.compact]:h-4 group-[.compact]:w-4" />}
-    {children}
-  </li>
+    {Icon && <Icon className="h-5 w-5 shrink-0 text-red-500 group-[.compact]:h-4 group-[.compact]:w-4" />}
+    <span className="truncate flex-1 flex items-center gap-2 justify-between">
+      {children}
+      {enabled !== undefined && <Toggle enabled={enabled} size="sm" onChange={props.onClick} />}
+    </span>
+  </DropdownMenu.Item>
 );
 
-export const MenuDivider: FC = () => <hr className="border-zinc-300 m-2 dark:border-zinc-700" />;
+export const MenuTrigger = DropdownMenu.Trigger;
 
-export interface MenuProps {
-  compact?: boolean;
-}
-
-const Menu: FC<PropsWithChildren<MenuProps>> = ({ compact = false, children }) => (
-  <ul
-    className={`bg-zinc-100 border border-zinc-300 text-zinc-950 rounded-lg p-2 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-50
-  ${compact ? 'w-48 group compact' : 'w-60'}`}
-  >
-    {children}
-  </ul>
-);
+const Menu = DropdownMenu.Root;
 
 export default Menu;

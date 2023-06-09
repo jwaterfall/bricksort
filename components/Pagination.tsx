@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, useMemo } from 'react';
 
-import Button, { ButtonSize } from './actions/Button';
+import { ButtonSize } from './actions/Button';
 
 const DOTS = '...';
 
@@ -58,7 +58,7 @@ const Pagination: FC<PaginationProps> = ({ page, setPage, pageCount, size, sibli
   return (
     <div className={`flex group pagination w-fit ${getSizeStyles()}`}>
       {pages.map((p, index) => (
-        <Button
+        <button
           key={index}
           size={size}
           shape="square"
@@ -67,7 +67,7 @@ const Pagination: FC<PaginationProps> = ({ page, setPage, pageCount, size, sibli
           disabled={p === DOTS}
         >
           {p}
-        </Button>
+        </button>
       ))}
     </div>
   );
