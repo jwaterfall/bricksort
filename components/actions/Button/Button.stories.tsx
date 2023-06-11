@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FaTrash } from 'react-icons/fa';
+import { MdEdit } from 'react-icons/md';
 
 import Button from '.';
 
@@ -9,15 +9,15 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     color: {
       description: 'Changes the background, border and text color.',
-      options: ['default', 'primary', 'info', 'success', 'error', 'warning'],
+      options: ['primary', 'secondary', 'tertiary'],
     },
     variant: {
-      description: 'A default button will fill the background with the color, while a secondary button will have a transparent background.',
-      options: ['default', 'secondary', 'tertiary'],
+      description: 'A default button will fill the background with the color, while an outlined button will only have a border.',
+      options: ['default', 'ghost', 'ghost-overlay'],
     },
     shape: {
       description: 'The default shape has a dynamic size whilst square and circle have a 1:1 aspect ratio.',
-      options: ['default', 'rounded', 'square', 'circle'],
+      options: ['default', 'square', 'circle'],
     },
     size: {
       description: 'The size of the button.',
@@ -50,45 +50,29 @@ type Story = StoryObj<typeof Button>;
 export const Default: Story = {
   render: (args) => (
     <div className="flex gap-4">
-      <Button {...args}>Default</Button>
-      <Button {...args} color="primary">
-        Primary
+      <Button {...args}>Primary</Button>
+      <Button {...args} color="secondary">
+        Secondary
       </Button>
-      <Button {...args} color="info">
-        Info
-      </Button>
-      <Button {...args} color="success">
-        Success
-      </Button>
-      <Button {...args} color="error">
-        Error
-      </Button>
-      <Button {...args} color="warning">
-        Warning
+      <Button {...args} color="tertiary">
+        Tertiary
       </Button>
     </div>
   ),
 };
 
-export const Secondary: Story = {
+export const Ghost: Story = {
   ...Default,
   args: {
-    variant: 'secondary',
+    variant: 'ghost',
   },
 };
 
-export const Tertiary: Story = {
-  ...Default,
+export const GhostOverlay: Story = {
   args: {
-    variant: 'tertiary',
+    variant: 'ghost-overlay',
   },
-};
-
-export const Rounded: Story = {
-  ...Default,
-  args: {
-    shape: 'rounded',
-  },
+  render: (args) => <Button {...args}>Primary</Button>,
 };
 
 export const Small: Story = {
@@ -110,22 +94,13 @@ export const FullWidth: Story = {
     isFullWidth: true,
   },
   render: (args) => (
-    <div className="flex flex-col gap-4">
-      <Button {...args}>Default</Button>
-      <Button {...args} color="primary">
-        Primary
+    <div className="flex flex-col gap-4 w-full">
+      <Button {...args}>Primary</Button>
+      <Button {...args} color="secondary">
+        Secondary
       </Button>
-      <Button {...args} color="info">
-        Info
-      </Button>
-      <Button {...args} color="success">
-        Success
-      </Button>
-      <Button {...args} color="error">
-        Error
-      </Button>
-      <Button {...args} color="warning">
-        Warning
+      <Button {...args} color="tertiary">
+        Teritary
       </Button>
     </div>
   ),
@@ -134,39 +109,40 @@ export const FullWidth: Story = {
 export const WithIcon: Story = {
   ...Default,
   args: {
-    Icon: FaTrash,
+    Icon: MdEdit,
   },
 };
 
 export const WithEndIcon: Story = {
   ...Default,
   args: {
-    EndIcon: FaTrash,
+    EndIcon: MdEdit,
   },
 };
 
 export const Square: Story = {
+  args: {
+    shape: 'square',
+  },
   render: (args) => (
     <div className="flex gap-4">
-      <Button {...args} shape="square" Icon={FaTrash} />
-      <Button {...args} shape="square" color="primary" Icon={FaTrash} />
-      <Button {...args} shape="square" color="info" Icon={FaTrash} />
-      <Button {...args} shape="square" color="success" Icon={FaTrash} />
-      <Button {...args} shape="square" color="error" Icon={FaTrash} />
-      <Button {...args} shape="square" color="warning" Icon={FaTrash} />
+      <Button {...args} Icon={MdEdit} />
+      <Button {...args} color="secondary" Icon={MdEdit} />
+      <Button {...args} color="tertiary" Icon={MdEdit} />
     </div>
   ),
 };
 
 export const Circle: Story = {
-  render: (args) => (
-    <div className="flex gap-4">
-      <Button {...args} shape="circle" Icon={FaTrash} />
-      <Button {...args} shape="circle" color="primary" Icon={FaTrash} />
-      <Button {...args} shape="circle" color="info" Icon={FaTrash} />
-      <Button {...args} shape="circle" color="success" Icon={FaTrash} />
-      <Button {...args} shape="circle" color="error" Icon={FaTrash} />
-      <Button {...args} shape="circle" color="warning" Icon={FaTrash} />
-    </div>
-  ),
+  ...Square,
+  args: {
+    shape: 'circle',
+  },
+};
+
+export const Disabled: Story = {
+  ...Default,
+  args: {
+    disabled: true,
+  },
 };

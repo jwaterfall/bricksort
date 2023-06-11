@@ -10,18 +10,6 @@ const meta: Meta<typeof Badge> = {
       description: 'Changes the background, border and text color.',
       options: ['default', 'success', 'error', 'info', 'warning'],
     },
-    variant: {
-      description: 'The variant of the badge.',
-      options: ['solid', 'outline'],
-    },
-    shape: {
-      description: 'The shape of the badge.',
-      options: ['default', 'rounded'],
-    },
-    size: {
-      description: 'The size of the badge.',
-      options: ['sm', 'md', 'lg'],
-    },
     children: {
       description: 'The text to display inside the badge.',
       type: 'string',
@@ -52,30 +40,15 @@ export const Basic: Story = {
   ),
 };
 
-export const Outline: Story = {
+export const WithoutText: Story = {
   ...Basic,
-  args: {
-    variant: 'outline',
-  },
-};
-
-export const Rounded: Story = {
-  ...Basic,
-  args: {
-    shape: 'rounded',
-  },
-};
-
-export const Small: Story = {
-  ...Basic,
-  args: {
-    size: 'sm',
-  },
-};
-
-export const Large: Story = {
-  ...Basic,
-  args: {
-    size: 'lg',
-  },
+  render: (args) => (
+    <div className="flex gap-4">
+      <Badge {...args} />
+      <Badge {...args} color="info" />
+      <Badge {...args} color="success" />
+      <Badge {...args} color="error" />
+      <Badge {...args} color="warning" />
+    </div>
+  ),
 };

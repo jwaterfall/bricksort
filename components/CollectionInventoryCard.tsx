@@ -2,9 +2,7 @@ import { FC } from 'react';
 import { FaTrash } from 'react-icons/fa';
 
 import { CollectionInventory } from '../models/CollectionInventory';
-import useDeleteCollectionInventory from '../mutations/useDeleteCollectionInventory';
-import { useAlerts } from './AlertProvider';
-import Card, { CardBody, CardFooter, CardImage } from './display/Card';
+import Card, { CardBody, CardFooter, CardImage, CardTitle } from './display/Card';
 import QuantityFoundBadge from './QuantityFoundBadge';
 import Button from './actions/Button';
 
@@ -13,27 +11,17 @@ interface CollectionInventoryCardProps {
 }
 
 const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionInventory }) => {
-  const { mutate: deleteCollectionInventory, isLoading: isDeleting } = useDeleteCollectionInventory();
-  const { addAlert } = useAlerts();
-
   const set = collectionInventory.inventory.set;
 
   return (
-    <Card href={`/collection/${collectionInventory._id}`} title={set.name}>
+    <Card href={`/collection/${collectionInventory._id}`} hoverable>
       {set.imageUrl && <CardImage src={set.imageUrl} alt={set.name} />}
+      <CardTitle>{set.name}</CardTitle>
       <CardBody>{`${set.theme.name} • ${set.year}`}</CardBody>
       <CardFooter>
-        <div className="flex gap-2 items-end justify-between">
+        <div className="flex-1 flex gap-2 items-end justify-between">
           <QuantityFoundBadge quantity={collectionInventory.partQuantity} quantityFound={collectionInventory.partQuantityFound} showPercentage />
-          <Button
-            shape="circle"
-            Icon={FaTrash}
-            disabled={isDeleting}
-            onClick={(e) => {
-              e.preventDefault();
-              addAlert('Are you sure you want to delete this set?', 'warning', () => deleteCollectionInventory(collectionInventory._id));
-            }}
-          />
+          <Button shape="square" color="secondary" Icon={FaTrash} />
         </div>
       </CardFooter>
     </Card>

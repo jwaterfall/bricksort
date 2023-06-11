@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        domains: ["cdn.rebrickable.com"],
-    },
+  images: {
+    domains: ['cdn.rebrickable.com'],
+  },
 };
 
-const withPWA = require("next-pwa")({
-    dest: "public",
+const withPWA = require('next-pwa')({
+  dest: 'public',
 });
 
 module.exports = withPWA(nextConfig);

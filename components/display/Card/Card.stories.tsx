@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Card, { CardBody, CardImage, CardTitle } from '.';
+import Button from '@/components/actions/Button';
+
+import Card, { CardBody, CardFooter, CardImage, CardTitle } from '.';
 
 const meta: Meta<typeof Card> = {
   component: Card,
@@ -68,7 +70,23 @@ export const WithImage = {
     <Card>
       <CardTitle>Card Title</CardTitle>
       <CardImage src="https://cdn.rebrickable.com/media/sets/8634-1.jpg" alt="set" />
-      This is a card with an image.
+      <CardBody> This is a card with an image.</CardBody>
+    </Card>
+  ),
+};
+
+export const WithImageAndFooter = {
+  render: () => (
+    <Card>
+      <CardTitle>Card Title</CardTitle>
+      <CardImage src="https://cdn.rebrickable.com/media/sets/8634-1.jpg" alt="set" />
+      <CardBody>This is a card with an image and a footer.</CardBody>
+      <CardFooter>
+        <Button>Button 1</Button>
+        <Button color="secondary" variant="ghost">
+          Button 2
+        </Button>
+      </CardFooter>
     </Card>
   ),
 };

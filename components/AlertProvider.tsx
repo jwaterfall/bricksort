@@ -1,7 +1,7 @@
 import { createContext, FC, PropsWithChildren, useContext, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 
-import Alert, { AlertVariant } from './display/Alert';
+import Alert, { AlertVariant } from './display/Toast';
 import Button from './actions/Button';
 
 interface Alert {

@@ -1,24 +1,19 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
-import { Lobster, Poppins } from '@next/font/google';
+import { Readex_Pro } from 'next/font/google';
 
-import theme from './theme';
 import '../globals.css';
 
-const poppins = Poppins({
+const readexPro = Readex_Pro({
   weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
-  variable: '--font-poppins',
-});
-
-const lobster = Lobster({
-  weight: ['400'],
-  subsets: ['latin'],
-  variable: '--font-lobster',
+  variable: '--font-readex-pro',
 });
 
 const withFonts = (Story: any) => (
-  <div className={`font-sans text-zinc-950 dark:text-zinc-50 ${poppins.variable} ${lobster.variable}`}>
+  <div
+    className={`bg-slate-200 text-slate-950 dark:bg-slate-900 dark:text-slate-50 py-4 px-6 rounded-xl font-sans flex justify-center ${readexPro.variable}`}
+  >
     <Story />
   </div>
 );
@@ -35,20 +30,13 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'dark',
+      default: 'light',
       values: [
         {
           name: 'light',
-          value: '#e4e4e7',
-        },
-        {
-          name: 'dark',
-          value: '#09090b',
+          value: '#f8fafc',
         },
       ],
-    },
-    docs: {
-      theme,
     },
   },
 };

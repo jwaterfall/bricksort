@@ -6,14 +6,9 @@ const meta: Meta<typeof Tabs> = {
   component: Tabs,
   tags: ['autodocs'],
   argTypes: {
-    variant: {
-      description: 'The variant of the tabs.',
-      options: ['line', 'solid'],
-      control: 'select',
-    },
     value: {
       description: 'The id of the active tab.',
-      options: ['tab-1', 'tab-2', 'tab-3'],
+      options: ['complete', 'incomplete', 'empty', 'all'],
       control: 'select',
     },
     onValueChange: {
@@ -27,37 +22,33 @@ export default meta;
 type Story = StoryObj<typeof Tabs>;
 
 export const Default: Story = {
-  render({ value = 'tab-1', ...args }) {
+  render({ value = 'complete', ...args }) {
     return (
       <Tabs value={value} {...args}>
         <TabButtons>
-          <TabButton value="tab-1">Tab 1</TabButton>
-          <TabButton value="tab-2">Tab 2</TabButton>
-          <TabButton value="tab-3">Tab 3</TabButton>
+          <TabButton value="complete">Complete</TabButton>
+          <TabButton value="incomplete">Incomplete</TabButton>
+          <TabButton value="empty">Empty</TabButton>
+          <TabButton value="all">All</TabButton>
         </TabButtons>
-        <TabContent value="tab-1">Tab 1 content</TabContent>
-        <TabContent value="tab-2">Tab 2 content</TabContent>
-        <TabContent value="tab-3">Tab 3 content</TabContent>
+        <TabContent value="complete">Complete content</TabContent>
+        <TabContent value="incomplete">Incomplete content</TabContent>
+        <TabContent value="empty">Empty content</TabContent>
+        <TabContent value="all">All content</TabContent>
       </Tabs>
     );
   },
 };
 
-export const Solid: Story = {
-  ...Default,
-  args: {
-    variant: 'solid',
-  },
-};
-
 export const WithoutTabContent: Story = {
-  render({ value = 'tab-1', ...args }) {
+  render({ value = 'complete', ...args }) {
     return (
       <Tabs value={value} {...args}>
         <TabButtons>
-          <TabButton value="tab-1">Tab 1</TabButton>
-          <TabButton value="tab-2">Tab 2</TabButton>
-          <TabButton value="tab-3">Tab 3</TabButton>
+          <TabButton value="complete">Complete</TabButton>
+          <TabButton value="incomplete">Incomplete</TabButton>
+          <TabButton value="empty">Empty</TabButton>
+          <TabButton value="all">All</TabButton>
         </TabButtons>
         The current tab is: {value}
       </Tabs>

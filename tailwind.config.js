@@ -1,35 +1,31 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', '.storybook/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-poppins)', 'Poppins'],
-        lobster: ['var(--font-lobster)', 'Lobster'],
+        sans: ['var(--font-readex-pro)', 'sans-serif'],
       },
       screens: {
         'hide-scrollbar': { max: '767px' },
       },
-      colors: {
-        primary: {
-          100: '#E98888',
-          200: '#39292C',
+      animation: {
+        'toast-open': 'toast-slide-in 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        'toast-close': 'toast-hide 100ms ease-in',
+        'toast-swipe-end': 'toast-swipe-out 100ms ease-out',
+      },
+      keyframes: {
+        'toast-hide': {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
         },
-        success: {
-          100: '#63E2B7',
-          200: '#243834',
+        'toast-slide-in': {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
         },
-        error: {
-          100: '#E98888',
-          200: '#39292C',
-        },
-        warning: {
-          100: '#F2C97D',
-          200: '#3B342B',
-        },
-        info: {
-          100: '#70C0E8',
-          200: '#26333C',
+        'toast-swipe-out': {
+          '0%': { transform: 'translateX(var(--radix-toast-swipe-end-x))' },
+          '100%': { transform: 'translateX(100%)' },
         },
       },
     },
