@@ -85,7 +85,7 @@ const Button: FC<ButtonProps> = ({
       {...props}
       className={`
         flex items-center justify-center gap-2 select-none active:scale-95 shrink-0 transition hover:brightness-95 dark:hover:brightness-110
-        disabled:bg-slate-300 disabled:text-slate-500 disabled:hover:brightness-100 disabled:active:scale-100
+        disabled:bg-slate-300 disabled:text-slate-500 dark:disabled:bg-slate-700 dark:disabled:text-slate-500 disabled:hover:brightness-100 disabled:active:scale-100
         ${isFullWidth ? 'w-full' : 'w-fit'}
         ${getVariantAndColorStyles()}
         ${getSizeStyles()}

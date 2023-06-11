@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Button from '@/components/actions/Button';
+import Badge from '@/components/display/Badge';
 
-import Card, { CardBody, CardFooter, CardImage, CardTitle } from '.';
+import Card, { CardBody, CardFooter, CardTitle } from '.';
 
 const meta: Meta<typeof Card> = {
   component: Card,
@@ -11,10 +12,6 @@ const meta: Meta<typeof Card> = {
     hoverable: {
       description: 'Whether the card should have a hover effect.',
       type: 'boolean',
-    },
-    href: {
-      description: 'The URL to link to when the card is clicked.',
-      type: 'string',
     },
     onClick: {
       description: 'The function to call when the card is clicked.',
@@ -34,59 +31,64 @@ export const Default: Story = {
   render(args) {
     return (
       <Card {...args}>
-        <CardTitle>Card Title</CardTitle>
-        <CardBody>This is the card body. It can contain any content you want, including other components.</CardBody>
+        <CardBody>
+          <CardTitle>This is a card title</CardTitle>
+          Subtitle
+        </CardBody>
+      </Card>
+    );
+  },
+};
+
+export const WithFooter: Story = {
+  render(args) {
+    return (
+      <Card {...args}>
+        <CardBody>
+          <CardTitle>Welcome to our website!</CardTitle>
+          We are excited to have you here. Our website offers a wide range of products and services to meet your needs. Feel free to browse our
+          selection and let us know if you have any questions.
+          <CardFooter>
+            <Button>Learn More</Button>
+          </CardFooter>
+        </CardBody>
+      </Card>
+    );
+  },
+};
+
+export const WithImage: Story = {
+  render(args) {
+    return (
+      <Card {...args}>
+        <img src="shoe.jpg" className="w-full aspect-video object-cover" />
+        <CardBody>
+          <CardTitle>
+            Lime green shoes <Badge color="warning">New</Badge>
+          </CardTitle>
+          <span className="line-through">$99.99</span> $49.99
+          <CardFooter>
+            <Button>Buy now</Button>
+          </CardFooter>
+        </CardBody>
       </Card>
     );
   },
 };
 
 export const Hoverable: Story = {
-  ...Default,
-  args: {
-    hoverable: true,
-  },
-};
-
-export const Link: Story = {
-  ...Default,
-  args: {
-    href: '/',
-  },
-};
-
-export const NoTitle: Story = {
   render(args) {
     return (
-      <Card>
-        <CardBody>This is the card body. It can contain any content you want, including other components.</CardBody>
+      <Card {...args} hoverable>
+        <img src="shoe.jpg" className="w-full aspect-video object-cover" />
+        <CardBody>
+          <CardTitle>Lime green shoes</CardTitle>A versatile running shoe that features a breathable mesh upper and a durable rubber outsole.
+          <CardFooter>
+            <Badge>Men's</Badge>
+            <Badge>Shoes</Badge>
+          </CardFooter>
+        </CardBody>
       </Card>
     );
   },
-};
-
-export const WithImage = {
-  render: () => (
-    <Card>
-      <CardTitle>Card Title</CardTitle>
-      <CardImage src="https://cdn.rebrickable.com/media/sets/8634-1.jpg" alt="set" />
-      <CardBody> This is a card with an image.</CardBody>
-    </Card>
-  ),
-};
-
-export const WithImageAndFooter = {
-  render: () => (
-    <Card>
-      <CardTitle>Card Title</CardTitle>
-      <CardImage src="https://cdn.rebrickable.com/media/sets/8634-1.jpg" alt="set" />
-      <CardBody>This is a card with an image and a footer.</CardBody>
-      <CardFooter>
-        <Button>Button 1</Button>
-        <Button color="secondary" variant="ghost">
-          Button 2
-        </Button>
-      </CardFooter>
-    </Card>
-  ),
 };

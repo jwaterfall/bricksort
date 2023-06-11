@@ -20,35 +20,36 @@ const meta: Meta<typeof Badge> = {
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-export const Basic: Story = {
-  render: (args) => (
-    <div className="flex gap-4">
-      <Badge {...args}>Default</Badge>
-      <Badge {...args} color="info">
-        Info
-      </Badge>
-      <Badge {...args} color="success">
-        Success
-      </Badge>
-      <Badge {...args} color="error">
-        Error
-      </Badge>
-      <Badge {...args} color="warning">
-        Warning
-      </Badge>
-    </div>
-  ),
+export const Default: Story = {
+  args: {
+    children: 'Default',
+  },
 };
 
-export const WithoutText: Story = {
-  ...Basic,
-  render: (args) => (
-    <div className="flex gap-4">
-      <Badge {...args} />
-      <Badge {...args} color="info" />
-      <Badge {...args} color="success" />
-      <Badge {...args} color="error" />
-      <Badge {...args} color="warning" />
-    </div>
-  ),
+export const Success: Story = {
+  args: {
+    children: 'Success',
+    color: 'success',
+  },
+};
+
+export const Error: Story = {
+  args: {
+    children: 'Error',
+    color: 'error',
+  },
+};
+
+export const Info: Story = {
+  args: {
+    children: 'Info',
+    color: 'info',
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    children: 'Warning',
+    color: 'warning',
+  },
 };

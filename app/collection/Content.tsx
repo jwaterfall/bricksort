@@ -21,7 +21,7 @@ const Content: FC<ContentProps> = async ({ collectionInventories }) => (
         <TabButton value="missing-parts">Missing Parts</TabButton>
       </TabButtons>
     </Tabs>
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex flex-col items-stretch gap-4 p-4">
       {collectionInventories.map((collectionInventory) => (
         <CollectionInventoryCard key={collectionInventory.id} collectionInventory={collectionInventory} />
       ))}

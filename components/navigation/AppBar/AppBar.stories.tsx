@@ -26,3 +26,16 @@ export const Default: Story = {
     );
   },
 };
+
+export const WithoutText: Story = {
+  render(args) {
+    return (
+      <AppBar>
+        <AppBarItem active Icon={MdHome} />
+        <AppBarItem Icon={MdSearch} />
+        <AppBarItem Icon={MdFolder} />
+        <AppBarItem Icon={MdPerson} />
+      </AppBar>
+    );
+  },
+};

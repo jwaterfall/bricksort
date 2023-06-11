@@ -1,8 +1,10 @@
 import { FC } from 'react';
 import { FaTrash } from 'react-icons/fa';
+import Link from 'next/link';
+import Image from 'next/image';
 
 import { CollectionInventory } from '../models/CollectionInventory';
-import Card, { CardBody, CardFooter, CardImage, CardTitle } from './display/Card';
+import Card, { CardBody, CardFooter, CardTitle } from './display/Card';
 import QuantityFoundBadge from './QuantityFoundBadge';
 import Button from './actions/Button';
 
@@ -14,17 +16,23 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
   const set = collectionInventory.inventory.set;
 
   return (
-    <Card href={`/collection/${collectionInventory._id}`} hoverable>
-      {set.imageUrl && <CardImage src={set.imageUrl} alt={set.name} />}
-      <CardTitle>{set.name}</CardTitle>
-      <CardBody>{`${set.theme.name} • ${set.year}`}</CardBody>
-      <CardFooter>
-        <div className="flex-1 flex gap-2 items-end justify-between">
-          <QuantityFoundBadge quantity={collectionInventory.partQuantity} quantityFound={collectionInventory.partQuantityFound} showPercentage />
-          <Button shape="square" color="secondary" Icon={FaTrash} />
-        </div>
-      </CardFooter>
-    </Card>
+    <Link href={`/collection/${collectionInventory._id}`}>
+      <Card hoverable>
+        {set.imageUrl && (
+          <figure className="bg-slate-50">
+            <Image src={set.imageUrl} alt={set.name} width={320} height={180} className="aspect-video object-contain mix-blend-multiply" />
+          </figure>
+        )}
+        <CardBody>
+          <CardTitle>{set.name}</CardTitle>
+          {`${set.theme.name} • ${set.year}`}
+          <CardFooter>
+            <QuantityFoundBadge quantity={collectionInventory.partQuantity} quantityFound={collectionInventory.partQuantityFound} showPercentage />
+            <Button shape="square" color="secondary" Icon={FaTrash} />
+          </CardFooter>
+        </CardBody>
+      </Card>
+    </Link>
   );
 };
 

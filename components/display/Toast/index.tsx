@@ -20,13 +20,13 @@ const Toast: FC<PropsWithChildren<ToastProps>> = ({ variant = 'info', showCloseB
   const getVariantStyles = () => {
     switch (variant) {
       case 'info':
-        return 'bg-slate-900 dark:bg-slate-800';
+        return 'bg-blue-600 dark:bg-blue-500';
       case 'success':
-        return 'bg-lime-600 dark:bg-lime-700';
+        return 'bg-lime-6600 dark:bg-lime-500';
       case 'error':
-        return 'bg-rose-600 dark:bg-rose-700';
+        return 'bg-red-600 dark:bg-red-500';
       case 'warning':
-        return 'bg-amber-600 dark:bg-amber-700';
+        return 'bg-amber-600 dark:bg-amber-500';
     }
   };
 

@@ -71,9 +71,17 @@ export const WithDisplay: Story = {
   render: (args) => (
     <ToastProvider duration={0}>
       <Toast {...args} />
-      <Toast {...args} showCloseButton={false} />
-      <Toast {...args} showIcon={false} />
+      <Toast {...args} variant="error" showIcon={false}>
+        This is an error toast, it is used to display information to the user that relates to a failed action.
+      </Toast>
+      <Toast {...args} variant="success" showCloseButton={false}>
+        This is a success toast, it is used to display information to the user that relates to a successful action.
+      </Toast>
+      <Toast {...args} variant="warning" showIcon={false} showCloseButton={false}>
+        This is a warning toast, it is used to display information to the user that relates to a potentially dangerous action.
+      </Toast>
       <ToastDisplay />
+      <p className="text-sm">The toasts will appear in the bottom right corner of the screen.</p>
     </ToastProvider>
   ),
 };
