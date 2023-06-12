@@ -31,13 +31,13 @@ export const WithSections: Story = {
     return (
       <TopBar {...args}>
         <TopBarSection>
-          <Button variant="ghost" shape="square" color="secondary" Icon={MdMenu} />
+          <Button variant="ghost" shape="square" color="secondary" iconLeft={MdMenu} />
           <TopBarTitle>Title</TopBarTitle>
         </TopBarSection>
         <TopBarSection>
-          <Button variant="ghost" shape="square" color="secondary" Icon={MdAttachFile} />
-          <Button variant="ghost" shape="square" color="secondary" Icon={MdCalendarToday} />
-          <Button variant="ghost" shape="square" color="secondary" Icon={MdMoreVert} />
+          <Button variant="ghost" shape="square" color="secondary" iconLeft={MdAttachFile} />
+          <Button variant="ghost" shape="square" color="secondary" iconLeft={MdCalendarToday} />
+          <Button variant="ghost" shape="square" color="secondary" iconLeft={MdMoreVert} />
         </TopBarSection>
       </TopBar>
     );
@@ -49,15 +49,15 @@ export const WithCenteredTitle: Story = {
     return (
       <TopBar {...args}>
         <TopBarSection>
-          <Button variant="ghost" shape="square" color="secondary" Icon={MdMenu} />
+          <Button variant="ghost" shape="square" color="secondary" iconLeft={MdMenu} />
         </TopBarSection>
         <TopBarSection>
           <TopBarTitle>Title</TopBarTitle>
         </TopBarSection>
         <TopBarSection>
-          <Button variant="ghost" shape="square" color="secondary" Icon={MdAttachFile} />
-          <Button variant="ghost" shape="square" color="secondary" Icon={MdCalendarToday} />
-          <Button variant="ghost" shape="square" color="secondary" Icon={MdMoreVert} />
+          <Button variant="ghost" shape="square" color="secondary" iconLeft={MdAttachFile} />
+          <Button variant="ghost" shape="square" color="secondary" iconLeft={MdCalendarToday} />
+          <Button variant="ghost" shape="square" color="secondary" iconLeft={MdMoreVert} />
         </TopBarSection>
       </TopBar>
     );
@@ -69,13 +69,13 @@ export const WithButton: Story = {
     return (
       <TopBar {...args}>
         <TopBarSection>
-          <Button variant="ghost" shape="square" color="secondary" Icon={MdMenu} />
+          <Button variant="ghost" shape="square" color="secondary" iconLeft={MdMenu} />
         </TopBarSection>
         <TopBarSection>
           <TopBarTitle>Title</TopBarTitle>
         </TopBarSection>
         <TopBarSection>
-          <Button Icon={MdLogin} size="sm">
+          <Button iconLeft={MdLogin} size="sm">
             Login
           </Button>
         </TopBarSection>
@@ -89,7 +89,7 @@ export const WithAvatar: Story = {
     return (
       <TopBar {...args}>
         <TopBarSection>
-          <Button variant="ghost" shape="square" color="secondary" Icon={MdMenu} />
+          <Button variant="ghost" shape="square" color="secondary" iconLeft={MdMenu} />
         </TopBarSection>
         <TopBarSection>
           <TopBarTitle>Title</TopBarTitle>

@@ -6,12 +6,9 @@ const meta: Meta<typeof Toggle> = {
   component: Toggle,
   tags: ['autodocs'],
   argTypes: {
-    size: {
-      description: 'The size of the button.',
-      options: ['sm', 'md', 'lg'],
-    },
-    enabled: {
+    value: {
       description: 'Whether the button is enabled.',
+      control: 'boolean',
     },
     onChange: {
       description: 'Callback for when the button is toggled.',
@@ -23,16 +20,4 @@ const meta: Meta<typeof Toggle> = {
 export default meta;
 type Story = StoryObj<typeof Toggle>;
 
-export const Default: Story = {};
-
-export const Small: Story = {
-  args: {
-    size: 'sm',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    size: 'lg',
-  },
-};
+export const Basic: Story = {};

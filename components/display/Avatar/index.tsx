@@ -1,14 +1,17 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC } from 'react';
 import { MdPerson } from 'react-icons/md';
+
+import Badge from '@/components/display/Badge';
 
 interface AvatarProps {
   size?: 'xs' | 'sm' | 'md' | 'lg';
   ring?: 'primary' | 'secondary';
   src?: string;
   name?: string;
+  badgeText?: string;
 }
 
-const Avatar: FC<AvatarProps> = ({ size = 'md', ring, src, name }) => {
+const Avatar: FC<AvatarProps> = ({ size = 'md', ring, src, name, badgeText }) => {
   const getSizeStyles = () => {
     switch (size) {
       case 'xs':
@@ -70,9 +73,11 @@ const Avatar: FC<AvatarProps> = ({ size = 'md', ring, src, name }) => {
         <div className="w-full h-full p-1 flex items-center justify-center rounded-full bg-gray-300 text-gray-400 dark:bg-gray-800 dark:text-gray-500">
           {name ? (
             <span
-              className={`overflow-hidden overflow-ellipsis text-center leading-tight text-xs tracking-wide dark:font-medium ${
-                size === 'sm' ? 'uppercase' : 'capitalize'
-              }`}
+              className={`
+                overflow-hidden overflow-ellipsis text-center leading-tight
+                text-xs tracking-wide dark:font-medium
+                ${size === 'sm' ? 'uppercase' : 'capitalize'}
+              `}
             >
               {getFormattedName()}
             </span>
@@ -86,6 +91,11 @@ const Avatar: FC<AvatarProps> = ({ size = 'md', ring, src, name }) => {
 
   return (
     <div className={`relative flex aspect-square ${getSizeStyles()}`}>
+      {badgeText && (
+        <div className="absolute -top-0.5 -right-0.5 z-20">
+          <Badge>{badgeText}</Badge>
+        </div>
+      )}
       {ring ? (
         <>
           <InnerAvatar />

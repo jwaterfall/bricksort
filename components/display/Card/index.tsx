@@ -10,21 +10,8 @@ export const CardTitle: FC<PropsWithChildren> = ({ children }) => (
 
 export const CardFooter: FC<PropsWithChildren> = ({ children }) => <div className="flex items-center mt-6 gap-2">{children}</div>;
 
-interface CardProps {
-  hoverable?: boolean;
-  onClick?: () => void;
-}
-
-const Card: FC<PropsWithChildren<CardProps>> = ({ hoverable = false, onClick, children }) => (
-  <div
-    onClick={onClick}
-    className={`
-        rounded-3xl transition-transform w-min min-w-[20rem] overflow-hidden bg-white dark:bg-gray-800 shadow-sm
-        ${onClick ? 'cursor-pointer' : ''} ${hoverable ? 'lg:hover:scale-105' : ''}
-      `}
-  >
-    {children}
-  </div>
+const Card: FC<PropsWithChildren> = ({ children }) => (
+  <div className="rounded-3xl transition-transform w-min min-w-[20rem] overflow-hidden bg-white dark:bg-gray-800 shadow-sm">{children}</div>
 );
 
 export default Card;

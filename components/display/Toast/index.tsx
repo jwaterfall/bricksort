@@ -61,7 +61,7 @@ const Toast: FC<PropsWithChildren<ToastProps>> = ({ variant = 'info', showCloseB
       <ToastPrimitive.Description className="flex-1 text-xs font-thin">{children}</ToastPrimitive.Description>
       {showCloseButton && (
         <ToastPrimitive.Close asChild>
-          <Button variant="ghost-overlay" shape="square" Icon={MdClose} />
+          <Button variant="ghost-overlay" shape="square" iconLeft={MdClose} />
         </ToastPrimitive.Close>
       )}
     </ToastPrimitive.Root>

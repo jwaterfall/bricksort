@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MdEdit } from 'react-icons/md';
+import { MdShoppingCart } from 'react-icons/md';
 
 import Button from '.';
 
@@ -7,25 +7,9 @@ const meta: Meta<typeof Button> = {
   component: Button,
   tags: ['autodocs'],
   argTypes: {
-    color: {
-      description: 'Changes the background, border and text color.',
-      options: ['primary', 'secondary', 'tertiary'],
-    },
     variant: {
       description: 'A default button will fill the background with the color, while an outlined button will only have a border.',
-      options: ['default', 'ghost', 'ghost-overlay'],
-    },
-    shape: {
-      description: 'The default shape has a dynamic size whilst square and circle have a 1:1 aspect ratio.',
-      options: ['default', 'square', 'circle'],
-    },
-    size: {
-      description: 'The size of the button.',
-      options: ['sm', 'md', 'lg'],
-    },
-    isFullWidth: {
-      description: 'A full width button will fill the width of its container.',
-      type: 'boolean',
+      options: ['filled', 'tonal', 'outlined', 'elavated', 'text'],
     },
     children: {
       description: 'The text to display inside the button.',
@@ -35,10 +19,10 @@ const meta: Meta<typeof Button> = {
       description: 'The function to call when the button is clicked.',
       action: 'onClick',
     },
-    Icon: {
+    iconLeft: {
       description: 'An icon to display to the left of the text.',
     },
-    EndIcon: {
+    iconRight: {
       description: 'An icon to display to the right of the text.',
     },
   },
@@ -48,60 +32,16 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
+  args: {
+    children: 'button',
+  },
   render: (args) => (
     <div className="flex gap-4">
-      <Button {...args}>Primary</Button>
-      <Button {...args} color="secondary">
-        Secondary
-      </Button>
-      <Button {...args} color="tertiary">
-        Tertiary
-      </Button>
-    </div>
-  ),
-};
-
-export const Ghost: Story = {
-  ...Default,
-  args: {
-    variant: 'ghost',
-  },
-};
-
-export const GhostOverlay: Story = {
-  args: {
-    variant: 'ghost-overlay',
-  },
-  render: (args) => <Button {...args}>Primary</Button>,
-};
-
-export const Small: Story = {
-  ...Default,
-  args: {
-    size: 'sm',
-  },
-};
-
-export const Large: Story = {
-  ...Default,
-  args: {
-    size: 'lg',
-  },
-};
-
-export const FullWidth: Story = {
-  args: {
-    isFullWidth: true,
-  },
-  render: (args) => (
-    <div className="flex flex-col gap-4 w-full">
-      <Button {...args}>Primary</Button>
-      <Button {...args} color="secondary">
-        Secondary
-      </Button>
-      <Button {...args} color="tertiary">
-        Teritary
-      </Button>
+      <Button {...args} />
+      <Button {...args} variant="tonal" />
+      <Button {...args} variant="outlined" />
+      <Button {...args} variant="elavated" />
+      <Button {...args} variant="text" />
     </div>
   ),
 };
@@ -109,40 +49,32 @@ export const FullWidth: Story = {
 export const WithIcon: Story = {
   ...Default,
   args: {
-    Icon: MdEdit,
+    ...Default.args,
+    iconLeft: MdShoppingCart,
   },
 };
 
 export const WithEndIcon: Story = {
   ...Default,
   args: {
-    EndIcon: MdEdit,
+    ...Default.args,
+    iconRight: MdShoppingCart,
   },
 };
 
-export const Square: Story = {
+export const WithoutText: Story = {
+  ...Default,
   args: {
-    shape: 'square',
-  },
-  render: (args) => (
-    <div className="flex gap-4">
-      <Button {...args} Icon={MdEdit} />
-      <Button {...args} color="secondary" Icon={MdEdit} />
-      <Button {...args} color="tertiary" Icon={MdEdit} />
-    </div>
-  ),
-};
-
-export const Circle: Story = {
-  ...Square,
-  args: {
-    shape: 'circle',
+    ...Default.args,
+    children: undefined,
+    iconLeft: MdShoppingCart,
   },
 };
 
 export const Disabled: Story = {
   ...Default,
   args: {
+    ...Default.args,
     disabled: true,
   },
 };

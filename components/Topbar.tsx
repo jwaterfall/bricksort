@@ -11,7 +11,7 @@ import Button from '@/components/actions/Button';
 const Topbar: FC = () => (
   <NavigationBar>
     <NavigationBarSection>
-      <Button shape="square" variant="ghost" color="secondary" Icon={MdMenu} />
+      <Button shape="square" variant="ghost" color="secondary" iconLeft={MdMenu} />
       <Tabs value="home">
         <TabButtons>
           <TabButton value="home">Home</TabButton>

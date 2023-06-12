@@ -2,81 +2,39 @@ import { FC, ButtonHTMLAttributes } from 'react';
 import { IconType } from 'react-icons';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: 'primary' | 'secondary' | 'tertiary';
-  variant?: 'default' | 'ghost' | 'ghost-overlay';
-  shape?: 'default' | 'square' | 'circle';
-  size?: 'sm' | 'md' | 'lg';
-  isFullWidth?: boolean;
-  Icon?: IconType;
-  EndIcon?: IconType;
+  variant?: 'filled' | 'tonal' | 'outlined' | 'elavated' | 'text';
+  iconLeft?: IconType;
+  iconRight?: IconType;
+  children?: string;
 }
 
-const Button: FC<ButtonProps> = ({
-  color = 'primary',
-  variant = 'default',
-  size = 'md',
-  shape = 'default',
-  isFullWidth = false,
-  Icon,
-  EndIcon,
-  children,
-  ...props
-}) => {
-  const getVariantAndColorStyles = () => {
+const Button: FC<ButtonProps> = ({ variant = 'filled', iconLeft: IconLeft, iconRight: IconRight, children, ...props }) => {
+  const getVariantStyles = () => {
     switch (variant) {
-      case 'default':
-        switch (color) {
-          case 'primary':
-            return 'bg-blue-600 text-gray-50 dark:bg-blue-400 dark:text-gray-950 dark:font-medium';
-          case 'secondary':
-            return 'bg-blue-200 text-gray-950 font-medium dark:bg-gray-600 dark:text-gray-50 dark:font-normal';
-          case 'tertiary':
-            return 'bg-blue-100 text-gray-950 font-medium dark:bg-gray-700 dark:text-gray-50 dark:font-normal';
-        }
-      case 'ghost':
-        switch (color) {
-          case 'primary':
-            return 'bg-transparent text-gray-950 hover:bg-blue-600 hover:text-gray-50 dark:text-gray-50 dark:hover:bg-blue-400 dark:hover:text-gray-950';
-          case 'secondary':
-            return 'bg-transparent text-gray-950 hover:bg-blue-200 hover:text-gray-950 dark:text-gray-50 dark:hover:bg-gray-600 dark:hover:text-gray-50';
-          case 'tertiary':
-            return 'bg-transparent text-gray-950 hover:bg-blue-100 hover:text-gray-950 dark:text-gray-50 dark:hover:bg-gray-700 dark:hover:text-gray-50';
-        }
-      case 'ghost-overlay':
-        return 'bg-transparent text-gray-50 hover:bg-gray-50/20';
-    }
-  };
-
-  const getShapeStyles = () => {
-    switch (shape) {
-      case 'default':
-        return 'rounded-full';
-      case 'square':
-        return 'rounded-xl aspect-square';
-      case 'circle':
-        return 'rounded-full aspect-square';
+      case 'filled':
+        return `text-white bg-indigo-600 hover:bg-indigo-700 disabled:hover:bg-indigo-600
+          dark:text-indigo-900 dark:bg-indigo-300 dark:hover:bg-indigo-400 dark:disabled:hover:bg-indigo-300`;
+      case 'tonal':
+        return `text-indigo-500 bg-indigo-100 hover:bg-indigo-200 disabled:hover:bg-indigo-100
+          dark:text-indigo-400 dark:bg-indigo-400/20 dark:hover:bg-indigo-400/25 dark:disabled:hover:bg-indigo-400/20`;
+      case 'outlined':
+        return `bg-transparent border text-indigo-500 border-indigo-500 hover:bg-indigo-200 disabled:hover:bg-transparent
+          dark:text-indigo-400 dark:border-indigo-400 dark:hover:bg-indigo-400/20`;
+      case 'elavated':
+        return `shadow-md text-indigo-500 bg-white hover:bg-indigo-100 disabled:hover:bg-white
+          dark:text-indigo-300 dark:bg-gray-800 dark:hover:bg-indigo-400/25 dark:disabled:hover:bg-gray-800`;
+      case 'text':
+        return `bg-transparent text-indigo-500 hover:bg-indigo-100 disabled:hover:bg-transparent
+          dark:text-indigo-400 dark:hover:bg-indigo-400/20`;
     }
   };
 
   const getSizeStyles = () => {
-    switch (size) {
-      case 'sm':
-        return `text-xs h-8 ${shape === 'default' ? 'px-4' : ''}`;
-      case 'md':
-        return `text-sm h-10 ${shape === 'default' ? 'px-6' : ''}`;
-      case 'lg':
-        return `text-base h-12 ${shape === 'default' ? 'px-8' : ''}`;
-    }
-  };
-
-  const getIconSize = () => {
-    switch (size) {
-      case 'sm':
-        return 16;
-      case 'md':
-        return 22;
-      case 'lg':
-        return 24;
+    switch (variant) {
+      case 'outlined':
+        return 'h-[2.375rem]';
+      default:
+        return 'h-10';
     }
   };
 
@@ -84,17 +42,13 @@ const Button: FC<ButtonProps> = ({
     <button
       {...props}
       className={`
-        flex items-center justify-center gap-2 select-none active:scale-95 shrink-0 transition hover:brightness-95 dark:hover:brightness-110
-        disabled:bg-gray-300 disabled:text-gray-500 dark:disabled:bg-gray-700 dark:disabled:text-gray-500 disabled:hover:brightness-100 disabled:active:scale-100
-        ${isFullWidth ? 'w-full' : 'w-fit'}
-        ${getVariantAndColorStyles()}
-        ${getSizeStyles()}
-        ${getShapeStyles()}
+        flex items-center justify-center gap-2 select-none transition-colors duration-100 rounded-full px-6 disabled:opacity-25 text-sm
+        ${getVariantStyles()} ${getSizeStyles()}
       `}
     >
-      {Icon && <Icon size={getIconSize()} className="shrink-0" />}
-      {children && <span className="truncate">{children}</span>}
-      {EndIcon && <EndIcon size={getIconSize()} className="shrink-0" />}
+      {IconLeft && <IconLeft size={18} className="shrink-0" />}
+      {children && <span className="truncate">{children[0].toUpperCase() + children.slice(1).toLocaleLowerCase()}</span>}
+      {IconRight && <IconRight size={18} className="shrink-0" />}
     </button>
   );
 };

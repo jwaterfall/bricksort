@@ -24,7 +24,7 @@ const SetCard: FC<SetCardProps> = ({ set }) => {
       <CardFooter>
         <div className="flex gap-2 items-end justify-between">
           <Badge>{`${set.partCount > 1 ? `${set.partCount} Pieces` : '1 Piece'}`}</Badge>
-          <Button shape="circle" color="primary" Icon={FaHammer} disabled={isCreating} onClick={() => createCollectionInventory(set._id)} />
+          <Button shape="circle" color="primary" iconLeft={FaHammer} disabled={isCreating} onClick={() => createCollectionInventory(set._id)} />
         </div>
       </CardFooter>
     </Card>

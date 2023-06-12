@@ -28,7 +28,7 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
           {`${set.theme.name} • ${set.year}`}
           <CardFooter>
             <QuantityFoundBadge quantity={collectionInventory.partQuantity} quantityFound={collectionInventory.partQuantityFound} showPercentage />
-            <Button shape="square" color="secondary" variant="ghost" Icon={FaTrash} />
+            <Button shape="square" color="secondary" variant="ghost" iconLeft={FaTrash} />
           </CardFooter>
         </CardBody>
       </Card>

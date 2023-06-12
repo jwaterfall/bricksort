@@ -33,22 +33,22 @@ export const Default: Story = {
     return (
       <div className="flex gap-4 items-center">
         <Avatar src="avatar1.jpg" size="xs" {...args} />
-        <Avatar src="avatar2.jpg" {...args} size="sm" />
-        <Avatar src="avatar3.jpg" {...args} size="md" />
-        <Avatar src="avatar4.jpg" {...args} size="lg" />
+        <Avatar src="avatar2.jpg" {...args} size="sm" badgeText="3" />
+        <Avatar src="avatar3.jpg" {...args} size="md" badgeText="21" />
+        <Avatar src="avatar4.jpg" {...args} size="lg" badgeText="999+" />
       </div>
     );
   },
 };
 
-export const WithBorder: Story = {
+export const WithRing: Story = {
   ...Default,
   args: {
     ring: 'primary',
   },
 };
 
-export const WithSecondaryBorder: Story = {
+export const WithSecondaryRing: Story = {
   ...Default,
   args: {
     ring: 'secondary',
