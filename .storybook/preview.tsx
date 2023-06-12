@@ -12,7 +12,7 @@ const readexPro = Readex_Pro({
 
 const withFonts = (Story: any) => (
   <div
-    className={`bg-slate-200 text-slate-950 dark:bg-slate-900 dark:text-slate-50 py-4 px-6 rounded-xl font-sans flex justify-center ${readexPro.variable}`}
+    className={`bg-blue-50 text-slate-950 dark:bg-slate-800 dark:text-slate-50 py-4 px-6 rounded-xl font-sans flex justify-center ${readexPro.variable}`}
   >
     <Story />
   </div>
@@ -34,7 +34,7 @@ const preview: Preview = {
       values: [
         {
           name: 'light',
-          value: '#f8fafc',
+          value: '#eff6ff',
         },
       ],
     },

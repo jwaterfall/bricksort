@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import Card, { CardBody, CardTitle } from '@/components/display/Card';
+
 import Tabs, { TabButtons, TabButton, TabContent } from '.';
 
 const meta: Meta<typeof Tabs> = {
@@ -7,9 +9,7 @@ const meta: Meta<typeof Tabs> = {
   tags: ['autodocs'],
   argTypes: {
     value: {
-      description: 'The id of the active tab.',
-      options: ['complete', 'incomplete', 'empty', 'all'],
-      control: 'select',
+      description: 'The id of the active tab, only use this if you want to control the active tab.',
     },
     onValueChange: {
       description: 'The function that is called when the active tab changes.',
@@ -22,35 +22,58 @@ export default meta;
 type Story = StoryObj<typeof Tabs>;
 
 export const Default: Story = {
-  render({ value = 'complete', ...args }) {
+  render({ ...args }) {
     return (
-      <Tabs value={value} {...args}>
+      <Tabs {...args} value={undefined} defaultValue="tab-1">
         <TabButtons>
-          <TabButton value="complete">Complete</TabButton>
-          <TabButton value="incomplete">Incomplete</TabButton>
-          <TabButton value="empty">Empty</TabButton>
-          <TabButton value="all">All</TabButton>
+          <TabButton value="tab-1">Tab 1</TabButton>
+          <TabButton value="tab-2">Tab 2</TabButton>
+          <TabButton value="tab-3">Tab 3</TabButton>
         </TabButtons>
-        <TabContent value="complete">Complete content</TabContent>
-        <TabContent value="incomplete">Incomplete content</TabContent>
-        <TabContent value="empty">Empty content</TabContent>
-        <TabContent value="all">All content</TabContent>
+        <TabContent value="tab-1">
+          <div className="mt-4">
+            <Card>
+              <CardBody>
+                <CardTitle>Tab 1</CardTitle>
+                This is the content of tab 1.
+              </CardBody>
+            </Card>
+          </div>
+        </TabContent>
+        <TabContent value="tab-2">
+          <div className="mt-4">
+            <Card>
+              <CardBody>
+                <CardTitle>Tab 2</CardTitle>
+                This is the content of tab 2.
+              </CardBody>
+            </Card>
+          </div>
+        </TabContent>
+        <TabContent value="tab-3">
+          <div className="mt-4">
+            <Card>
+              <CardBody>
+                <CardTitle>Tab 3</CardTitle>
+                This is the content of tab 3.
+              </CardBody>
+            </Card>
+          </div>
+        </TabContent>
       </Tabs>
     );
   },
 };
 
-export const WithoutTabContent: Story = {
+export const Controlled: Story = {
   render({ value = 'complete', ...args }) {
     return (
       <Tabs value={value} {...args}>
         <TabButtons>
-          <TabButton value="complete">Complete</TabButton>
-          <TabButton value="incomplete">Incomplete</TabButton>
-          <TabButton value="empty">Empty</TabButton>
-          <TabButton value="all">All</TabButton>
+          <TabButton value="tab-1">Tab 1</TabButton>
+          <TabButton value="tab-2">Tab 2</TabButton>
+          <TabButton value="tab-3">Tab 3</TabButton>
         </TabButtons>
-        The current tab is: {value}
       </Tabs>
     );
   },

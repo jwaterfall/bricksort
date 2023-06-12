@@ -12,7 +12,7 @@ const Badge: FC<PropsWithChildren<BadgeProps>> = ({ color = 'default', children 
       case 'info':
         return 'bg-blue-600 dark:bg-blue-500 text-slate-50';
       case 'success':
-        return 'bg-lime-600 dark:bg-lime-500 text-slate-50';
+        return 'bg-green-600 dark:bg-green-500 text-slate-50';
       case 'error':
         return 'bg-red-600 dark:bg-red-500 text-slate-50';
       case 'warning':
@@ -20,7 +20,7 @@ const Badge: FC<PropsWithChildren<BadgeProps>> = ({ color = 'default', children 
     }
   };
 
-  return <div className={`flex items-center rounded-full text-xs h-6 px-2 w-fit' ${getColorStyles()}`}>{children}</div>;
+  return <div className={`flex items-center rounded-full text-xs h-6 px-2 w-fit ${getColorStyles()}`}>{children}</div>;
 };
 
 export default Badge;

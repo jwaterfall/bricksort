@@ -19,6 +19,8 @@ export const AppBarItem: FC<PropsWithChildren<AppBarItemProps>> = ({ Icon, activ
   </div>
 );
 
-const AppBar: FC<PropsWithChildren> = ({ children }) => <nav className="w-full grid grid-flow-col bg-slate-200 dark:bg-slate-900">{children}</nav>;
+const AppBar: FC<PropsWithChildren> = ({ children }) => (
+  <nav className="w-full grid grid-flow-col auto-cols-fr bg-blue-50 dark:bg-slate-800">{children}</nav>
+);
 
 export default AppBar;

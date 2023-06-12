@@ -19,7 +19,7 @@ const Card: FC<PropsWithChildren<CardProps>> = ({ hoverable = false, onClick, ch
   <div
     onClick={onClick}
     className={`
-        rounded-3xl transition-transform w-min min-w-[20rem] overflow-hidden bg-slate-50 dark:bg-slate-800
+        rounded-3xl transition-transform w-min min-w-[20rem] overflow-hidden bg-blue-50 dark:bg-slate-800
         ${onClick ? 'cursor-pointer' : ''} ${hoverable ? 'lg:hover:scale-105' : ''}
       `}
   >

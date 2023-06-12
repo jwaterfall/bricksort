@@ -5,6 +5,7 @@ import { MdFolder, MdHome, MdPerson, MdSearch } from 'react-icons/md';
 import AppBar, { AppBarItem } from '.';
 
 const meta: Meta<typeof AppBar> = {
+  title: 'navigation/App Bar',
   component: AppBar,
   tags: ['autodocs'],
 };

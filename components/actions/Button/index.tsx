@@ -72,11 +72,11 @@ const Button: FC<ButtonProps> = ({
   const getIconSize = () => {
     switch (size) {
       case 'sm':
-        return 14;
+        return 16;
       case 'md':
-        return 20;
+        return 22;
       case 'lg':
-        return 28;
+        return 24;
     }
   };
 
