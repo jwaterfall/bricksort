@@ -13,6 +13,7 @@ module.exports = {
         'toast-open': 'toast-slide-in 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         'toast-close': 'toast-hide 100ms ease-in',
         'toast-swipe-end': 'toast-swipe-out 100ms ease-out',
+        'spin-slow': 'spin 3s linear infinite',
       },
       keyframes: {
         'toast-hide': {

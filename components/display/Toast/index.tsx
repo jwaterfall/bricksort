@@ -48,7 +48,7 @@ const Toast: FC<PropsWithChildren<ToastProps>> = ({ variant = 'info', showCloseB
   return (
     <ToastPrimitive.Root
       className={`
-        max-w-sm p-4 rounded-xl shadow-lg pointer-events-auto w-full flex items-center gap-4 text-slate-50
+        max-w-sm p-4 rounded-xl shadow-lg pointer-events-auto w-full flex items-center gap-4 text-gray-50
         data-[state=open]:animate-toast-open
         data-[state=closed]:animate-toast-close 
         data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)]

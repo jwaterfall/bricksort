@@ -19,7 +19,7 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
     <Link href={`/collection/${collectionInventory._id}`}>
       <Card hoverable>
         {set.imageUrl && (
-          <figure className="bg-slate-50">
+          <figure className="bg-white">
             <Image src={set.imageUrl} alt={set.name} width={320} height={180} className="aspect-video object-contain mix-blend-multiply" />
           </figure>
         )}
@@ -28,7 +28,7 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
           {`${set.theme.name} • ${set.year}`}
           <CardFooter>
             <QuantityFoundBadge quantity={collectionInventory.partQuantity} quantityFound={collectionInventory.partQuantityFound} showPercentage />
-            <Button shape="square" color="secondary" Icon={FaTrash} />
+            <Button shape="square" color="secondary" variant="ghost" Icon={FaTrash} />
           </CardFooter>
         </CardBody>
       </Card>

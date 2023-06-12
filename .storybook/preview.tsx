@@ -12,7 +12,7 @@ const readexPro = Readex_Pro({
 
 const withFonts = (Story: any) => (
   <div
-    className={`bg-blue-50 text-slate-950 dark:bg-slate-800 dark:text-slate-50 py-4 px-6 rounded-xl font-sans flex justify-center ${readexPro.variable}`}
+    className={`bg-blue-50 text-gray-950 dark:bg-gray-900 dark:text-gray-50 py-4 px-6 rounded-xl font-sans flex justify-center ${readexPro.variable}`}
   >
     <Story />
   </div>

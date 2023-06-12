@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import { MdMenu } from 'react-icons/md';
 
-import NavigationBar, { NavigationBarSection } from '@/components/navigation/NavigationBar';
+import NavigationBar, { NavigationBarSection } from '@/components/navigation/TopBar';
 import Tabs, { TabButton, TabButtons } from '@/components/navigation/Tabs';
 import Avatar from '@/components/display/Avatar';
 import Button from '@/components/actions/Button';

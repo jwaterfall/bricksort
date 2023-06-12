@@ -22,7 +22,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en">
       <body className={`font-sans ${readexPro.variable}`}>
-        <main className="flex flex-col w-full h-screen overflow-hidden bg-blue-50 text-slate-950 dark:bg-slate-900 dark:text-slate-50">
+        <main className="flex flex-col w-full h-screen overflow-hidden bg-blue-50 text-gray-950 dark:bg-gray-900 dark:text-gray-50">
           <Topbar />
           <div className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll w-full scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-zinc-400 scrollbar-track-zinc-300 dark:scrollbar-thumb-zinc-800 dark:scrollbar-track-zinc-900">
             <div className="flex-1">{children}</div>

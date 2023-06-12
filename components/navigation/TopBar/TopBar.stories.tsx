@@ -5,23 +5,23 @@ import Button from '@/components/actions/Button';
 import Avatar from '@/components/display/Avatar';
 import Tabs, { TabButtons, TabButton } from '@/components/navigation/Tabs';
 
-import NavigationBar, { NavigationBarSection, NavigationBarTitle } from '.';
+import TopBar, { TopBarSection, TopBarTitle } from '.';
 
-const meta: Meta<typeof NavigationBar> = {
-  title: 'navigation/Navigation Bar',
-  component: NavigationBar,
+const meta: Meta<typeof TopBar> = {
+  title: 'navigation/Top Bar',
+  component: TopBar,
   tags: ['autodocs'],
 };
 
 export default meta;
-type Story = StoryObj<typeof NavigationBar>;
+type Story = StoryObj<typeof TopBar>;
 
 export const WithTitle: Story = {
   render(args) {
     return (
-      <NavigationBar {...args}>
-        <NavigationBarTitle>Title</NavigationBarTitle>
-      </NavigationBar>
+      <TopBar {...args}>
+        <TopBarTitle>Title</TopBarTitle>
+      </TopBar>
     );
   },
 };
@@ -29,17 +29,17 @@ export const WithTitle: Story = {
 export const WithSections: Story = {
   render(args) {
     return (
-      <NavigationBar {...args}>
-        <NavigationBarSection>
+      <TopBar {...args}>
+        <TopBarSection>
           <Button variant="ghost" shape="square" color="secondary" Icon={MdMenu} />
-          <NavigationBarTitle>Title</NavigationBarTitle>
-        </NavigationBarSection>
-        <NavigationBarSection>
+          <TopBarTitle>Title</TopBarTitle>
+        </TopBarSection>
+        <TopBarSection>
           <Button variant="ghost" shape="square" color="secondary" Icon={MdAttachFile} />
           <Button variant="ghost" shape="square" color="secondary" Icon={MdCalendarToday} />
           <Button variant="ghost" shape="square" color="secondary" Icon={MdMoreVert} />
-        </NavigationBarSection>
-      </NavigationBar>
+        </TopBarSection>
+      </TopBar>
     );
   },
 };
@@ -47,19 +47,19 @@ export const WithSections: Story = {
 export const WithCenteredTitle: Story = {
   render(args) {
     return (
-      <NavigationBar {...args}>
-        <NavigationBarSection>
+      <TopBar {...args}>
+        <TopBarSection>
           <Button variant="ghost" shape="square" color="secondary" Icon={MdMenu} />
-        </NavigationBarSection>
-        <NavigationBarSection>
-          <NavigationBarTitle>Title</NavigationBarTitle>
-        </NavigationBarSection>
-        <NavigationBarSection>
+        </TopBarSection>
+        <TopBarSection>
+          <TopBarTitle>Title</TopBarTitle>
+        </TopBarSection>
+        <TopBarSection>
           <Button variant="ghost" shape="square" color="secondary" Icon={MdAttachFile} />
           <Button variant="ghost" shape="square" color="secondary" Icon={MdCalendarToday} />
           <Button variant="ghost" shape="square" color="secondary" Icon={MdMoreVert} />
-        </NavigationBarSection>
-      </NavigationBar>
+        </TopBarSection>
+      </TopBar>
     );
   },
 };
@@ -67,19 +67,19 @@ export const WithCenteredTitle: Story = {
 export const WithButton: Story = {
   render(args) {
     return (
-      <NavigationBar {...args}>
-        <NavigationBarSection>
+      <TopBar {...args}>
+        <TopBarSection>
           <Button variant="ghost" shape="square" color="secondary" Icon={MdMenu} />
-        </NavigationBarSection>
-        <NavigationBarSection>
-          <NavigationBarTitle>Title</NavigationBarTitle>
-        </NavigationBarSection>
-        <NavigationBarSection>
+        </TopBarSection>
+        <TopBarSection>
+          <TopBarTitle>Title</TopBarTitle>
+        </TopBarSection>
+        <TopBarSection>
           <Button Icon={MdLogin} size="sm">
             Login
           </Button>
-        </NavigationBarSection>
-      </NavigationBar>
+        </TopBarSection>
+      </TopBar>
     );
   },
 };
@@ -87,17 +87,17 @@ export const WithButton: Story = {
 export const WithAvatar: Story = {
   render(args) {
     return (
-      <NavigationBar {...args}>
-        <NavigationBarSection>
+      <TopBar {...args}>
+        <TopBarSection>
           <Button variant="ghost" shape="square" color="secondary" Icon={MdMenu} />
-        </NavigationBarSection>
-        <NavigationBarSection>
-          <NavigationBarTitle>Title</NavigationBarTitle>
-        </NavigationBarSection>
-        <NavigationBarSection>
+        </TopBarSection>
+        <TopBarSection>
+          <TopBarTitle>Title</TopBarTitle>
+        </TopBarSection>
+        <TopBarSection>
           <Avatar size="sm" border="primary" src="avatar1.jpg" />
-        </NavigationBarSection>
-      </NavigationBar>
+        </TopBarSection>
+      </TopBar>
     );
   },
 };
@@ -105,11 +105,11 @@ export const WithAvatar: Story = {
 export const WithTabs: Story = {
   render(args) {
     return (
-      <NavigationBar {...args}>
-        <NavigationBarSection>
-          <NavigationBarTitle>Title</NavigationBarTitle>
-        </NavigationBarSection>
-        <NavigationBarSection>
+      <TopBar {...args}>
+        <TopBarSection>
+          <TopBarTitle>Title</TopBarTitle>
+        </TopBarSection>
+        <TopBarSection>
           <Tabs value="dashboard">
             <TabButtons>
               <TabButton value="dashboard">Dashboard</TabButton>
@@ -117,11 +117,11 @@ export const WithTabs: Story = {
               <TabButton value="profile">Profile</TabButton>
             </TabButtons>
           </Tabs>
-        </NavigationBarSection>
-        <NavigationBarSection>
+        </TopBarSection>
+        <TopBarSection>
           <Avatar size="sm" border="primary" src="avatar1.jpg" />
-        </NavigationBarSection>
-      </NavigationBar>
+        </TopBarSection>
+      </TopBar>
     );
   },
 };

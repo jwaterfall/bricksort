@@ -49,12 +49,12 @@ const Toggle: FC<ToggleProps> = ({ enabled, size = 'md', ...props }) => {
       checked={enabled}
       onCheckedChange={props.onChange}
       className={`relative inline-flex items-center rounded-full ${
-        enabled ? 'bg-blue-600 text-blue-600 dark:bg-blue-400 dark:text-blue-400' : 'bg-slate-700 text-slate-700'
+        enabled ? 'bg-blue-600 text-blue-600 dark:bg-blue-400 dark:text-blue-400' : 'bg-gray-700 text-gray-700'
       } ${getToggleStyles()}`}
     >
       <SwitchPrimitive.Thumb
         className={`absolute transform rounded-full transition left-1 aspect-square flex items-center justify-center ${
-          enabled ? 'translate-x-3/4 bg-blue-300 dark:bg-blue-600' : 'bg-slate-400 dark:bg-slate-300'
+          enabled ? 'translate-x-3/4 bg-blue-300 dark:bg-blue-600' : 'bg-gray-400 dark:bg-gray-300'
         } ${getThumbStyles()}`}
       >
         <Icon size={getIconSize()} />

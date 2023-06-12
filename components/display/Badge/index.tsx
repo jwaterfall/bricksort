@@ -8,15 +8,15 @@ const Badge: FC<PropsWithChildren<BadgeProps>> = ({ color = 'default', children 
   const getColorStyles = () => {
     switch (color) {
       case 'default':
-        return 'bg-slate-300 dark:bg-slate-700 text-slate-950 dark:text-slate-50 font-medium dark:font-normal';
+        return 'bg-gray-300 dark:bg-gray-700 text-gray-950 dark:text-gray-50 font-medium dark:font-normal';
       case 'info':
-        return 'bg-blue-600 dark:bg-blue-500 text-slate-50';
+        return 'bg-blue-600 dark:bg-blue-500 text-gray-50';
       case 'success':
-        return 'bg-green-600 dark:bg-green-500 text-slate-50';
+        return 'bg-green-600 dark:bg-green-500 text-gray-50';
       case 'error':
-        return 'bg-red-600 dark:bg-red-500 text-slate-50';
+        return 'bg-red-600 dark:bg-red-500 text-gray-50';
       case 'warning':
-        return 'bg-amber-600 dark:bg-amber-500 text-slate-50';
+        return 'bg-amber-600 dark:bg-amber-500 text-gray-50';
     }
   };
 
