@@ -23,6 +23,4 @@ export const TabButton: FC<PropsWithChildren<TabButtonProps>> = (props) => (
 
 export const TabContent = TabsPrimitive.Content;
 
-const Tabs = TabsPrimitive.Root;
-
-export default Tabs;
+export const Tabs = TabsPrimitive.Root;

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MdAttachFile, MdCalendarToday, MdLogin, MdMenu, MdMoreVert } from 'react-icons/md';
 
-import Button from '@/components/actions/Button';
-import Avatar from '@/components/display/Avatar';
-import Tabs, { TabButtons, TabButton } from '@/components/navigation/Tabs';
+import { Button } from '@/components/actions/Button';
+import { Avatar } from '@/components/display/Avatar';
+import { Tabs, TabButtons, TabButton } from '@/components/navigation/Tabs';
 
 import TopBar, { TopBarSection, TopBarTitle } from '.';
 

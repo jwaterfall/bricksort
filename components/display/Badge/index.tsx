@@ -1,9 +1,16 @@
 import { FC, PropsWithChildren } from 'react';
 
-const Badge: FC<PropsWithChildren> = ({ children }) => (
-  <div className="flex items-center gap-1 rounded-full text-xs h-5 px-[0.4rem] w-fit bg-indigo-600 text-white dark:bg-indigo-400 dark:text-indigo-900 dark:font-medium">
+interface BadgeProps {
+  className?: string;
+}
+
+export const Badge: FC<PropsWithChildren<BadgeProps>> = ({ className, children }) => (
+  <div
+    className={`
+      flex items-center gap-1 rounded-full text-xs h-4 px-1 w-fit font-thin dark:font-medium
+      bg-lime-600 text-white dark:bg-lime-400 dark:text-lime-950 ${className}
+    `}
+  >
     {children}
   </div>
 );
-
-export default Badge;

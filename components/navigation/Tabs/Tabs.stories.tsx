@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Card, { CardBody, CardTitle } from '@/components/display/Card';
+import { Card, CardBody, CardTitle } from '@/components/display/Card';
 
-import Tabs, { TabButtons, TabButton, TabContent } from '.';
+import { Tabs, TabButtons, TabButton, TabContent } from '.';
 
 const meta: Meta<typeof Tabs> = {
   component: Tabs,

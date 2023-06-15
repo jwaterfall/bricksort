@@ -1,23 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Toggle from '.';
+import { Switch } from '.';
 
-const meta: Meta<typeof Toggle> = {
-  component: Toggle,
+const meta: Meta<typeof Switch> = {
+  component: Switch,
   tags: ['autodocs'],
   argTypes: {
     value: {
-      description: 'Whether the button is enabled.',
-      control: 'boolean',
+      description: 'Whether the switch is on or off.',
     },
     onChange: {
-      description: 'Callback for when the button is toggled.',
+      description: 'Callback for when the switch is toggled.',
       action: 'onChange',
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Toggle>;
+type Story = StoryObj<typeof Switch>;
 
 export const Basic: Story = {};

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Button from '@/components/actions/Button';
-import Badge from '@/components/display/Badge';
+import { Button } from '@/components/actions/Button';
+import { Badge } from '@/components/display/Badge';
 
-import Card, { CardBody, CardFooter, CardTitle } from '.';
+import { Card, CardBody, CardFooter, CardSubtitle, CardTitle } from '.';
 
 const meta: Meta<typeof Card> = {
   component: Card,
@@ -37,32 +37,34 @@ export const WithFooter: Story = {
     return (
       <Card {...args}>
         <CardBody>
-          <CardTitle>Welcome to our website!</CardTitle>
-          We are excited to have you here. Our website offers a wide range of products and services to meet your needs. Feel free to browse our
-          selection and let us know if you have any questions.
-          <CardFooter>
-            <Button>Learn More</Button>
-          </CardFooter>
+          <CardTitle>Play relaxing music</CardTitle>
+          From your favorite artists
         </CardBody>
+        <CardFooter>
+          <Button variant="tonal">Get started</Button>
+        </CardFooter>
       </Card>
     );
   },
 };
 
-export const WithImage: Story = {
+export const WithImageAndSubtitle: Story = {
   render(args) {
     return (
       <Card {...args}>
         <img src="shoe.jpg" className="w-full aspect-video object-cover" />
         <CardBody>
           <CardTitle>
-            Lime green shoes <Badge>New</Badge>
+            Running shoes <Badge>New</Badge>
           </CardTitle>
-          <span className="line-through">$99.99</span> $49.99
-          <CardFooter>
-            <Button>Buy now</Button>
-          </CardFooter>
+          <CardSubtitle>
+            <span className="line-through">$99.99</span> $49.99
+          </CardSubtitle>
+          These shoes are the best shoes you can buy. They are made of the finest materials and will last you a lifetime.
         </CardBody>
+        <CardFooter>
+          <Button variant="tonal">Buy now</Button>
+        </CardFooter>
       </Card>
     );
   },

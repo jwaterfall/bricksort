@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', '.storybook/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -28,6 +29,9 @@ module.exports = {
           '0%': { transform: 'translateX(var(--radix-toast-swipe-end-x))' },
           '100%': { transform: 'translateX(100%)' },
         },
+      },
+      transitionProperty: {
+        'switch-thumb': 'box-shadow, transform',
       },
     },
   },

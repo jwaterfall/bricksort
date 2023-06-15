@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as ToastPrimitive from '@radix-ui/react-toast';
 
-import Toast, { ToastDisplay, ToastProvider } from '.';
+import { Toast, ToastDisplay, ToastProvider } from '.';
 
 const meta: Meta<typeof Toast> = {
   component: Toast,

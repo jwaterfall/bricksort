@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from 'react';
 import { MdCheckCircle, MdClose, MdError, MdInfo, MdWarning } from 'react-icons/md';
 import * as ToastPrimitive from '@radix-ui/react-toast';
 
-import Button from '@/components/actions/Button';
+import { Button } from '@/components/actions/Button';
 
 export type ToastVariant = 'info' | 'success' | 'error' | 'warning';
 
@@ -16,7 +16,7 @@ export const ToastProvider = ToastPrimitive.Provider;
 
 export const ToastDisplay: FC = () => <ToastPrimitive.Viewport className="fixed bottom-4 right-4 flex flex-col gap-4 z-50" />;
 
-const Toast: FC<PropsWithChildren<ToastProps>> = ({ variant = 'info', showCloseButton = true, showIcon = true, children }) => {
+export const Toast: FC<PropsWithChildren<ToastProps>> = ({ variant = 'info', showCloseButton = true, showIcon = true, children }) => {
   const getVariantStyles = () => {
     switch (variant) {
       case 'info':
@@ -67,5 +67,3 @@ const Toast: FC<PropsWithChildren<ToastProps>> = ({ variant = 'info', showCloseB
     </ToastPrimitive.Root>
   );
 };
-
-export default Toast;
