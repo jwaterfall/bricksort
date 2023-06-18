@@ -1,4 +1,4 @@
-import { FC, ButtonHTMLAttributes } from 'react';
+import { FC, ButtonHTMLAttributes, forwardRef } from 'react';
 import { IconType } from 'react-icons';
 
 export type ButtonVariant = 'filled' | 'tonal' | 'outlined' | 'elavated' | 'text';
@@ -39,17 +39,20 @@ export const getSizeStyles = (variant: ButtonVariant) => {
   }
 };
 
-export const Button: FC<ButtonProps> = ({ variant = 'filled', iconLeft: IconLeft, iconRight: IconRight, children, ...props }) => (
-  <button
-    {...props}
-    className={`
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = 'filled', iconLeft: IconLeft, iconRight: IconRight, children, ...props }, ref) => (
+    <button
+      {...props}
+      ref={ref}
+      className={`
         inline-flex items-center justify-center gap-2 select-none transition-colors duration-100 rounded-full disabled:opacity-25 text-sm
         ${IconLeft ? 'pl-4' : 'pl-6'} ${IconRight ? 'pr-4' : 'pr-6'}
         ${getVariantStyles(variant)} ${getSizeStyles(variant)}
       `}
-  >
-    {IconLeft && <IconLeft size={18} className="shrink-0" />}
-    {children && <span className="truncate">{children}</span>}
-    {IconRight && <IconRight size={18} className="shrink-0" />}
-  </button>
+    >
+      {IconLeft && <IconLeft size={18} className="shrink-0" />}
+      {children && <span className="truncate">{children}</span>}
+      {IconRight && <IconRight size={18} className="shrink-0" />}
+    </button>
+  )
 );

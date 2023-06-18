@@ -8,6 +8,7 @@ import { MdDashboard, MdToys, MdPlaylistAddCheck, MdSearch, MdPerson, MdLightMod
 
 import { NavigationDrawer, NavigationDrawerDivider, NavigationDrawerItem } from '@/components/navigation/NavigationDrawer';
 import { IconButton } from '@/components/actions/IconButton';
+import { Tooltip } from '@/components/display/Tooltip';
 import { useTheme } from './Providers';
 
 interface CustomNavigationDrawerItemProps {
@@ -53,7 +54,9 @@ export const CustomNavigationDrawer: FC = () => {
       <NavigationDrawerDivider />
       <div className="px-4 flex items-center justify-between">
         {isDarkMode ? 'Dark mode' : 'Light mode'}
-        <IconButton variant="tonal" icon={isDarkMode ? MdLightMode : MdDarkMode} onClick={() => toggleIsDarkMode()} />
+        <Tooltip text={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}>
+          <IconButton variant="tonal" icon={isDarkMode ? MdLightMode : MdDarkMode} onClick={() => toggleIsDarkMode()} />
+        </Tooltip>
       </div>
     </NavigationDrawer>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, PropsWithChildren } from 'react';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 
@@ -9,7 +11,7 @@ interface TooltipProps {
 
 export const Tooltip: FC<PropsWithChildren<TooltipProps>> = ({ text, side = 'top', align = 'center', children }) => (
   <TooltipPrimitive.Root delayDuration={0}>
-    <TooltipPrimitive.Trigger>{children}</TooltipPrimitive.Trigger>
+    <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Content
         sideOffset={4}

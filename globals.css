@@ -5,3 +5,18 @@
 [data-nextjs-scroll-focus-boundary] {
   display: contents;
 }
+
+.sb-show-main {
+  --font-readex-pro: 'Readex Pro';
+  font-family: var(--font-readex-pro), sans-serif;
+}
+
+.sb-show-main,
+.docs-story {
+  background-color: #f4f4f5;
+}
+
+.dark .sb-show-main,
+.dark .docs-story {
+  background-color: #18181b;
+}
