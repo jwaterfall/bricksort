@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { Readex_Pro, Lobster } from 'next/font/google';
 import { FC, PropsWithChildren } from 'react';
 
-import { HTMLWithThemeProvider } from './HTMLWithThemeProvider';
+import { Providers } from './Providers';
 import { CustomTopBar } from './CustomTopBar';
 import { CustomNavigationDrawer } from './CustomNavigationDrawer';
 
@@ -27,7 +27,7 @@ const lobster = Lobster({
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <HTMLWithThemeProvider>
+    <Providers>
       <body
         className={`
             flex flex-col w-full h-screen bg-zinc-100 text-zinc-950 dark:bg-zinc-900 dark:text-zinc-50 font-sans ${readexPro.variable} ${lobster.variable}
@@ -40,7 +40,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
           <main className="flex-1">{children}</main>
         </div>
       </body>
-    </HTMLWithThemeProvider>
+    </Providers>
   );
 };
 

@@ -1,5 +1,10 @@
 import connectToDatabase from '@/data/connectToDatabase';
-import SetModel from '@/models/Set';
+import SetModel, { Set } from '@/models/Set';
+import { Theme } from '@/models/Theme';
+
+export interface ExtendedSet extends Omit<Set, 'theme'> {
+  theme: Theme;
+}
 
 const getSets = async () => {
   await connectToDatabase();
@@ -13,11 +18,7 @@ const getSets = async () => {
       year: -1,
     })
     .limit(24)
-    .populate([
-      {
-        path: 'theme',
-      },
-    ])
+    .populate('theme')
     .exec();
 
   return sets.map((set) => set.toJSON());

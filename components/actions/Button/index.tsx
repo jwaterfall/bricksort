@@ -43,7 +43,7 @@ export const Button: FC<ButtonProps> = ({ variant = 'filled', iconLeft: IconLeft
   <button
     {...props}
     className={`
-        flex items-center justify-center gap-2 select-none transition-colors duration-100 rounded-full disabled:opacity-25 text-sm
+        inline-flex items-center justify-center gap-2 select-none transition-colors duration-100 rounded-full disabled:opacity-25 text-sm
         ${IconLeft ? 'pl-4' : 'pl-6'} ${IconRight ? 'pr-4' : 'pr-6'}
         ${getVariantStyles(variant)} ${getSizeStyles(variant)}
       `}

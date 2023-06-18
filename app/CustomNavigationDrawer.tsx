@@ -8,7 +8,7 @@ import { MdDashboard, MdToys, MdPlaylistAddCheck, MdSearch, MdPerson, MdLightMod
 
 import { NavigationDrawer, NavigationDrawerDivider, NavigationDrawerItem } from '@/components/navigation/NavigationDrawer';
 import { IconButton } from '@/components/actions/IconButton';
-import { useTheme } from './HTMLWithThemeProvider';
+import { useTheme } from './Providers';
 
 interface CustomNavigationDrawerItemProps {
   icon: IconType;
