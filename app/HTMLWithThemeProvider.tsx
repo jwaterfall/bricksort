@@ -12,14 +12,14 @@ const ThemeContext = createContext({} as ThemeContext);
 
 export const useTheme = () => useContext(ThemeContext);
 
-export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
+export const HTMLWithThemeProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useLocalStorage('isDarkMode', true);
 
   const toggleIsDarkMode = () => setIsDarkMode((prev) => !prev);
 
   return (
-    <body className={isDarkMode ? 'dark' : ''}>
+    <html className={`${isDarkMode ? 'dark' : ''}`}>
       <ThemeContext.Provider value={{ isDarkMode, toggleIsDarkMode }}>{children}</ThemeContext.Provider>
-    </body>
+    </html>
   );
 };

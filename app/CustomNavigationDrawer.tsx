@@ -8,7 +8,7 @@ import { MdDashboard, MdToys, MdPlaylistAddCheck, MdSearch, MdPerson, MdLightMod
 
 import { NavigationDrawer, NavigationDrawerDivider, NavigationDrawerItem } from '@/components/navigation/NavigationDrawer';
 import { IconButton } from '@/components/actions/IconButton';
-import { useTheme } from './ThemeProvider';
+import { useTheme } from './HTMLWithThemeProvider';
 
 interface CustomNavigationDrawerItemProps {
   icon: IconType;
@@ -33,7 +33,7 @@ export const CustomNavigationDrawer: FC = () => {
   const { isDarkMode, toggleIsDarkMode } = useTheme();
 
   return (
-    <NavigationDrawer>
+    <NavigationDrawer className="sticky top-4 self-start">
       <CustomNavigationDrawerItem icon={MdDashboard} href="/" exact>
         Dashboard
       </CustomNavigationDrawerItem>

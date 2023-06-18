@@ -24,7 +24,7 @@ type Story = StoryObj<typeof Tabs>;
 export const Default: Story = {
   render({ ...args }) {
     return (
-      <Tabs {...args} value={undefined} defaultValue="tab-1">
+      <Tabs {...args} value={undefined} defaultValue="tab-1" className="w-full">
         <TabButtons>
           <TabButton value="tab-1">Tab 1</TabButton>
           <TabButton value="tab-2">Tab 2</TabButton>
@@ -68,7 +68,7 @@ export const Default: Story = {
 export const Controlled: Story = {
   render({ value = 'complete', ...args }) {
     return (
-      <Tabs value={value} {...args}>
+      <Tabs value={value} {...args} className="w-full">
         <TabButtons>
           <TabButton value="tab-1">Tab 1</TabButton>
           <TabButton value="tab-2">Tab 2</TabButton>

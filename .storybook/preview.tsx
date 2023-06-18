@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
-import { Readex_Pro } from 'next/font/google';
+import { Readex_Pro, Lobster } from 'next/font/google';
+import { withThemeByClassName } from '@storybook/addon-styling';
 
 import '../globals.css';
 
@@ -10,15 +11,31 @@ const readexPro = Readex_Pro({
   variable: '--font-readex-pro',
 });
 
+const lobster = Lobster({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-lobster',
+});
+
 const withFonts = (Story: any) => (
   <div
-    className={`bg-blue-50 text-gray-950 dark:bg-gray-900 dark:text-gray-50 py-4 px-6 rounded-xl font-sans flex justify-center ${readexPro.variable}`}
+    className={`bg-zinc-100 text-zinc-950 dark:bg-zinc-900 dark:text-zinc-50 py-4 px-6 rounded-xl font-sans flex justify-center ${readexPro.variable} ${lobster.variable}`}
   >
     <Story />
   </div>
 );
 
-export const decorators = [withFonts];
+export const decorators = [
+  withFonts, // Adds theme switching support.
+  // NOTE: requires setting "darkMode" to "class" in your tailwind config
+  withThemeByClassName({
+    themes: {
+      light: 'light',
+      dark: 'dark',
+    },
+    defaultTheme: 'light',
+  }),
+];
 
 const preview: Preview = {
   parameters: {

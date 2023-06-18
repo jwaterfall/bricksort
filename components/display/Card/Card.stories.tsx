@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '@/components/actions/Button';
 import { Badge } from '@/components/display/Badge';
 
-import { Card, CardBody, CardFooter, CardSubtitle, CardTitle } from '.';
+import { Card, CardBody, CardFooter, CardTitle } from '.';
 
 const meta: Meta<typeof Card> = {
   component: Card,
@@ -54,12 +54,12 @@ export const WithImageAndSubtitle: Story = {
       <Card {...args}>
         <img src="shoe.jpg" className="w-full aspect-video object-cover" />
         <CardBody>
-          <CardTitle>
-            Running shoes <Badge>New</Badge>
-          </CardTitle>
-          <CardSubtitle>
+          <div className="flex items-center gap-2">
+            <CardTitle>Running shoes</CardTitle> <Badge>New</Badge>
+          </div>
+          <div className="mb-2">
             <span className="line-through">$99.99</span> $49.99
-          </CardSubtitle>
+          </div>
           These shoes are the best shoes you can buy. They are made of the finest materials and will last you a lifetime.
         </CardBody>
         <CardFooter>
@@ -67,5 +67,12 @@ export const WithImageAndSubtitle: Story = {
         </CardFooter>
       </Card>
     );
+  },
+};
+
+export const FullWidth: Story = {
+  ...WithImageAndSubtitle,
+  args: {
+    width: 'w-full',
   },
 };

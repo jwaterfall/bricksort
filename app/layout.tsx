@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
-import { Readex_Pro } from 'next/font/google';
+import { Readex_Pro, Lobster } from 'next/font/google';
 import { FC, PropsWithChildren } from 'react';
 
-import { ThemeProvider } from './ThemeProvider';
-import { CustomNavigationDrawer } from './Drawer';
+import { HTMLWithThemeProvider } from './HTMLWithThemeProvider';
+import { CustomTopBar } from './CustomTopBar';
+import { CustomNavigationDrawer } from './CustomNavigationDrawer';
 
 import '../globals.css';
 
@@ -18,20 +19,28 @@ const readexPro = Readex_Pro({
   variable: '--font-readex-pro',
 });
 
+const lobster = Lobster({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-lobster',
+});
+
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <html lang="en">
-      <ThemeProvider>
-        <main
-          className={`flex flex-col w-full h-screen overflow-hidden bg-blue-50 text-gray-950 dark:bg-gray-900 dark:text-gray-50 font-sans ${readexPro.variable}`}
-        >
+    <HTMLWithThemeProvider>
+      <body
+        className={`
+            flex flex-col w-full h-screen bg-zinc-100 text-zinc-950 dark:bg-zinc-900 dark:text-zinc-50 font-sans ${readexPro.variable} ${lobster.variable}
+            scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-zinc-400 scrollbar-track-zinc-300 dark:scrollbar-thumb-zinc-800 dark:scrollbar-track-zinc-900 
+        `}
+      >
+        <CustomTopBar />
+        <div className="flex flex-1 w-full">
           <CustomNavigationDrawer />
-          <div className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll w-full scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-zinc-400 scrollbar-track-zinc-300 dark:scrollbar-thumb-zinc-800 dark:scrollbar-track-zinc-900">
-            <div className="flex-1">{children}</div>
-          </div>
-        </main>
-      </ThemeProvider>
-    </html>
+          <main className="flex-1">{children}</main>
+        </div>
+      </body>
+    </HTMLWithThemeProvider>
   );
 };
 

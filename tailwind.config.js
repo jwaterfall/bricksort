@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-readex-pro)', 'sans-serif'],
+        logo: ['var(--font-lobster)', 'cursive'],
       },
       screens: {
         'hide-scrollbar': { max: '767px' },

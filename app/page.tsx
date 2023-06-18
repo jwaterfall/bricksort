@@ -1,3 +1,3 @@
-const HomePage = async () => <></>;
+const HomePage = () => <></>;
 
 export default HomePage;

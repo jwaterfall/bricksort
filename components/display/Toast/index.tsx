@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from 'react';
 import { MdCheckCircle, MdClose, MdError, MdInfo, MdWarning } from 'react-icons/md';
 import * as ToastPrimitive from '@radix-ui/react-toast';
 
-import { Button } from '@/components/actions/Button';
+import { IconButton } from '@/components/actions/IconButton';
 
 export type ToastVariant = 'info' | 'success' | 'error' | 'warning';
 
@@ -20,13 +20,13 @@ export const Toast: FC<PropsWithChildren<ToastProps>> = ({ variant = 'info', sho
   const getVariantStyles = () => {
     switch (variant) {
       case 'info':
-        return 'bg-blue-600 dark:bg-blue-500';
+        return 'bg-blue-500 dark:bg-blue-400';
       case 'success':
-        return 'bg-green-6600 dark:bg-green-500';
+        return 'bg-green-500 dark:bg-green-400';
       case 'error':
-        return 'bg-red-600 dark:bg-red-500';
+        return 'bg-red-500 dark:bg-red-400';
       case 'warning':
-        return 'bg-amber-600 dark:bg-amber-500';
+        return 'bg-amber-500 dark:bg-amber-400';
     }
   };
 
@@ -48,7 +48,7 @@ export const Toast: FC<PropsWithChildren<ToastProps>> = ({ variant = 'info', sho
   return (
     <ToastPrimitive.Root
       className={`
-        max-w-sm p-4 rounded-xl shadow-lg pointer-events-auto w-full flex items-center gap-4 text-gray-50
+        max-w-sm p-4 rounded-xl shadow-lg pointer-events-auto w-full flex items-center gap-4 text-zinc-50
         data-[state=open]:animate-toast-open
         data-[state=closed]:animate-toast-close 
         data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)]
@@ -61,7 +61,7 @@ export const Toast: FC<PropsWithChildren<ToastProps>> = ({ variant = 'info', sho
       <ToastPrimitive.Description className="flex-1 text-xs font-thin">{children}</ToastPrimitive.Description>
       {showCloseButton && (
         <ToastPrimitive.Close asChild>
-          <Button variant="ghost-overlay" shape="square" iconLeft={MdClose} />
+          <IconButton variant="text" icon={MdClose} />
         </ToastPrimitive.Close>
       )}
     </ToastPrimitive.Root>
