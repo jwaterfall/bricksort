@@ -13,15 +13,18 @@ export interface CollectionInventory extends Document {
     inventory: Inventory;
 }
 
-const schema = new Schema<CollectionInventory>({
-    _id: { type: Schema.Types.ObjectId, required: true, auto: true },
-    user: { type: String, required: true, index: true },
-    partQuantity: { type: Number, required: true },
-    partQuantityFound: { type: Number, required: true, default: 0 },
-    sparePartQuantity: { type: Number, required: true },
-    sparePartQuantityFound: { type: Number, required: true, default: 0 },
-    inventoryId: { type: String, required: true, index: true },
-});
+const schema = new Schema<CollectionInventory>(
+    {
+        _id: { type: Schema.Types.ObjectId, required: true, auto: true },
+        user: { type: String, required: true, index: true },
+        partQuantity: { type: Number, required: true },
+        partQuantityFound: { type: Number, required: true, default: 0 },
+        sparePartQuantity: { type: Number, required: true },
+        sparePartQuantityFound: { type: Number, required: true, default: 0 },
+        inventoryId: { type: String, required: true, index: true },
+    },
+    { timestamps: true }
+);
 
 schema.virtual('inventory', {
     ref: InventoryModel,

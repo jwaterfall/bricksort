@@ -20,12 +20,15 @@ export interface PartRelationship extends Document {
     parent: Part;
 }
 
-const schema = new Schema<PartRelationship>({
-    _id: { type: String, required: true },
-    relationshipType: { type: String, required: true, enum: Object.values(RelationshipType) },
-    childId: { type: String, required: true, index: true },
-    parentId: { type: String, required: true, index: true },
-});
+const schema = new Schema<PartRelationship>(
+    {
+        _id: { type: String, required: true },
+        relationshipType: { type: String, required: true, enum: Object.values(RelationshipType) },
+        childId: { type: String, required: true, index: true },
+        parentId: { type: String, required: true, index: true },
+    },
+    { timestamps: true }
+);
 
 const PartRelationshipModel = mongoose.models.PartRelationship ?? model<PartRelationship>('PartRelationship', schema, 'part_relationships');
 

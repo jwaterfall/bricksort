@@ -9,14 +9,17 @@ export interface Color extends Document {
     isTranslucent: boolean;
 }
 
-const schema = new Schema<Color>({
-    _id: { type: String, required: true },
-    name: { type: String, required: true },
-    hex: { type: String, required: true },
-    rgb: { type: String, required: true },
-    hsl: { type: String, required: true },
-    isTranslucent: { type: Boolean, required: true },
-});
+const schema = new Schema<Color>(
+    {
+        _id: { type: String, required: true },
+        name: { type: String, required: true },
+        hex: { type: String, required: true },
+        rgb: { type: String, required: true },
+        hsl: { type: String, required: true },
+        isTranslucent: { type: Boolean, required: true },
+    },
+    { timestamps: true }
+);
 
 const ColorModel = mongoose.models.Color ?? model<Color>('Color', schema, 'colors');
 

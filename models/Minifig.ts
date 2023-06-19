@@ -7,12 +7,15 @@ export interface Minifig extends Document {
     imageUrl: string;
 }
 
-const schema = new Schema<Minifig>({
-    _id: { type: String, required: true },
-    name: { type: String, required: true },
-    partCount: { type: Number, required: true },
-    imageUrl: { type: String, required: true },
-});
+const schema = new Schema<Minifig>(
+    {
+        _id: { type: String, required: true },
+        name: { type: String, required: true },
+        partCount: { type: Number, required: true },
+        imageUrl: { type: String, required: true },
+    },
+    { timestamps: true }
+);
 
 const MinifigModel = mongoose.models.Minifig ?? model<Minifig>('Minifig', schema, 'minifigs');
 

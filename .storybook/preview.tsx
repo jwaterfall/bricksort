@@ -17,14 +17,7 @@ const lobster = Lobster({
   variable: '--font-lobster',
 });
 
-const withFonts = (Story: any) => (
-  <div className={`font-sans ${readexPro.variable} ${lobster.variable}`}>
-    <Story />
-  </div>
-);
-
 export const decorators = [
-  withFonts,
   withThemeByClassName({
     themes: {
       light: 'light',
@@ -32,6 +25,11 @@ export const decorators = [
     },
     defaultTheme: 'dark',
   }),
+  (Story: any) => (
+    <div className={`flex justify-center font-sans ${readexPro.variable} ${lobster.variable}`}>
+      <Story />
+    </div>
+  ),
 ];
 
 const preview: Preview = {

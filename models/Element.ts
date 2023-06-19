@@ -6,11 +6,14 @@ export interface Element extends Document {
     colorId: string;
 }
 
-const schema = new Schema<Element>({
-    _id: { type: String, required: true },
-    partId: { type: String, required: true },
-    colorId: { type: String, required: true },
-});
+const schema = new Schema<Element>(
+    {
+        _id: { type: String, required: true },
+        partId: { type: String, required: true },
+        colorId: { type: String, required: true },
+    },
+    { timestamps: true }
+);
 
 const ElementModel = mongoose.models.Element ?? model<Element>('Element', schema, 'elements');
 

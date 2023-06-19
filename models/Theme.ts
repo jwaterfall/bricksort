@@ -12,12 +12,15 @@ interface ThemeModel extends Model<Theme> {
     recursiveGetChildThemes(id: string): Promise<Theme[]>;
 }
 
-const schema = new Schema<Theme>({
-    _id: { type: String, required: true },
-    name: { type: String, required: true },
-    setCount: { type: Number, required: true },
-    parentId: { type: String },
-});
+const schema = new Schema<Theme>(
+    {
+        _id: { type: String, required: true },
+        name: { type: String, required: true },
+        setCount: { type: Number, required: true },
+        parentId: { type: String },
+    },
+    { timestamps: true }
+);
 
 schema.statics.getChildThemes = async function (id: string) {
     const themes = await this.find({ parentId: id });

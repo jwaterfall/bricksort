@@ -17,5 +17,5 @@ export const CardTitle: FC<PropsWithChildren<CardTitleProps>> = ({ truncate = fa
 export const CardFooter: FC<PropsWithChildren> = ({ children }) => <div className="px-4 my-3 flex items-center justify-end gap-2">{children}</div>;
 
 export const Card: FC<PropsWithChildren<PropsWithWidth>> = ({ width = 'w-80', children }) => (
-  <div className={`rounded-3xl overflow-hidden bg-zinc-50 dark:bg-zinc-800 shadow-sm ${width}`}>{children}</div>
+  <div className={`rounded-3xl overflow-hidden bg-zinc-50 border border-zinc-200 dark:border-zinc-800 dark:bg-zinc-800 ${width}`}>{children}</div>
 );

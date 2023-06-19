@@ -13,13 +13,16 @@ export interface CollectionInventoryPart extends Document {
     addQuantityFound: (quantityFound: number) => Promise<number>;
 }
 
-const schema = new Schema<CollectionInventoryPart>({
-    user: { type: String, required: true, index: true },
-    collectionInventoryId: { type: Schema.Types.ObjectId, required: true, index: true },
-    inventoryPartId: { type: String, required: true, index: true },
-    quantity: { type: Number, required: true },
-    quantityFound: { type: Number, required: true, default: 0 },
-});
+const schema = new Schema<CollectionInventoryPart>(
+    {
+        user: { type: String, required: true, index: true },
+        collectionInventoryId: { type: Schema.Types.ObjectId, required: true, index: true },
+        inventoryPartId: { type: String, required: true, index: true },
+        quantity: { type: Number, required: true },
+        quantityFound: { type: Number, required: true, default: 0 },
+    },
+    { timestamps: true }
+);
 
 schema.virtual('inventoryPart', {
     ref: InventoryPartModel,

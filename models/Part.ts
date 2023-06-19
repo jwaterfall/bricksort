@@ -19,12 +19,15 @@ export interface Part extends Document {
     category: PartCategory;
 }
 
-const schema = new Schema<Part>({
-    _id: { type: String, required: true },
-    name: { type: String, required: true },
-    material: { type: String, required: true, enum: Object.values(PartMaterial) },
-    categoryId: { type: Number, required: true, ref: 'PartCategory' },
-});
+const schema = new Schema<Part>(
+    {
+        _id: { type: String, required: true },
+        name: { type: String, required: true },
+        material: { type: String, required: true, enum: Object.values(PartMaterial) },
+        categoryId: { type: Number, required: true, ref: 'PartCategory' },
+    },
+    { timestamps: true }
+);
 
 const PartModel = mongoose.models.Part ?? model<Part>('Part', schema, 'parts');
 

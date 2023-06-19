@@ -70,9 +70,9 @@ export const WithImageAndSubtitle: Story = {
   },
 };
 
-export const FullWidth: Story = {
+export const CustomWidth: Story = {
   ...WithImageAndSubtitle,
   args: {
-    width: 'w-full',
+    width: 'w-96',
   },
 };

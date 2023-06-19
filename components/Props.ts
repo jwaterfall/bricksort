@@ -5,3 +5,7 @@ export interface PropsWithClassName {
 export interface PropsWithWidth {
   width?: string;
 }
+
+export interface PropsWithPadding {
+  padding?: string;
+}

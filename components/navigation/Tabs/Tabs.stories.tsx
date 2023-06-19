@@ -33,30 +33,21 @@ export const Default: Story = {
         <TabContent value="tab-1">
           <div className="mt-4">
             <Card>
-              <CardBody>
-                <CardTitle>Tab 1</CardTitle>
-                This is the content of tab 1.
-              </CardBody>
+              <CardBody>This is the content of tab 1.</CardBody>
             </Card>
           </div>
         </TabContent>
         <TabContent value="tab-2">
           <div className="mt-4">
             <Card>
-              <CardBody>
-                <CardTitle>Tab 2</CardTitle>
-                This is the content of tab 2.
-              </CardBody>
+              <CardBody>This is the content of tab 2.</CardBody>
             </Card>
           </div>
         </TabContent>
         <TabContent value="tab-3">
           <div className="mt-4">
             <Card>
-              <CardBody>
-                <CardTitle>Tab 3</CardTitle>
-                This is the content of tab 3.
-              </CardBody>
+              <CardBody>This is the content of tab 3.</CardBody>
             </Card>
           </div>
         </TabContent>

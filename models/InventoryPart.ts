@@ -15,15 +15,18 @@ export interface InventoryPart extends Document {
     color: Color;
 }
 
-const schema = new Schema<InventoryPart>({
-    _id: { type: String, required: true },
-    quantity: { type: Number, required: true },
-    isSpare: { type: Boolean, required: true },
-    imageUrl: { type: String },
-    inventoryId: { type: String, required: true },
-    partId: { type: String, required: true, index: true },
-    colorId: { type: String, required: true, index: true },
-});
+const schema = new Schema<InventoryPart>(
+    {
+        _id: { type: String, required: true },
+        quantity: { type: Number, required: true },
+        isSpare: { type: Boolean, required: true },
+        imageUrl: { type: String },
+        inventoryId: { type: String, required: true },
+        partId: { type: String, required: true, index: true },
+        colorId: { type: String, required: true, index: true },
+    },
+    { timestamps: true }
+);
 
 schema.virtual('part', {
     ref: PartModel,

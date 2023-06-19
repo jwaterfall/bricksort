@@ -12,14 +12,17 @@ export interface Set extends Document {
     theme: Theme;
 }
 
-const schema = new Schema<Set>({
-    _id: { type: String, required: true },
-    name: { type: String, required: true, index: true },
-    year: { type: Number, required: true, index: true },
-    partCount: { type: Number, required: true },
-    imageUrl: { type: String, required: true },
-    themeId: { type: String, required: true, index: true },
-});
+const schema = new Schema<Set>(
+    {
+        _id: { type: String, required: true },
+        name: { type: String, required: true, index: true },
+        year: { type: Number, required: true, index: true },
+        partCount: { type: Number, required: true },
+        imageUrl: { type: String, required: true },
+        themeId: { type: String, required: true, index: true },
+    },
+    { timestamps: true }
+);
 
 schema.virtual('theme', {
     ref: ThemeModel,
