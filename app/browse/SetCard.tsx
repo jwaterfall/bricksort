@@ -17,7 +17,7 @@ interface SetCardProps {
 export const SetCard: FC<SetCardProps> = ({ set }) => (
     <Card width="w-full">
         <figure className="w-full aspect-video bg-zinc-50 overflow-hidden p-4">
-            <Image src={set.imageUrl} alt={set.name} width={400} height={400} className="h-full w-full object-contain mix-blend-multiply" />
+            <Image src={set.imageUrl} alt={set.name} width={200} height={200} className="h-full w-full object-contain mix-blend-multiply" />
         </figure>
         <CardBody>
             <List

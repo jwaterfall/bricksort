@@ -4,10 +4,10 @@ import SetModel, { Set } from '@/models/Set';
 import { Theme } from '@/models/Theme';
 
 export interface GetSetsOptions extends PaginatedOptions {
-    minYear?: number;
-    maxYear?: number;
-    search?: string;
-    themesIds?: string[];
+    minYear?: number | undefined;
+    maxYear?: number | undefined;
+    search?: string | undefined;
+    themesIds?: string[] | undefined;
 }
 
 export interface SetWithTheme extends Omit<Set, 'theme'> {

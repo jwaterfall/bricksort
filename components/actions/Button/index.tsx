@@ -1,4 +1,4 @@
-import { FC, ButtonHTMLAttributes, forwardRef } from 'react';
+import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { IconType } from 'react-icons';
 
 export type ButtonVariant = 'filled' | 'tonal' | 'outlined' | 'elavated' | 'text';

@@ -1,6 +1,6 @@
 export interface PaginatedOptions {
-    page: number;
-    limit: number;
+    page?: number | undefined;
+    limit?: number | undefined;
 }
 
 export interface PaginatedResult<T> {
