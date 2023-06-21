@@ -1,10 +1,23 @@
 import { usePathname, useRouter } from 'next/navigation';
 
+export type SearchParamValue = undefined | string | string[];
+
 export interface SearchParams {
-    [key: string]: string | undefined;
+    [key: string]: SearchParamValue;
 }
 
-export const parseIntSearchParam = (value?: string) => (value ? parseInt(value, 10) : undefined);
+export const parseIntSearchParam = (value: SearchParamValue) => {
+    return typeof value === 'string' ? parseInt(value) : undefined;
+};
+
+export const parseStringSearchParam = (value: SearchParamValue) => {
+    return typeof value === 'string' ? value : undefined;
+};
+
+export const parseArraySearchParam = (value: SearchParamValue) => {
+    if (Array.isArray(value)) return value;
+    return typeof value === 'string' ? [value] : undefined;
+};
 
 export const useSetSearchParam = () => {
     const pathName = usePathname();

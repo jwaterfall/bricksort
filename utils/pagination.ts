@@ -1,12 +1,13 @@
-export interface PaginatedOptions {
-    page?: number | undefined;
-    limit?: number | undefined;
+export interface PaginationOptions {
+    page?: number;
+    limit?: number;
 }
 
 export interface PaginatedResult<T> {
     items: T[];
-    page: number;
+    currentPage: number;
     pageCount: number;
+    nextPage?: number;
 }
 
 export function getSkipCount(page: number, limit: number) {

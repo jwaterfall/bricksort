@@ -1,23 +1,23 @@
-import { PaginatedOptions, PaginatedResult, getSkipCount, getPageCount } from '@/utils/pagination';
+import { PaginationOptions, PaginatedResult, getSkipCount, getPageCount } from '@/utils/pagination';
 import { connectToDatabase } from '@/utils/database';
 import SetModel, { Set } from '@/models/Set';
 import { Theme } from '@/models/Theme';
 
-export interface GetSetsOptions extends PaginatedOptions {
-    minYear?: number | undefined;
-    maxYear?: number | undefined;
-    search?: string | undefined;
-    themesIds?: string[] | undefined;
+export interface GetSetsOptions extends PaginationOptions {
+    minYear?: number;
+    maxYear?: number;
+    search?: string;
+    themes?: string[];
 }
 
-export interface SetWithTheme extends Omit<Set, 'theme'> {
+export interface ExtendedSet extends Omit<Set, 'theme'> {
     theme: Theme;
 }
 
-export async function getSets(options?: GetSetsOptions): Promise<PaginatedResult<SetWithTheme>> {
+export async function getSets(options?: GetSetsOptions): Promise<PaginatedResult<ExtendedSet>> {
     await connectToDatabase();
 
-    const { page = 1, limit = 48, minYear, maxYear, search, themesIds } = options ?? {};
+    const { page = 1, limit = 48, minYear, maxYear, search, themes } = options ?? {};
 
     const skip = getSkipCount(page, limit);
 
@@ -25,7 +25,7 @@ export async function getSets(options?: GetSetsOptions): Promise<PaginatedResult
 
     const query = {
         partCount: { $gt: 1 },
-        themeId: themesIds?.length ? { $in: themesIds } : { $nin: excludedThemes },
+        themeId: themes?.length ? { $in: themes } : { $nin: excludedThemes },
         ...(minYear && { year: { $gte: minYear } }),
         ...(maxYear && { year: { $lte: maxYear } }),
         ...(search && { $or: [{ _id: { $regex: search, $options: 'i' } }, { name: { $regex: search, $options: 'i' } }] }),
@@ -35,6 +35,7 @@ export async function getSets(options?: GetSetsOptions): Promise<PaginatedResult
 
     const items = sets.map((set) => set.toObject({ virtuals: true }));
     const pageCount = getPageCount(await SetModel.countDocuments(query), limit);
+    const nextPage = page < pageCount ? page + 1 : undefined;
 
-    return { items, page, pageCount };
+    return { items, currentPage: page, pageCount, nextPage };
 }

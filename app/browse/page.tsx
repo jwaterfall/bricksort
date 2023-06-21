@@ -1,37 +1,21 @@
 import { getSets } from '@/utils/data/sets';
-import { SearchParams, parseIntSearchParam } from '@/utils/searchParams';
-import { CustomPagination } from './CustomPagination';
-import { CustomSearch } from './CustomSearch';
-import { SetCard } from './SetCard';
+import { SearchParams, parseArraySearchParam, parseIntSearchParam, parseStringSearchParam } from '@/utils/searchParams';
+import { SetsList } from './SetsList';
 
 const BrowsePage = async ({ searchParams }: { searchParams: SearchParams }) => {
-    const page = parseIntSearchParam(searchParams.page);
-
-    const { items, pageCount } = await getSets({
-        page,
+    const options = {
         limit: parseIntSearchParam(searchParams.limit),
         minYear: parseIntSearchParam(searchParams.minYear),
         maxYear: parseIntSearchParam(searchParams.maxYear),
-        search: searchParams.search,
-        // themesIds: searchParams.themesIds,
-    });
+        search: parseStringSearchParam(searchParams.search),
+        themes: parseArraySearchParam(searchParams.theme),
+    };
 
-    return (
-        <>
-            <div className="p-4 w-full flex justify-between items-center">
-                <CustomSearch />
-                <CustomPagination page={page ?? 1} pageCount={pageCount} />
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mx-4">
-                {items.map((set) => (
-                    <SetCard key={set.id} set={set} />
-                ))}
-            </div>
-            <div className="p-4 w-full flex justify-end">
-                <CustomPagination page={page ?? 1} pageCount={pageCount} />
-            </div>
-        </>
-    );
+    const initialData = await getSets(options);
+
+    return <SetsList initialData={initialData} options={options} />;
 };
+
+export const revalidate = 0;
 
 export default BrowsePage;
