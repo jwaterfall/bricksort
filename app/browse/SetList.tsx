@@ -2,17 +2,18 @@
 
 import { FC } from 'react';
 
-import { ExtendedSet, GetSetsOptions } from '@/utils/data/sets';
+import { GetSetsOptions } from '@/utils/data/sets';
 import { PaginatedResult } from '@/utils/pagination';
 import { useInfinitePaginatedItems, useInfiniteScrolling } from '@/utils/infiniteScrolling';
+import { Set } from '@/models/Set';
 import { SetCard } from './SetCard';
 
-interface SetsListProps {
-    initialData: PaginatedResult<ExtendedSet>;
-    options?: GetSetsOptions;
+interface SetListProps {
+    initialData: PaginatedResult<Set>;
+    options: GetSetsOptions;
 }
 
-export const SetsList: FC<SetsListProps> = ({ initialData, options }) => {
+export const SetList: FC<SetListProps> = ({ initialData, options }) => {
     const { items: sets, fetchNextPage } = useInfinitePaginatedItems('/api/sets', initialData, options);
     const ref = useInfiniteScrolling(fetchNextPage);
 
@@ -24,4 +25,5 @@ export const SetsList: FC<SetsListProps> = ({ initialData, options }) => {
             <div ref={ref} />
         </div>
     );
-};
+}; 
+

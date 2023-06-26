@@ -4,14 +4,14 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { MdHandyman } from 'react-icons/md';
 
-import { ExtendedSet } from '@/utils/data/sets';
 import { Card, CardBody } from '@/components/display/Card';
 import { IconButton } from '@/components/actions/IconButton';
 import { Tooltip } from '@/components/display/Tooltip';
 import { List } from '@/components/display/List';
+import { Set } from '@/models/Set';
 
 interface SetCardProps {
-    set: ExtendedSet;
+    set: Set;
 }
 
 export const SetCard: FC<SetCardProps> = ({ set }) => (

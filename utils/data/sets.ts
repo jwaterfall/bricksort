@@ -1,7 +1,6 @@
-import { PaginationOptions, PaginatedResult, getSkipCount, getPageCount } from '@/utils/pagination';
+import { PaginationOptions, PaginatedResult, getSkipCount, getPageCount, getNextPage } from '@/utils/pagination';
 import { connectToDatabase } from '@/utils/database';
 import SetModel, { Set } from '@/models/Set';
-import { Theme } from '@/models/Theme';
 
 export interface GetSetsOptions extends PaginationOptions {
     minYear?: number;
@@ -10,11 +9,7 @@ export interface GetSetsOptions extends PaginationOptions {
     themes?: string[];
 }
 
-export interface ExtendedSet extends Omit<Set, 'theme'> {
-    theme: Theme;
-}
-
-export async function getSets(options?: GetSetsOptions): Promise<PaginatedResult<ExtendedSet>> {
+export async function getSets(options: GetSetsOptions): Promise<PaginatedResult<Set>> {
     await connectToDatabase();
 
     const { page = 1, limit = 48, minYear, maxYear, search, themes } = options ?? {};
@@ -35,7 +30,7 @@ export async function getSets(options?: GetSetsOptions): Promise<PaginatedResult
 
     const items = sets.map((set) => set.toObject({ virtuals: true }));
     const pageCount = getPageCount(await SetModel.countDocuments(query), limit);
-    const nextPage = page < pageCount ? page + 1 : undefined;
+    const nextPage = getNextPage(page, pageCount);
 
     return { items, currentPage: page, pageCount, nextPage };
 }

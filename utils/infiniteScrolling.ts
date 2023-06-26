@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 
 import { PaginatedResult, PaginationOptions } from '@/utils/pagination';
 
-export function useInfinitePaginatedItems<T, O extends PaginationOptions>(url: string, initialData: PaginatedResult<T>, options?: O) {
+export function useInfinitePaginatedItems<T, O extends PaginationOptions>(url: string, initialData: PaginatedResult<T>, options: O) {
     const response = useInfiniteQuery<PaginatedResult<T>>(
         [url, options],
         async ({ pageParam = 1 }) => {

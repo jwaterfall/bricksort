@@ -1,6 +1,6 @@
-import { getSets } from '@/utils/data/sets';
 import { SearchParams, parseArraySearchParam, parseIntSearchParam, parseStringSearchParam } from '@/utils/searchParams';
-import { SetsList } from './SetsList';
+import { getSets } from '@/utils/data/sets';
+import { SetList } from './SetList';
 
 const BrowsePage = async ({ searchParams }: { searchParams: SearchParams }) => {
     const options = {
@@ -13,7 +13,7 @@ const BrowsePage = async ({ searchParams }: { searchParams: SearchParams }) => {
 
     const initialData = await getSets(options);
 
-    return <SetsList initialData={initialData} options={options} />;
+    return <SetList initialData={initialData} options={options} />;
 };
 
 export const revalidate = 0;
