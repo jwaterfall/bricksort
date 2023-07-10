@@ -1,23 +1,29 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { MdShoppingCart } from 'react-icons/md';
+import React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
+import { MdShoppingCart } from "react-icons/md";
 
-import { IconButton } from '.';
+import { IconButton } from ".";
 
 const meta: Meta<typeof IconButton> = {
-  title: 'actions/Icon Button',
   component: IconButton,
-  tags: ['autodocs'],
+  title: "Actions/Icon Button",
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      description: 'A default iconbutton will fill the background with the color, while an outlined iconbutton will only have a border.',
-      options: ['filled', 'tonal', 'outlined', 'elavated', 'text'],
-    },
-    onClick: {
-      description: 'The function to call when the iconbutton is clicked.',
-      action: 'onClick',
+      options: ["filled", "tonal", "outlined", "elevated", "text"],
+      description: "The visual style of the button. Defaults to `filled`.",
     },
     icon: {
-      description: 'An icon to display inside the button.',
+      control: "none",
+      description: "The icon to display inside the button.",
+    },
+    onClick: {
+      action: "onClick",
+      description: "A callback function to be called when the button is clicked.",
+    },
+    disabled: {
+      type: "boolean",
+      description: "Whether or not the button is disabled. Defaults to `false`.",
     },
   },
 };
@@ -25,26 +31,57 @@ const meta: Meta<typeof IconButton> = {
 export default meta;
 type Story = StoryObj<typeof IconButton>;
 
-export const Default: Story = {
+export const Primary: Story = {
   args: {
     icon: MdShoppingCart,
   },
   render: (args) => (
-    <div className="flex gap-4">
+    <>
       <IconButton {...args} />
       <IconButton {...args} variant="tonal" />
       <IconButton {...args} variant="outlined" />
-      <IconButton {...args} variant="elavated" />
+      <IconButton {...args} variant="elevated" />
       <IconButton {...args} variant="text" />
-    </div>
+    </>
   ),
 };
 
-export const Disabled: Story = {
-  ...Default,
+export const Info: Story = {
+  ...Primary,
   args: {
-    ...Default.args,
-    disabled: true,
+    ...Primary.args,
+    color: "info",
   },
 };
 
+export const Success: Story = {
+  ...Primary,
+  args: {
+    ...Primary.args,
+    color: "success",
+  },
+};
+
+export const Warning: Story = {
+  ...Primary,
+  args: {
+    ...Primary.args,
+    color: "warning",
+  },
+};
+
+export const Error: Story = {
+  ...Primary,
+  args: {
+    ...Primary.args,
+    color: "error",
+  },
+};
+
+export const Disabled: Story = {
+  ...Primary,
+  args: {
+    ...Primary.args,
+    disabled: true,
+  },
+};

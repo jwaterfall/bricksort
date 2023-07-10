@@ -8,56 +8,56 @@ import { MdDashboard, MdToys, MdPlaylistAddCheck, MdSearch, MdPerson, MdLightMod
 
 import { NavigationDrawer, NavigationDrawerDivider, NavigationDrawerItem } from '@/components/navigation/NavigationDrawer';
 import { IconButton } from '@/components/actions/IconButton';
-import { Tooltip } from '@/components/display/Tooltip';
+import { Tooltip } from '@/components/containment/Tooltip';
 import { useTheme } from './Providers';
 
 interface CustomNavigationDrawerItemProps {
-    icon: IconType;
-    href: string;
-    exact?: boolean;
+  icon: IconType;
+  href: string;
+  exact?: boolean;
 }
 
 const CustomNavigationDrawerItem: FC<PropsWithChildren<CustomNavigationDrawerItemProps>> = ({ href, exact = false, children, ...props }) => {
-    const pathname = usePathname();
-    const active = exact ? pathname === href : pathname.startsWith(href);
+  const pathname = usePathname();
+  const active = exact ? pathname === href : pathname.startsWith(href);
 
-    return (
-        <Link href={href}>
-            <NavigationDrawerItem {...props} active={active}>
-                {children}
-            </NavigationDrawerItem>
-        </Link>
-    );
+  return (
+    <Link href={href}>
+      <NavigationDrawerItem {...props} active={active}>
+        {children}
+      </NavigationDrawerItem>
+    </Link>
+  );
 };
 
 export const CustomNavigationDrawer: FC = () => {
-    const { isDarkMode, toggleIsDarkMode } = useTheme();
+  const { isDarkMode, toggleIsDarkMode } = useTheme();
 
-    return (
-        <NavigationDrawer className="sticky top-4 self-start">
-            <CustomNavigationDrawerItem icon={MdDashboard} href="/" exact>
-                Dashboard
-            </CustomNavigationDrawerItem>
-            <CustomNavigationDrawerItem icon={MdSearch} href="/browse">
-                Browse sets
-            </CustomNavigationDrawerItem>
-            <NavigationDrawerDivider />
-            <CustomNavigationDrawerItem icon={MdToys} href="/collection/sets">
-                My sets
-            </CustomNavigationDrawerItem>
-            <CustomNavigationDrawerItem icon={MdPlaylistAddCheck} href="/collections">
-                My collections
-            </CustomNavigationDrawerItem>
-            <CustomNavigationDrawerItem icon={MdPerson} href="/account">
-                My account
-            </CustomNavigationDrawerItem>
-            <NavigationDrawerDivider />
-            <div className="px-4 flex items-center justify-between">
-                {isDarkMode ? 'Dark mode' : 'Light mode'}
-                <Tooltip text={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}>
-                    <IconButton variant="tonal" icon={isDarkMode ? MdLightMode : MdDarkMode} onClick={() => toggleIsDarkMode()} />
-                </Tooltip>
-            </div>
-        </NavigationDrawer>
-    );
+  return (
+    <NavigationDrawer className="sticky top-4 h-fit min-h-0">
+      <CustomNavigationDrawerItem icon={MdDashboard} href="/" exact>
+        Dashboard
+      </CustomNavigationDrawerItem>
+      <CustomNavigationDrawerItem icon={MdSearch} href="/browse">
+        Browse sets
+      </CustomNavigationDrawerItem>
+      <NavigationDrawerDivider />
+      <CustomNavigationDrawerItem icon={MdToys} href="/collection/sets">
+        My sets
+      </CustomNavigationDrawerItem>
+      <CustomNavigationDrawerItem icon={MdPlaylistAddCheck} href="/collections">
+        My collections
+      </CustomNavigationDrawerItem>
+      <CustomNavigationDrawerItem icon={MdPerson} href="/account">
+        My account
+      </CustomNavigationDrawerItem>
+      <NavigationDrawerDivider />
+      <div className="px-4 flex items-center justify-between">
+        {isDarkMode ? 'Dark mode' : 'Light mode'}
+        <Tooltip text={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}>
+          <IconButton variant="tonal" icon={isDarkMode ? MdLightMode : MdDarkMode} onClick={() => toggleIsDarkMode()} />
+        </Tooltip>
+      </div>
+    </NavigationDrawer>
+  );
 };

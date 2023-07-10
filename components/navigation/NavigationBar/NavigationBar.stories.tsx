@@ -1,37 +1,37 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
+import { MdFolder, MdHome, MdPerson, MdSearch } from "react-icons/md";
 
-import { MdFolder, MdHome, MdPerson, MdSearch } from 'react-icons/md';
-
-import { NavigationBar, NavigationBarItem } from '.';
+import { NavigationBar, NavigationBarItem } from ".";
 
 const meta: Meta<typeof NavigationBar> = {
-  title: 'navigation/Navigation Bar',
+  title: "Navigation/Navigation Bar",
   component: NavigationBar,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
 type Story = StoryObj<typeof NavigationBar>;
 
 export const Default: Story = {
-  render(args) {
+  render() {
     return (
       <NavigationBar>
         <NavigationBarItem active icon={MdHome}>
           Home
         </NavigationBarItem>
         <NavigationBarItem icon={MdSearch}>Browse</NavigationBarItem>
-        <NavigationBarItem icon={MdFolder} badgeText="999+">
+        <NavigationBarItem icon={MdFolder} badge badgeText="999+">
           Collection
         </NavigationBarItem>
-        <NavigationBarItem icon={MdPerson}>Account</NavigationBarItem>
+        <NavigationBarItem icon={MdPerson} badge badgeColor="success">Account</NavigationBarItem>
       </NavigationBar>
     );
   },
 };
 
 export const WithoutText: Story = {
-  render(args) {
+  render() {
     return (
       <NavigationBar>
         <NavigationBarItem active icon={MdHome} />

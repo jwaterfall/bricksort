@@ -4,10 +4,10 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { MdDelete } from 'react-icons/md';
 
-import { Card, CardBody } from '@/components/display/Card';
 import { IconButton } from '@/components/actions/IconButton';
-import { Tooltip } from '@/components/display/Tooltip';
-import { List } from '@/components/display/List';
+import { Card, CardBody } from '@/components/containment/Card';
+import { Tooltip } from '@/components/containment/Tooltip';
+import { List } from '@/components/containment/List';
 import { CollectionInventory } from '@/models/CollectionInventory';
 
 interface CollectionInventoryCardProps {

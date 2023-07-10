@@ -1,28 +1,54 @@
-import { FC, PropsWithChildren } from 'react';
-import { IconType } from 'react-icons';
+import React, { FC, PropsWithChildren } from "react";
+import { IconType } from "react-icons";
 
-import { Badge } from '@/components/display/Badge';
+import { Badge, BadgeColor } from "../../communication/Badge";
 
 interface NavigationBarItemProps {
   icon: IconType;
+  activeIcon?: IconType;
   active?: boolean;
+  badge?: boolean;
   badgeText?: string;
+  badgeColor?: BadgeColor;
 }
 
-export const NavigationBarItem: FC<PropsWithChildren<NavigationBarItemProps>> = ({ icon: Icon, active = false, badgeText, children }) => (
-  <div className="whitespace-nowrap cursor-pointer text-xs text-center font-medium dark:font-normal text-zinc-950 dark:text-zinc-50">
+/**
+ * A navigation bar item is a button that can be used to navigate between destinations within an app.
+ * @param icon The icon to display in the item.
+ * @param activeIcon The icon to display when the item is active.
+ * @param active Whether the item is currently active.
+ * @param badge Whether to display a badge on the item.
+ * @param badgeText The text to display in the badge.
+ * @param badgeColor The color of the badge.
+ */
+export const NavigationBarItem: FC<PropsWithChildren<NavigationBarItemProps>> = ({
+  icon: Icon,
+  active = false,
+  badge,
+  badgeText,
+  badgeColor,
+  children,
+}) => (
+  <div className="group flex cursor-pointer flex-col items-center justify-center text-on-surface">
     <div
-      className={`relative mx-auto w-16 h-8 flex items-center justify-center rounded-full ${
-        active ? 'bg-zinc-200 dark:bg-zinc-700' : 'hover:bg-zinc-200 dark:hover:bg-zinc-700'
-      }`}
+      className={`relative mx-auto flex h-8 w-16 items-center justify-center rounded-full after:absolute after:inset-0
+        after:rounded-full after:opacity-0 group-hover:after:opacity-5 group-active:after:opacity-10 
+        ${active ? "bg-primary/10 after:bg-on-surface" : "after:bg-on-surface-variant"}`}
     >
-      {badgeText && <Badge className="absolute -top-0.5 right-0.5 z-20">{badgeText}</Badge>}
+      {badge && (
+        <Badge className="absolute top-0 translate-x-3" color={badgeColor}>
+          {badgeText}
+        </Badge>
+      )}
       <Icon size={24} />
     </div>
-    {children && <div className="block py-1">{children}</div>}
+    {children && <div className="block truncate py-1 text-label-medium">{children}</div>}
   </div>
 );
 
+/**
+ * Navigation bars offer a persistent and convenient way to switch between primary destinations in an app.
+ */
 export const NavigationBar: FC<PropsWithChildren> = ({ children }) => (
-  <nav className="h-20 w-full grid grid-flow-col auto-cols-fr gap-2 items-center bg-zinc-50 dark:bg-zinc-800">{children}</nav>
+  <nav className="bg-surface-low grid h-20 w-full auto-cols-fr grid-flow-col gap-2">{children}</nav>
 );

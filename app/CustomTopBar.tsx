@@ -6,18 +6,18 @@ import Link from 'next/link';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { MdLogin, MdLogout, MdMoreVert, MdNotifications, MdPerson, MdSearch } from 'react-icons/md';
 
-import { TopBar, TopBarSection, TopBarTitle } from '@/components/navigation/TopBar';
-import { Avatar } from '@/components/display/Avatar';
+import { TopAppBar, TopBarSection, TopBarTitle } from '@/components/navigation/TopAppBar';
+import { Avatar } from '@/components/communication/Avatar';
+import { Menu, MenuItem } from '@/components/selection/Menu';
 import { IconButton } from '@/components/actions/IconButton';
-import { Menu, MenuItem } from '@/components/navigation/Menu';
 
 export const CustomTopBar: FC = () => {
     const { user } = useUser();
 
     return (
-        <TopBar>
+        <TopAppBar>
             <TopBarSection>
-                <Image src="/logo.png" alt="Bricksort" width={40} height={40} />
+                <Image src="/logo.png" alt="Bricksort" width={40} height={40} className='mr-2' />
                 <TopBarTitle>Bricksort</TopBarTitle>
             </TopBarSection>
             <TopBarSection>
@@ -39,6 +39,6 @@ export const CustomTopBar: FC = () => {
                     </Link>
                 </Menu>
             </TopBarSection>
-        </TopBar>
+        </TopAppBar>
     );
 };

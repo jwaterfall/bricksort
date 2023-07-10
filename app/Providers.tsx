@@ -5,7 +5,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { TooltipProvider } from '@/components/display/Tooltip';
+import { TooltipProvider } from '@/components/containment/Tooltip';
 
 interface ThemeContext {
     isDarkMode: boolean;

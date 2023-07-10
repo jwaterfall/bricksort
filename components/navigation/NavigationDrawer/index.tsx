@@ -2,28 +2,33 @@ import { FC, PropsWithChildren } from 'react';
 import { IconType } from 'react-icons';
 import * as Separator from '@radix-ui/react-separator';
 
-import { PropsWithClassName } from '@/components/Props';
+import { twMerge } from '@/utils/twMerge';
 
 interface NavigationDrawerItemProps {
-    icon: IconType;
-    active?: boolean;
+  icon: IconType;
+  active?: boolean;
 }
 
 export const NavigationDrawerItem: FC<PropsWithChildren<NavigationDrawerItemProps>> = ({ icon: Icon, active = false, children }) => (
-    <div
-        className={`h-12 pl-4 pr-6 flex items-center gap-3 truncate rounded-full
-      ${active ? 'bg-zinc-200 dark:bg-zinc-800' : 'hover:bg-zinc-200 dark:hover:bg-zinc-800'}
-    `}
-    >
-        <Icon size={18} className="text-zinc-600 dark:text-zinc-500" />
-        {children}
-    </div>
+  <div
+    className={`text-label-large after:bg-on-surface relative flex h-12 w-full items-center gap-3 truncate rounded-full pl-4 pr-6 after:absolute after:inset-0 after:opacity-0
+            ${active ? 'bg-primary/10' : 'hover:after:opacity-5 active:after:opacity-10'}`}
+  >
+    <Icon size={18} className="text-on-surface-variant" />
+    {children}
+  </div>
 );
 
-export const NavigationDrawerDivider: FC = () => <Separator.Root className="m-4 h-px bg-zinc-200 dark:bg-zinc-800" />;
+export const NavigationDrawerDivider: FC = () => <Separator.Root className="bg-surface-low m-4 h-px" />;
 
-export const NavigationDrawer: FC<PropsWithChildren<PropsWithClassName>> = ({ className = '', children }) => (
-    <aside className={`w-80 px-3 text-sm font-medium dark:font-normal text-zinc-950 dark:text-zinc-50 bg-zinc-100 dark:bg-zinc-900 ${className}`}>
-        {children}
-    </aside>
+export const NavigationDrawerHeader: FC<PropsWithChildren> = ({ children }) => (
+  <h4 className="text-on-surface-variant text-title-small flex items-center gap-4 p-4">{children}</h4>
+);
+
+interface NavigationDrawerProps {
+  className?: string;
+}
+
+export const NavigationDrawer: FC<PropsWithChildren<NavigationDrawerProps>> = ({ className, children }) => (
+  <aside className={twMerge('bg-surface-0 text-on-surface min-h-full w-80 px-3 py-4 text-sm font-medium', className)}>{children}</aside>
 );
