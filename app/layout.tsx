@@ -4,8 +4,8 @@ import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { FC, PropsWithChildren } from 'react';
 
 import { Providers } from './Providers';
-import { CustomTopBar } from './CustomTopBar';
-import { CustomNavigationDrawer } from './CustomNavigationDrawer';
+import { CustomTopAppBar } from './CustomTopAppBar';
+import { CustomNavigationBar } from './CustomNavigationBar';
 
 import '../globals.css';
 
@@ -28,22 +28,17 @@ const lobster = Lobster({
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Providers>
-      <UserProvider>
-        <body
-          className={`
-            flex flex-col w-full h-screen bg-background font-sans ${readexPro.variable} ${lobster.variable}
-            scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-on-surface/20 scrollbar-track-background hover:scrollbar-thumb-on-surface/30
-          `}
-        >
-          <CustomTopBar />
-          <div className="flex flex-1 w-full">
-            <CustomNavigationDrawer />
-            <main className="flex-1">{children}</main>
-          </div>
-        </body>
-      </UserProvider>
-    </Providers>
+    <html>
+      <Providers>
+        <UserProvider>
+          <body className={`flex flex-col w-full h-screen bg-background scrollbar-none font-sans ${readexPro.variable} ${lobster.variable}`}>
+            <CustomTopAppBar />
+            <main className="flex-1 w-full overflow-x-hidden overflow-y-auto">{children}</main>
+            <CustomNavigationBar />
+          </body>
+        </UserProvider>
+      </Providers>
+    </html>
   );
 };
 

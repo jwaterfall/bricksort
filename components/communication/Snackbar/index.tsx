@@ -48,7 +48,7 @@ export const Snackbar: FC<PropsWithChildren<SnackbarProps>> = ({ showCloseButton
       className={twMerge(
         `flex h-12 w-full max-w-4xl items-center gap-3 rounded-md bg-inverse-surface pl-4 text-body-medium text-inverse-on-surface
         shadow-elevation-3 data-[swipe=cancel]:translate-x-0 data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=closed]:animate-snackbar-close
-        data-[state=open]:animate-snackbar-open data-[swipe=end]:animate-snackbar-swipe-end data-[swipe=cancel]:transition-transform data-[swipe=cancel]:ease-out border border-inverse-on-surface/20
+        data-[state=open]:animate-snackbar-open data-[swipe=end]:animate-snackbar-swipe-end data-[swipe=cancel]:transition-transform data-[swipe=cancel]:ease-out border border-inverse-on-surface/10
         ${showCloseButton ? 'pr-3' : isActionButton ? 'pr-2' : 'pr-4'}`,
         className
       )}

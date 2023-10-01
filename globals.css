@@ -11,47 +11,23 @@
     --color-primary: 0, 72.2%, 50.6%;
     --color-on-primary: 0, 85.7%, 97.3%;
     --color-inverse-primary: 0, 90.6%, 70.8%;
-    --color-info: 213.8, 100%, 96.9%;
-    --color-on-info: 221.2, 83.2%, 53.3%;
+    --color-info: 221.2, 83.2%, 53.3%;
+    --color-on-info: 213.8, 100%, 96.9%;
     --color-success: 161.4, 93.5%, 30.4%;
     --color-on-success: 151.8, 81%, 95.9%;
     --color-warning: 32.1, 94.6%, 43.7%;
     --color-on-warning: 48, 100%, 96.1%;
     --color-error: 0, 72.2%, 50.6%;
     --color-on-error: 0, 85.7%, 97.3%;
-    --color-background: 240, 5.9%, 90%;
-    --color-surface-low: 240, 5.4%, 87%;
+    --color-background: 0, 0%, 98%;
+    --color-surface-low: 240, 5.9%, 90%;
     --color-surface: 240, 4.9%, 83.9%;
-    --color-surface-high: 240, 5%, 75.4%;
-    --color-surface-highest: 240, 5%, 64.9%;
+    --color-surface-high: 240, 5%, 64.9%;
+    --color-surface-highest: 240, 3.8%, 46.1%;
     --color-on-surface: 240, 10%, 3.9%;
     --color-on-surface-variant: 240, 5.3%, 26.1%;
     --color-inverse-surface: 240, 3.7%, 15.9%;
     --color-inverse-on-surface: 0, 0%, 98%;
     --color-inverse-on-surface-variant: 240, 3.8%, 46.1%;
-  }
-
-  :root.dark {
-    --color-primary: 0, 90.6%, 70.8%;
-    --color-on-primary: 0, 85.7%, 97.3%;
-    --color-inverse-primary: 0, 72.2%, 50.6%;
-    --color-info: 213.1, 93.9%, 67.8%;
-    --color-on-info: 224.4, 64.3%, 32.9%;
-    --color-success: 158.1, 64.4%, 51.6%;
-    --color-on-success: 164.2, 85.7%, 16.5%;
-    --color-warning: 43.3, 96.4%, 56.3%;
-    --color-on-warning: 21.7, 77.8%, 26.5%;
-    --color-error: 0, 84.2%, 60.2%;
-    --color-on-error: 0, 85.7%, 97.3%;
-    --color-background: 240, 5.9%, 10%;
-    --color-surface-low: 240, 4.8%, 13%;
-    --color-surface: 240, 3.7%, 15.9%;
-    --color-surface-high: 240, 5%, 21%;
-    --color-surface-highest: 240, 5.3%, 26.1%;
-    --color-on-surface: 0, 0%, 98%;
-    --color-on-surface-variant: 240, 3.8%, 46.1%;
-    --color-inverse-surface: 0, 0%, 98%;
-    --color-inverse-on-surface: 240, 10%, 3.9%;
-    --color-inverse-on-surface-variant: 240, 5.3%, 26.1%;
   }
 }

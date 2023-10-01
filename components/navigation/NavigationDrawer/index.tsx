@@ -12,7 +12,7 @@ interface NavigationDrawerItemProps {
 export const NavigationDrawerItem: FC<PropsWithChildren<NavigationDrawerItemProps>> = ({ icon: Icon, active = false, children }) => (
   <div
     className={`text-label-large after:bg-on-surface relative flex h-12 w-full items-center gap-3 truncate rounded-full pl-4 pr-6 after:absolute after:inset-0 after:opacity-0
-            ${active ? 'bg-primary/10' : 'hover:after:opacity-5 active:after:opacity-10'}`}
+      ${active ? 'bg-primary/10' : 'hover:after:opacity-5 active:after:opacity-10'}`}
   >
     <Icon size={18} className="text-on-surface-variant" />
     {children}

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { FC, PropsWithChildren } from "react";
-import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import React, { FC, PropsWithChildren } from 'react';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 
 interface TooltipProps {
   text: string;
-  side?: "top" | "right" | "bottom" | "left";
-  align?: "start" | "center" | "end";
+  side?: 'top' | 'right' | 'bottom' | 'left';
+  align?: 'start' | 'center' | 'end';
 }
 
 /**
@@ -23,7 +23,7 @@ export const Tooltip: FC<PropsWithChildren<TooltipProps>> = ({ text, children, .
       <TooltipPrimitive.Content
         {...props}
         sideOffset={4}
-        className="flex max-w-xs items-center rounded-sm bg-inverse-surface px-3 py-2 text-body-small text-inverse-on-surface border border-inverse-on-surface/20"
+        className="flex max-w-xs items-center rounded-sm bg-inverse-surface px-3 py-2 text-body-small text-inverse-on-surface border border-inverse-on-surface/10"
       >
         {text}
       </TooltipPrimitive.Content>

@@ -7,29 +7,11 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { TooltipProvider } from '@/components/containment/Tooltip';
 
-interface ThemeContext {
-    isDarkMode: boolean;
-    toggleIsDarkMode: () => void;
-}
-
-const ThemeContext = createContext({} as ThemeContext);
-export const useTheme = () => useContext(ThemeContext);
-
 const queryClient = new QueryClient();
 
-export const Providers: FC<PropsWithChildren> = ({ children }) => {
-    const [isDarkMode, setIsDarkMode] = useLocalStorage('isDarkMode', true);
-
-    const toggleIsDarkMode = () => setIsDarkMode((prev) => !prev);
-
-    return (
-        <html className={`${isDarkMode ? 'dark' : ''}`}>
-            <QueryClientProvider client={queryClient}>
-                <ThemeContext.Provider value={{ isDarkMode, toggleIsDarkMode }}>
-                    <TooltipProvider>{children}</TooltipProvider>
-                </ThemeContext.Provider>
-                <ReactQueryDevtools initialIsOpen={false} />
-            </QueryClientProvider>
-        </html>
-    );
-};
+export const Providers: FC<PropsWithChildren> = ({ children }) => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>{children}</TooltipProvider>
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
+);

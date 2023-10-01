@@ -2,9 +2,7 @@ import { FC, PropsWithChildren } from 'react';
 
 import { twMerge } from '@/utils/twMerge';
 
-export const CardBody: FC<PropsWithChildren> = ({ children }) => (
-  <div className="text-body-medium text-on-surface-variant my-4 px-4">{children}</div>
-);
+export const CardBody: FC<PropsWithChildren> = ({ children }) => <div className="text-body-medium text-on-surface-variant my-4 px-4">{children}</div>;
 
 interface CardTitleProps {
   truncate?: boolean;
@@ -20,9 +18,6 @@ interface CardProps {
   className?: string;
 }
 
-
 export const Card: FC<PropsWithChildren<CardProps>> = ({ children, className }) => (
-  <div className={twMerge('bg-surface-low overflow-hidden rounded-lg', className)}>
-    {children}
-  </div>
+  <div className={twMerge('bg-surface-low overflow-hidden rounded-lg border border-on-surface/5', className)}>{children}</div>
 );

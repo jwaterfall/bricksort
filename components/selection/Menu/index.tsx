@@ -21,7 +21,7 @@ export const Menu: FC<PropsWithChildren<MenuProps>> = ({ trigger, children, ...p
       <DropdownMenuPrimitive.Content
         sideOffset={8}
         {...props}
-        className="min-w-[14rem] max-w-[18rem] rounded-[0.25rem] bg-inverse-surface py-2 shadow-sm border border-inverse-on-surface/20"
+        className="min-w-[14rem] max-w-[18rem] rounded-[0.25rem] bg-inverse-surface py-2 shadow-sm border border-inverse-on-surface/10"
       >
         {children}
       </DropdownMenuPrimitive.Content>
