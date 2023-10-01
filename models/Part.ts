@@ -9,6 +9,7 @@ export enum PartMaterial {
     PAPER = 'Cardboard/Paper',
     CLOTH = 'Cloth',
     FOAM = 'Foam',
+    FLEXIBLE_PLASTIC = 'Flexible Plastic',
 }
 
 export interface Part extends Document {

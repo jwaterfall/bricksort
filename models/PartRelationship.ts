@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
-import { Part } from './Part';
+import PartModel, { Part } from './Part';
 
 export enum RelationshipType {
     PRINT = 'P',
@@ -25,6 +25,20 @@ const schema = new Schema<PartRelationship>({
     relationshipType: { type: String, required: true, enum: Object.values(RelationshipType) },
     childId: { type: String, required: true, index: true },
     parentId: { type: String, required: true, index: true },
+});
+
+schema.virtual('child', {
+    ref: PartModel,
+    localField: 'childId',
+    foreignField: '_id',
+    justOne: true,
+});
+
+schema.virtual('parent', {
+    ref: PartModel,
+    localField: 'parentId',
+    foreignField: '_id',
+    justOne: true,
 });
 
 const PartRelationshipModel = mongoose.models.PartRelationship ?? model<PartRelationship>('PartRelationship', schema, 'part_relationships');
