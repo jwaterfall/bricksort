@@ -28,7 +28,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           ...(search && { $or: [{ _id: { $regex: search, $options: 'i' } }, { name: { $regex: search, $options: 'i' } }] }),
         };
 
-        const sets = await SetModel.find(query).sort({ year: -1 }).limit(limit).skip(skip).populate('theme').exec();
+        const sets = await SetModel.find(query).sort({ year: -1, theme: 1 }).limit(limit).skip(skip).populate('theme').exec();
         const pageCount = Math.ceil((await SetModel.countDocuments(query)) / limit);
 
         res.json({

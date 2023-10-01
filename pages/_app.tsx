@@ -32,7 +32,7 @@ const App = ({ Component, pageProps }: AppProps) => (
           <main className="flex flex-col w-full h-screen overflow-hidden bg-zinc-200 dark:bg-zinc-950 text-zinc-950 dark:text-zinc-50">
             <Topbar />
             <div className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll w-full scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-zinc-400 scrollbar-track-zinc-300 dark:scrollbar-thumb-zinc-800 dark:scrollbar-track-zinc-900">
-              <div className="flex-1 p-4 lg:px-16">
+              <div className="flex-1 container p-4 mx-auto">
                 <Component {...pageProps} />
               </div>
               <Footer />

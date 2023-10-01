@@ -4,14 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { IconType } from 'react-icons';
-import {
-  MdOutlineBarChart,
-  MdOutlineDarkMode,
-  MdOutlineDirectionsCar,
-  MdOutlineFolder,
-  MdOutlineLogout,
-  MdOutlineNotifications,
-} from 'react-icons/md';
+import { MdOutlineBarChart, MdOutlineDirectionsCar, MdOutlineFolder, MdOutlineLogout, MdOutlineNotifications } from 'react-icons/md';
 
 import { useAlerts } from '@/components/AlertProvider';
 import Menu, { MenuTrigger, MenuDivider, MenuItem, MenuItems } from '@/components/navigation/Menu';
@@ -42,7 +35,7 @@ const Topbar: FC = () => {
   const { user } = useUser();
 
   return (
-    <div className=" h-20 px-6 flex items-center bg-zinc-100 border-b border-zinc-300 dark:bg-zinc-900 dark:border-zinc-50/10">
+    <div className="h-20 px-6 flex items-center bg-zinc-100 border-b border-zinc-300 dark:bg-zinc-900 dark:border-zinc-50/10">
       <div className="basis-1/2">
         <Link className="flex items-center gap-2 text-2xl font-lobster" href="/">
           <Image src="/logo.png" alt="logo" width={36} height={36} className="hidden sm:block" />
@@ -83,7 +76,6 @@ const Topbar: FC = () => {
             >
               Alerts
             </MenuItem>
-            <MenuItem Icon={MdOutlineDarkMode}>Dark mode</MenuItem>
             <MenuDivider />
             <MenuItem Icon={MdOutlineLogout} href="/api/auth/logout">
               Logout
