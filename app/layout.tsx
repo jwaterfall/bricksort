@@ -6,7 +6,7 @@ import Topbar from '@/app/Topbar';
 import Footer from '@/app/Footer';
 import Providers from './Providers';
 
-import '@/globals.css';
+import './globals.css';
 
 const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700'],
