@@ -18,10 +18,6 @@ const meta: Meta<typeof Alert> = {
       description: 'The description is the main content of the alert.',
       type: 'string',
     },
-    onClose: {
-      description: 'When provided, a close button will be displayed on the right side of the alert.',
-      action: 'onClose',
-    },
   },
 };
 
@@ -33,7 +29,6 @@ export const Info: Story = {
     variant: 'info',
     title: 'This is an info alert',
     description: 'This is an info alert, it is used to display information to the user that does not relate to any particular action.',
-    onClose: undefined,
   },
 };
 
@@ -42,7 +37,6 @@ export const Success: Story = {
     variant: 'success',
     title: 'This is a success alert',
     description: 'This is a success alert, it is used to display information to the user that relates to a successful action.',
-    onClose: undefined,
   },
 };
 
@@ -51,7 +45,6 @@ export const Error: Story = {
     variant: 'error',
     title: 'This is an error alert',
     description: 'This is an error alert, it is used to display information to the user that relates to a failed action.',
-    onClose: undefined,
   },
 };
 
@@ -60,13 +53,5 @@ export const Warning: Story = {
     variant: 'warning',
     title: 'This is a warning alert',
     description: 'This is a warning alert, it is used to display information to the user that relates to a potentially dangerous action.',
-    onClose: undefined,
-  },
-};
-
-export const Closable: Story = {
-  args: {
-    title: 'This is an alert without a close button',
-    description: 'This is an alert without a close button, the close button is not displayed.',
   },
 };

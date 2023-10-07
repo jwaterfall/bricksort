@@ -21,7 +21,7 @@ interface TabButtonProps {
 export const TabButton: FC<PropsWithChildren<TabButtonProps>> = (props) => (
   <RadixTabs.Trigger
     className={`
-      h-8 text-sm rounded-sm transition text-zinc-800 hover:text-zinc-950 dark:text-zinc-200 dark:hover:text-zinc-50
+      h-8 text-sm rounded-sm transition text-zinc-800 hover:text-zinc-950
       group-[.line]:aria-selected:after:h-2 group-[.line]:aria-selected:after:w-full group-[.line]:aria-selected:after:bg-zinc-950 group-[.line]:aria-selected:after:rounded-t-md
       group-[.solid]:flex-1 group-[.solid]:px-6
       group-[.solid]:aria-selected:bg-zinc-400 group-[.solid]:dark:aria-selected:bg-zinc-700

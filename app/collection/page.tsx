@@ -1,3 +1,5 @@
+'use client';
+
 import { NextPage } from 'next';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/client';
 import { useQueryState, queryTypes } from 'next-usequerystate';
@@ -8,7 +10,7 @@ import CardDisplay from '../../components/CardDisplay';
 
 const CollectionPage: NextPage = () => {
   const [page, setPage] = useQueryState('page', { ...queryTypes.integer, defaultValue: 1, history: 'push' });
-  const { data, isLoading: isSetsLoading } = useCollectionInventories(page, 28);
+  const { data, isLoading: isSetsLoading } = useCollectionInventories(page, 24);
 
   if (isSetsLoading || !data) return null;
 

@@ -18,7 +18,7 @@ const lobster = Lobster({
 });
 
 const withFonts = (Story: any) => (
-  <div className={`font-sans text-zinc-950 dark:text-zinc-50 ${poppins.variable} ${lobster.variable}`}>
+  <div className={`font-sans text-zinc-950 ${poppins.variable} ${lobster.variable}`}>
     <Story />
   </div>
 );
@@ -33,22 +33,6 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/,
       },
-    },
-    backgrounds: {
-      default: 'dark',
-      values: [
-        {
-          name: 'light',
-          value: '#e4e4e7',
-        },
-        {
-          name: 'dark',
-          value: '#09090b',
-        },
-      ],
-    },
-    docs: {
-      theme,
     },
   },
 };

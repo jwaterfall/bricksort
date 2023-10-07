@@ -1,20 +1,23 @@
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
+'use client';
+
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/client';
-import { useQueryState, queryTypes } from 'next-usequerystate';
+import { useQueryState, parseAsInteger, parseAsString } from 'next-usequerystate';
 
 import useCollectionInventoryParts from '@/queries/useCollectionInventoryParts';
 import CollectionInventoryPartCard from '@/components/CollectionInventoryPartCard';
 import CardDisplay from '@/components/CardDisplay';
 import Tabs, { TabButtons, TabButton } from '@/components/navigation/Tabs';
 
-const CollectionPage: NextPage = () => {
-  const router = useRouter();
-  const id = router.query.id as string;
+interface CollectionPageProps {
+  searchParams: {
+    id: string;
+  };
+}
 
-  const [page, setPage] = useQueryState('page', { ...queryTypes.integer, defaultValue: 1, history: 'push' });
-  const [tab, setTab] = useQueryState('tab', { ...queryTypes.string, defaultValue: 'missing-parts', history: 'push' });
-  const { data, isLoading } = useCollectionInventoryParts(id, page, 28, tab === 'missing-parts');
+const CollectionPage = ({ searchParams: { id } }: CollectionPageProps) => {
+  const [page, setPage] = useQueryState('page', { ...parseAsInteger, defaultValue: 1, history: 'push' });
+  const [tab, setTab] = useQueryState('tab', { ...parseAsString, defaultValue: 'missing-parts', history: 'push' });
+  const { data, isLoading } = useCollectionInventoryParts(id, page, 24, tab === 'missing-parts');
 
   if (isLoading || !data) return null;
 

@@ -61,11 +61,11 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
 
     return (
       <div className={isChild ? 'ml-5 relative' : ''}>
-        {isChild && !isLastChild && <div className="absolute -left-2.5 -top-0 h-full w-0.5 bg-zinc-300 dark:bg-zinc-700" />}
-        {isChild && <div className="absolute -left-2.5 -top-4 h-8 w-2.5 border-zinc-300 dark:border-zinc-700 border-l-2 border-b-2 rounded-bl-md" />}
+        {isChild && !isLastChild && <div className="absolute -left-2.5 -top-0 h-full w-0.5 bg-zinc-300" />}
+        {isChild && <div className="absolute -left-2.5 -top-4 h-8 w-2.5 border-zinc-300 border-l-2 border-b-2 rounded-bl-md" />}
         <div
           className={`h-8 flex items-center gap-2 min-w-0 cursor-pointer truncate text-sm font-medium relative z-10 ${
-            checked ? 'text-zinc-900 dark:text-zinc-50' : 'text-zinc-500 dark:text-zinc-300'
+            checked ? 'text-zinc-900' : 'text-zinc-500'
           }`}
         >
           <Checkbox
@@ -92,7 +92,7 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
     //     </Button>
     //   </DropdownToggle>
     //   <DropdownContent>
-    //     <div className="bg-zinc-50 border border-zinc-300 rounded-sm p-4 shadow-xl max-w-xs flex flex-col gap-4 dark:bg-zinc-800 dark:border-zinc-600">
+    //     <div className="bg-zinc-50 border border-zinc-300 rounded-sm p-4 shadow-xl max-w-xs flex flex-col gap-4">
     //       <div>
     //         <h4 className="font-semibold text-sm uppercase mb-2">search</h4>
     //         <Input

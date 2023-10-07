@@ -1,34 +1,37 @@
 import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
 export interface Theme extends Document {
-    _id: string;
-    name: string;
-    setCount: number;
-    parentId: string | null;
+  _id: string;
+  name: string;
+  setCount: number;
+  parentId: string | null;
 }
 
 interface ThemeModel extends Model<Theme> {
-    getChildThemes(id: string): Promise<Theme[]>;
-    recursiveGetChildThemes(id: string): Promise<Theme[]>;
+  getChildThemes(id: string): Promise<Theme[]>;
+  recursiveGetChildThemes(id: string): Promise<Theme[]>;
 }
 
-const schema = new Schema<Theme>({
+const schema = new Schema<Theme>(
+  {
     _id: { type: String, required: true },
     name: { type: String, required: true },
     setCount: { type: Number, required: true },
     parentId: { type: String },
-});
+  },
+  { timestamps: true }
+);
 
 schema.statics.getChildThemes = async function (id: string) {
-    const themes = await this.find({ parentId: id });
-    return themes;
+  const themes = await this.find({ parentId: id });
+  return themes;
 };
 
 schema.statics.recursiveGetChildThemes = async function (id: string) {
-    const childThemes = await (this as ThemeModel).getChildThemes(id);
-    const secondaryChildThemes = await Promise.all(childThemes.map((theme) => (this as ThemeModel).recursiveGetChildThemes(theme._id)));
+  const childThemes = await (this as ThemeModel).getChildThemes(id);
+  const secondaryChildThemes = await Promise.all(childThemes.map((theme) => (this as ThemeModel).recursiveGetChildThemes(theme._id)));
 
-    return childThemes.concat(...secondaryChildThemes);
+  return childThemes.concat(...secondaryChildThemes);
 };
 
 const ThemeModel = mongoose.models.Theme ?? model<Theme>('Theme', schema, 'themes');

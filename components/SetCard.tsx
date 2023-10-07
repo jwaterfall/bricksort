@@ -3,8 +3,8 @@ import { FaHammer } from 'react-icons/fa';
 
 import { Set } from '../models/Set';
 import useCreateCollectionInventory from '../mutations/useCreateCollectionInventory';
-import Card, { CardBody, CardFooter, CardImage } from './display/Card';
-import Badge from './display/Badge';
+import Card, { CardBody, CardFooter, CardImage, CardTitle } from './display/Card';
+import Tag from './display/Tag';
 import Button from './actions/Button';
 
 interface SetCardProps {
@@ -16,16 +16,15 @@ const SetCard: FC<SetCardProps> = ({ set }) => {
   const displayId = set._id.endsWith('-1') ? set._id.slice(0, -2) : set._id;
 
   return (
-    <Card title={set.name}>
+    <Card>
+      <CardTitle>{set.name}</CardTitle>
       {set.imageUrl && <CardImage src={set.imageUrl} alt={set.name} />}
       <CardBody>
-        {displayId} • {set.year}
+        #{displayId} • {set.year}
       </CardBody>
       <CardFooter>
-        <div className="flex gap-2 items-end justify-between">
-          <Badge>{`${set.partCount > 1 ? `${set.partCount} Pieces` : '1 Piece'}`}</Badge>
-          <Button shape="circle" color="primary" Icon={FaHammer} disabled={isCreating} onClick={() => createCollectionInventory(set._id)} />
-        </div>
+        <Tag>{`${set.partCount > 1 ? `${set.partCount} Pieces` : '1 Piece'}`}</Tag>
+        <Button shape="circle" Icon={FaHammer} disabled={isCreating} onClick={() => createCollectionInventory(set._id)} />
       </CardFooter>
     </Card>
   );

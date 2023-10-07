@@ -10,11 +10,11 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag'
   },
-  webpackFinal: async (config, {
-    configType
-  }) => {
+  webpackFinal: async (config, options) => {
+    //@ts-expect-error
+    options.cache.set = () => Promise.resolve();
     config.resolve!.plugins = [new TsconfigPathsPlugin()];
     return config;
-  }
+  },
 };
 export default config;

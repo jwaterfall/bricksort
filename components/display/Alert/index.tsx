@@ -1,29 +1,31 @@
 import { FC } from 'react';
 import { MdCheckCircle, MdClose, MdError, MdInfo, MdWarning } from 'react-icons/md';
+import { cva, VariantProps } from 'class-variance-authority';
+import { twMerge } from 'tailwind-merge';
+
+const variantStyles = cva('border max-w-xl py-4 px-6 rounded-sm shadow-lg pointer-events-auto w-full flex justify-between gap-2 text-zinc-950', {
+  variants: {
+    variant: {
+      info: 'bg-blue-100 border-blue-200',
+      success: 'bg-green-100 border-green-200',
+      error: 'bg-red-100 border-red-200',
+      warning: 'bg-amber-100 border-amber-200',
+    },
+  },
+  defaultVariants: {
+    variant: 'info',
+  },
+});
 
 export type AlertVariant = 'info' | 'success' | 'error' | 'warning';
 
-interface AlertProps {
+interface AlertProps extends VariantProps<typeof variantStyles> {
   title: string;
   description: string;
-  variant?: AlertVariant;
-  onClose?: () => void;
+  className?: string;
 }
 
-const Alert: FC<AlertProps> = ({ description, title, variant = 'info', onClose }) => {
-  const getVariantStyles = () => {
-    switch (variant) {
-      case 'info':
-        return 'bg-info-200 border-info-100';
-      case 'success':
-        return 'bg-success-200 border-success-100';
-      case 'error':
-        return 'bg-error-200 border-error-100';
-      case 'warning':
-        return 'bg-warning-200 border-warning-100';
-    }
-  };
-
+const Alert: FC<AlertProps> = ({ variant = 'info', title, description, className }) => {
   function getVariantIcon() {
     switch (variant) {
       case 'info':
@@ -38,17 +40,12 @@ const Alert: FC<AlertProps> = ({ description, title, variant = 'info', onClose }
   }
 
   return (
-    <div className={`border max-w-xl py-4 px-6 rounded-sm shadow-lg pointer-events-auto w-full flex justify-between gap-2 ${getVariantStyles()}`}>
+    <div className={twMerge(variantStyles({ variant }), className)}>
       {getVariantIcon()}
       <div className="flex-1">
-        <h4 className="font-medium text-sm mb-2 text-zinc-50">{title}</h4>
-        <p className="text-xs text-zinc-100 font-thin">{description}</p>
+        <h4 className="font-medium mb-2">{title}</h4>
+        <p className="text-sm">{description}</p>
       </div>
-      {onClose && (
-        <button className="h-fit p-0.5 rounded-sm text-zinc-300 transition-colors hover:bg-zinc-50/20" onClick={onClose}>
-          <MdClose size={16} />
-        </button>
-      )}
     </div>
   );
 };

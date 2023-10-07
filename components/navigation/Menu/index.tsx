@@ -4,7 +4,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import Toggle from '@/components/actions/Toggle';
 
-export const MenuDivider: FC = () => <hr className="border-zinc-300 m-2 dark:border-zinc-700" />;
+export const MenuDivider: FC = () => <hr className="border-zinc-300 m-2" />;
 
 export interface MenuItemsProps {
   compact?: boolean;
@@ -17,7 +17,7 @@ export const MenuItems: FC<PropsWithChildren<MenuItemsProps>> = ({ align = 'star
     align={align}
     side={side}
     className={`rounded-sm p-1 mt-2 z-50 marker:shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none
-        bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-950 dark:text-zinc-50
+        bg-zinc-100 border border-zinc-300 text-zinc-950
         ${compact ? 'w-48 group compact' : 'w-60'} ${align === 'end' ? 'right-0 origin-top-right' : 'left-0 origin-top-left'}
       `}
   >

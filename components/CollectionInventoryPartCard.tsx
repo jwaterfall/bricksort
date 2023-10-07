@@ -5,7 +5,7 @@ import useAddCollectionInventoryPart from '../mutations/useAddCollectionInventor
 import Card, { CardBody, CardFooter, CardImage } from './display/Card';
 import Button from './actions/Button';
 import Input from './Input';
-import QuantityFoundBadge from './QuantityFoundBadge';
+import QuantityFoundTag from './QuantityFoundTag';
 import Modal, { ModalBody, ModalContent, ModalFooter, ModalTitle, ModalTrigger } from './actions/Modal';
 
 interface CollectionInventoryPartCardProps {
@@ -33,7 +33,7 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
             </div>
           </CardBody>
           <CardFooter>
-            <QuantityFoundBadge quantityFound={collectionInventoryPart.quantityFound} quantity={collectionInventoryPart.quantity} />
+            <QuantityFoundTag quantityFound={collectionInventoryPart.quantityFound} quantity={collectionInventoryPart.quantity} />
           </CardFooter>
         </Card>
       </ModalTrigger>
@@ -42,7 +42,7 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
         <ModalTitle>{part.name}</ModalTitle>
         <ModalBody>{color.name}</ModalBody>
         <div className="flex flex-col gap-2">
-          <QuantityFoundBadge quantityFound={collectionInventoryPart.quantityFound} quantity={collectionInventoryPart.quantity} />
+          <QuantityFoundTag quantityFound={collectionInventoryPart.quantityFound} quantity={collectionInventoryPart.quantity} />
           <Input label="Quantity" type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} />
         </div>
         <div className="flex flex-col gap-2">

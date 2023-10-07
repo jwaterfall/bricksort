@@ -1,25 +1,25 @@
 import { FC } from 'react';
 
-import Badge from './display/Badge';
+import Tag from './display/Tag';
 
-interface QuantityFoundBadgeProps {
+interface QuantityFoundTagProps {
   quantity: number;
   quantityFound: number;
   showPercentage?: boolean;
 }
 
-const QuantityFoundBadge: FC<QuantityFoundBadgeProps> = ({ quantity, quantityFound, showPercentage = false }) => {
-  const getBadgeVariant = () => {
+const QuantityFoundTag: FC<QuantityFoundTagProps> = ({ quantity, quantityFound, showPercentage = false }) => {
+  const getTagVariant = () => {
     if (quantityFound === quantity) return 'success';
     if (quantityFound === 0) return 'error';
     return 'warning';
   };
 
   return (
-    <Badge color={getBadgeVariant()}>
+    <Tag color={getTagVariant()}>
       {showPercentage ? `${Math.round((quantityFound / quantity) * 100)}% Complete` : `${quantityFound} of ${quantity} Found`}
-    </Badge>
+    </Tag>
   );
 };
 
-export default QuantityFoundBadge;
+export default QuantityFoundTag;

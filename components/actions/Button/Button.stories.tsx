@@ -13,15 +13,11 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       description: 'A default button will fill the background with the color, while a secondary button will have a transparent background.',
-      options: ['default', 'secondary', 'tertiary'],
+      options: ['primary', 'secondary'],
     },
     shape: {
       description: 'The default shape has a dynamic size whilst square and circle have a 1:1 aspect ratio.',
-      options: ['default', 'rounded', 'square', 'circle'],
-    },
-    size: {
-      description: 'The size of the button.',
-      options: ['sm', 'md', 'lg'],
+      options: ['default', 'square', 'circle'],
     },
     isFullWidth: {
       description: 'A full width button will fill the width of its container.',
@@ -74,34 +70,6 @@ export const Secondary: Story = {
   ...Default,
   args: {
     variant: 'secondary',
-  },
-};
-
-export const Tertiary: Story = {
-  ...Default,
-  args: {
-    variant: 'tertiary',
-  },
-};
-
-export const Rounded: Story = {
-  ...Default,
-  args: {
-    shape: 'rounded',
-  },
-};
-
-export const Small: Story = {
-  ...Default,
-  args: {
-    size: 'sm',
-  },
-};
-
-export const Large: Story = {
-  ...Default,
-  args: {
-    size: 'lg',
   },
 };
 

@@ -1,18 +1,15 @@
 import { Dispatch, FC, SetStateAction, useMemo } from 'react';
 
-import { ButtonSize } from './actions/Button';
-
 const DOTS = '...';
 
 interface PaginationProps {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   pageCount: number;
-  size?: ButtonSize;
   siblingCount?: number;
 }
 
-const Pagination: FC<PaginationProps> = ({ page, setPage, pageCount, size, siblingCount = 1 }) => {
+const Pagination: FC<PaginationProps> = ({ page, setPage, pageCount, siblingCount = 1 }) => {
   const createRange = (from: number, to: number) => Array.from({ length: to - from + 1 }, (_, i) => from + i);
 
   const pages: (typeof DOTS | number)[] = useMemo(() => {
@@ -44,27 +41,16 @@ const Pagination: FC<PaginationProps> = ({ page, setPage, pageCount, size, sibli
     return [1, DOTS, ...middleRange, DOTS, pageCount];
   }, [page, pageCount, siblingCount]);
 
-  const getSizeStyles = () => {
-    switch (size) {
-      case 'sm':
-        return 'gap-1';
-      case 'md':
-        return 'gap-2';
-      case 'lg':
-        return 'gap-4';
-    }
-  };
-
   return (
-    <div className={`flex group pagination w-fit ${getSizeStyles()}`}>
+    <div className="flex gap-2 w-fit">
       {pages.map((p, index) => (
         <button
           key={index}
-          size={size}
-          shape="square"
           onClick={() => setPage(p as number)}
-          color={p === page ? 'primary' : 'default'}
           disabled={p === DOTS}
+          className={`text-sm h-8 aspect-square flex items-center justify-center rounded-sm font-medium ${
+            p === page ? 'text-green-600 border border-current' : 'hover:text-green-600 text-zinc-950 disabled:text-zinc-500'
+          }`}
         >
           {p}
         </button>
