@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import Tag from './display/Tag';
+import { Badge } from "@/components/ui/badge"
 
 interface QuantityFoundTagProps {
   quantity: number;
@@ -16,9 +16,9 @@ const QuantityFoundTag: FC<QuantityFoundTagProps> = ({ quantity, quantityFound, 
   };
 
   return (
-    <Tag color={getTagVariant()}>
+    <Badge color={getTagVariant()}>
       {showPercentage ? `${Math.round((quantityFound / quantity) * 100)}% Complete` : `${quantityFound} of ${quantity} Found`}
-    </Tag>
+    </Badge>
   );
 };
 

@@ -26,17 +26,7 @@ interface SetFilterDropdownProps {
   setPage: Dispatch<SetStateAction<number>>;
 }
 
-const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
-  search,
-  setSearch,
-  minYear,
-  setMinYear,
-  maxYear,
-  setMaxYear,
-  themeIds,
-  setThemeIds,
-  setPage,
-}) => {
+const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minYear, setMinYear, maxYear, setMaxYear, themeIds, setThemeIds }) => {
   const { data: themes } = useThemes();
 
   const getChildren = (theme: Theme) => themes?.filter((t) => t.parentId === theme._id) ?? [];
@@ -72,7 +62,6 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({
             checked={checked}
             onChange={async () => {
               await setThemeIds(getThemeIds());
-              await setPage(1);
             }}
           />
           <span className="truncate shrink">{theme.name}</span>({theme.setCount})

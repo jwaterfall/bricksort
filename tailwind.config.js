@@ -12,8 +12,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-poppins)', 'Poppins'],
-        lobster: ['var(--font-lobster)', 'Lobster'],
+        sans: ['Poppins', 'sans-serif'],
+        lobster: ['Lobster', 'cursive'],
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -48,6 +48,21 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+        },
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))',
+          border: 'hsl(var(--success-border))',
+        },
+        warning: {
+          DEFAULT: 'hsl(var(--warning))',
+          foreground: 'hsl(var(--warning-foreground))',
+          border: 'hsl(var(--warning-border))',
+        },
+        error: {
+          DEFAULT: 'hsl(var(--error))',
+          foreground: 'hsl(var(--error-foreground))',
+          border: 'hsl(var(--error-border))',
         },
       },
       borderRadius: {

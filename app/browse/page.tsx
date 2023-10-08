@@ -8,14 +8,14 @@ import useSets from '../../queries/useSets';
 import SetCard from '../../components/SetCard';
 import CardDisplay from '../../components/CardDisplay';
 import SetFilterDropdown from '../../components/SetFilterDropdown';
+import { Button } from '@/components/ui/button';
 
 const BrowsePage = () => {
   const [search, setSearch] = useQueryState('search', { ...parseAsString, defaultValue: '', history: 'push' });
   const [minYear, setMinYear] = useQueryState('minYear', { ...parseAsInteger, defaultValue: 1950, history: 'push' });
   const [maxYear, setMaxYear] = useQueryState('maxYear', { ...parseAsInteger, defaultValue: new Date().getFullYear(), history: 'push' });
   const [themeIds, setThemeIds] = useQueryState<string[]>('themes', { ...parseAsArrayOf(parseAsString), defaultValue: [], history: 'push' });
-  const [page, setPage] = useQueryState('page', { ...parseAsInteger, defaultValue: 1, history: 'push' });
-  const { data, isLoading: isSetsLoading } = useSets(page, 24, themeIds, useDebounce(search ?? ''), minYear, maxYear);
+  const { data, isLoading: isSetsLoading, fetchNextPage } = useSets(24, themeIds, useDebounce(search ?? ''), minYear, maxYear);
 
   if (isSetsLoading || !data) return null;
 
@@ -29,22 +29,22 @@ const BrowsePage = () => {
       setMaxYear={setMaxYear}
       themeIds={themeIds}
       setThemeIds={setThemeIds}
-      setPage={setPage}
     />
   );
 
   return (
     <CardDisplay
-      page={page}
-      setPage={setPage}
-      pageCount={data.pageCount}
+      pageCount={1}
       emptyTitle="No sets found!"
       emptySubtitle="Try changing your filters"
       FilterDropdown={FilterDropdown}
     >
-      {data.sets.map((set) => (
+      {data.pages.map(page => page.sets.map((set) => (
         <SetCard key={set.id} set={set} />
-      ))}
+      )))}
+      <Button onClick={() => fetchNextPage()} className="col-span-full">
+        Load more
+      </Button>
     </CardDisplay>
   );
 };

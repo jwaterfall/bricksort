@@ -1,11 +1,13 @@
 import { FC } from 'react';
-import { FaHammer } from 'react-icons/fa';
+import Image from 'next/image';
+import { HiOutlinePlus } from 'react-icons/hi';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardFigure, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 import { Set } from '../models/Set';
 import useCreateCollectionInventory from '../mutations/useCreateCollectionInventory';
-import Card, { CardBody, CardFooter, CardImage, CardTitle } from './display/Card';
-import Tag from './display/Tag';
-import Button from './actions/Button';
 
 interface SetCardProps {
   set: Set;
@@ -17,14 +19,27 @@ const SetCard: FC<SetCardProps> = ({ set }) => {
 
   return (
     <Card>
-      <CardTitle>{set.name}</CardTitle>
-      {set.imageUrl && <CardImage src={set.imageUrl} alt={set.name} />}
-      <CardBody>
-        #{displayId} • {set.year}
-      </CardBody>
+      {set.imageUrl && (
+        <CardFigure className="bg-white">
+          <Image
+            src={set.imageUrl}
+            alt={set.name}
+            width={300}
+            height={300}
+            className="object-contain w-full aspect-video mix-blend-multiply"
+            priority={true}
+          />
+        </CardFigure>
+      )}
+      <CardHeader>
+        <CardTitle>{set.name}</CardTitle>
+        <CardDescription>{`#${displayId} • ${set.year}`}</CardDescription>
+      </CardHeader>
       <CardFooter>
-        <Tag>{`${set.partCount > 1 ? `${set.partCount} Pieces` : '1 Piece'}`}</Tag>
-        <Button shape="circle" Icon={FaHammer} disabled={isCreating} onClick={() => createCollectionInventory(set._id)} />
+        <Badge>{`${set.partCount > 1 ? `${set.partCount} Pieces` : '1 Piece'}`}</Badge>
+        <Button variant="outline" size="icon" disabled={isCreating} onClick={() => createCollectionInventory(set._id)}>
+          <HiOutlinePlus size={18} />
+        </Button>
       </CardFooter>
     </Card>
   );
