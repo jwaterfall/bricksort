@@ -48,7 +48,7 @@ const AlertProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <AlertContext.Provider value={{ alerts, addAlert, removeAlert, enabled, setEnabled }}>
       {children}
-      <div className="z-50 fixed top-0 right-0 h-screen w-screen md:w-fit p-4 flex flex-col gap-2 justify-end md:items-end pointer-events-none">
+      <div className="z-50 fixed right-0 bottom-0 p-4 flex flex-col gap-2 justify-end items-end pointer-events-none w-screen md:w-auto">
         {alerts.map(({ id, title, description }) => (
           <Alert key={id}>
             <AlertTitle>{title}</AlertTitle>

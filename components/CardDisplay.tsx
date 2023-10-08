@@ -4,10 +4,9 @@ interface CardDisplayProps {
   pageCount: number;
   emptyTitle: string;
   emptySubtitle: string;
-  FilterDropdown?: JSX.Element;
 }
 
-const CardDisplay: FC<PropsWithChildren<CardDisplayProps>> = ({ pageCount, emptyTitle, emptySubtitle, children, FilterDropdown }) => {
+const CardDisplay: FC<PropsWithChildren<CardDisplayProps>> = ({ pageCount, emptyTitle, emptySubtitle, children }) => {
   if (pageCount <= 0)
     return (
       <div className="h-96 flex flex-col gap-2 justify-center items-center">
