@@ -30,8 +30,6 @@ const CollectionPage = ({ params: { id } }: CollectionPageProps) => {
             <TabsTrigger value="found-parts">Found Parts</TabsTrigger>
           </TabsList>
           <CardDisplay
-            page={page}
-            setPage={setPage}
             pageCount={data.pageCount}
             emptyTitle={tab === 'missing-parts' ? 'Set complete!' : 'No parts found!'}
             emptySubtitle={

@@ -16,8 +16,6 @@ const CollectionPage: NextPage = () => {
 
   return (
     <CardDisplay
-      page={page}
-      setPage={setPage}
       pageCount={data.pageCount}
       emptyTitle="No sets found"
       emptySubtitle="Go to the Browse page to add sets to your collection"

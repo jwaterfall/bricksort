@@ -25,18 +25,16 @@ function useAddCollectionInventoryPart(collectionInventoryPart: CollectionInvent
         addAlert(
           'Added parts to collection',
           `Added ${count} of ${collectionInventoryPart.inventoryPart.part.name} in ${collectionInventoryPart.inventoryPart.color.name}`,
-          'success'
         );
       } else {
         addAlert(
           'Removed parts from collection',
           `Removed ${-count} of ${collectionInventoryPart.inventoryPart.part.name} in ${collectionInventoryPart.inventoryPart.color.name}`,
-          'success'
         );
       }
     },
     onError: () => {
-      addAlert('Failed to add parts to collection', 'Unknown error occurred, please try again later', 'error');
+      addAlert('Failed to add parts to collection', 'Unknown error occurred, please try again later');
     },
   });
 }

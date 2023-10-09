@@ -86,7 +86,6 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minY
             value={search ?? ''}
             onChange={async (e) => {
               await setSearch(e.target.value || null);
-              await setPage(1);
             }}
           />
         </div>
@@ -99,7 +98,6 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minY
               value={minYear ?? ''}
               onChange={async (e) => {
                 await setMinYear(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value));
-                await setPage(1);
               }}
             />
             <Input
@@ -108,7 +106,6 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minY
               value={maxYear ?? ''}
               onChange={async (e) => {
                 await setMaxYear(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value));
-                await setPage(1);
               }}
             />
           </div>

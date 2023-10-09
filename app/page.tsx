@@ -1,16 +1,13 @@
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { Session, getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { FaCar, FaPuzzlePiece, FaWrench } from 'react-icons/fa';
 
+import { connectToDatabase } from '@/lib/utils';
 import CollectionInventoryModel from '@/models/CollectionInventory';
-import { connectToDatabaseFunction } from '@/middleware/connectToDatabase';
 
 const HomePage = async () => {
-  const session = await getSession();
-  if (!session) {
-    return null;
-  }
+  const session = (await getSession()) as Session;
 
-  await connectToDatabaseFunction();
+  await connectToDatabase();
 
   const user = session.user;
 
