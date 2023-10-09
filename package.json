@@ -35,7 +35,7 @@
     "eslint": "^8.50.0",
     "lucide-react": "^0.284.0",
     "mongoose": "^7.5.3",
-    "next": "^13.5.3",
+    "next": "13.4.9",
     "next-pwa": "^5.6.0",
     "next-usequerystate": "^1.8.1",
     "possibly": "^0.0.1",
