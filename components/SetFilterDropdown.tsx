@@ -72,8 +72,8 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minY
   };
 
   return (
-    <Card className='h-fit'>
-      <CardContent className='flex flex-col gap-4'>
+    <Card className="h-fit">
+      <CardContent className="flex flex-col gap-4">
         <div>
           <h4 className="text-muted-foreground font-semibold text-xs uppercase mb-2">search</h4>
           <Input
@@ -108,7 +108,7 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minY
         {themes && (
           <div>
             <h4 className="text-muted-foreground font-semibold text-xs uppercase mb-2">themes</h4>
-            <div className="max-h-80 overflow-y-auto scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-zinc-300 scrollbar-track-zinc-200 dark:scrollbar-thumb-zinc-600 dark:scrollbar-track-zinc-700">
+            <div className="max-h-80 overflow-y-auto scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-accent scrollbar-track-accent/50">
               {themes
                 ?.filter((theme) => !theme.parentId)
                 .map((theme) => (
