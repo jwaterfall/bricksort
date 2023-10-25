@@ -9,9 +9,6 @@ const alertVariants = cva(
     variants: {
       variant: {
         default: 'bg-primary text-primary-foreground',
-        success: 'bg-success text-success-foreground border-success-border',
-        error: 'bg-error text-error-foreground border-error-border',
-        warning: 'bg-warning text-warning-foreground border-warning-border',
       },
     },
     defaultVariants: {

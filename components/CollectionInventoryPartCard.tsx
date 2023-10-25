@@ -3,10 +3,10 @@ import Image from 'next/image';
 
 import { Card, CardFigure, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 import { CollectionInventoryPart } from '../models/CollectionInventoryPart';
 import useAddCollectionInventoryPart from '../mutations/useAddCollectionInventoryPart';
-import Input from './Input';
 import QuantityFoundTag from './QuantityFoundTag';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
 
@@ -41,7 +41,7 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
           <CardHeader>
             <CardTitle>{part.name}</CardTitle>
             <CardDescription className="flex items-center gap-2">
-              <div className="w-5 h-5 rounded-sm border border-zinc-300" style={{ backgroundColor: color.hex }} />
+              <div className="w-5 h-5 rounded-sm border" style={{ backgroundColor: color.hex }} />
               {color.name}
             </CardDescription>
           </CardHeader>

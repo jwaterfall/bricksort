@@ -20,24 +20,26 @@ const BrowsePage = () => {
   if (isSetsLoading || !data) return null;
 
   return (
-    <>
+    <div className="grid grid-cols-5 gap-4">
       <SetFilterDropdown
-      search={search}
-      setSearch={setSearch}
-      minYear={minYear}
-      setMinYear={setMinYear}
-      maxYear={maxYear}
-      setMaxYear={setMaxYear}
-      themeIds={themeIds}
-      setThemeIds={setThemeIds}
-    />
-      <CardDisplay pageCount={1} emptyTitle="No sets found!" emptySubtitle="Try changing your filters">
-        {data.pages.map((page) => page.sets.map((set) => <SetCard key={set.id} set={set} />))}
-        <Button onClick={() => fetchNextPage()} className="col-span-full">
-          Load more
-        </Button>
-      </CardDisplay>
-    </>
+        search={search}
+        setSearch={setSearch}
+        minYear={minYear}
+        setMinYear={setMinYear}
+        maxYear={maxYear}
+        setMaxYear={setMaxYear}
+        themeIds={themeIds}
+        setThemeIds={setThemeIds}
+      />
+      <div className="col-span-4">
+        <CardDisplay pageCount={1} emptyTitle="No sets found!" emptySubtitle="Try changing your filters">
+          {data.pages.map((page) => page.sets.map((set) => <SetCard key={set.id} set={set} />))}
+          <Button onClick={() => fetchNextPage()} className="col-span-full">
+            Load more
+          </Button>
+        </CardDisplay>
+      </div>
+    </div>
   );
 };
 

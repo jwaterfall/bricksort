@@ -15,7 +15,7 @@ const CardDisplay: FC<PropsWithChildren<CardDisplayProps>> = ({ pageCount, empty
       </div>
     );
 
-  return <div className="flex-1 grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">{children}</div>;
+  return <div className="flex-1 grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">{children}</div>;
 };
 
 export default CardDisplay;

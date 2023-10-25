@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Head from 'next/head';
+import { Poppins as FontSans, Lobster as FontLogo } from "next/font/google"
 
 import Navbar from '@/app/Navbar';
 import Footer from '@/app/Footer';
@@ -11,6 +11,18 @@ export const metadata: Metadata = {
   title: 'Bricksort',
   description: 'An app to sort your LEGO bricks into sets',
 };
+
+const fontSans = FontSans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-sans",
+})
+
+const fontLogo = FontLogo({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-logo",
+})
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
@@ -30,17 +42,14 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
       <link rel="shortcut icon" href="/favicon.ico" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     </head>
-    <body className="font-sans">
+    <body className={`font-sans bg-background text-foreground scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-accent scrollbar-track-accent/50 ${fontSans.variable} ${fontLogo.variable}`}>
       <Providers>
-        <main className="flex flex-col w-full h-screen overflow-hidden bg-background text-foreground">
+        <main className="flex flex-col w-full min-h-screen container">
           <Navbar />
-          <div className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll w-full scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-zinc-400 scrollbar-track-zinc-300">
-            <div className="flex-1 container py-4">{children}</div>
-            <Footer />
-          </div>
+          <div className="flex-1 my-4">{children}</div>
         </main>
+        <Footer />
       </Providers>
     </body>
   </html>

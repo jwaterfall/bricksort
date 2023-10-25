@@ -1,11 +1,10 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import { FaFilter } from 'react-icons/fa';
 
 import useThemes from '@/queries/useThemes';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
-import Input from '@/components/Input';
-import Checkbox from '@/components/Checkbox';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Card, CardContent } from '@/components/ui/card';
 import { Theme } from '@/models/Theme';
 
 interface ThemeFilterProps {
@@ -50,16 +49,16 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minY
 
     return (
       <div className={isChild ? 'ml-5 relative' : ''}>
-        {isChild && !isLastChild && <div className="absolute -left-2.5 -top-0 h-full w-0.5 bg-zinc-300" />}
-        {isChild && <div className="absolute -left-2.5 -top-4 h-8 w-2.5 border-zinc-300 border-l-2 border-b-2 rounded-bl-md" />}
+        {isChild && !isLastChild && <div className="absolute -left-2.5 -top-0 h-full w-0.5 bg-border" />}
+        {isChild && <div className="absolute -left-2.5 -top-4 h-8 w-2.5 border-border border-l-2 border-b-2 rounded-bl-sm" />}
         <div
-          className={`h-8 flex items-center gap-2 min-w-0 cursor-pointer truncate text-sm font-medium relative z-10 ${
-            checked ? 'text-zinc-900' : 'text-zinc-500'
+          className={`h-8 flex items-center gap-2 min-w-0 cursor-pointer truncate text-xs font-medium relative z-10 ${
+            checked ? '' : 'text-muted-foreground'
           }`}
         >
           <Checkbox
             checked={checked}
-            onChange={async () => {
+            onClick={async () => {
               await setThemeIds(getThemeIds());
             }}
           />
@@ -73,13 +72,10 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minY
   };
 
   return (
-    <Popover>
-      <PopoverTrigger>
-        <Button color="primary">Filters</Button>
-      </PopoverTrigger>
-      <PopoverContent>
+    <Card className='h-fit'>
+      <CardContent className='flex flex-col gap-4'>
         <div>
-          <h4 className="font-semibold text-sm uppercase mb-2">search</h4>
+          <h4 className="text-muted-foreground font-semibold text-xs uppercase mb-2">search</h4>
           <Input
             type="text"
             placeholder="Set ID or name..."
@@ -90,19 +86,18 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minY
           />
         </div>
         <div>
-          <h4 className="font-semibold text-sm uppercase mb-2">year</h4>
+          <h4 className="text-muted-foreground font-semibold text-xs uppercase mb-2">year</h4>
           <div className="flex items-center gap-2">
             <Input
               type="number"
-              label="From"
               value={minYear ?? ''}
               onChange={async (e) => {
                 await setMinYear(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value));
               }}
             />
+            <span className="text-muted-foreground">-</span>
             <Input
               type="number"
-              label="To"
               value={maxYear ?? ''}
               onChange={async (e) => {
                 await setMaxYear(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value));
@@ -112,7 +107,7 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minY
         </div>
         {themes && (
           <div>
-            <h4 className="font-semibold text-sm uppercase mb-2">themes</h4>
+            <h4 className="text-muted-foreground font-semibold text-xs uppercase mb-2">themes</h4>
             <div className="max-h-80 overflow-y-auto scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-zinc-300 scrollbar-track-zinc-200 dark:scrollbar-thumb-zinc-600 dark:scrollbar-track-zinc-700">
               {themes
                 ?.filter((theme) => !theme.parentId)
@@ -123,7 +118,7 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minY
           </div>
         )}
         <Button
-          color="primary"
+          variant="outline"
           onClick={async () => {
             await setSearch('');
             await setThemeIds([]);
@@ -133,8 +128,8 @@ const SetFilterDropdown: FC<SetFilterDropdownProps> = ({ search, setSearch, minY
         >
           Clear Filters
         </Button>
-      </PopoverContent>
-    </Popover>
+      </CardContent>
+    </Card>
   );
 };
 

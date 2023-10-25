@@ -5,6 +5,7 @@ import { HiOutlinePlus } from 'react-icons/hi';
 import { Button } from '@/components/ui/button';
 import { Card, CardFigure, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 import { Set } from '../models/Set';
 import useCreateCollectionInventory from '../mutations/useCreateCollectionInventory';
@@ -37,9 +38,14 @@ const SetCard: FC<SetCardProps> = ({ set }) => {
       </CardHeader>
       <CardFooter>
         <Badge>{`${set.partCount > 1 ? `${set.partCount} Pieces` : '1 Piece'}`}</Badge>
-        <Button variant="outline" size="icon" disabled={isCreating} onClick={() => createCollectionInventory(set._id)}>
-          <HiOutlinePlus size={18} />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button variant="outline" size="icon" disabled={isCreating} onClick={() => createCollectionInventory(set._id)}>
+              <HiOutlinePlus size={18} />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Add to collection</TooltipContent>
+        </Tooltip>
       </CardFooter>
     </Card>
   );
