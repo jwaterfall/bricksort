@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
-import { Poppins as FontSans, Lobster as FontLogo } from "next/font/google"
+import { Poppins as FontSans, Lobster as FontLogo } from 'next/font/google';
 
 import Navbar from '@/app/Navbar';
-import Footer from '@/app/Footer';
 import Providers from './Providers';
 
 import './globals.css';
@@ -13,16 +12,16 @@ export const metadata: Metadata = {
 };
 
 const fontSans = FontSans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-sans",
-})
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-sans',
+});
 
 const fontLogo = FontLogo({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-logo",
-})
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-logo',
+});
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
@@ -43,13 +42,14 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
     </head>
-    <body className={`font-sans bg-background text-foreground scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-accent scrollbar-track-accent/50 ${fontSans.variable} ${fontLogo.variable}`}>
+    <body
+      className={`font-sans bg-background text-foreground scrollbar-thin hide-scrollbar:scrollbar-none scrollbar-thumb-accent scrollbar-track-accent/50 ${fontSans.variable} ${fontLogo.variable}`}
+    >
       <Providers>
-        <main className="flex flex-col w-full min-h-screen container">
+        <div className="flex flex-col w-screen h-[100svh]">
+          <main className="flex-1 container p-4 overflow-y-auto">{children}</main>
           <Navbar />
-          <div className="flex-1 my-4">{children}</div>
-        </main>
-        <Footer />
+        </div>
       </Providers>
     </body>
   </html>

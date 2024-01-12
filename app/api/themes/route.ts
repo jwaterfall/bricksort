@@ -7,6 +7,6 @@ import ThemeModel from '@/models/Theme';
 export const GET = withApiAuthRequired(async () => {
   await connectToDatabase();
 
-  const themes = await ThemeModel.find().sort({ name: 1 }).exec();
+  const themes = await ThemeModel.find({ parentId: null }).sort({ name: 1 }).exec();
   return NextResponse.json(themes);
 });

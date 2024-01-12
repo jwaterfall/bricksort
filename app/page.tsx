@@ -1,6 +1,4 @@
 import { Session, getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
-import { FaCar, FaPuzzlePiece, FaWrench } from 'react-icons/fa';
-
 import { connectToDatabase } from '@/lib/utils';
 import CollectionInventoryModel from '@/models/CollectionInventory';
 
@@ -45,14 +43,14 @@ const HomePage = async () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 border rounded-md">
-      <div className="p-4 flex items-center gap-4">
+      <div className="p-2 flex items-center gap-4">
         <div className="flex-1">
           <div className="text-muted-foreground">Sets in your collection</div>
           <div className="font-bold text-4xl">{setCount}</div>
         </div>
-        <FaCar size={32} className="text-primary" />
+        {/* <FaCar size={32} className="text-primary" /> */}
       </div>
-      <div className="p-4 flex items-center gap-4">
+      <div className="p-2 flex items-center gap-4">
         <div className="flex-1">
           <div className="text-muted-foreground">Parts found</div>
           <div className="font-bold text-4xl">{Math.round((partQuantityFound / partQuantity) * 100) || 0}%</div>
@@ -60,7 +58,7 @@ const HomePage = async () => {
             {partQuantityFound} of {partQuantity}
           </div>
         </div>
-        <FaPuzzlePiece size={32} className="text-primary" />
+        {/* <FaPuzzlePiece size={32} className="text-primary" /> */}
       </div>
       <div className="p-4 flex items-center gap-4">
         <div className="flex-1">
@@ -70,7 +68,7 @@ const HomePage = async () => {
             {sparePartQuantityFound} of {sparePartQuantity}
           </div>
         </div>
-        <FaWrench size={32} className="text-primary" />
+        {/* <FaWrench size={32} className="text-primary" /> */}
       </div>
     </div>
   );

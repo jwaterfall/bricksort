@@ -1,4 +1,5 @@
 const { fontFamily } = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -21,10 +22,10 @@ module.exports = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
+        background: colors.slate[100],
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
+          DEFAULT: colors.rose[500],
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
@@ -36,8 +37,8 @@ module.exports = {
           foreground: 'hsl(var(--destructive-foreground))',
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+          DEFAULT: colors.slate[200],
+          foreground: colors.slate[400],
         },
         accent: {
           DEFAULT: 'hsl(var(--accent))',
@@ -47,8 +48,8 @@ module.exports = {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',
         },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
+        surface: {
+          DEFAULT: colors.slate[50],
           foreground: 'hsl(var(--card-foreground))',
         },
       },
@@ -56,7 +57,6 @@ module.exports = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
-        xs: 'calc(var(--radius) - 6px)',
       },
       keyframes: {
         'accordion-down': {

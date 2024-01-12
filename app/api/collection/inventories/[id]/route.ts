@@ -51,7 +51,7 @@ function deduplicateInventoryParts(inventoryParts: InventoryPart[]) {
   return Array.from(deduplicatedInventoryParts.values());
 }
 
-export const GET = withApiAuthRequired(async (request: NextRequest, { params }) => {
+export const POST = withApiAuthRequired(async (request: NextRequest, { params }) => {
   await connectToDatabase();
 
   const { user } = (await getSession()) as Session;

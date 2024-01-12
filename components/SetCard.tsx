@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Image from 'next/image';
-import { HiOutlinePlus } from 'react-icons/hi';
+import { Plus, ToyBrick } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardFigure, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,7 +21,7 @@ const SetCard: FC<SetCardProps> = ({ set }) => {
   return (
     <Card>
       {set.imageUrl && (
-        <CardFigure className="bg-white">
+        <CardFigure>
           <Image
             src={set.imageUrl}
             alt={set.name}
@@ -37,11 +37,21 @@ const SetCard: FC<SetCardProps> = ({ set }) => {
         <CardDescription>{`#${displayId} • ${set.year}`}</CardDescription>
       </CardHeader>
       <CardFooter>
-        <Badge>{`${set.partCount > 1 ? `${set.partCount} Pieces` : '1 Piece'}`}</Badge>
+        <Tooltip>
+          <TooltipTrigger>
+            <Badge>
+              <ToyBrick size={14} className="mr-1" />
+              {set.partCount}
+            </Badge>
+          </TooltipTrigger>
+          <TooltipContent>
+            {set.partCount} {set.partCount === 1 ? 'Part' : 'Parts'}
+          </TooltipContent>
+        </Tooltip>
         <Tooltip>
           <TooltipTrigger>
             <Button variant="outline" size="icon" disabled={isCreating} onClick={() => createCollectionInventory(set._id)}>
-              <HiOutlinePlus size={18} />
+              <Plus size={18} />
             </Button>
           </TooltipTrigger>
           <TooltipContent>Add to collection</TooltipContent>

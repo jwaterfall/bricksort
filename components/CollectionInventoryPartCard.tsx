@@ -58,7 +58,7 @@ const CollectionInventoryPartCard: FC<CollectionInventoryPartCardProps> = ({ col
         </DialogHeader>
         <div className="flex flex-col gap-2">
           <QuantityFoundTag quantityFound={collectionInventoryPart.quantityFound} quantity={collectionInventoryPart.quantity} />
-          <Input label="Quantity" type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} />
+          <Input type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} />
         </div>
         <div className="flex flex-col gap-2">
           <div className="grid grid-cols-2 gap-2 mt-4">

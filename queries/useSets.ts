@@ -8,21 +8,21 @@ interface SetResponse {
   pageCount: number;
 }
 
-export const getSets = async (page?: number, limit?: number, themes: string[] = [], search?: string, minYear?: number, maxYear?: number) => {
+export const getSets = async (page?: number, limit?: number, theme?: string, search?: string, minYear?: number, maxYear?: number) => {
   const response = await axios.get(`${window.location.origin}/api/sets`, {
-    params: { page, limit, themes, search, minYear, maxYear },
+    params: { page, limit, theme, search, minYear, maxYear },
   });
 
   return response.data;
 };
 
-const useSets = (limit?: number, themes?: string[], search?: string, minYear?: number, maxYear?: number) =>
+const useSets = (limit?: number, theme?: string, search?: string, minYear?: number, maxYear?: number) =>
   useInfiniteQuery<SetResponse>(
-    ['sets', limit, themes, search, minYear, maxYear],
-    ({ pageParam = 1 }) => getSets(pageParam, limit, themes, search, minYear, maxYear),
+    ['sets', limit, theme, search, minYear, maxYear],
+    ({ pageParam = 1 }) => getSets(pageParam, limit, theme, search, minYear, maxYear),
     {
       keepPreviousData: true,
-      getNextPageParam: (lastPage, allPages) => allPages.length + 1,
+      getNextPageParam: (lastPage, allPages) => lastPage.pageCount > allPages.length ? allPages.length + 1 : undefined,
     }
   );
 

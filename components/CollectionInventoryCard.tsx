@@ -3,7 +3,7 @@
 import { FC, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { HiOutlineTrash } from 'react-icons/hi';
+import { Trash } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardFigure, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -58,7 +58,7 @@ const CollectionInventoryCard: FC<CollectionInventoryCardProps> = ({ collectionI
         <AlertDialog>
           <AlertDialogTrigger asChild disabled={isDeleting}>
             <Button variant="outline" size="icon">
-              <HiOutlineTrash size={18} />
+              <Trash size={18} />
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>

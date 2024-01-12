@@ -1,45 +1,49 @@
 'use client';
 
+import { useEffect } from 'react';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/client';
-import { useQueryState, parseAsInteger, parseAsString, parseAsArrayOf } from 'next-usequerystate';
+import { useQueryState, parseAsInteger, parseAsString } from 'next-usequerystate';
 import { useDebounce } from 'usehooks-ts';
+import { useInView } from 'react-intersection-observer';
 
-import useSets from '../../queries/useSets';
-import SetCard from '../../components/SetCard';
-import CardDisplay from '../../components/CardDisplay';
-import SetFilterDropdown from '../../components/SetFilterDropdown';
-import { Button } from '@/components/ui/button';
+import useSets from '@/queries/useSets';
+import SetCard from '@/components/SetCard';
+import CardDisplay from '@/components/CardDisplay';
+import SetFilterDropdown from '@/components/SetFilterDropdown';
 
 const BrowsePage = () => {
-  const [search, setSearch] = useQueryState('search', { ...parseAsString, defaultValue: '', history: 'push' });
+  const [search, setSearch] = useQueryState('search', { ...parseAsString, history: 'push' });
   const [minYear, setMinYear] = useQueryState('minYear', { ...parseAsInteger, defaultValue: 1950, history: 'push' });
-  const [maxYear, setMaxYear] = useQueryState('maxYear', { ...parseAsInteger, defaultValue: new Date().getFullYear(), history: 'push' });
-  const [themeIds, setThemeIds] = useQueryState<string[]>('themes', { ...parseAsArrayOf(parseAsString), defaultValue: [], history: 'push' });
-  const { data, isLoading: isSetsLoading, fetchNextPage } = useSets(24, themeIds, useDebounce(search ?? ''), minYear, maxYear);
+  const [maxYear, setMaxYear] = useQueryState('maxYear', { ...parseAsInteger, defaultValue: new Date().getFullYear() + 1, history: 'push' });
+  const [theme, setTheme] = useQueryState('theme', { ...parseAsString, history: 'push' });
+  const { data, isLoading, fetchNextPage, hasNextPage } = useSets(24, theme ?? undefined, useDebounce(search ?? ''), minYear, maxYear);
+  const [ref, inView] = useInView();
 
-  if (isSetsLoading || !data) return null;
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView]);
+
+  if (isLoading || !data) return null;
 
   return (
-    <div className="grid grid-cols-5 gap-4">
+    <>
       <SetFilterDropdown
-        search={search}
+        search={search ?? undefined}
         setSearch={setSearch}
         minYear={minYear}
         setMinYear={setMinYear}
         maxYear={maxYear}
         setMaxYear={setMaxYear}
-        themeIds={themeIds}
-        setThemeIds={setThemeIds}
+        theme={theme ?? undefined}
+        setTheme={setTheme}
       />
-      <div className="col-span-4">
-        <CardDisplay pageCount={1} emptyTitle="No sets found!" emptySubtitle="Try changing your filters">
-          {data.pages.map((page) => page.sets.map((set) => <SetCard key={set.id} set={set} />))}
-          <Button onClick={() => fetchNextPage()} className="col-span-full">
-            Load more
-          </Button>
-        </CardDisplay>
-      </div>
-    </div>
+      <CardDisplay pageCount={1} emptyTitle="No sets found!" emptySubtitle="Try changing your filters">
+        {data.pages.map((page) => page.sets.map((set) => <SetCard key={set.id} set={set} />))}
+        <div ref={ref} />
+      </CardDisplay>
+    </>
   );
 };
 

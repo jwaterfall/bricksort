@@ -9,7 +9,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-lg bg-card text-card-foreground overflow-hidden text-left",
+      "rounded-lg bg-surface border text-surface-foreground overflow-hidden text-left",
       className
     )}
     {...props}
@@ -24,7 +24,7 @@ const CardFigure = React.forwardRef<
   <figure 
     ref={ref}
     className={cn(
-      "border-b p-4",
+      "border-b p-6",
       className
     )}
     {...props}

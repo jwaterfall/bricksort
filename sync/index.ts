@@ -71,18 +71,14 @@ const resetDatabase = async () => {
 const syncThemes: SyncFunction = async () => {
     const inserts = new Map<string, Theme>();
     const themes = await fetchData('themes');
-    const sets = await fetchData('sets');
 
     let successful = 0;
 
     for (const theme of themes) {
-        const setCount = sets.filter((set: any) => set.theme_id === theme.id).length;
-
         const newTheme = new ThemeModel({
             _id: theme.id,
             name: theme.name,
-            parentId: theme.parent_id,
-            setCount,
+            parentId: theme.parent_id.length ? theme.parent_id : null,
         });
 
         inserts.set(newTheme._id, newTheme);

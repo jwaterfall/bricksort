@@ -1,9 +1,11 @@
 'use client';
 
+import { useEffect } from 'react';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/client';
 import { useQueryState, parseAsInteger, parseAsString } from 'next-usequerystate';
+import { useInView } from 'react-intersection-observer';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import useCollectionInventoryParts from '@/queries/useCollectionInventoryParts';
 import CollectionInventoryPartCard from '@/components/CollectionInventoryPartCard';
 import CardDisplay from '@/components/CardDisplay';
@@ -15,9 +17,15 @@ interface CollectionPageProps {
 }
 
 const CollectionPage = ({ params: { id } }: CollectionPageProps) => {
-  const [page, setPage] = useQueryState('page', { ...parseAsInteger, defaultValue: 1, history: 'push' });
   const [tab, setTab] = useQueryState('tab', { ...parseAsString, defaultValue: 'missing-parts', history: 'push' });
-  const { data, isLoading } = useCollectionInventoryParts(id, page, 24, tab === 'missing-parts');
+  const { data, isLoading, fetchNextPage, hasNextPage } = useCollectionInventoryParts(id, 24, tab === 'missing-parts');
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView]);
 
   if (isLoading || !data) return null;
 
@@ -30,7 +38,7 @@ const CollectionPage = ({ params: { id } }: CollectionPageProps) => {
             <TabsTrigger value="found-parts">Found Parts</TabsTrigger>
           </TabsList>
           <CardDisplay
-            pageCount={data.pageCount}
+            pageCount={1}
             emptyTitle={tab === 'missing-parts' ? 'Set complete!' : 'No parts found!'}
             emptySubtitle={
               tab === 'missing-parts'
@@ -38,9 +46,12 @@ const CollectionPage = ({ params: { id } }: CollectionPageProps) => {
                 : 'Head over to the missing parts tab to add some parts to this set'
             }
           >
-            {data.collectionInventoryParts.map((collectionInventoryPart) => (
-              <CollectionInventoryPartCard key={collectionInventoryPart._id} collectionInventoryPart={collectionInventoryPart} />
-            ))}
+            {data.pages.map((page) =>
+              page.collectionInventoryParts.map((collectionInventoryPart) => (
+                <CollectionInventoryPartCard key={collectionInventoryPart._id} collectionInventoryPart={collectionInventoryPart} />
+              ))
+            )}
+            <div ref={ref} />
           </CardDisplay>
         </Tabs>
       </div>
