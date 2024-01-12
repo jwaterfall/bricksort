@@ -29,22 +29,18 @@ const NavbarLink: FC<PropsWithChildren<NavbarLinkProps>> = ({ href, icon: Icon, 
   );
 };
 
-const Navbar: FC = () => {
-  const { user } = useUser();
-
-  return (
-    <nav className="h-16 border-t bg-surface rounded-t-lg grid grid-cols-3">
-      <NavbarLink icon={Home} href="/" exact>
-        Home
-      </NavbarLink>
-      <NavbarLink icon={Search} href="/browse">
-        Browse
-      </NavbarLink>
-      <NavbarLink icon={Blocks} href="/collection">
-        Collection
-      </NavbarLink>
-    </nav>
-  );
-};
+const Navbar: FC = () => (
+  <nav className="h-16 border-t bg-surface rounded-t-lg grid grid-cols-3">
+    <NavbarLink icon={Home} href="/" exact>
+      Home
+    </NavbarLink>
+    <NavbarLink icon={Search} href="/browse">
+      Browse
+    </NavbarLink>
+    <NavbarLink icon={Blocks} href="/collection">
+      Collection
+    </NavbarLink>
+  </nav>
+);
 
 export default Navbar;
