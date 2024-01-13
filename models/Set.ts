@@ -1,32 +1,38 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
+import ThemeModel, { Theme } from './Theme';
+
 export interface Set extends Document {
-  author: string;
-  number: string;
+  _id: string;
   name: string;
-  image: string;
+  year: number;
+  partCount: number;
+  imageUrl: string;
+  themeId: string;
+  theme: Theme;
 }
 
 const schema = new Schema<Set>(
   {
-    author: { required: true, index: true, type: String },
-    number: {
-      required: true,
-      type: String,
-      index: true,
-    },
-    name: {
-      required: true,
-      type: String,
-    },
-    image: {
-      required: true,
-      type: String,
-    },
+    _id: { type: String, required: true },
+    name: { type: String, required: true, index: true },
+    year: { type: Number, required: true, index: true },
+    partCount: { type: Number, required: true },
+    imageUrl: { type: String, required: true },
+    themeId: { type: String, required: true, index: true },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-const SetModel = mongoose.models.Set || model<Set>('Set', schema, 'sets');
+schema.virtual('theme', {
+  ref: ThemeModel,
+  localField: 'themeId',
+  foreignField: '_id',
+  justOne: true,
+});
 
-export default SetModel;
+schema.set('toJSON', { virtuals: true });
+
+const SetModel = mongoose.models.Set ?? model<Set>('Set', schema, 'sets');
+
+export default SetModel as mongoose.Model<Set>;

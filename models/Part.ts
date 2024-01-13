@@ -1,64 +1,35 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
-import SetModel, { Set } from './Set';
+import { PartCategory } from './PartCategory';
+
+export enum PartMaterial {
+  PLASTIC = 'Plastic',
+  RUBBER = 'Rubber',
+  METAL = 'Metal',
+  PAPER = 'Cardboard/Paper',
+  CLOTH = 'Cloth',
+  FOAM = 'Foam',
+  FLEXIBLE_PLASTIC = 'Flexible Plastic',
+}
 
 export interface Part extends Document {
-  author: string;
-  parent: Set;
-  number: string;
+  _id: string;
   name: string;
-  quantityFound: number;
-  quantityTotal: number;
-  color: string;
-  image?: string;
-  isSpare: boolean;
-  rebrickableId: number;
+  material: PartMaterial;
+  categoryId: number;
+  category: PartCategory;
 }
 
 const schema = new Schema<Part>(
   {
-    author: { required: true, index: true, type: String },
-    parent: {
-      required: true,
-      type: Schema.Types.ObjectId,
-      ref: SetModel,
-    },
-    number: {
-      required: true,
-      type: String,
-    },
-    name: {
-      required: true,
-      type: String,
-    },
-    quantityFound: {
-      required: true,
-      type: Number,
-      min: 0,
-      default: 0,
-    },
-    quantityTotal: {
-      required: true,
-      type: Number,
-      min: 0,
-    },
-    color: {
-      required: true,
-      type: String,
-    },
-    isSpare: {
-      required: true,
-      type: Boolean,
-    },
-    rebrickableId: {
-      required: true,
-      type: Number,
-    },
-    image: String,
+    _id: { type: String, required: true },
+    name: { type: String, required: true },
+    material: { type: String, required: true, enum: Object.values(PartMaterial) },
+    categoryId: { type: Number, required: true, ref: 'PartCategory' },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-const PartModel = mongoose.models.Part || model<Part>('Part', schema, 'parts');
+const PartModel = mongoose.models.Part ?? model<Part>('Part', schema, 'parts');
 
-export default PartModel;
+export default PartModel as mongoose.Model<Part>;

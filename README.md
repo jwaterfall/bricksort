@@ -1,42 +1,34 @@
-![icon](images/banner.png)
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-<h1 align="center">
-  Bricksort
-</h1>
-<p align="center">
- An app to help you group your lego collection into sets, you can visit it at <a href="https://bricksort.co.uk" target="_blank">bricksort.co.uk</a>
-</p>
+## Getting Started
 
-<p align="center">
-  <a href="https://app.netlify.com/sites/bricksort/deploys" target="_blank">
-    <img src="https://api.netlify.com/api/v1/badges/c93cd150-d25e-4480-9221-2125b1c10371/deploy-status" alt="Netlify Status" />
-  </a>
-</p>
+First, run the development server:
 
-## Installation
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-1. Install the required dependencies
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-   ```sh
-   npm install
-   ```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-2. Start the development server
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-   ```sh
-   npm run dev
-   ```
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Building for production
+## Learn More
 
-1. Generate a production build
+To learn more about Next.js, take a look at the following resources:
 
-   ```sh
-   npm run build
-   ```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-2. Start the server
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-   ```sh
-   npm start
-   ```
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
