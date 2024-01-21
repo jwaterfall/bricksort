@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google';
 
 import { Toaster } from '@/components/ui/sonner';
 import Providers from './Providers';
+import Navbar from './Navbar';
 
 import './globals.css';
 
@@ -16,14 +17,17 @@ export const metadata: Metadata = {
   description: 'A tool for sorting your mixed Lego collection back into sets.',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className={font.className}>
         <Providers>
-          <main className="container p-4 bg-background">
-            {children}
-          </main>
+          <Navbar />
+          <main className="container p-4 bg-background">{children}</main>
           <Toaster />
         </Providers>
       </body>

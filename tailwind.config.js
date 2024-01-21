@@ -38,7 +38,7 @@ module.exports = {
           foreground: colors.red[50],
         },
         muted: {
-          DEFAULT: colors.slate[100],
+          DEFAULT: colors.slate[200],
           foreground: colors.slate[500],
         },
         accent: {

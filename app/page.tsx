@@ -6,7 +6,7 @@ import { useDebounce } from 'usehooks-ts';
 import { useInView } from 'react-intersection-observer';
 
 import useSets from '@/queries/useSets';
-import { SetCard } from './set-card';
+import { SetCard } from './SetCard';
 
 const theme = undefined;
 const search = undefined;

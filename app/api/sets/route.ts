@@ -24,6 +24,7 @@ export const GET = withApiAuthRequired(async (request: NextRequest) => {
 
   const query = {
     themeId: themeIds.length ? { $in: themeIds } : { $nin: excludedThemes },
+    partCount: { $gt: 0 },
     ...(minYear && { year: { $gte: minYear } }),
     ...(maxYear && { year: { $lte: maxYear } }),
     ...(search && { $or: [{ _id: { $regex: search, $options: 'i' } }, { name: { $regex: search, $options: 'i' } }] }),
