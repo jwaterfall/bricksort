@@ -20,7 +20,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Badge } from '@/components/ui/badge';
-import { Set } from '@/services/set/model';
+import { Set } from '@/models/set';
 
 interface SetCardProps {
   set: Set;
@@ -79,7 +79,7 @@ function SetCard({ set }: SetCardProps) {
             <p>Add to collection</p>
           </TooltipContent>
         </Tooltip>
-        <Tooltip>
+        {/* <Tooltip>
           <TooltipTrigger>
             <Button
               variant="ghost"
@@ -96,7 +96,7 @@ function SetCard({ set }: SetCardProps) {
           <TooltipContent>
             <p>Add to wishlist</p>
           </TooltipContent>
-        </Tooltip>
+        </Tooltip> */}
       </CardFooter>
     </Card>
   );

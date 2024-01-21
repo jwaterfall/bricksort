@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 
-import { TooltipProvider } from '@/components/ui/tooltip';
 import { Toaster } from '@/components/ui/sonner';
+import Providers from './Providers';
 
 import './globals.css';
 
@@ -20,10 +20,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={font.className}>
-        <TooltipProvider>
-          <main className="container p-4 bg-background">{children}</main>
+        <Providers>
+          <main className="container p-4 bg-background">
+            {children}
+          </main>
           <Toaster />
-        </TooltipProvider>
+        </Providers>
       </body>
     </html>
   );
