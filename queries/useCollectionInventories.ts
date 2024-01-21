@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import { CollectionInventory } from '../models/CollectionInventory';
 
-interface SetResponse {
-    collectionInventories: CollectionInventory[];
+interface PaginationResponse {
+    items: CollectionInventory[];
     pageCount: number;
 }
 
@@ -16,9 +16,11 @@ export const getCollectionInventories = async (page?: number, limit?: number) =>
     return response.data;
 };
 
-const useCollectionInventories = (page?: number, limit?: number) =>
-    useQuery<SetResponse>(['collectionInventories', page, limit], () => getCollectionInventories(page, limit), {
+const useCollectionInventories = (limit?: number) =>
+    useInfiniteQuery<PaginationResponse>(
+        ['collectionInventories', limit], ({ pageParam = 1 }) => getCollectionInventories(pageParam, limit), {
         keepPreviousData: true,
+        getNextPageParam: (lastPage, allPages) => lastPage.pageCount > allPages.length ? allPages.length + 1 : undefined
     });
 
 export default useCollectionInventories;

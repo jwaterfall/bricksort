@@ -17,7 +17,7 @@ export const GET = withApiAuthRequired(async (request: NextRequest) => {
 
   const query = { user: user.sub };
 
-  const collectionInventories = await CollectionInventoryModel.find(query)
+  const items = await CollectionInventoryModel.find(query)
     .limit(limit)
     .skip(skip)
     .populate({
@@ -34,7 +34,7 @@ export const GET = withApiAuthRequired(async (request: NextRequest) => {
   const pageCount = Math.ceil((await CollectionInventoryModel.countDocuments(query)) / limit);
 
   return NextResponse.json({
-    collectionInventories,
+    items,
     pageCount,
   });
 });

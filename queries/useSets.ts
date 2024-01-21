@@ -3,8 +3,8 @@ import axios from 'axios';
 
 import { Set } from '../models/Set';
 
-interface SetResponse {
-  sets: Set[];
+interface PaginationResponse {
+  items: Set[];
   pageCount: number;
 }
 
@@ -17,7 +17,7 @@ export const getSets = async (page?: number, limit?: number, theme?: string, sea
 };
 
 const useSets = (limit?: number, theme?: string, search?: string, minYear?: number, maxYear?: number) =>
-  useInfiniteQuery<SetResponse>(
+  useInfiniteQuery<PaginationResponse>(
     ['sets', limit, theme, search, minYear, maxYear],
     ({ pageParam = 1 }) => getSets(pageParam, limit, theme, search, minYear, maxYear),
     {

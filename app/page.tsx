@@ -34,7 +34,7 @@ const HomePage = () => {
 
   return (
     <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-      {data.pages.map((page) => page.sets).flat().map((set) => (
+      {data.pages.map((page) => page.items).flat().map((set) => (
         <SetCard key={set._id} set={set} />
       ))}
       <div ref={ref} />

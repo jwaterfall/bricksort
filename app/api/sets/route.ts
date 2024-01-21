@@ -30,11 +30,11 @@ export const GET = withApiAuthRequired(async (request: NextRequest) => {
     ...(search && { $or: [{ _id: { $regex: search, $options: 'i' } }, { name: { $regex: search, $options: 'i' } }] }),
   };
 
-  const sets = await SetModel.find(query).sort({ year: -1, themeId: 1, name: 1 }).limit(limit).skip(skip).populate('theme').exec();
+  const items = await SetModel.find(query).sort({ year: -1, themeId: 1, name: 1 }).limit(limit).skip(skip).populate('theme').exec();
   const pageCount = Math.ceil((await SetModel.countDocuments(query)) / limit);
 
   return NextResponse.json({
-    sets,
+    items,
     pageCount,
   });
 });

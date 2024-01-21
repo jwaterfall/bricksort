@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Blocks, BookmarkPlus, ToyBrick } from 'lucide-react';
+import { Trash, ToyBrick } from 'lucide-react';
+import { toast } from 'sonner';
 
 import {
   Card,
@@ -19,19 +20,22 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Badge } from '@/components/ui/badge';
-import { Set } from '@/models/set';
-import useCreateCollectionInventory from '@/mutations/useCreateCollectionInventory';
+import { CollectionInventory } from '@/models/CollectionInventory';
+import useDeleteCollectionInventory from '@/mutations/useDeleteCollectionInventory';
 
-interface SetCardProps {
-  set: Set;
+interface CollectionInventoryCardProps {
+  collectionInventory: CollectionInventory;
 }
 
-function SetCard({ set }: SetCardProps) {
-  const { mutate: createCollectionInventory } = useCreateCollectionInventory();
+function CollectionInventoryCard({
+  collectionInventory,
+}: CollectionInventoryCardProps) {
+  const { mutate: deleteCollectionInventory } = useDeleteCollectionInventory();
+  const set = collectionInventory.inventory.set;
 
   return (
     <Card className="flex flex-col">
-      <Link href={`/sets/${set._id}`}>
+      <Link href={`/collection/${collectionInventory._id}`}>
         <Image
           src={set.imageUrl}
           alt={set.name}
@@ -44,7 +48,7 @@ function SetCard({ set }: SetCardProps) {
         <CardDescription>
           #{set._id.split('-')[0]} • {set.theme.name} • {set.year}
         </CardDescription>
-        <Link href={`/sets/${set._id}`}>
+        <Link href={`/collection/${collectionInventory._id}`}>
           <CardTitle className="line-clamp-2 hover:underline">
             {set.name}
           </CardTitle>
@@ -55,11 +59,15 @@ function SetCard({ set }: SetCardProps) {
           <TooltipTrigger className="mr-auto">
             <Badge>
               <ToyBrick size={14} strokeWidth={2} className="mr-0.5" />
-              {set.partCount}
+              {collectionInventory.partQuantityFound} /{' '}
+              {collectionInventory.partQuantity}
             </Badge>
           </TooltipTrigger>
           <TooltipContent>
-            <p>{set.partCount} pieces</p>
+            <p>
+              {collectionInventory.partQuantityFound} parts found out of{' '}
+              {collectionInventory.partQuantity}
+            </p>
           </TooltipContent>
         </Tooltip>
         <Tooltip>
@@ -67,36 +75,27 @@ function SetCard({ set }: SetCardProps) {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => createCollectionInventory(set._id)}
-            >
-              <Blocks size={24} />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Add to collection</p>
-          </TooltipContent>
-        </Tooltip>
-        {/* <Tooltip>
-          <TooltipTrigger>
-            <Button
-              variant="ghost"
-              size="icon"
               onClick={() =>
-                toast('Added to wishlist', {
-                  description: 'You can view your wishlist in your profile',
+                toast('Are you sure?', {
+                  description: 'This will remove the set from your collection.',
+                  action: {
+                    label: 'Yes',
+                    onClick: () =>
+                      deleteCollectionInventory(collectionInventory._id),
+                  },
                 })
               }
             >
-              <BookmarkPlus size={24} />
+              <Trash size={24} />
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Add to wishlist</p>
+            <p>Remove from collection</p>
           </TooltipContent>
-        </Tooltip> */}
+        </Tooltip>
       </CardFooter>
     </Card>
   );
 }
 
-export { SetCard };
+export { CollectionInventoryCard };
