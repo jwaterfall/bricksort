@@ -17,9 +17,9 @@ interface CollectionInventoryPageProps {
 const CollectionInventoryPage = ({
   params: { id },
 }: CollectionInventoryPageProps) => {
-  const [isMissing, setIsMissing] = useState(true);
+  const [tab, setTab] = useState('missing');
   const { data, isLoading, fetchNextPage, hasNextPage } =
-    useCollectionInventoryParts(id, 24, isMissing);
+    useCollectionInventoryParts(id, 24, tab === 'missing');
 
   const [ref, inView] = useInView();
 
@@ -33,17 +33,16 @@ const CollectionInventoryPage = ({
 
   return (
     <>
-      <Tabs value={isMissing} onValueChange={setIsMissing}>
+      <Tabs value={tab} onValueChange={setTab}>
         <TabsList className="mb-4 w-full">
-          <TabsTrigger value={true} className="flex-1">
+          <TabsTrigger value="missing" className="flex-1">
             Missing
           </TabsTrigger>
-          <TabsTrigger value={false} className="flex-1">
+          <TabsTrigger value="found" className="flex-1">
             Found
           </TabsTrigger>
         </TabsList>
       </Tabs>
-      {isMissing}
       <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
         {data.pages
           .map((page) => page.items)

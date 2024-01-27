@@ -19,7 +19,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Badge } from '@/components/ui/badge';
-import { Set } from '@/models/set';
+import { Set } from '@/models/Set';
 import useCreateCollectionInventory from '@/mutations/useCreateCollectionInventory';
 
 interface SetCardProps {

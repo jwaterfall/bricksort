@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { Set } from '../models/Set';
+import { Set } from '@/models/Set';
 
 interface PaginationResponse {
   items: Set[];

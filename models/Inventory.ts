@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
-import SetModel, { Set } from './Set';
+import SetModel, { Set } from '@/models/Set';
 
 // @ts-expect-error
 export interface Inventory extends Document {
