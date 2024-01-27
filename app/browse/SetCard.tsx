@@ -3,10 +3,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Blocks, BookmarkPlus, ToyBrick } from 'lucide-react';
+import { toast } from 'sonner';
 
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -76,7 +76,7 @@ function SetCard({ set }: SetCardProps) {
             <p>Add to collection</p>
           </TooltipContent>
         </Tooltip>
-        {/* <Tooltip>
+        <Tooltip>
           <TooltipTrigger>
             <Button
               variant="ghost"
@@ -93,7 +93,7 @@ function SetCard({ set }: SetCardProps) {
           <TooltipContent>
             <p>Add to wishlist</p>
           </TooltipContent>
-        </Tooltip> */}
+        </Tooltip>
       </CardFooter>
     </Card>
   );

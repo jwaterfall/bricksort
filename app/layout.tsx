@@ -24,10 +24,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body className={`bg-background text-foreground ${font.className}`}>
         <Providers>
           <Navbar />
-          <main className="container p-4 bg-background">{children}</main>
+          <main className="container p-4">{children}</main>
           <Toaster />
         </Providers>
       </body>

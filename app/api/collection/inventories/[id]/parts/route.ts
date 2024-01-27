@@ -55,7 +55,7 @@ export const GET = withApiAuthRequired(async (request: NextRequest, { params }) 
       break;
   }
 
-  const collectionInventoryParts = await CollectionInventoryPartModel.aggregate([
+  const items = await CollectionInventoryPartModel.aggregate([
     ...baseQuery,
     {
       $lookup: {
@@ -114,7 +114,7 @@ export const GET = withApiAuthRequired(async (request: NextRequest, { params }) 
   const pageCount = countResult.length > 0 ? Math.ceil(countResult[0].count / limit) : 0;
 
   return NextResponse.json({
-    collectionInventoryParts,
+    items,
     pageCount,
   });
 });

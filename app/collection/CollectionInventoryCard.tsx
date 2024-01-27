@@ -59,7 +59,7 @@ function CollectionInventoryCard({
           <TooltipTrigger className="mr-auto">
             <Badge>
               <ToyBrick size={14} strokeWidth={2} className="mr-0.5" />
-              {collectionInventory.partQuantityFound} /{' '}
+              {collectionInventory.partQuantityFound} of{' '}
               {collectionInventory.partQuantity}
             </Badge>
           </TooltipTrigger>

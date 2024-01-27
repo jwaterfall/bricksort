@@ -3,8 +3,8 @@ import axios from 'axios';
 
 import { CollectionInventoryPart } from '../models/CollectionInventoryPart';
 
-interface CollectionInventoryPartResponse {
-  collectionInventoryParts: CollectionInventoryPart[];
+interface PaginationResponse {
+  items: CollectionInventoryPart[];
   pageCount: number;
 }
 
@@ -17,7 +17,7 @@ export const getCollectionInventoryParts = async (id: string, page?: number, lim
 };
 
 const useCollectionInventoryParts = (id: string, limit?: number, isMissing?: boolean) =>
-  useInfiniteQuery<CollectionInventoryPartResponse>(
+  useInfiniteQuery<PaginationResponse>(
     ['collectionInventoryParts', id, limit, isMissing],
     ({ pageParam = 1 }) => getCollectionInventoryParts(id, pageParam, limit, isMissing),
     {

@@ -30,7 +30,7 @@ module.exports = {
           foreground: colors.white,
         },
         secondary: {
-          DEFAULT: colors.slate[100],
+          DEFAULT: colors.slate[300],
           foreground: colors.slate[600],
         },
         destructive: {

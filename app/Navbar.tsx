@@ -2,7 +2,7 @@
 
 import { FC, PropsWithChildren } from 'react';
 import Image from 'next/image';
-import { LucideIcon, Home, Blocks, Bookmark } from 'lucide-react';
+import { LucideIcon, Home, Blocks, Bookmark, Search } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -53,6 +53,9 @@ const Navbar: FC = () => (
       <nav className="flex divide-x border-x">
         <NavbarLink icon={Home} href="/" exact>
           Home
+        </NavbarLink>
+        <NavbarLink icon={Search} href="/browse" exact>
+          Browse
         </NavbarLink>
         <NavbarLink icon={Blocks} href="/collection">
           Collection
