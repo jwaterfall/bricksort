@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { toggleMode, mode } from 'mode-watcher';
 	import { Home, Blocks, Bookmark, Search, Moon, Sun } from 'lucide-svelte';
-  import { signOut } from '@auth/sveltekit/client';
   import { Image } from "@unpic/svelte";
 
   import { page } from '$app/stores';
-  import { handleSignIn } from '$lib/auth';
+  import { handleSignIn, handleSignOut } from '$lib/auth';
   import { Button } from "$lib/components/ui/button";
 	import NavbarLink from "./navbar-link.svelte";
 </script>
@@ -52,8 +51,7 @@
 				{/if}
 			</Button>
 			{#if $page.data.session}
-				<Button variant="outline" on:click={() => signOut()}
-				>
+				<Button variant="outline" on:click={() => handleSignOut("/")}>
 					Sign out
 				</Button>
 				{#if $page.data.session.user?.image}
