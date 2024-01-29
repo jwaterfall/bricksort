@@ -15,15 +15,15 @@
 	$: set = collectionInventory.inventory.set;
 </script>
 
-<Card.Root class="flex flex-col">
-	<a href="/collection/{collectionInventory._id}">
+<Card.Root class="flex flex-col overflow-hidden">
+	<a href="/collection/{collectionInventory._id}" class="dark:bg-white">
 		<Image 
 			src={set.imageUrl}
 			alt={set.name}
 			width={256}
 			aspectRatio={16 / 9}
 			objectFit="contain"
-			class="p-4 w-full"
+			class="p-4 w-full mix-blend-multiply"
 		/>
 	</a>
 	<Card.Header class="flex-1">

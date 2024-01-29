@@ -42,6 +42,7 @@
 			</nav>
 			<Button
 				size="icon"
+				variant="ghost"
 				on:click={toggleMode}
 			>
 				{#if $mode === 'dark'}
@@ -51,8 +52,7 @@
 				{/if}
 			</Button>
 			{#if $page.data.session}
-				<Button
-					on:click={() => signOut()}
+				<Button variant="outline" on:click={() => signOut()}
 				>
 					Sign out
 				</Button>
@@ -66,7 +66,7 @@
 					/>
 				{/if}
 			{:else}
-				<Button on:click={() => handleSignIn()}>
+				<Button variant="outline" on:click={() => handleSignIn()}>
 					Sign in
 				</Button>
 			{/if}

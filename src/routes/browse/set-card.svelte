@@ -13,15 +13,15 @@
 	export let set: Set;
 </script>
 
-<Card.Root class="flex flex-col">
-	<a href="/sets/{set._id}">
+<Card.Root class="flex flex-col overflow-hidden">
+	<a href="/sets/{set._id}" class="dark:bg-white">
 		<Image 
 			src={set.imageUrl}
 			alt={set.name}
 			width={256}
 			aspectRatio={16 / 9}
 			objectFit="contain"
-			class="p-4 w-full"
+			class="p-4 w-full mix-blend-multiply"
 		/>
 	</a>
 	<Card.Header class="flex-1">
