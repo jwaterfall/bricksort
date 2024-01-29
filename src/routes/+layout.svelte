@@ -7,7 +7,7 @@
   import { page } from '$app/stores';
 	import { Toaster } from "$lib/components/ui/sonner";
   import { Button } from "$lib/components/ui/button";
-	import NavbarLink from "./NavbarLink.svelte";
+	import NavbarLink from "./navbar-link.svelte";
 	import '../app.pcss';
 </script>
 
