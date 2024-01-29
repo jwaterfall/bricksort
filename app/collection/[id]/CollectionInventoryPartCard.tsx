@@ -103,31 +103,55 @@ function CollectionInventoryPartCard({
             </Tooltip>
           </DialogTrigger>
           <DialogContent>
-            <form onSubmit={onSubmit} className='grid gap-4'>
+            <form onSubmit={onSubmit} className="grid gap-4">
               <DialogHeader>
                 <DialogTitle>Add or remove parts</DialogTitle>
                 <DialogDescription>
-                  {collectionInventoryPart.quantityFound} parts found out of{' '}
-                  {collectionInventoryPart.quantity}
+                  {collectionInventoryPart.quantityFound} of{' '}
+                  {collectionInventoryPart.quantity} found
                 </DialogDescription>
               </DialogHeader>
               <Label htmlFor="quantity">Quantity</Label>
-              <Input
-                type="number"
-                name="quantity"
-                min={0 - collectionInventoryPart.quantityFound}
-                max={
-                  collectionInventoryPart.quantity -
-                  collectionInventoryPart.quantityFound
-                }
-                defaultValue={collectionInventoryPart.quantity}
-              />
-              <DialogFooter>
-                <Button variant="secondary" onClick={() => addCollectionInventoryPart(collectionInventoryPart.quantity - collectionInventoryPart.quantityFound)} disabled={isLoading}>
-                  Found all
-                </Button>
+              <div className="flex gap-2">
+                <Input
+                  type="number"
+                  name="quantity"
+                  min={0 - collectionInventoryPart.quantityFound}
+                  max={
+                    collectionInventoryPart.quantity -
+                    collectionInventoryPart.quantityFound
+                  }
+                  defaultValue={collectionInventoryPart.quantity}
+                />
                 <Button type="submit" disabled={isLoading}>
                   Save
+                </Button>
+              </div>
+              <DialogFooter>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  onClick={() =>
+                    addCollectionInventoryPart(
+                      -collectionInventoryPart.quantityFound
+                    )
+                  }
+                  disabled={isLoading}
+                >
+                  Remove all
+                </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() =>
+                    addCollectionInventoryPart(
+                      collectionInventoryPart.quantity -
+                        collectionInventoryPart.quantityFound
+                    )
+                  }
+                  disabled={isLoading}
+                >
+                  Found all
                 </Button>
               </DialogFooter>
             </form>
