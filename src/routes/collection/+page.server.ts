@@ -4,7 +4,7 @@ import type { PageServerLoad } from './$types';
 import { handlePageAuth } from '$lib/auth';
 
 export const load = (async ({ url, locals }) => {
-	handlePageAuth(locals);
+	await handlePageAuth(locals);
 
 	const pages = parseInt(url.searchParams.get('pages') ?? '1');
 	const limit = parseInt(url.searchParams.get('limit') ?? '24');

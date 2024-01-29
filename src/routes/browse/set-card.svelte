@@ -34,7 +34,7 @@
 		<Tooltip.Root>
 			<Tooltip.Trigger class="mr-auto">
 				<Badge>
-					<ToyBrick size={14} class="1" />
+					<ToyBrick size={14} class="mr-1" />
 					{set.partCount}
 				</Badge>
 			</Tooltip.Trigger>
