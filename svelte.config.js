@@ -16,7 +16,8 @@ const config = {
 			split: false
 		}),
 		alias: {
-			$models: './src/models'
+			$models: './src/models',
+			$mutations: './src/mutations',
 		}
 	}
 };

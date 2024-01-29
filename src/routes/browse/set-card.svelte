@@ -9,6 +9,9 @@
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
 	import type { Set } from '$models/Set';
+	import createAddCollectionInventoryMutation from '$mutations/addCollectionInventory';
+
+	const addCollectionInventoryMutation = createAddCollectionInventoryMutation();
 
 	export let set: Set;
 </script>
@@ -47,11 +50,8 @@
 				<Button
 					variant="ghost"
 					size="icon"
-					on:click={() =>
-						toast('Added to collection', {
-							description: 'Go to your collection to start adding parts',
-						})
-					}
+					disabled={$addCollectionInventoryMutation.isPending}
+					on:click={() => $addCollectionInventoryMutation.mutate(set._id)}
 				>
 					<Blocks size={24} />
 				</Button>

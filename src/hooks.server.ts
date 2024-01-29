@@ -21,6 +21,20 @@ const config: SvelteKitAuthConfig = {
 	debug: true,
 	session: {
 		maxAge: 1800 // 30 mins
+	},
+	callbacks: {
+		jwt: async ({ token, profile }) => {
+			if (profile?.sub) {
+				token.sub = profile.sub;
+			}
+			return token;
+		},
+		session: async ({ session, token }) => {
+			if (session.user && token?.sub) {
+				session.user.id = token.sub
+			}
+			return session;
+		}
 	}
 };
 

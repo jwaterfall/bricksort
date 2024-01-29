@@ -4,6 +4,7 @@ import { signIn, signOut } from '@auth/sveltekit/client';
 export async function handlePageAuth(locals: App.Locals) {
 	const session = await locals.auth();
 	if (!session?.user) throw redirect(303, '/signin');
+	return session.user;
 }
 
 export function handleSignIn(callbackUrl?: string) {
