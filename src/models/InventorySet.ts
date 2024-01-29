@@ -2,7 +2,6 @@ import mongoose, { Document, Schema, model } from 'mongoose';
 
 import { Set } from '@/models/Set';
 
-// @ts-expect-error
 export interface InventorySet extends Document {
   _id: string;
   quantity: number;

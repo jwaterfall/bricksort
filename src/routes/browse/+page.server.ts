@@ -25,7 +25,7 @@ export const load = (async ({ url }) => {
 
 	await connectToDatabase();
 
-	const sets = await Set.find({
+	const items = await Set.find({
 		theme: { $nin: EXCLUDED_THEMES }
 	})
 		.sort({
@@ -37,5 +37,5 @@ export const load = (async ({ url }) => {
 		.populate('theme')
 		.exec();
 
-	return { sets: sets.map((set) => set.toJSON()) };
+	return { items: JSON.parse(JSON.stringify(items)) };
 }) satisfies PageServerLoad;

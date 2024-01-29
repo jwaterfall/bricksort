@@ -20,6 +20,13 @@ const schema = new Schema<InventoryMinifig>(
   { timestamps: true }
 );
 
+schema.virtual('minifig', {
+  ref: MinifigModel,
+  localField: 'minifigId',
+  foreignField: '_id',
+  justOne: true,
+});
+
 const InventoryMinifigModel = mongoose.models.InventoryMinifig ?? model<InventoryMinifig>('InventoryMinifig', schema, 'inventory_minifigs');
 
 export default InventoryMinifigModel as mongoose.Model<InventoryMinifig>;

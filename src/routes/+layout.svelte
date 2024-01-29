@@ -2,14 +2,16 @@
 	import { ModeWatcher, toggleMode, mode } from 'mode-watcher';
 	import { Home, Blocks, Bookmark, Search, Moon, Sun } from 'lucide-svelte';
   import { Image } from "@unpic/svelte";
+  import { signIn, signOut } from '@auth/sveltekit/client';
 
+  import { page } from '$app/stores';
 	import { Toaster } from "$lib/components/ui/sonner";
   import { Button } from "$lib/components/ui/button";
 	import NavbarLink from "./NavbarLink.svelte";
 	import '../app.pcss';
 </script>
 
-<div class="bg-background text-foreground">
+<div class="bg-background text-foreground min-h-screen flex flex-col">
 	<header class="border-b">
     <div class="container px-4 flex justify-between items-center">
       <a href="/" class="text-xl font-semibold tracking-tighter flex gap-2 items-center">
@@ -50,10 +52,37 @@
             <Sun size={24} />
           {/if}
         </Button>
+        {#if $page.data.session}
+          <Button
+            on:click={() => signOut()}
+          >
+            Sign out
+          </Button>
+          {#if $page.data.session.user?.image}
+            <Image
+              width={40}
+              height={40}
+              src={$page.data.session.user.image}
+              alt="Profile picture"
+              class="rounded-full"
+            />
+          {/if}
+        {:else}
+          <Button
+            on:click={
+              () => signIn('auth0', 
+                { redirect: false },
+                { scope: 'api openid profile email', prompt: 'login' }
+              )
+            }
+          >
+            Sign in
+          </Button>
+        {/if}
       </div>
     </div>
   </header>
-	<main class="container p-4">
+	<main class="flex-1 container p-4">
 		<slot />
 		<Toaster />
 		<ModeWatcher />
