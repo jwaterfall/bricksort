@@ -3,7 +3,6 @@
   import { toast } from "svelte-sonner";
   import { Image } from "@unpic/svelte";
 
-  import { page } from '$app/stores';
   import * as Card from "$lib/components/ui/card";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { Button } from "$lib/components/ui/button";

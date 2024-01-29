@@ -2,16 +2,17 @@
   import { ToyBrick, Trash } from "lucide-svelte";
   import { toast } from "svelte-sonner";
   import { Image } from "@unpic/svelte";
-
-  import { page } from '$app/stores';
+	
   import * as Card from "$lib/components/ui/card";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
 	import type { CollectionInventory } from '$models/CollectionInventory';
+	import createDeleteCollectionInventoryMutation from "$mutations/deleteCollectionInventory";
+
+	const deleteCollectionInventoryMutation = createDeleteCollectionInventoryMutation();
 
 	export let collectionInventory: CollectionInventory;
-
 	$: set = collectionInventory.inventory.set;
 </script>
 
@@ -58,7 +59,9 @@
 							description: 'This will remove the set from your collection.',
 							action: {
 								label: 'Yes',
-								onClick: () => console.log('Removed from collection'),
+								onClick: () => {
+									$deleteCollectionInventoryMutation.mutate(collectionInventory._id);
+								},
 							},
 						})
 					}

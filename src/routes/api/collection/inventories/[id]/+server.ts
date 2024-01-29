@@ -52,12 +52,12 @@ function deduplicateInventoryParts(inventoryParts: InventoryPart[]) {
   return Array.from(deduplicatedInventoryParts.values());
 }
 
-export const POST: RequestHandler = async ({ request, locals }) => {
+export const POST: RequestHandler = async ({ params, locals }) => {
   const user = await handlePageAuth(locals);
 
   await connectToDatabase();
 
-  const { setId } = await request.json()
+  const setId = params.id;
 
   const inventory = await InventoryModel.findOne({ setId });
 
@@ -107,3 +107,21 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
   return json(collectionInventory);
 }
+
+export const DELETE: RequestHandler = async ({ params, locals }) => {
+  const user = await handlePageAuth(locals);
+
+  await connectToDatabase();
+
+  await CollectionInventoryPartModel.deleteMany({
+    collectionInventoryId: params.id,
+    user: user.id,
+  });
+
+  const collectionInventory = await CollectionInventoryModel.findOneAndDelete({
+    _id: params.id,
+    user: user.id,
+  });
+
+  return json(collectionInventory);
+};

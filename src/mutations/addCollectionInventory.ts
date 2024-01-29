@@ -6,9 +6,7 @@ import type { CollectionInventory } from '$models/CollectionInventory';
 
 async function addCollectionInventory(setId: string) {
 	const { origin } = window.location;
-	const response = await axios.post<CollectionInventory>(`${origin}/api/collection/inventories`, {
-		setId
-	});
+	const response = await axios.post<CollectionInventory>(`${origin}/api/collection/inventories/${setId}`);
 
 	return response.data;
 }
@@ -16,7 +14,6 @@ async function addCollectionInventory(setId: string) {
 export default () => createMutation({
 	mutationFn: addCollectionInventory,
 	onSuccess: () => {
-		// queryClient.invalidateQueries(['collectionInventories']);
 		toast('Added to collection', {
 			description: 'Head over to your collection to start adding parts'
 		});
