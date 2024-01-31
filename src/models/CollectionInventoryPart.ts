@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
-import InventoryPartModel, { InventoryPart } from './InventoryPart';
+import InventoryPartModel, { type InventoryPart } from './InventoryPart';
 import CollectionInventoryModel from './CollectionInventory';
 
 export interface CollectionInventoryPart extends Document {

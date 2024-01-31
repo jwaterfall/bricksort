@@ -1,5 +1,5 @@
 import { connectToDatabase } from '$lib/database.js';
-import Set from '$models/Set';
+import SetModel from '$models/Set';
 import type { PageServerLoad } from './$types';
 
 const EXCLUDED_THEMES = [
@@ -25,7 +25,7 @@ export const load = (async ({ url }) => {
 
 	await connectToDatabase();
 
-	const items = await Set.find({
+	const items = await SetModel.find({
 		theme: { $nin: EXCLUDED_THEMES }
 	})
 		.sort({

@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
-import PartModel, { Part } from './Part';
+import PartModel, { type Part } from './Part';
 
 export enum RelationshipType {
   PRINT = 'P',

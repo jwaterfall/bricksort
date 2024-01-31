@@ -1,5 +1,5 @@
 import { connectToDatabase } from '$lib/database.js';
-import CollectionInventory from '$models/CollectionInventory';
+import CollectionInventoryModel from '$models/CollectionInventory';
 import type { PageServerLoad } from './$types';
 import { handlePageAuth } from '$lib/auth';
 
@@ -11,7 +11,7 @@ export const load = (async ({ url, locals }) => {
 
 	await connectToDatabase();
 
-	const items = await CollectionInventory.find({ user: user.id })
+	const items = await CollectionInventoryModel.find({ user: user.id })
 		.limit(limit * pages)
 		.populate({
 			path: 'inventory',

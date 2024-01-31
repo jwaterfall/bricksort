@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
-import { PartCategory } from './PartCategory';
+import { type PartCategory } from './PartCategory';
 
 export enum PartMaterial {
   PLASTIC = 'Plastic',
@@ -16,7 +16,7 @@ export interface Part extends Document {
   _id: string;
   name: string;
   material: PartMaterial;
-  categoryId: number;
+  categoryId: string;
   category: PartCategory;
 }
 
@@ -25,7 +25,7 @@ const schema = new Schema<Part>(
     _id: { type: String, required: true },
     name: { type: String, required: true },
     material: { type: String, required: true, enum: Object.values(PartMaterial) },
-    categoryId: { type: Number, required: true, ref: 'PartCategory' },
+    categoryId: { type: String, required: true },
   },
   { timestamps: true }
 );

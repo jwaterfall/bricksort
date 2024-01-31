@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
-import SetModel, { Set } from './Set';
+import SetModel, { type Set } from './Set';
 
 export interface Inventory extends Document {
   _id: string;

@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
-import PartModel, { Part } from './Part';
-import ColorModel, { Color } from './Color';
+import PartModel, { type Part } from './Part';
+import ColorModel, { type Color } from './Color';
 
 export interface InventoryPart extends Document {
   _id: string;

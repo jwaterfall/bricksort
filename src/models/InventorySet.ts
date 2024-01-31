@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
-import { Set } from '@/models/Set';
+import SetModel, { type Set } from '@/models/Set';
 
 export interface InventorySet extends Document {
   _id: string;
@@ -19,6 +19,13 @@ const schema = new Schema<InventorySet>(
   },
   { timestamps: true }
 );
+
+schema.virtual('set', {
+  ref: SetModel,
+  localField: 'setId',
+  foreignField: '_id',
+  justOne: true,
+});
 
 const InventorySetModel = mongoose.models.InventorySet ?? model<InventorySet>('InventorySet', schema, 'inventory_sets');
 
