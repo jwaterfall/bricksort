@@ -9,7 +9,7 @@ export const load = (async ({ url, locals, params }) => {
 
 	const pages = parseInt(url.searchParams.get('pages') ?? '1');
 	const limit = parseInt(url.searchParams.get('limit') ?? '24');
-	const type = url.searchParams.get('type') ?? 'missing';
+	const missingPartsOnly = url.searchParams.get('missingPartsOnly') === 'true';
 
 	await connectToDatabase();
 
@@ -34,22 +34,13 @@ export const load = (async ({ url, locals, params }) => {
 		}
 	];
 
-	// switch (type) {
-	// 	case 'missing':
-	// 		baseQuery.push({
-	// 			$match: {
-	// 				$expr: { $lt: ['$quantityFound', '$quantity'] }
-	// 			}
-	// 		});
-	// 		break;
-	// 	case 'found':
-	// 		baseQuery.push({
-	// 			$match: {
-	// 				$expr: { $gte: ['$quantityFound', '$quantity'] }
-	// 			}
-	// 		});
-	// 		break;
-	// }
+	if (missingPartsOnly) {
+		baseQuery.push({
+			$match: {
+				$expr: { $lt: ['$quantityFound', '$quantity'] }
+			}
+		});
+	}
 
 	const items = await CollectionInventoryPartModel.aggregate([
 		...baseQuery,
