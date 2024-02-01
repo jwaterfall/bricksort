@@ -11,7 +11,9 @@ export const load = (async ({ url, locals }) => {
 
 	await connectToDatabase();
 
-	const items = await CollectionInventoryModel.find({ user: user.id })
+	const query = { user: user.id };
+
+	const items = await CollectionInventoryModel.find(query)
 		.limit(limit * pages)
 		.populate({
 			path: 'inventory',
@@ -24,5 +26,8 @@ export const load = (async ({ url, locals }) => {
 		})
 		.exec();
 
-	return { items: JSON.parse(JSON.stringify(items)) };
+	const count = await CollectionInventoryModel.countDocuments(query);
+	const pageCount = Math.ceil(count / limit);
+
+	return { items: JSON.parse(JSON.stringify(items)), pageCount };
 }) satisfies PageServerLoad;

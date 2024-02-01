@@ -13,8 +13,10 @@
     <SetCard {set} />
   {/each}
 </div>
-<a href="?pages={pages + 1}" class="block mt-4" data-sveltekit-noscroll>
-  <Button variant="outline" class="w-full">
-    Load more
-  </Button>
-</a>
+{#if data.pageCount > pages}
+  <a href="?pages={pages + 1}" class="block mt-4" data-sveltekit-noscroll>
+    <Button variant="outline" class="w-full">
+      Load more
+    </Button>
+  </a>
+{/if}

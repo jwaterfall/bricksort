@@ -20,14 +20,16 @@ const EXCLUDED_THEMES = [
 ];
 
 export const load = (async ({ url }) => {
-  const pages = parseInt(url.searchParams.get('pages') ?? '1');
-  const limit = parseInt(url.searchParams.get('limit') ?? '24');
+	const pages = parseInt(url.searchParams.get('pages') ?? '1');
+	const limit = parseInt(url.searchParams.get('limit') ?? '24');
 
 	await connectToDatabase();
 
-	const items = await SetModel.find({
+	const query = {
 		theme: { $nin: EXCLUDED_THEMES }
-	})
+	};
+
+	const items = await SetModel.find(query)
 		.sort({
 			year: -1,
 			themeId: 1,
@@ -37,5 +39,8 @@ export const load = (async ({ url }) => {
 		.populate('theme')
 		.exec();
 
-	return { items: JSON.parse(JSON.stringify(items)) };
+		const count = await SetModel.countDocuments(query);
+		const pageCount = Math.ceil(count / limit);
+
+	return { items: JSON.parse(JSON.stringify(items)), pageCount };
 }) satisfies PageServerLoad;
