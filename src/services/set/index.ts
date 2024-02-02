@@ -21,11 +21,15 @@ const EXCLUDED_THEMES = [
 	'746' // Database Sets
 ];
 
-export async function getSets({ pages, limit }: GetSetsParams) {
+export async function getSets({ search, theme, pages, limit }: GetSetsParams) {
 	await connectToDatabase();
 
 	const query = {
-		theme: { $nin: EXCLUDED_THEMES }
+		themeId: theme.length ? { $in: theme } : { $nin: EXCLUDED_THEMES },
+		partCount: { $gt: 0 },
+		...(search && {
+			$or: [{ _id: { $regex: search, $options: 'i' } }, { name: { $regex: search, $options: 'i' } }]
+		})
 	};
 
 	const items = await SetModel.find(query)
