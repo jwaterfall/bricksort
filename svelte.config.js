@@ -18,6 +18,7 @@ const config = {
 		alias: {
 			$models: './src/models',
 			$mutations: './src/mutations',
+			$services: './src/services',
 		}
 	}
 };

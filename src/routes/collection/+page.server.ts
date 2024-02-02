@@ -1,31 +1,17 @@
-import { connectToDatabase } from '$lib/database.js';
-import CollectionInventoryModel from '$models/CollectionInventory';
-import type { PageServerLoad } from './$types';
 import { withPageAuthRequired } from '$lib/auth';
+import {
+	getCollectionInventories,
+	getCollectionInventoriesParams
+} from '$services/collection-inventories';
+import type { PageServerLoad } from './$types';
 
-export const load = withPageAuthRequired(async ({ url, locals }) => {
-	const pages = parseInt(url.searchParams.get('pages') ?? '1');
-	const limit = parseInt(url.searchParams.get('limit') ?? '24');
+export const load = withPageAuthRequired(async ({ url: { searchParams }, locals }) => {
+	const params = await getCollectionInventoriesParams.validate({
+		...Object.fromEntries(searchParams),
+		userId: locals.user.id
+	});
+	
+	const response = await getCollectionInventories(params);
 
-	await connectToDatabase();
-
-	const query = { user: locals.user.id };
-
-	const items = await CollectionInventoryModel.find(query)
-		.limit(limit * pages)
-		.populate({
-			path: 'inventory',
-			populate: {
-				path: 'set',
-				populate: {
-					path: 'theme'
-				}
-			}
-		})
-		.exec();
-
-	const count = await CollectionInventoryModel.countDocuments(query);
-	const pageCount = Math.ceil(count / limit);
-
-	return { items: JSON.parse(JSON.stringify(items)), pageCount };
+	return { ...response, items: JSON.parse(JSON.stringify(response.items)) };
 }) satisfies PageServerLoad;
