@@ -1,10 +1,30 @@
-import { redirect } from '@sveltejs/kit';
+import { json, redirect, type RequestHandler, type ServerLoad } from '@sveltejs/kit';
 import { signIn, signOut } from '@auth/sveltekit/client';
+import type { User } from '@auth/sveltekit';
 
-export async function handlePageAuth(locals: App.Locals) {
-	const session = await locals.auth();
-	if (!session?.user) throw redirect(303, '/signin');
-	return session.user;
+declare global {
+	//eslint-disable-next-line
+	namespace App {
+		interface Locals {
+			user: User;
+		}
+	}
+}
+
+export function withPageAuthRequired(next: ServerLoad): ServerLoad {
+	return async (request) => {
+		const session = await request.locals.auth();
+		if (!session?.user) throw redirect(303, '/signin');
+		return next({ ...request, locals: { ...request.locals, user: session.user } });
+	};
+}
+
+export function withRouteAuthRequired(next: RequestHandler): RequestHandler {
+	return async (request) => {
+		const session = await request.locals.auth();
+		if (!session?.user) return json({ error: 'Unauthorized' }, { status: 401 });
+		return next({ ...request, locals: { ...request.locals, user: session.user } });
+	};
 }
 
 export function handleSignIn(callbackUrl?: string) {

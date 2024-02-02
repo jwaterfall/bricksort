@@ -2,10 +2,10 @@ import { type PipelineStage, Types } from 'mongoose';
 import { connectToDatabase } from '$lib/database.js';
 import CollectionInventoryPartModel from '$models/CollectionInventoryPart';
 import type { PageServerLoad } from './$types';
-import { handlePageAuth } from '$lib/auth';
+import { withPageAuthRequired } from '$lib/auth';
 
 export const load = (async ({ url, locals, params }) => {
-	const user = await handlePageAuth(locals);
+	const user = await withPageAuthRequired(locals);
 
 	const pages = parseInt(url.searchParams.get('pages') ?? '1');
 	const limit = parseInt(url.searchParams.get('limit') ?? '24');

@@ -2,15 +2,13 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 
 import CollectionInventoryPartModel from '$models/CollectionInventoryPart';
 import { connectToDatabase } from '$lib/database';
-import { handlePageAuth } from '$lib/auth';
+import { withRouteAuthRequired } from '$lib/auth';
 
-export const POST: RequestHandler = async ({ url, params, locals }) => {
-	const user = await handlePageAuth(locals);
-
+export const POST: RequestHandler = withRouteAuthRequired(async ({ url, params, locals }) => {
 	await connectToDatabase();
 
 	const collectionInventoryPart = await CollectionInventoryPartModel.findOne({
-		user: user.id,
+		user: locals.user.id,
 		_id: params.id
 	});
 
@@ -28,4 +26,4 @@ export const POST: RequestHandler = async ({ url, params, locals }) => {
 	await collectionInventoryPart.addQuantityFound(quantity);
 
 	return json(collectionInventoryPart);
-};
+});
