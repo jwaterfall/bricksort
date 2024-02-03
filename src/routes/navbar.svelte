@@ -18,7 +18,7 @@
 
 <header class="border-b">
 	<div class="container px-4 flex justify-between items-center">
-		<a href="/" class="text-xl font-semibold tracking-tighter flex gap-2 items-center basis-1/4">
+		<a href="/" class="text-lg font-medium tracking-tight flex gap-2 items-center basis-1/4">
 			<Image
 				width={32}
 				height={32}
