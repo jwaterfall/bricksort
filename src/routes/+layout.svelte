@@ -12,7 +12,7 @@
 </script>
 
 <QueryClientProvider client={queryClient}>
-	<div class="bg-background text-foreground min-h-screen flex flex-col">
+	<div class="bg-background text-foreground h-screen flex flex-col overflow-y-scroll scrollbar-thin scrollbar-thumb-accent scrollbar-track-background">
 		<Navbar />
 		<main class="flex-1 container p-4">
 			<slot />

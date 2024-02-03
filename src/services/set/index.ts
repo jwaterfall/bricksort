@@ -26,7 +26,7 @@ export async function getSets({ search, theme, pages, limit }: GetSetsParams) {
 
 	const query = {
 		themeId: theme.length ? { $in: theme } : { $nin: EXCLUDED_THEMES },
-		partCount: { $gt: 0 },
+		partCount: { $gt: 1 },
 		...(search && {
 			$or: [{ _id: { $regex: search, $options: 'i' } }, { name: { $regex: search, $options: 'i' } }]
 		})

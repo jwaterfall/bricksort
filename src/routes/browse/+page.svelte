@@ -2,7 +2,8 @@
   import { Button } from "$lib/components/ui/button";
   import { Label } from "$lib/components/ui/label";
 	import { Input } from '$lib/components/ui/input';
-  import * as Select from '$lib/components/ui/select';
+  import * as Select from '$lib/components/ui/select'; 
+  import QueryParamLink from '$lib/components/query-param-link.svelte';
   import { createQueryParamStore, QueryParamType } from '$lib/query-params';
   import SetCard from './set-card.svelte';
 	import type { PageData } from './$types';
@@ -24,7 +25,7 @@
   }, [] as { value: string; label: string }[]);
 </script>
 
-<div class="flex items-center justify-between gap-4 mb-4">
+<div class="flex items-center gap-4 mb-4 py-2">
   <div class="flex flex-col gap-1.5">
     <Label for="search">Search</Label>
     <Input id="search" class="min-w-[20rem]" placeholder="Search by set number or name..." bind:value={$search} />
@@ -38,7 +39,7 @@
       <Select.Trigger class="w-[180px]">
         <Select.Value placeholder="All themes" />
       </Select.Trigger>
-      <Select.Content id="theme" class="max-h-[20rem] overflow-y-auto">
+      <Select.Content id="theme" class="max-h-[20rem] overflow-y-auto scrollbar-thin scrollbar-thumb-accent scrollbar-track-background">
         {#each data.themes as theme}
           <Select.Item value={theme._id}>{theme.name}</Select.Item>
         {/each}
@@ -52,7 +53,9 @@
   {/each}
 </div>
 {#if data.pageCount > ($pages ?? 1)}
-  <Button variant="outline" class="w-full mt-4" on:click={() => pages.set(($pages ?? 1) + 1)}>
-    Load more
-  </Button>
+  <QueryParamLink key="pages" value={($pages ?? 1) + 1}>
+    <Button variant="outline" class="w-full mt-4">
+      Load more
+    </Button>
+  </QueryParamLink>
 {/if}

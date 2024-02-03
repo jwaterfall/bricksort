@@ -1,7 +1,8 @@
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
+  import QueryParamLink from '$lib/components/query-param-link.svelte';
+  import { createQueryParamStore, QueryParamType } from '$lib/query-params';
   import CollectionInventoryCard from './collection-inventory-card.svelte';
-  import CollectionInventoryPartCard from './collection-inventory-part-card.svelte';
 	import type { PageData } from './$types';
 
   export let data: PageData;
@@ -15,7 +16,9 @@
   {/each}
 </div>
 {#if data.pageCount > ($pages ?? 1)}
-  <Button variant="outline" class="w-full mt-4" on:click={() => pages.set(($pages ?? 1) + 1)}>
-    Load more
-  </Button>
+  <QueryParamLink key="pages" value={($pages ?? 1) + 1}>
+    <Button variant="outline" class="w-full mt-4">
+      Load more
+    </Button>
+  </QueryParamLink>
 {/if}
