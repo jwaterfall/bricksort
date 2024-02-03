@@ -11,7 +11,7 @@
 
 <a
 	{href}
-	class="h-16 px-6 text-sm flex gap-2 items-center font-medium transition-all duration-75 text-muted-foreground hover:text-foreground"
+	class="h-16 px-4 text-sm flex gap-2 items-center font-medium transition-all duration-75 text-muted-foreground hover:text-foreground"
 	class:text-primary={active}
 >
 	<slot />

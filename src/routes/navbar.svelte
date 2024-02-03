@@ -18,7 +18,7 @@
 
 <header class="border-b">
 	<div class="container px-4 flex justify-between items-center">
-		<a href="/" class="text-xl font-semibold tracking-tighter flex gap-2 items-center">
+		<a href="/" class="text-xl font-semibold tracking-tighter flex gap-2 items-center basis-1/4">
 			<Image
 				width={32}
 				height={32}
@@ -27,28 +27,28 @@
 			/>
 			Bricksort
 		</a>
-		<div class="flex gap-4 items-center">
-			<nav class="flex divide-x border-x">
-				<NavbarLink href="/" exact>
-					<Home size={24} />
-					Home
-				</NavbarLink>
-				<NavbarLink href="/browse" exact>
-					<Search size={24} />
-					Browse
-				</NavbarLink>
-				<NavbarLink href="/collection">
-					<Blocks size={24} />
-					Collection
-				</NavbarLink>
-				<NavbarLink href="/wishlist">
-					<Bookmark size={24} />
-					Wishlist
-				</NavbarLink>
-			</nav>
+		<nav class="flex-1 flex items-center justify-center">
+			<NavbarLink href="/" exact>
+				<Home size={24} />
+				Home
+			</NavbarLink>
+			<NavbarLink href="/browse" exact>
+				<Search size={24} />
+				Browse
+			</NavbarLink>
+			<NavbarLink href="/collection">
+				<Blocks size={24} />
+				Collection
+			</NavbarLink>
+			<NavbarLink href="/wishlist">
+				<Bookmark size={24} />
+				Wishlist
+			</NavbarLink>
+		</nav>
+		<div class="basis-1/4 flex items-center justify-end gap-4">
 			<Button
 				size="icon"
-				variant="ghost"
+				variant="outline"
 				on:click={toggleMode}
 			>
 				{#if $mode === 'dark'}

@@ -21,7 +21,7 @@
 </script>
 
 <Card.Root class="flex flex-col overflow-hidden">
-	<figure class="dark:bg-white">
+	<figure class="bg-white border-b">
 		<Image 
 			src={collectionInventoryPart.inventoryPart.imageUrl}
 			alt={part.name}

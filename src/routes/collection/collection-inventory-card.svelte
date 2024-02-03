@@ -17,7 +17,7 @@
 </script>
 
 <Card.Root class="flex flex-col overflow-hidden">
-	<a href="/collection/{collectionInventory._id}" class="dark:bg-white">
+	<a href="/collection/{collectionInventory._id}" class="bg-white border-b">
 		<Image 
 			src={set.imageUrl}
 			alt={set.name}
