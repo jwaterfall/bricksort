@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { ToyBrick, Blocks, BookmarkPlus } from "lucide-svelte";
-  import { toast } from "svelte-sonner";
+  import { ToyBrick, Blocks } from "lucide-svelte";
   import { Image } from "@unpic/svelte";
-
   import * as Card from "$lib/components/ui/card";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { Button } from "$lib/components/ui/button";
@@ -57,24 +55,6 @@
 			</Tooltip.Trigger>
 			<Tooltip.Content>
 				<p>Add to collection</p>
-			</Tooltip.Content>
-		</Tooltip.Root>
-		<Tooltip.Root>
-			<Tooltip.Trigger>
-				<Button
-					variant="ghost"
-					size="icon"
-					on:click={() =>
-						toast('Added to wishlist', {
-							description: 'You can view your wishlist in your profile',
-						})
-					}
-				>
-					<BookmarkPlus size={24} />
-				</Button>
-			</Tooltip.Trigger>
-			<Tooltip.Content>
-				<p>Add to wishlist</p>
 			</Tooltip.Content>
 		</Tooltip.Root>
 	</Card.Footer>

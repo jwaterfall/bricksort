@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { toggleMode, mode } from 'mode-watcher';
-	import { Home, Blocks, Bookmark, Search, Moon, Sun, ChevronDown } from 'lucide-svelte';
+	import { Home, Blocks, Search, Moon, Sun, ChevronDown } from 'lucide-svelte';
   import { Image } from "@unpic/svelte";
-
   import { page } from '$app/stores';
   import { handleSignIn, handleSignOut } from '$lib/auth';
   import { Button } from "$lib/components/ui/button";
@@ -39,10 +38,6 @@
 			<NavbarLink href="/collection">
 				<Blocks size={24} />
 				Collection
-			</NavbarLink>
-			<NavbarLink href="/wishlist">
-				<Bookmark size={24} />
-				Wishlist
 			</NavbarLink>
 		</nav>
 		<div class="basis-1/4 flex items-center justify-end gap-4">
