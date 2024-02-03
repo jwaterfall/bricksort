@@ -25,7 +25,6 @@
 		<Image 
 			src={collectionInventoryPart.inventoryPart.imageUrl}
 			alt={part.name}
-			width={256}
 			aspectRatio={16 / 9}
 			objectFit="contain"
 			class="p-4 w-full mix-blend-multiply"

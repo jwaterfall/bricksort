@@ -9,6 +9,7 @@ export async function getCollectionInventoryParts({
 	userId,
 	collectionInventoryId,
 	missingPartsOnly,
+	color,
 	pages,
 	limit
 }: GetCollectionInventoryPartsParams) {
@@ -39,6 +40,14 @@ export async function getCollectionInventoryParts({
 		baseQuery.push({
 			$match: {
 				$expr: { $lt: ['$quantityFound', '$quantity'] }
+			}
+		});
+	}
+
+	if (color.length > 0) {
+		baseQuery.push({
+			$match: {
+				'inventoryPart.colorId': { $in: color }
 			}
 		});
 	}

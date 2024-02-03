@@ -21,7 +21,6 @@
 		<Image 
 			src={set.imageUrl}
 			alt={set.name}
-			width={256}
 			aspectRatio={16 / 9}
 			objectFit="contain"
 			class="p-4 w-full mix-blend-multiply"
