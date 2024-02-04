@@ -5,10 +5,10 @@
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
-	import type { Set } from '$models/Set';
-	import createAddCollectionInventoryMutation from '$mutations/addCollectionInventory';
+	import type { Set } from '$services/set';
+	import createAddPartListMutation from '$mutations/addPartList';
 
-	const addCollectionInventoryMutation = createAddCollectionInventoryMutation();
+	const addPartListMutation = createAddPartListMutation();
 
 	export let set: Set;
 </script>
@@ -46,14 +46,14 @@
 				<Button
 					variant="ghost"
 					size="icon"
-					disabled={$addCollectionInventoryMutation.isPending}
-					on:click={() => $addCollectionInventoryMutation.mutate(set._id)}
+					disabled={$addPartListMutation.isPending}
+					on:click={() => $addPartListMutation.mutate(set._id)}
 				>
 					<Blocks size={24} />
 				</Button>
 			</Tooltip.Trigger>
 			<Tooltip.Content>
-				<p>Add to collection</p>
+				<p>Build this set</p>
 			</Tooltip.Content>
 		</Tooltip.Root>
 	</Card.Footer>

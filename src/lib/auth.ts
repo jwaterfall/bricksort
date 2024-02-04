@@ -1,15 +1,5 @@
 import { json, redirect, type RequestHandler, type ServerLoad } from '@sveltejs/kit';
 import { signIn, signOut } from '@auth/sveltekit/client';
-import type { User } from '@auth/sveltekit';
-
-declare global {
-	//eslint-disable-next-line
-	namespace App {
-		interface Locals {
-			user: User;
-		}
-	}
-}
 
 export function withPageAuthRequired(next: ServerLoad): ServerLoad {
 	return async (request) => {

@@ -1,8 +1,11 @@
 import { getSets, getSetsParams } from '$services/set';
 import { getThemes } from '$services/theme';
+import { connectToDatabase } from '$lib/database.js';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ url: { searchParams } }) => {
+	await connectToDatabase();
+
 	const params = await getSetsParams.validate({
 		...Object.fromEntries(searchParams),
 		theme: searchParams.getAll('theme')

@@ -1,7 +1,7 @@
-import { connectToDatabase } from '$lib/database.js';
-import SetModel from '$models/Set';
+import { SetModel } from './model';
 import type { GetSetsParams } from './validation';
 
+export * from './model';
 export * from './validation';
 
 const EXCLUDED_THEMES = [
@@ -22,8 +22,6 @@ const EXCLUDED_THEMES = [
 ];
 
 export async function getSets({ search, theme, pages, limit }: GetSetsParams) {
-	await connectToDatabase();
-
 	const query = {
 		themeId: theme.length ? { $in: theme } : { $nin: EXCLUDED_THEMES },
 		partCount: { $gt: 1 },

@@ -31,11 +31,11 @@
 				<Home size={24} />
 				Home
 			</NavbarLink>
-			<NavbarLink href="/browse" exact>
+			<NavbarLink href="/browse">
 				<Search size={24} />
 				Browse
 			</NavbarLink>
-			<NavbarLink href="/collection">
+			<NavbarLink href="/part-lists">
 				<Blocks size={24} />
 				Collection
 			</NavbarLink>

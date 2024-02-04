@@ -1,9 +1,8 @@
-import { connectToDatabase } from '$lib/database.js';
-import ThemeModel from '$models/Theme';
+import { ThemeModel } from './model';
+
+export * from './model';
 
 export async function getThemes() {
-	await connectToDatabase();
-
 	const themes = await ThemeModel.find({ parentId: null })
 		.sort({
 			name: 1
