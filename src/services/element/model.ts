@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, Model, model } from 'mongoose';
-import { ColorModel, type Color } from '$services/color';
-import { PartModel, type Part } from '$services/part';
+import { ColorModel, type Color } from '../color/model.js';
+import { PartModel, type Part } from '../part/model.js';
 
 export interface Element extends Document {
 	_id: string;
