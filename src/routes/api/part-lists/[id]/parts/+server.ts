@@ -8,7 +8,7 @@ export const POST: RequestHandler = withRouteAuthRequired(async ({ url, params, 
 	await connectToDatabase();
 
 	const quantity = parseInt(url.searchParams.get('quantity') ?? '1');
-	const elementId = url.searchParams.get('colorId')!;
+	const elementId = url.searchParams.get('elementId');
 
 	const partListId = new Types.ObjectId(params.id);
 

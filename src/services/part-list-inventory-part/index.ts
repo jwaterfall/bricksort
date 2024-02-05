@@ -81,7 +81,7 @@ export async function getPartListInventoryParts({
 			$match: {
 				$or: [
 					{ partListPart: { $exists: false } },
-					{ $expr: { $lt: ['$quantity', '$partListPart.quantity'] } }
+					{ $expr: { $lt: ['$partListPart.quantity', '$quantity'] } }
 				]
 			}
 		});
@@ -89,12 +89,6 @@ export async function getPartListInventoryParts({
 
 	const items = await InventoryPartModel.aggregate([
 		...baseQuery,
-		{
-			$limit: limit * pages
-		},
-		{
-			$sort: { 'element.colorId': 1 }
-		},
 		{
 			$lookup: {
 				from: 'colors',
@@ -120,6 +114,12 @@ export async function getPartListInventoryParts({
 			$unwind: {
 				path: '$element.part'
 			}
+		},
+		{
+			$sort: { 'element.colorId': 1, 'element.part.categoryId': 1, 'element.part.name': 1 }
+		},
+		{
+			$limit: limit * pages
 		},
 		{
 			$lookup: {
