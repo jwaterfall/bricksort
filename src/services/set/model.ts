@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema, Model, model } from 'mongoose';
-import { ThemeModel, type Theme } from '$services/theme';
+import { ThemeModel, type Theme } from '../theme/model.js';
 
 export interface Set extends Document {
 	_id: string;

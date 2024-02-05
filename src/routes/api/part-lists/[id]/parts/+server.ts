@@ -8,16 +8,14 @@ export const POST: RequestHandler = withRouteAuthRequired(async ({ url, params, 
 	await connectToDatabase();
 
 	const quantity = parseInt(url.searchParams.get('quantity') ?? '1');
-	const partId = url.searchParams.get('partId')!;
-	const colorId = url.searchParams.get('colorId')!;
+	const elementId = url.searchParams.get('colorId')!;
 
 	const partListId = new Types.ObjectId(params.id);
 
 	const partListPart = await PartListPartModel.findOne({
 		userId: locals.user.id,
 		partListId,
-		partId,
-		colorId
+		elementId
 	});
 
 	if (!partListPart && quantity < 1) return json(null);
@@ -26,8 +24,7 @@ export const POST: RequestHandler = withRouteAuthRequired(async ({ url, params, 
 		const partListPart = await PartListPartModel.create({
 			userId: locals.user.id,
 			partListId,
-			partId,
-			colorId,
+			elementId,
 			quantity
 		});
 

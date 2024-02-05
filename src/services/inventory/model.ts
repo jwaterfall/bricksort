@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema, Model, model } from 'mongoose';
-import { SetModel, type Set } from '$services/set';
+import { SetModel, type Set } from '../set/model.js';
 
-export interface Inventory extends Document {
+export interface Inventory extends Omit<Document, 'set'> {
 	_id: string;
 	version: number;
 	setId: string;

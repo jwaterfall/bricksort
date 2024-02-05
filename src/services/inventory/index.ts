@@ -8,7 +8,7 @@ export async function getColors(inventoryId: string) {
 	const inventory = await InventoryModel.findById(inventoryId);
 	if (!inventory) throw new Error('Inventory not found');
 
-	const inventoryParts = await InventoryPartModel.find({ inventoryId });
+	const inventoryParts = await InventoryPartModel.find({ inventoryId }).populate('element');
 
-	return await ColorModel.find({ _id: { $in: inventoryParts.map((part) => part.colorId) } });
+	return await ColorModel.find({ _id: { $in: inventoryParts.map((part) => part.element.colorId) } });
 }

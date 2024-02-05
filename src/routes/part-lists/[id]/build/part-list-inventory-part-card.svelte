@@ -13,8 +13,8 @@
 
 	export let partListInventoryPart: PartListInventoryPart;
 	export let partListId: string;
-	$: part = partListInventoryPart.part;
-	$: addPartListPartMutation = createAddPartListPartMutation(partListId, partListInventoryPart.partId, partListInventoryPart.colorId);
+	$: part = partListInventoryPart.element.part;
+	$: addPartListPartMutation = createAddPartListPartMutation(partListId, partListInventoryPart.elementId);
 	$: min = 0 - (partListInventoryPart.partListPart?.quantity ?? 0);
 	$: max = partListInventoryPart.quantity - (partListInventoryPart.partListPart?.quantity ?? 0);
 
@@ -25,7 +25,7 @@
 <Card.Root class="flex flex-col overflow-hidden">
 	<figure class="bg-white border-b">
 		<Image 
-			src={partListInventoryPart.imageUrl}
+			src={partListInventoryPart.element.imageUrl}
 			alt={part.name}
 			aspectRatio={16 / 9}
 			objectFit="contain"
@@ -33,7 +33,7 @@
 		/>
 	</figure>
 	<Card.Header class="flex-1">
-		<Card.Description> {partListInventoryPart.color.name} • {part.category.name}</Card.Description>
+		<Card.Description> {partListInventoryPart.element.color.name} • {part.category.name}</Card.Description>
 		<Card.Title class="line-clamp-2">{part.name}</Card.Title>
 	</Card.Header>
 	<Card.Footer class="items-end">

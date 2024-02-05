@@ -6,8 +6,7 @@ import { type PartListPart } from '$services/part-list-part';
 
 async function addPartListPart(
 	partListId: string,
-	partId: string,
-	colorId: string,
+	elementId: string,
 	quantity: number
 ) {
 	const { origin } = window.location;
@@ -17,8 +16,7 @@ async function addPartListPart(
 		{
 			params: {
 				quantity,
-				partId,
-				colorId
+				elementId
 			}
 		}
 	);
@@ -26,9 +24,9 @@ async function addPartListPart(
 	return response.data;
 }
 
-export default (partListId: string, partId: string, colorId: string) =>
+export default (partListId: string, elementId: string) =>
 	createMutation({
-		mutationFn: (quantity: number) => addPartListPart(partListId, partId, colorId, quantity),
+		mutationFn: (quantity: number) => addPartListPart(partListId, elementId, quantity),
 		onSuccess: (newPart, quantity) => {
 			invalidateAll();
 			toast(quantity > 0 ? 'Added parts to list' : 'Removed parts from list', {

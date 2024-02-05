@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema, Model, model } from 'mongoose';
-import { MinifigModel, type Minifig } from '$services/minifig';
+import { MinifigModel, type Minifig } from '../minifig/model.js';
 
 export interface InventoryMinifig extends Document {
 	_id: string;

@@ -30,7 +30,7 @@ export async function getPartListInventoryParts({
 		{
 			$lookup: {
 				from: 'part_list_parts',
-				let: { colorId: '$colorId', partId: '$partId' },
+				let: { elementId: '$elementId' },
 				pipeline: [
 					{
 						$match: {
@@ -38,8 +38,7 @@ export async function getPartListInventoryParts({
 								$and: [
 									{ $eq: ['$partListId', new Types.ObjectId(partListId)] },
 									{ $eq: ['$userId', userId] },
-									{ $eq: ['$colorId', '$$colorId'] },
-									{ $eq: ['$partId', '$$partId'] }
+									{ $eq: ['$elementId', '$$elementId'] }
 								]
 							}
 						}
@@ -53,13 +52,26 @@ export async function getPartListInventoryParts({
 				path: '$partListPart',
 				preserveNullAndEmptyArrays: true
 			}
+		},
+		{
+			$lookup: {
+				from: 'elements',
+				localField: 'elementId',
+				foreignField: '_id',
+				as: 'element'
+			}
+		},
+		{
+			$unwind: {
+				path: '$element'
+			}
 		}
 	];
 
 	if (color.length) {
 		baseQuery.push({
 			$match: {
-				colorId: { $in: color }
+				'element.colorId': { $in: color }
 			}
 		});
 	}
@@ -81,45 +93,45 @@ export async function getPartListInventoryParts({
 			$limit: limit * pages
 		},
 		{
-			$sort: { colorId: 1 }
+			$sort: { 'element.colorId': 1 }
 		},
 		{
 			$lookup: {
 				from: 'colors',
-				localField: 'colorId',
+				localField: 'element.colorId',
 				foreignField: '_id',
-				as: 'color'
+				as: 'element.color'
 			}
 		},
 		{
 			$unwind: {
-				path: '$color'
+				path: '$element.color'
 			}
 		},
 		{
 			$lookup: {
 				from: 'parts',
-				localField: 'partId',
+				localField: 'element.partId',
 				foreignField: '_id',
-				as: 'part'
+				as: 'element.part'
 			}
 		},
 		{
 			$unwind: {
-				path: '$part'
+				path: '$element.part'
 			}
 		},
 		{
 			$lookup: {
 				from: 'part_categories',
-				localField: 'part.categoryId',
+				localField: 'element.part.categoryId',
 				foreignField: '_id',
-				as: 'part.category'
+				as: 'element.part.category'
 			}
 		},
 		{
 			$unwind: {
-				path: '$part.category'
+				path: '$element.part.category'
 			}
 		}
 	]);
@@ -132,6 +144,7 @@ export async function getPartListInventoryParts({
 	]);
 
 	const count = countResult[0]?.count ?? 0;
+
 	const pageCount = Math.ceil(count / limit);
 
 	return {
