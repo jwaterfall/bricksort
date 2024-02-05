@@ -1,22 +1,26 @@
 <script lang="ts">
   import { ToyBrick, Trash } from "lucide-svelte";
-  import { toast } from "svelte-sonner";
   import { Image } from "@unpic/svelte";
+  import { toast } from "svelte-sonner";
+
   import * as Card from "$lib/components/ui/card";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
+	
 	import createDeletePartListMutation from "$mutations/deletePartList";
-	import { type PartList } from '$services/part-list';
-
-	const deletePartListMutation = createDeletePartListMutation();
+	import { type PartList } from '../';
 
 	export let partList: PartList;
-	$: set = partList.inventory?.set!;
+
+	$: ({ _id, inventory, partQuantity, partQuantityFound } = partList);
+	$: set = inventory?.set!;
+
+	const deletePartListMutation = createDeletePartListMutation();
 </script>
 
 <Card.Root class="flex flex-col overflow-hidden">
-	<a href="/part-lists/{partList._id}/build" class="bg-white border-b">
+	<a href="/part-lists/{_id}/build" class="bg-white border-b">
 		<Image 
 			src={set.imageUrl}
 			alt={set.name}
@@ -27,7 +31,7 @@
 	</a>
 	<Card.Header class="flex-1">
 		<Card.Description> #{set._id.split('-')[0]} • {set.theme.name} • {set.year}</Card.Description>
-		<a href="/part-lists/{partList._id}/build">
+		<a href="/part-lists/{_id}/build">
 			<Card.Title class="line-clamp-2 hover:underline">{set.name}</Card.Title>
 		</a>
 	</Card.Header>
@@ -37,14 +41,12 @@
 				<Tooltip.Trigger class="mr-auto">
 					<Badge>
 						<ToyBrick size={14} class="mr-1" />
-						{partList.partQuantityFound} of{' '}
-						{partList.partQuantity}
+						{partQuantityFound} of {partQuantity}
 					</Badge>
 				</Tooltip.Trigger>
 				<Tooltip.Content>
 					<p>
-						{partList.partQuantityFound} parts found out of{' '}
-						{partList.partQuantity}
+						{partQuantityFound} parts found out of {partQuantity}
 					</p>
 				</Tooltip.Content>
 			</Tooltip.Root>
@@ -60,7 +62,7 @@
 							action: {
 								label: 'Yes',
 								onClick: () => {
-									$deletePartListMutation.mutate(partList._id);
+									$deletePartListMutation.mutate(_id);
 								},
 							},
 						})

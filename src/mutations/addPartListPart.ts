@@ -4,11 +4,7 @@ import axios from 'axios';
 import { invalidateAll } from '$app/navigation';
 import { type PartListPart } from '$services/part-list-part';
 
-async function addPartListPart(
-	partListId: string,
-	elementId: string,
-	quantity: number
-) {
+async function addPartListPart(partListId: string, elementId: string, quantity: number) {
 	const { origin } = window.location;
 	const response = await axios.post<PartListPart | null>(
 		`${origin}/api/part-lists/${partListId}/parts`,
@@ -24,11 +20,12 @@ async function addPartListPart(
 	return response.data;
 }
 
-export default (partListId: string, elementId: string) =>
+export default (partListId: string, elementId: string, onSuccess?: () => void) =>
 	createMutation({
 		mutationFn: (quantity: number) => addPartListPart(partListId, elementId, quantity),
 		onSuccess: (newPart, quantity) => {
 			invalidateAll();
+			if (onSuccess) onSuccess();
 			toast(quantity > 0 ? 'Added parts to list' : 'Removed parts from list', {
 				description: `You now have ${newPart?.quantity ?? 0} of this part in your list`
 			});

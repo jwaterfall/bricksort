@@ -4,6 +4,7 @@ import type { GetpartListsParams } from './validation';
 
 export * from './model';
 export * from './validation';
+export * from './components';
 
 export async function getpartLists({ userId, pages, limit }: GetpartListsParams) {
 	const baseQuery: PipelineStage[] = [

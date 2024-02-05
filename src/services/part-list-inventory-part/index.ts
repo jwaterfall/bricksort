@@ -5,6 +5,7 @@ import { type GetPartListInventoryPartsParams } from './validation';
 
 export * from './model';
 export * from './validation';
+export * from './components';
 
 export async function getPartListInventoryParts({
 	userId,

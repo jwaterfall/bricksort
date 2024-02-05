@@ -8,7 +8,7 @@
   import * as Tooltip from "$lib/components/ui/tooltip";
   import QueryParamLink from '$lib/components/query-param-link.svelte';
   import { createQueryParamStore, QueryParamType } from '$lib/query-params';
-  import SetCard from './set-card.svelte';
+  import { SetCard } from '$services/set';
 	import type { PageData } from './$types';
 
   export let data: PageData;

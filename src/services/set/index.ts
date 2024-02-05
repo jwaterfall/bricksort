@@ -3,6 +3,7 @@ import type { GetSetsParams } from './validation';
 
 export * from './model';
 export * from './validation';
+export * from './components';
 
 const EXCLUDED_THEMES = [
 	'501', // Gear

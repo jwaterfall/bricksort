@@ -2,7 +2,7 @@
   import { Button } from "$lib/components/ui/button";
   import QueryParamLink from '$lib/components/query-param-link.svelte';
   import { createQueryParamStore, QueryParamType } from '$lib/query-params';
-  import PartListCard from './part-list-card.svelte';
+  import { PartListCard } from '$services/part-list';
 	import type { PageData } from './$types';
 
   export let data: PageData;
