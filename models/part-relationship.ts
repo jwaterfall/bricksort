@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema, Model, model } from 'mongoose';
-import { PartModel, type Part } from './part.js';
+import { PartModel, type Part } from './part';
 
 export enum RelationshipType {
   PRINT = 'P',

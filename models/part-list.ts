@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema, Model, model } from 'mongoose';
-import { InventoryModel, type Inventory } from './inventory.js';
+import { InventoryModel, type Inventory } from './inventory';
 
 export interface PartList extends Document {
   userId: string;

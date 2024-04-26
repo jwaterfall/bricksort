@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema, Model, model } from 'mongoose';
-import { SetModel, type Set } from './set.js';
+import { SetModel, type Set } from './set';
 
 export interface InventorySet extends Omit<Document, 'set'> {
   _id: string;

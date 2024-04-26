@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema, Model, model } from 'mongoose';
-import { type PartCategory } from './part-category.js';
+import { type PartCategory } from './part-category';
 
 export enum PartMaterial {
   PLASTIC = 'Plastic',

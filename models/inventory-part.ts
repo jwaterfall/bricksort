@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema, Model, model } from 'mongoose';
-import { ElementModel, type Element } from './element.js';
+import { ElementModel, type Element } from './element';
 
 export interface InventoryPart extends Document {
   _id: string;
