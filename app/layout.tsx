@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
+import { Navbar } from './navbar';
 import './globals.css';
 
 const inter = Montserrat({ subsets: ['latin'] });
@@ -17,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="bg-background text-foreground">{children}</main>
+        <div className="h-screen flex flex-col bg-background text-foreground">
+          <main className="flex-1 overflow-y-auto">{children}</main>
+          <Navbar />
+        </div>
       </body>
     </html>
   );
