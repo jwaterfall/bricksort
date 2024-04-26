@@ -1,6 +1,5 @@
-import mongoose, { Document, Schema, model } from 'mongoose';
-
-import ThemeModel, { Theme } from './Theme';
+import mongoose, { Document, Schema, Model, model } from 'mongoose';
+import { ThemeModel, type Theme } from './theme.js';
 
 export interface Set extends Document {
   _id: string;
@@ -33,6 +32,5 @@ schema.virtual('theme', {
 
 schema.set('toJSON', { virtuals: true });
 
-const SetModel = mongoose.models.Set ?? model<Set>('Set', schema, 'sets');
-
-export default SetModel as mongoose.Model<Set>;
+export const SetModel: Model<Set> =
+  mongoose.models?.Set ?? model<Set>('Set', schema, 'sets');

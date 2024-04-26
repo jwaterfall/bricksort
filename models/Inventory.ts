@@ -1,9 +1,7 @@
-import mongoose, { Document, Schema, model } from 'mongoose';
+import mongoose, { Document, Schema, Model, model } from 'mongoose';
+import { SetModel, type Set } from './set.js';
 
-import SetModel, { Set } from './Set';
-
-// @ts-expect-error
-export interface Inventory extends Document {
+export interface Inventory extends Omit<Document, 'set'> {
   _id: string;
   version: number;
   setId: string;
@@ -28,6 +26,6 @@ schema.virtual('set', {
 
 schema.set('toJSON', { virtuals: true });
 
-const InventoryModel = mongoose.models.Inventory ?? model<Inventory>('Inventory', schema, 'inventories');
-
-export default InventoryModel as mongoose.Model<Inventory>;
+export const InventoryModel: Model<Inventory> =
+  mongoose.models?.Inventory ??
+  model<Inventory>('Inventory', schema, 'inventories');

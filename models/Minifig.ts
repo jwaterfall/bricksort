@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, model } from 'mongoose';
+import mongoose, { Document, Schema, Model, model } from 'mongoose';
 
 export interface Minifig extends Document {
   _id: string;
@@ -17,6 +17,5 @@ const schema = new Schema<Minifig>(
   { timestamps: true }
 );
 
-const MinifigModel = mongoose.models.Minifig ?? model<Minifig>('Minifig', schema, 'minifigs');
-
-export default MinifigModel as mongoose.Model<Minifig>;
+export const MinifigModel: Model<Minifig> =
+  mongoose.models?.Minifig ?? model<Minifig>('Minifig', schema, 'minifigs');

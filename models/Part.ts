@@ -1,6 +1,5 @@
-import mongoose, { Document, Schema, model } from 'mongoose';
-
-import { PartCategory } from './PartCategory';
+import mongoose, { Document, Schema, Model, model } from 'mongoose';
+import { type PartCategory } from './part-category.js';
 
 export enum PartMaterial {
   PLASTIC = 'Plastic',
@@ -16,7 +15,7 @@ export interface Part extends Document {
   _id: string;
   name: string;
   material: PartMaterial;
-  categoryId: number;
+  categoryId: string;
   category: PartCategory;
 }
 
@@ -24,12 +23,25 @@ const schema = new Schema<Part>(
   {
     _id: { type: String, required: true },
     name: { type: String, required: true },
-    material: { type: String, required: true, enum: Object.values(PartMaterial) },
-    categoryId: { type: Number, required: true, ref: 'PartCategory' },
+    material: {
+      type: String,
+      required: true,
+      enum: Object.values(PartMaterial),
+    },
+    categoryId: { type: String, required: true },
   },
   { timestamps: true }
 );
 
-const PartModel = mongoose.models.Part ?? model<Part>('Part', schema, 'parts');
+schema.virtual('category', {
+  ref: 'PartCategory',
+  localField: 'categoryId',
+  foreignField: '_id',
+  justOne: true,
+});
 
-export default PartModel as mongoose.Model<Part>;
+schema.set('toJSON', { virtuals: true });
+schema.set('toObject', { virtuals: true });
+
+export const PartModel: Model<Part> =
+  mongoose.models?.Part ?? model<Part>('Part', schema, 'parts');

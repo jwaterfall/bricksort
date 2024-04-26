@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, model } from 'mongoose';
+import mongoose, { Document, Schema, Model, model } from 'mongoose';
 
 export interface Color extends Document {
   _id: string;
@@ -21,6 +21,5 @@ const schema = new Schema<Color>(
   { timestamps: true }
 );
 
-const ColorModel = mongoose.models.Color ?? model<Color>('Color', schema, 'colors');
-
-export default ColorModel as mongoose.Model<Color>;
+export const ColorModel: Model<Color> =
+  mongoose.models?.Color ?? model<Color>('Color', schema, 'colors');
