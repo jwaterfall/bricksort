@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import { Plus, ToyBrick } from 'lucide-react';
-import { type Set } from '@/models/set';
+import { type PartList } from '@/models/part-list';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -23,37 +23,37 @@ import {
 } from '@/components/ui/drawer';
 
 interface SetCardProps {
-  set: Set;
+  partList: PartList;
 }
 
-export const SetCard: FC<SetCardProps> = ({ set }) => (
-  <Card className="flex items-center">
-    <Image
-      src={set.imageUrl}
-      alt={set.name}
-      width={144}
-      height={144}
-      className="p-4 size-36 aspect-square object-contain"
-    />
-    <div className="flex-1">
+export const PartListCard: FC<SetCardProps> = ({ partList }) => {
+  const set = partList.inventory!.set;
+  console.log(JSON.stringify(partList));
+
+  return (
+    <Card>
+      <Image
+        src={set.imageUrl}
+        alt={set.name}
+        width={500}
+        height={500}
+        className="p-4 w-full aspect-video object-contain"
+      />
       <CardHeader>
-        <CardDescription className="text-xs">
-          #{set.id.split('-')[0]}
-        </CardDescription>
-        <CardTitle className="text-sm">{set.name}</CardTitle>
-        <CardDescription className="text-xs">
-          {set.id.split('-')[0]} • {set.theme.name}
+        <CardTitle>{set.name}</CardTitle>
+        <CardDescription>
+          {set.theme.name} • {set.year}
         </CardDescription>
       </CardHeader>
       <CardFooter className="items-end justify-between">
-        <Badge variant="outline">
-          <ToyBrick size={12} />
-          <span>{set.partCount}</span>
+        <Badge className="items-center gap-1" variant="secondary">
+          <ToyBrick size={16} />
+          {set.partCount} parts
         </Badge>
         <Drawer>
           <DrawerTrigger>
-            <Button size="icon" variant="secondary">
-              <Plus size={16} />
+            <Button size="icon">
+              <Plus size={20} />
             </Button>
           </DrawerTrigger>
           <DrawerContent>
@@ -74,6 +74,6 @@ export const SetCard: FC<SetCardProps> = ({ set }) => (
           </DrawerContent>
         </Drawer>
       </CardFooter>
-    </div>
-  </Card>
-);
+    </Card>
+  );
+};

@@ -16,5 +16,7 @@ const schema = new Schema<Theme>(
   { timestamps: true }
 );
 
+schema.set('toJSON', { getters: true });
+
 export const ThemeModel: Model<Theme> =
   mongoose.models?.Theme ?? model<Theme>('Theme', schema, 'themes');
